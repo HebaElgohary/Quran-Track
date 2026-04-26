@@ -7,7 +7,7 @@ export default function Students() {
   return (
     <View>
       <Header title='Students' subtitle='Student List Management' btn='Add a Student'/>
-   <StudentCard name='uzair' level='intermediate'  btn1='edit' btn2='delete'></StudentCard>
+   <StudentCard isStudent titleAr='عزير' titleEn='uzair' subtitle='intermediate'  btn1='edit' btn2='delete'></StudentCard>
     </View>
   )
 }

@@ -4,15 +4,17 @@ import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 
 interface StudentCardProps {
-  name: string;
-  level: string;
+    isStudent:boolean
+  titleAr: string;
+  titleEn:string
+  subtitle: string;
   btn1:string;
     btn2:string
 
 }
 
 
-export default function StudentCard({ name, level, btn1,btn2,}: StudentCardProps) {
+export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStudent}: StudentCardProps) {
   return (
     <View
       style={{
@@ -33,10 +35,10 @@ export default function StudentCard({ name, level, btn1,btn2,}: StudentCardProps
           justifyContent:'space-between'
         }}
       >
-        {/* first char  and name&level */}
+        {/* first char  and titleAr&subtitle */}
         <View style={{display:'flex',flexDirection:'row' ,gap:'4px' ,alignItems:'center',marginVertical:'5px'}}>
         {/* fist char */}
-        <View
+       {isStudent && <View
           style={{
             backgroundColor: "gray",
             width: "45px",
@@ -51,12 +53,13 @@ export default function StudentCard({ name, level, btn1,btn2,}: StudentCardProps
               fontWeight: "semibold",
             }}
           >
-            {name.charAt(0)}
+            {titleAr.charAt(0)}
           </Text>
         </View>
+}
         {/* fist char */}
 
-{/* name & level */}
+{/* titleAr & subtitle */}
         <View
           style={{
             display: "flex",
@@ -64,13 +67,13 @@ export default function StudentCard({ name, level, btn1,btn2,}: StudentCardProps
             justifyContent: "space-around",
           }}
         >
-          <Text>{name}</Text>
-          <Text>{level}</Text>
+          <Text>{titleAr}</Text>
+          <Text>{subtitle}</Text>
         </View>
-{/* name & level */}
+{/* titleAr & subtitle */}
 </View>
 
-        <Text>{name}</Text>
+        <Text>{titleEn}</Text>
       </View>
         {/* first row */}
 <Hr ></Hr>
