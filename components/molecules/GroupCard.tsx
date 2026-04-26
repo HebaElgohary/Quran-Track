@@ -5,7 +5,6 @@ import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 
 interface StudentCardProps {
-    isStudent:boolean
   titleAr: string;
   titleEn:string
   subtitle: string;
@@ -15,7 +14,7 @@ interface StudentCardProps {
 }
 
 
-export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStudent}: StudentCardProps) {
+export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2}: StudentCardProps) {
   return (
     <View
       style={{
@@ -38,27 +37,7 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
       >
         {/* first char  and titleAr&subtitle */}
         <View style={{display:'flex',flexDirection:'row' ,gap:'4px' ,alignItems:'center',marginVertical:'5px'}}>
-        {/* fist char */}
-       {isStudent && <View
-          style={{
-            backgroundColor: "gray",
-            width: "45px",
-            height: "45px",
-            borderRadius: "100%",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: "30px",
-              textAlign: "center",
-              fontWeight: "semibold",
-            }}
-          >
-            {titleAr.charAt(0)}
-          </Text>
-        </View>
-}
-        {/* fist char */}
+   
 
 {/* titleAr & subtitle */}
         <View
@@ -68,7 +47,7 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
             justifyContent: "space-around",
           }}
         >
-          <Title>{titleAr}</Title>
+          <Title >{titleAr}</Title>
           <Text>{subtitle}</Text>
         </View>
 {/* titleAr & subtitle */}
@@ -81,7 +60,7 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
         {/* second row */}
 <View style={{display:'flex' ,flexDirection:'row',gap:'3px'}}>
 
-    <Button variant="transparent" textColor="warning">{btn1}</Button>
+    <Button variant="btnPrimary" textColor="warning">{btn1}</Button>
     <Button variant="transparent" textColor="danger">{btn2}</Button>
 
 </View>

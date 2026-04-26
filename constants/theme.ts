@@ -23,6 +23,13 @@ export const sizeClass = {
   xl: 24,
   xxl: 30,
 };
+export const btnSize = {
+  sm: 60 ,
+  md: 80 ,
+  lg: 100,
+  xl: 120,
+  xxl: 140,
+};
 
 export const textClass = {
   primary: "text-primary",

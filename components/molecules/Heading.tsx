@@ -7,8 +7,8 @@ import Subtitle from '../atoms/Subtitle'
 export default function  Heading
 ( {title, subtitle} : {title: string, subtitle: string} ) {
   return (
-    <View>
-        <Title  size="xl" variant="primary"> {title} </Title>
+    <View style={{maxWidth:'60%',padding:8}}>
+        <Title  size="xl" variant="btnPrimary"> {title} </Title>
         <Subtitle size="sm" variant="primary"> {subtitle} </Subtitle>
         <Hr></Hr>      
     </View>
