@@ -64,8 +64,8 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
         <View
           style={{
             display: "flex",
+            gap:5,
             flexDirection: "column",
-            justifyContent: "space-around",
           }}
         >
           <Title>{titleAr}</Title>
