@@ -17,6 +17,8 @@ export default function QuickActions({title,btn1,btn2,btn3,btn4}:props) {
 <View  style={{
         backgroundColor: "white",
         marginHorizontal: "10px",
+        marginVertical: "30px",
+
         padding: "15px",
         borderRaduis: "35px",
         gap:10,
