@@ -1,6 +1,6 @@
-import GroupCard from "@/components/molecules/GroupCard";
+import GroupCard from "@/components/molecules/NoDataFallback";
 import StudentCard from "@/components/molecules/StudentCard";
-import GroupsFallback from "@/components/organisms/GroupsFallback";
+import GroupsFallback from "@/components/organisms/NoDataFallback";
 import Header from "@/components/organisms/Header";
 import React from "react";
 import { View } from "react-native";
