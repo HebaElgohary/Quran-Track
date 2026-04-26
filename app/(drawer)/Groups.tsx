@@ -12,7 +12,7 @@ export default function Groups() {
         subtitle="separate your students into groups and share their monthly reports in one time "
         btn="Add a Group"
       />
-      <GroupCard titleAr="بداية" titleEn="Bedaya" subtitle="3 طلاب " btn1="تقرير المجموعة " btn2="edit"/>
+      <GroupCard titleAr="بداية" titleEn="Bedaya" subtitle="3 طلاب " btn1="تقرير المجموعة " btn2="edit" btn3="del"/>
     </View>
   );
 }

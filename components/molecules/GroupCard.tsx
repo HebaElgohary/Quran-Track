@@ -4,17 +4,19 @@ import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 
-interface StudentCardProps {
+interface GroupCardProps {
   titleAr: string;
   titleEn:string
   subtitle: string;
   btn1:string;
-    btn2:string
+    btn2:string;
+    btn3:string
+
 
 }
 
 
-export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2}: StudentCardProps) {
+export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2,btn3}: GroupCardProps) {
   return (
     <View
       style={{
@@ -45,6 +47,7 @@ export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2}: Stude
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-around",
+            marginVertical:7
           }}
         >
           <Title >{titleAr}</Title>
@@ -58,10 +61,11 @@ export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2}: Stude
         {/* first row */}
 <Hr ></Hr>
         {/* second row */}
-<View style={{display:'flex' ,flexDirection:'row',gap:'3px'}}>
+<View style={{display:'flex' ,flexDirection:'row',gap:'3px' ,marginVertical:10}}>
 
-    <Button variant="btnPrimary" textColor="warning">{btn1}</Button>
+    <Button variant="btnPrimary" textColor="secondary" size="lg">{btn1}</Button>
     <Button variant="transparent" textColor="danger">{btn2}</Button>
+    <Button variant="transparent" textColor="danger">{btn3}</Button>
 
 </View>
         {/* second row */}
