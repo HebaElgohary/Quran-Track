@@ -6,7 +6,7 @@ interface props{
     num:number,
     icon?:string
 }
-export default function HomeCard({title,num,icon}) {
+export default function HomeCard({title,num,icon}:props) {
   return (
 <View  style={{
         backgroundColor: "white",
