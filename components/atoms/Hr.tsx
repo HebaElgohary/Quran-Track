@@ -8,7 +8,7 @@ export default function Hr() {
         height: 1,
         width: 120,
         backgroundColor: colors.warning,
-        marginHorizontal: 15,
+        marginHorizontal: 30,
         marginVertical: 5,
         borderRadius: 150,
       }}

@@ -6,6 +6,7 @@ export const colors = {
   warning: "#c89d41",
   text: "#1F1F1F",
   gray: "#777",
+  transparent:'transparent',
   background: "#FFFFFF",
 };
 
