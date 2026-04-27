@@ -1,4 +1,5 @@
 import Header from '@/components/organisms/Header'
+import NoDataFallback from '@/components/organisms/NoDataFallback'
 import React from 'react'
 import { View } from 'react-native'
 
@@ -7,6 +8,7 @@ export default function Schedule() {
 <View>
 
   <Header title='المواعيد' subtitle='' />
+  <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' icon='' />
 </View>
 
 )
