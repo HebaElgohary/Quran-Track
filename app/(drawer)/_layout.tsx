@@ -18,9 +18,9 @@ export default function Layout() {
           sceneStyle:{
       backgroundColor:colors.secondary
     },
-    drawerActiveBackgroundColor:colors.secondary,
+    drawerActiveBackgroundColor:colors.warning,
     drawerActiveTintColor:colors.btnPrimary,
-    drawerInactiveTintColor:colors.warning,
+    drawerInactiveTintColor:'#ffffff',
 
 
     drawerItemStyle:{
