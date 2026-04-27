@@ -9,7 +9,7 @@ export default function FormField(props:any) {
     if (type=='text'||'radio'||'email'||'textarea')
     return <Input props={props}/>
     if (type=='checkbox')
-    return <CheckInput {...props,data}/>
+    return <CheckInput {...props}/>
 
 
     

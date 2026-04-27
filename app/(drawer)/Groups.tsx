@@ -3,6 +3,8 @@ import GroupsFallback from "@/components/organisms/NoDataFallback";
 import Header from "@/components/organisms/Header";
 import React from "react";
 import { View } from "react-native";
+import { getFormFields } from "@/utils/getFormFields";
+import FormField from "@/components/molecules/form/FormField";
 
 export default function Groups() {
   return (
@@ -12,7 +14,14 @@ export default function Groups() {
         subtitle="قسم طلابك لمجموعات وشارك تقاريرهم الشهرية دفعة واحدة  "
         btn="مجموعة جديدة "
       />
-    {/* <GroupCard titleAr="بداية" titleEn="Bedaya" subtitle="3 طلاب " btn1="تقرير المجموعة " btn2="edit" btn3="del"/> */}
+      <form action="">
+
+    { getFormFields('Groups')?.map((field)=>
+    <FormField {...field}/>
+
+)}
+      </form>
+
     </View>
   );
 }

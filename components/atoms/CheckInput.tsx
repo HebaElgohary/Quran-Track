@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Checkbox from './Checkbox';
 import { View } from 'react-native';
 
-export default function CheckInput({...props,data}:{data:any}) {
+export default function CheckInput(props:any) {
+const {data}=props
   const [items, setItems] = useState(data);
     return (
         <View>
@@ -14,7 +15,7 @@ export default function CheckInput({...props,data}:{data:any}) {
            return i!=item?i:{...i,checked:!i.checked}
              
             })
-          setItems(arr )   
+          setItems(arr)   
         }}
       />)}
       </View>
