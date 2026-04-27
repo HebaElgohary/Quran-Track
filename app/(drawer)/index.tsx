@@ -19,17 +19,7 @@ export default function index() {
         title="الصفحة الرئيسية"
         subtitle="نظرة عامة على حصصك وطلابك "
       ></Header>
-     {items.map((item)=> <Checkbox key={item.id}
-        label={item.label}
-        checked={item.checked}
-        onChange={() => {
-          const arr=items.map((i)=>{
-           return i!=item?i:{...i,checked:!i.checked}
-             
-            })
-          setItems(arr )   
-        }}
-      />)}
+   
       <HomeCard title={"عدد الطلاب"} num={2} icon=""></HomeCard>
       <QuickActions
         title="اجراءات سريعة"
