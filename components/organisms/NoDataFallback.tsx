@@ -24,7 +24,7 @@ export default function NoDataFallback({ Icon, text, btn }: props) {
         borderRadius: 10,
       }}
     >
-      <View>
+      <View style={{display:'flex' ,alignItems:'center'}}>
         {/* <Icon size={size}/> */}
 
         <Subtitle>{text}</Subtitle>
