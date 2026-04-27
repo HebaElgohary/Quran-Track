@@ -22,6 +22,9 @@ const groupFields=[
         name:'students',
         title:'الطلاب ',
         type:'checkbox',
+        data:[{id:0,name:'hakim',checked:false},
+            {id:1,name:'zakeria',checked:false},
+            {id:2,name:'uzair',checked:false}]
        
     }  , {
         name:'notes',
