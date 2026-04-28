@@ -16,20 +16,21 @@ export default function Layout() {
   return (
     <Drawer.Navigator
   drawerContent=  {({...props})=> <DrawerContentScrollView>
-        <View style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5,marginVertical:15}}>
+        <View style={{display:'flex',flexDirection:'row-reverse',alignItems:'center',gap:5,marginVertical:15}}>
+            <Image resizeMode="cover"   style={{height:80,width:80,borderRadius:40 }}  source={require('../../assets/images/julianna-huszakne-HUDIJlj9DGY-unsplash.jpg')}  />
+
             <View>
         <Title size="xxl" variant="white"  >متابعة القران</Title>
       <Text style={{marginHorizontal:25,color:colors.secondary}} >القران والتجويد</Text>
       </View>
-          <Image resizeMode="cover"   style={{height:80,width:80,borderRadius:40}}  source={require('../../assets/images/julianna-huszakne-HUDIJlj9DGY-unsplash.jpg')}  />
     
     
 
         </View>
         {/* Welcome section  */}
-        <View style={{marginBottom:40,marginHorizontal:10}}>
-      <Title variant="secondary" size="md" > مرجبا استاذ</Title>
-      <Title variant="white" size="md">معاذ</Title>
+        <View style={{marginBottom:40,marginHorizontal:20}}>
+      <Title variant="secondary" size="md" >مرجبا استاذ</Title>
+      <Title variant="white" size="xxl" >معاذ  </Title>
 </View>
 {/* ////////////////////////////////// */}
 
