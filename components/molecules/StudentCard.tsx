@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
+import { Feather } from "@expo/vector-icons";
 
 interface StudentCardProps {
     isStudent:boolean
@@ -20,9 +21,9 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
     <View
       style={{
         backgroundColor: "white",
-        marginHorizontal: "10px",
-        padding: "15px",
-        borderRaduis: "10px",
+        marginHorizontal: 20,
+        padding: 15,
+        borderRadius: 10,
         display:'flex',
           justifyContent: "space-around",
 
@@ -41,9 +42,9 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
         {/* fist char */}
        {isStudent && <View
           style={{
-            backgroundColor: "gray",
-            width: "45px",
-            height: "45px",
+            backgroundColor: "#eeee",
+            width: 50,
+            height: 50,
             borderRadius: "100%",
           }}
         >
@@ -64,25 +65,25 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
         <View
           style={{
             display: "flex",
-            gap:5,
+            gap:15,
             flexDirection: "column",
           }}
         >
-          <Title>{titleAr}</Title>
-          <Text>{subtitle}</Text>
+          <Title variant="btnPrimary" size="xl">{titleAr}</Title>
+          <Title size="sm" >{subtitle}</Title>
         </View>
 {/* titleAr & subtitle */}
-</View>
+</View >
 
-        <Text>{titleEn}</Text>
+        <Title >{titleEn}</Title>
       </View>
         {/* first row */}
 <Hr ></Hr>
         {/* second row */}
 <View style={{display:'flex' ,flexDirection:'row',gap:'3px'}}>
 
-    <Button variant="transparent" textColor="warning">{btn1}</Button>
-    <Button variant="transparent" textColor="danger">{btn2}</Button>
+    <Button variant="transparent" textColor="warning">{btn1} <Feather name="edit-2" /></Button>
+    <Button variant="transparent" textColor="danger">{btn2}  <Feather name="trash-2"/>  </Button>
 
 </View>
         {/* second row */}

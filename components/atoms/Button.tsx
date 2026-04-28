@@ -1,5 +1,7 @@
 import { btnSize, colors } from "@/constants/theme";
+import { ComponentType, ReactNode } from "react";
 import { Pressable, Text } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 type Props = {
   variant?: "primary" | "danger" | "transparent"|'btnPrimary';
@@ -7,6 +9,7 @@ type Props = {
   textColor?:'danger'|'warning'|'secondary'
   children?: React.ReactNode;
   onClick?: () => void;
+    name?:string
 };
 
 export default function Button({
@@ -15,21 +18,25 @@ export default function Button({
   variant = "primary",
   textColor='secondary',
   onClick,
+  name
+
 }: Props) {
   return (
-    <Pressable onPress={onClick} >
+    <Pressable onPress={onClick}  >
       <Text
         style={{
           color: colors[textColor],
           backgroundColor: colors[variant],
-          padding: 6,
+          padding: 7,
           width: btnSize[size],
           textAlign: "center",
           fontSize:12,
           borderRadius: 6,
+          display:'flex',justifyContent:'space-around',alignItems:'center',
         }}
       >
         {children}
+        <Feather  name={name}/>
       </Text>
     </Pressable>
   );

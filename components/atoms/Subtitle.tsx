@@ -10,7 +10,7 @@ interface   SubtitleProps {
 export default function Subtitle({ children, size = "md", variant = "primary" }: SubtitleProps) {
   return (
     <View >
-    <Text style={{color:colors[variant] ,fontSize: sizeClass[size] ,padding:8,textAlign:'start'}}> {children}</Text> 
+    <Text style={{color:colors[variant] ,fontSize: sizeClass[size] ,padding:8,}}> {children}</Text> 
     </View>
   );
 }
