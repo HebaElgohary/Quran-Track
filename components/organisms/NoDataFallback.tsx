@@ -28,7 +28,7 @@ export default function NoDataFallback({ Icon, text, btn }: props) {
         {/* <Icon size={size}/> */}
 
         <Subtitle>{text}</Subtitle>
-        <Button>{btn}</Button>
+        <Button variant="btnPrimary">{btn}</Button>
       </View>
     </View>
   );
