@@ -11,8 +11,8 @@ export default function Input(props: any) {
         {...props}
         style={{
           borderRadius: 3,
-          borderColor: "black",
-          borderWidth: 2,
+          borderColor: "gray",
+          borderWidth: 1,
           margin: 5,
         }}
       />
