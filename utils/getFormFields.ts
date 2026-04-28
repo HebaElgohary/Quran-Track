@@ -14,7 +14,8 @@ const groupFields=[
         label:'الاسم بالانجليزية',
         type:'text',
        
-    } ,  {
+    } , 
+     {
         name:'color',
         label:'اللون ',
         type:'radio', 
