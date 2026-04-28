@@ -1,3 +1,5 @@
+import { colors } from "@/constants/theme"
+
 export const getFormFields=(page:string)=>{
 
 const groupFields=[
@@ -16,6 +18,12 @@ const groupFields=[
         name:'color',
         label:'اللون ',
         type:'radio', 
+        data:[{color:colors.btnPrimary,id:0,checked:false},
+{color:colors.secondary,id:1,checked:false}
+,{color:colors.warning,id:2,checked:false},
+{color:colors.danger,id:3,checked:false},
+
+        ]
        
     },
        {
