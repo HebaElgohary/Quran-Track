@@ -17,17 +17,19 @@ export default function Layout() {
     <Drawer.Navigator
   drawerContent=  {({...props})=> <DrawerContentScrollView>
         <View style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5,marginVertical:15}}>
-          <Image resizeMode="cover"   style={{height:80,width:80,borderRadius:40}}  source={require('../../assets/images/julianna-huszakne-HUDIJlj9DGY-unsplash.jpg')}  />
-      <View>
-        <Title size="xxl" variant="white"  >Quran Track</Title>
-      <Text style={{marginHorizontal:25,color:colors.secondary}} >Quran and Tajweed</Text>
+            <View>
+        <Title size="xxl" variant="white"  >متابعة القران</Title>
+      <Text style={{marginHorizontal:25,color:colors.secondary}} >القران والتجويد</Text>
       </View>
+          <Image resizeMode="cover"   style={{height:80,width:80,borderRadius:40}}  source={require('../../assets/images/julianna-huszakne-HUDIJlj9DGY-unsplash.jpg')}  />
+    
+    
 
         </View>
         {/* Welcome section  */}
         <View style={{marginBottom:40,marginHorizontal:10}}>
-      <Title variant="secondary" size="md" >Welcome Mr</Title>
-      <Title variant="white" size="md">Moaz</Title>
+      <Title variant="secondary" size="md" > مرجبا استاذ</Title>
+      <Title variant="white" size="md">معاذ</Title>
 </View>
 {/* ////////////////////////////////// */}
 
@@ -35,6 +37,7 @@ export default function Layout() {
 
       </DrawerContentScrollView>}
       screenOptions={{
+        drawerPosition:'right',
         sceneStyle: {
           backgroundColor: colors.secondary,
         },
@@ -53,16 +56,16 @@ export default function Layout() {
      
       <Drawer.Screen
         name="index"
-        options={{ title: "Home page" }}
+        options={{ title: "الرئيسية" }}
         component={index}
       />
-      <Drawer.Screen name="Students" component={Students} />
-      <Drawer.Screen name="Groups" component={Groups} />
+      <Drawer.Screen name="الطلاب" component={Students} />
+      <Drawer.Screen name="الجموعات" component={Groups} />
 
-      <Drawer.Screen name="Sessions" component={Sessions} />
-      <Drawer.Screen name="Schedule" component={Schedule} />
-      <Drawer.Screen name="Monthly-Reports" component={MonthlyReports} />
-      <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name="الحصص" component={Sessions} />
+      <Drawer.Screen name="المواعيد" component={Schedule} />
+      <Drawer.Screen name="التقارير الشهرية" component={MonthlyReports} />
+      <Drawer.Screen name="الاعدادات" component={Settings} />
     
     </Drawer.Navigator>
   );
