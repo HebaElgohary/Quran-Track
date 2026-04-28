@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 
 interface   TitleProps {
   size?: 'sm' | 'md' | 'lg'| 'xl' | 'xxl'
-  variant?: 'primary' | 'secondary'|'btnPrimary'
+  variant?: 'primary' | 'secondary'|'btnPrimary' |'white'
   children: React.ReactNode
 }
 export default function Title({ children, size = "xl", variant = "btnPrimary" }: TitleProps) {

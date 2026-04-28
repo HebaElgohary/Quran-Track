@@ -6,13 +6,7 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 export default function index() {
-  const [items, setItems] = useState([
-    {
-      id: 0, label: "heba",checked:false
-    },
-    { id: 1, label: "ahmed" ,checked:false},
-    { id: 2, label: "youmna",checked:false },
-  ]);
+
   return (
     <View className="flex-1 items-center justify-center">
       <Header

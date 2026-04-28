@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, View } from "react-native";
 
 export default function Radio(props: any) {
-  const [selected, setSelected] = useState(props.ischecked);
+  const [selected, setSelected] = useState(false);
 
   return (
     <View>
