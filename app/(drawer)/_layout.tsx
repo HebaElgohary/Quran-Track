@@ -1,5 +1,13 @@
+import Title from "@/components/atoms/Title";
 import { colors } from "@/constants/theme";
-import { createDrawerNavigator, DrawerContent, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
+import { Feather } from "@expo/vector-icons";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+import React from "react";
+import { Image, Text, View } from "react-native";
 import index from ".";
 import Groups from "./Groups";
 import MonthlyReports from "./MonthlyReports";
@@ -7,38 +15,53 @@ import Schedule from "./Schedule";
 import Sessions from "./Sessions";
 import Settings from "./Settings";
 import Students from "./Students";
-import { Image, Text, View } from "react-native";
-import React from "react";
-import Title from "@/components/atoms/Title";
 
 export default function Layout() {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator
-  drawerContent=  {({...props})=> <DrawerContentScrollView>
-        <View style={{display:'flex',flexDirection:'row-reverse',alignItems:'center',gap:5,marginVertical:15}}>
-            <Image resizeMode="cover"   style={{height:80,width:80,borderRadius:40 }}  source={require('../../assets/images/julianna-huszakne-HUDIJlj9DGY-unsplash.jpg')}  />
+      drawerContent={({ ...props }) => (
+        <DrawerContentScrollView>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              alignItems: "center",
+              gap: 5,
+              marginVertical: 15,
+            }}
+          >
+            <Image
+              resizeMode="cover"
+              style={{ height: 80, width: 80, borderRadius: 40 }}
+              source={require("../../assets/images/julianna-huszakne-HUDIJlj9DGY-unsplash.jpg")}
+            />
 
             <View>
-        <Title size="xxl" variant="white"  >متابعة القران</Title>
-      <Text style={{marginHorizontal:25,color:colors.secondary}} >القران والتجويد</Text>
-      </View>
-    
-    
+              <Title size="xxl" variant="white">
+                متابعة القران
+              </Title>
+              <Text style={{ marginHorizontal: 25, color: colors.secondary }}>
+                القران والتجويد
+              </Text>
+            </View>
+          </View>
+          {/* Welcome section  */}
+          <View style={{ marginBottom: 40, marginHorizontal: 20 }}>
+            <Title variant="secondary" size="md">
+              مرجبا استاذ
+            </Title>
+            <Title variant="white" size="xxl">
+              معاذ{" "}
+            </Title>
+          </View>
+          {/* ////////////////////////////////// */}
 
-        </View>
-        {/* Welcome section  */}
-        <View style={{marginBottom:40,marginHorizontal:20}}>
-      <Title variant="secondary" size="md" >مرجبا استاذ</Title>
-      <Title variant="white" size="xxl" >معاذ  </Title>
-</View>
-{/* ////////////////////////////////// */}
-
-<DrawerItemList {...props} />
-
-      </DrawerContentScrollView>}
+          <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+      )}
       screenOptions={{
-        drawerPosition:'right',
+        drawerPosition: "right",
         sceneStyle: {
           backgroundColor: colors.secondary,
         },
@@ -54,21 +77,76 @@ export default function Layout() {
         },
       }}
     >
-     
       <Drawer.Screen
         name="index"
-        options={{ title: "الرئيسية" }}
+        options={{
+          title: "الرئيسية",
+          drawerIcon: () => (
+            <Feather name="home" size={20} color={colors.white} />
+          ),
+        }}
         component={index}
       />
-      <Drawer.Screen name="الطلاب" component={Students} />
-      <Drawer.Screen name="الجموعات" component={Groups} />
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => (
+            <Feather name="users" size={20} color={colors.white} />
+          ),
+        }}
+        name="الطلاب"
+        component={Students}
+      />
+      <Drawer.Screen
+        options={{
+        
+          drawerIcon: () => (
+            <Feather name="folder-minus" size={20} color={colors.white} />
+          ),
+        }}
+        name="الجموعات"
+        component={Groups}
+      />
 
-      <Drawer.Screen name="الحصص" component={Sessions} />
-      <Drawer.Screen name="المواعيد" component={Schedule} />
-      <Drawer.Screen name="التقارير الشهرية" component={MonthlyReports} />
-      <Drawer.Screen name="الاعدادات" component={Settings} />
-    
+      <Drawer.Screen
+        options={{
+         
+          drawerIcon: () => (
+            <Feather name="book" size={20} color={colors.white} />
+          ),
+        }}
+        name="الحصص"
+        component={Sessions}
+      />
+      <Drawer.Screen
+        options={{
+
+          drawerIcon: () => (
+            <Feather name="calendar" size={20} color={colors.white} />
+          ),
+        }}
+        name="المواعيد"
+        component={Schedule}
+      />
+      <Drawer.Screen
+        options={{
+  
+          drawerIcon: () => (
+            <Feather name="file-text" size={20} color={colors.white} />
+          ),
+        }}
+        name="التقارير الشهرية"
+        component={MonthlyReports}
+      />
+      <Drawer.Screen
+        options={{
+        
+          drawerIcon: () => (
+            <Feather name="settings" size={20} color={colors.white} />
+          ),
+        }}
+        name="الاعدادات"
+        component={Settings}
+      />
     </Drawer.Navigator>
   );
 }
-
