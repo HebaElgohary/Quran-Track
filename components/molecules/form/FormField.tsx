@@ -5,9 +5,9 @@ import { View } from 'react-native'
 
 export default function FormField(props:any) {
     const{type}=props
-  const data=[{label:'h',id:0,checked:false}]
+  
     if (type=='text'||'radio'||'email'||'textarea')
-    return <Input props={props}/>
+    return <Input {...props}/>
     if (type=='checkbox')
     return <CheckInput {...props}/>
 

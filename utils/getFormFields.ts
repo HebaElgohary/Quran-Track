@@ -3,24 +3,24 @@ export const getFormFields=(page:string)=>{
 const groupFields=[
     {
         name:'nameAr',
-        title:'الاسم بالعربية',
+        label:'الاسم بالعربية',
         type:'text',
        
     },
        {
         name:'nameEn',
-        title:'الاسم بالانجليزية',
+        label:'الاسم بالانجليزية',
         type:'text',
        
     } ,  {
         name:'color',
-        title:'اللون ',
+        label:'اللون ',
         type:'radio', 
        
     },
        {
         name:'students',
-        title:'الطلاب ',
+        label:'الطلاب ',
         type:'checkbox',
         data:[{id:0,name:'hakim',checked:false},
             {id:1,name:'zakeria',checked:false},
@@ -28,7 +28,7 @@ const groupFields=[
        
     }  , {
         name:'notes',
-        title:'ملاحظات ',
+        label:'ملاحظات ',
         type:'textarea',
        
     }
