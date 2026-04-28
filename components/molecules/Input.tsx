@@ -6,7 +6,7 @@ export default function Input(props: any) {
   type == "text" ? console.log("text") : console.log("textarea");
   return (
     <View>
-      <Title>{props.label}</Title>
+      <Title size="md">{props.label}</Title>
       <TextInput
         {...props}
         style={{

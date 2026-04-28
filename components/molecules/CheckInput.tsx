@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
+import Title from "../atoms/Title";
 
 export default function CheckInput(props: any) {
   const { data } = props;
@@ -9,6 +10,7 @@ export default function CheckInput(props: any) {
   console.log("data is from checkbox " + items);
   return (
     <View>
+      <Title size="md">{props.label}</Title>
       {items.map((item) => (
         <Checkbox
           key={item.id}
