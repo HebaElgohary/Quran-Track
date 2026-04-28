@@ -38,7 +38,7 @@ export default function Layout() {
             />
 
             <View>
-              <Title size="xxl" variant="white">
+              <Title size="xl" variant="white">
                 متابعة القران
               </Title>
               <Text style={{ marginHorizontal: 25, color: colors.secondary }}>
@@ -51,7 +51,7 @@ export default function Layout() {
             <Title variant="secondary" size="md">
               مرجبا استاذ
             </Title>
-            <Title variant="white" size="xxl">
+            <Title variant="white" size="xl">
               معاذ{" "}
             </Title>
           </View>
