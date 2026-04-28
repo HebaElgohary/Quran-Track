@@ -5,7 +5,7 @@ import { View } from 'react-native'
 
 export default function sessions() {
   return (
-    <View>
+    <View style={{direction:'rtl'}}>
       <Header title='الحصص' subtitle='كل تقارير الحصص' />
       <NoDataFallback Icon='' text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/>
 

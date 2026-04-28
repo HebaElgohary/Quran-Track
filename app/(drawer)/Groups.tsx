@@ -5,10 +5,11 @@ import React from "react";
 import { View } from "react-native";
 import { getFormFields } from "@/utils/getFormFields";
 import FormField from "@/components/molecules/form/FormField";
-
+import { I18nManager } from "react-native";
 export default function Groups() {
+
   return (
-    <View>
+    <View style={{direction:'rtl'}}>
       <Header
         title="المجموعات"
         subtitle="قسم طلابك لمجموعات وشارك تقاريرهم الشهرية دفعة واحدة  "

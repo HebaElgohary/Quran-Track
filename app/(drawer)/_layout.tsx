@@ -20,7 +20,7 @@ export default function Layout() {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator
-      drawerContent={({ ...props }) => (
+      drawerContent={({ ...props}) => (
         <DrawerContentScrollView>
           <View
             style={{
@@ -89,6 +89,7 @@ export default function Layout() {
       />
       <Drawer.Screen
         options={{
+
           drawerIcon: () => (
             <Feather name="users" size={20} color={colors.white} />
           ),

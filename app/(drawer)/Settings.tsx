@@ -4,7 +4,7 @@ import { View } from 'react-native'
 
 export default function Settings() {
   return (
-    <View>
+    <View style={{direction:'rtl'}}>
       <Header title='الاعدادات' subtitle=''/>
     </View>
   )

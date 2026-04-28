@@ -5,7 +5,7 @@ import { View } from 'react-native'
 
 export default function Schedule() {
   return (
-<View>
+<View style={{direction:'rtl'}}>
 
   <Header title='المواعيد' subtitle='' />
   <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' icon='' />
