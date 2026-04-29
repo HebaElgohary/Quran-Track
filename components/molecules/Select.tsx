@@ -12,14 +12,15 @@ export default function Select({ data }: { data: any }) {
           borderColor: colors.gray,
           borderWidth: 2,
           borderRadius: 3,
-          padding: 5,
+          padding: 8,
           fontSize:20
+          
         }}
         selectedValue={selected}
         onValueChange={(itemValue) => setSelected(itemValue)}
       >
         {data.map((item) => (
-          <Picker.Item key={item.label} label={item.label} value={item.value} />
+          <Picker.Item key={item.label} label={item.label} value={item.value}  />
         ))}
       </Picker>
     </View>
