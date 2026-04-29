@@ -6,15 +6,13 @@ import Button from "../atoms/Button";
 import Title from "../atoms/Title";
 import { colors } from "@/constants/theme";
 import { Feather } from "@expo/vector-icons";
+import FormHeading from "./form/FormHeading";
 
 export default function ScheduleForm() {
   return (
-    <View style={{backgroundColor:'white',padding:15}}>
-       {/* form heading */}
-       <View style={{display:'flex',flexDirection:'row', alignItems:'center',justifyContent:'space-between'}}>
-        <Text style={{textAlign:'left' ,fontSize:20,color:colors.btnPrimary}}>موعد حصة جديدة </Text>
-       <Feather name='x' size={20}/>
-       </View>
+    <View style={{backgroundColor:'white',padding:12}}>
+       {/* form heading */} 
+  <FormHeading title='موعد حصة جديدة ' name={'x'}/>
        {/* /////////////////// */}
       <form
         style={{

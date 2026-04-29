@@ -14,7 +14,7 @@ export default function Input(props: any) {
           borderRadius: 3,
           borderColor: colors.gray,
           padding:5,
-          borderWidth: 1,
+          borderWidth: 2,
           margin: 5,
         }}
       />
