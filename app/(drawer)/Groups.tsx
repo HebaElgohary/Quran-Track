@@ -6,6 +6,7 @@ import { View } from "react-native";
 import { getFormFields } from "@/utils/getFormFields";
 import FormField from "@/components/molecules/form/FormField";
 import { I18nManager } from "react-native";
+import GroupForm from "@/components/molecules/GroupForm";
 export default function Groups() {
 
   return (
@@ -15,13 +16,14 @@ export default function Groups() {
         subtitle="قسم طلابك لمجموعات وشارك تقاريرهم الشهرية دفعة واحدة  "
         btn="مجموعة جديدة "
       />
-      <form action="">
+      {/* <form action="">
 
     { getFormFields('Groups')?.map((field)=>
     <FormField key={field.label} {...field}/>
 
 )}
-      </form>
+      </form> */}
+      <GroupForm />
 
     </View>
   );
