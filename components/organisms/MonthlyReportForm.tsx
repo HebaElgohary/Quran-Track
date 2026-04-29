@@ -23,7 +23,7 @@ export default function MonthlyReportForm() {
           <FormField key={field.label} {...field} />
         ))}
         </View>
-        <Button size='lg' name='file-text'>{"عرض التقارير الشهرية "}</Button>
+        <Button size='lg' name='file-text'>{"عرض التقرير  "}</Button>
       </form>
     </View>
   );

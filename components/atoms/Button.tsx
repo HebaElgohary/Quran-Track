@@ -27,10 +27,12 @@ export default function Button({
         style={{
          
           color: colors[textColor],
+          fontWeight:'bold',
           backgroundColor: colors[variant],
           padding: 7,
           width: btnSize[size],
           textAlign: "center",
+          paddingVertical:12,
           fontSize:12,
           borderRadius: 6,
           display:'flex',justifyContent:'space-around',alignItems:'center',
