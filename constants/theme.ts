@@ -1,3 +1,5 @@
+import { green } from "react-native-reanimated/lib/typescript/Colors";
+
 export const colors = {
   primary: "#2E7D32",   // أخضر قرآني
   btnPrimary: "#1C4033", // أخضر أفتح للأزرار
