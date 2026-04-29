@@ -6,14 +6,11 @@ import { View } from "react-native";
 
 export default function index() {
   return (
-    <View
-      style={{ direction: "rtl" }}
-    >
+    <View style={{ direction: "rtl" }}>
       <Header
         title="الصفحة الرئيسية"
         subtitle="نظرة عامة على حصصك وطلابك "
       ></Header>
-
       <HomeCard title={"عدد الطلاب"} num={2} icon=""></HomeCard>
       <QuickActions
         title="اجراءات سريعة"

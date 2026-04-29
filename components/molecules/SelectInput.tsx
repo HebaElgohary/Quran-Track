@@ -1,25 +1,17 @@
-import { useState } from 'react'
-import { View } from 'react-native'
+import { Picker } from '@react-native-picker/picker';
+import React, { useState } from 'react'
+import { Text, View } from 'react-native'
+import Title from '../atoms/Title';
+import Select from './Select';
+import Subtitle from '../atoms/Subtitle';
 
-export default function SelectInput() {
-  const [selected,setSelected]=useState('')
-    return (
-    <View>
-        <Picker 
-        selectedValue={selected}
-        onValueChange={(itemValue)=>setSelected(itemValue)}
-        >
-<Picker.item label='choose option' value=''/>
-<Picker.item label=' option1' value='1'/>
-<Picker.item label=' option2' value='2'/>
+export default function SelectInput({label,data}:any) {
 
+  return (
+    <View style={{gap:4,}} >
+      <Text >{label}</Text>
+      <Select data={data} />
 
-
-
-
-
-
-        </Picker>
     </View>
   )
 }

@@ -21,9 +21,10 @@ export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStu
     <View
       style={{
         backgroundColor: "white",
-        marginHorizontal: 20,
+        marginHorizontal: 10,
         padding: 15,
-        borderRadius: 10,
+        borderWidth:1,
+        borderRadius: 20,
         display:'flex',
           justifyContent: "space-around",
 

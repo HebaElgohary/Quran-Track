@@ -104,7 +104,7 @@ export default function Layout() {
             <Feather name="folder-minus" size={20} color={colors.white} />
           ),
         }}
-        name="الجموعات"
+        name="المجموعات"
         component={Groups}
       />
 

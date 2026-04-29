@@ -18,7 +18,7 @@ export default function Groups() {
       <form action="">
 
     { getFormFields('Groups')?.map((field)=>
-    <FormField {...field}/>
+    <FormField key={field.label} {...field}/>
 
 )}
       </form>
