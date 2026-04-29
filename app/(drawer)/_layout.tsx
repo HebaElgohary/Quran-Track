@@ -64,6 +64,8 @@ export default function Layout() {
         drawerPosition: "right",
         sceneStyle: {
           backgroundColor: colors.secondary,
+          minHeight:300,
+          overflow:'scroll'
         },
         drawerActiveBackgroundColor: colors.warning,
         drawerActiveTintColor: colors.btnPrimary,

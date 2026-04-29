@@ -1,5 +1,6 @@
 import { TextInput, View } from "react-native";
 import Title from "../atoms/Title";
+import { colors } from "@/constants/theme";
 
 export default function Input(props: any) {
   const { type } = props;
@@ -11,7 +12,8 @@ export default function Input(props: any) {
         {...props}
         style={{
           borderRadius: 3,
-          borderColor: "gray",
+          borderColor: colors.gray,
+          padding:5,
           borderWidth: 1,
           margin: 5,
         }}

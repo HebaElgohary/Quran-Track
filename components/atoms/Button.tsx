@@ -4,9 +4,9 @@ import { Pressable, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 type Props = {
-  variant?: "primary" | "danger" | "transparent"|'btnPrimary';
+  variant?: "primary" | "danger" | "transparent"|'btnPrimary'|'gray';
   size?:'sm'|'md'|'lg'
-  textColor?:'danger'|'warning'|'secondary'
+  textColor?:'danger'|'warning'|'secondary'|'black'|'white'
   children?: React.ReactNode;
   onClick?: () => void;
     name?:string
@@ -39,7 +39,7 @@ export default function Button({
         }}
       >
         {children}
-        <Feather  name={name}/>
+        {name&&<Feather  name={name}/>}
       </Text>
     </Pressable>
   );

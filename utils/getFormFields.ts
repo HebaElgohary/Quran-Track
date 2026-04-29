@@ -67,8 +67,8 @@ export const getFormFields = (page: string) => {
         { label: "ديسمبر", value: "ديسمبر" },
       ],
     },
-    
-        {
+
+    {
       label: "السنة",
       type: "select",
       data: [
@@ -78,12 +78,43 @@ export const getFormFields = (page: string) => {
       ],
     },
   ];
+  const scheduleFields = [
+    {
+      label: "الطالب ",
+      type: "select",
+      data: [
+        { label: "حكيم", value: "حكيم" },
+        { label: "محمد", value: "محمد" },
+        { label: "عزير", value: "عزير" },
+      ],
+    },
+    {
+      name: "time",
+      label: "الموعد",
+      type: "text",
+    },
+    {
+      name: "duration",
+      label: "المدة ",
+      type: "text",
+   
+    },
+    {
+      name: "note",
+      label: "ملاحظة ",
+      type: "textarea",
+   
+    },
+ 
+  ];
 
   switch (page) {
     case "Groups":
       return groupFields;
-      
-       case "MonthlyReports":
+
+    case "MonthlyReports":
       return MonthlyReportsFields;
+    case "Schedule":
+      return scheduleFields;
   }
 };
