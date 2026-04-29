@@ -18,13 +18,7 @@ export default function Groups() {
         subtitle="قسم طلابك لمجموعات وشارك تقاريرهم الشهرية دفعة واحدة  "
         btn="مجموعة جديدة "
       />
-      {/* <form action="">
-
-    { getFormFields('Groups')?.map((field)=>
-    <FormField key={field.label} {...field}/>
-
-)}
-      </form> */}
+  
       <GroupForm />
 
     </View>
