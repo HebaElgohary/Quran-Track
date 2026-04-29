@@ -15,16 +15,17 @@ type Props = {
 export default function Button({
   children,
   size='md',
-  variant = "primary",
+  variant = "btnPrimary",
   textColor='secondary',
   onClick,
-  name
+  name,
 
 }: Props) {
   return (
     <Pressable onPress={onClick}  >
       <Text
         style={{
+         
           color: colors[textColor],
           backgroundColor: colors[variant],
           padding: 7,
