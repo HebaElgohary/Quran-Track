@@ -27,7 +27,7 @@ export default function Form({page,btn1,btn2}:props) {
             <View style={{display:'flex', flexDirection:'row',justifyContent:'flex-end',gap:5}}>
             <Button size='md' variant="gray"  textColor="black" > {btn1}</Button>
            
-            <Button size='md' textColor="white">{"اضافة"} {btn2}</Button>
+            <Button size='md' textColor="white"> {btn2}</Button>
           </View>
           </form>
   )

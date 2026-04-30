@@ -9,6 +9,8 @@ export default function FormField(props: any) {
   console.log("props is " + type);
 
   if (type == "text") return <Input {...props} />;
+  if (type == "number") return <Input {...props} />;
+
   if (type == "textarea") return <Input {...props} />;
   if (type == "radio") return <RadioInput {...props} />;
   if (type == "select") return <SelectInput {...props} />;

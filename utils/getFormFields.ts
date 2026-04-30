@@ -97,15 +97,54 @@ export const getFormFields = (page: string) => {
       name: "duration",
       label: "المدة ",
       type: "text",
-   
     },
     {
       name: "note",
       label: "ملاحظة ",
       type: "textarea",
-   
     },
- 
+  ];
+
+  const sessionFields = [
+    {
+      label: "الطالب ",
+      type: "select",
+      data: [
+        { label: "حكيم", value: "حكيم" },
+        { label: "محمد", value: "محمد" },
+        { label: "عزير", value: "عزير" },
+      ],
+    },
+    {
+      name: "time",
+      label: "الموعد",
+      type: "text",
+    },
+    {
+      name: "surah",
+      label: "السورة ",
+      type: "text",
+    },
+    {
+      name: "note",
+      label: "التقييم ",
+      type: "select",
+      data: [
+        { label: "مقبول", value: "مقبول" },
+        { label: "جيد", value: "جيد" },
+        { label: "جيد جدا", value: "جيد جدا" },
+        { label: "ممتاز", value: "ممتاز" },
+      ],
+    },
+    { name: "from", label: "من اية ", type: "number" },
+    { name: "to", label: "الى اية ", type: "number" },
+    ,
+    { name: "new", label: " الحفظ الجديد ", type: "text" },
+
+    { name: "revision", label: " المراجعة ", type: "text" },
+    { name: "tajweed", label: " احكام التجويد ", type: "text" },
+    { name: "notes", label: " ملاحظات ", type: "text" },
+  
   ];
 
   switch (page) {
@@ -116,5 +155,7 @@ export const getFormFields = (page: string) => {
       return MonthlyReportsFields;
     case "Schedule":
       return scheduleFields;
+    case "Session":
+      return sessionFields;
   }
 };
