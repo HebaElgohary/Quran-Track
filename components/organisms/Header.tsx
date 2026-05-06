@@ -32,7 +32,7 @@ export default function Header({
           {btn}
         </Button>
       )}
-       {open && <FormModal open={open} setOpen={setOpen} />}
+       {open && <FormModal open={open} setOpen={setOpen} FormName={"Students"} />}
     </View>
   );
 }

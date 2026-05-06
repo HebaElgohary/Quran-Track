@@ -9,13 +9,13 @@ import { Feather } from "@expo/vector-icons";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 
-export default function GroupForm() {
+export default function GroupForm({ setOpen, open }: { setOpen: any; open: boolean }) {
   return (
     <View style={{backgroundColor:'white',padding:20}}>
        {/* form heading */} 
-  <FormHeading title='مجموعة  جديدة ' name={'x'}/>
+  <FormHeading title='مجموعة  جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
-      <Form page='Groups' btn1={"الغاء"} btn2={'اضافة'} />
+      <Form page='Groups' btn1={"الغاء"} btn2={'اضافة'} setOpen={setOpen} />
     
     </View>
   );
