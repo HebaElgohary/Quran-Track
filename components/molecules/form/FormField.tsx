@@ -11,7 +11,7 @@ export default function FormField(props: any) {
   if (type == "text") return <Input {...props} />;
   if (type == "number") return <Input {...props} />;
 
-  if (type == "textarea") return <Input {...props} />;
+  if (type == "textarea") return <Input {...props} multiline />;
   if (type == "radio") return <RadioInput {...props} />;
   if (type == "select") return <SelectInput {...props} />;
   if (type == "checkbox") return <CheckInput {...props} />;

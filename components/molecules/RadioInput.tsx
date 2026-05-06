@@ -1,21 +1,51 @@
-import React, { useState } from 'react'
-import { Text, View } from 'react-native'
-import Title from '../atoms/Title'
-import Radio from './Radio'
-import { colors } from '@/constants/theme';
+import React, { useState } from "react";
+import { Text, View } from "react-native";
+import Radio from "./Radio";
+import { colors } from "@/constants/theme";
 
-export default function RadioInput(props:any) {
-  const [selected, setSelected] = useState();
+type Item = {
+  id: string | number;
+  color?: string;
+};
 
-   const [items, setItems] = useState(props.data);
- 
-    return (
+type Props = {
+  data: Item[];
+  label?: string;
+  onChange?: (value: string | number) => void;
+};
+
+export default function RadioInput({ data = [], label, onChange }: Props) {
+  const [selectedId, setSelectedId] = useState<string | number | null>(null);
+
+  const handleSelect = (id: string | number) => {
+    setSelectedId(id);
+    onChange?.(id);
+  };
+
+  return (
     <View>
-      <Text style={{fontSize:15,color:colors.btnPrimary,marginVertical:6}}>{props.label}</Text>
-    <View style={{ display: "flex", flexDirection: "row", gap: 9 }}>
-        {items.map((item)=> <Radio {...item} ischecked={false} key={item.id}  />
+      {label && (
+        <Text
+          style={{
+            fontSize: 15,
+            color: colors.btnPrimary,
+            marginVertical: 6,
+          }}
+        >
+          {label}
+        </Text>
       )}
-        </View>  
+
+      <View style={{ flexDirection: "row", gap: 10 }}>
+        {data.map((item) => (
+          <Radio
+            key={item.id}
+            color={item.color}
+            selected={selectedId === item.id}
+            onPress={() => handleSelect(item.id)}
+          />
+        ))}
+      </View>
     </View>
-  )
+  );
 }

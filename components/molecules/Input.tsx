@@ -1,23 +1,71 @@
-import { Text, TextInput, View } from "react-native";
-import Title from "../atoms/Title";
+import { Text, TextInput, View, StyleSheet } from "react-native";
+import { useState } from "react";
 import { colors } from "@/constants/theme";
 
-export default function Input(props: any) {
-  const { type } = props;
-  type == "text" ? console.log("text") : console.log("textarea");
+export default function Input({
+  label,
+  error,
+  multiline = false,
+  style,
+  ...props
+}: any) {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
-    <View style={{gap:2}}>
-      <Text style={{fontSize:15,color:colors.btnPrimary}}>{props.label}</Text>
+    <View style={styles.container}>
+      {label && <Text style={styles.label}>{label}</Text>}
+
       <TextInput
         {...props}
-        style={{
-          borderRadius: 3,
-          borderColor: colors.gray,
-          padding:5,
-          borderWidth: 2,
-          margin: 5,
-        }}
+        multiline={multiline}
+        style={[
+          styles.input,
+          multiline && styles.textarea,
+          isFocused && styles.focused,
+          error && styles.error,
+          style,
+        ]}
+        placeholderTextColor={colors.gray}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
+
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 6,
+    marginVertical: 8,
+  },
+  label: {
+    fontSize: 14,
+    color: colors.btnPrimary,
+    fontWeight: "500",
+  },
+  input: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.gray,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    fontSize: 14,
+    backgroundColor: "#fff",
+  },
+  textarea: {
+    minHeight: 100,
+    textAlignVertical: "top",
+  },
+  focused: {
+    borderColor: colors.btnPrimary,
+  },
+  error: {
+    borderColor: "red",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+  },
+});

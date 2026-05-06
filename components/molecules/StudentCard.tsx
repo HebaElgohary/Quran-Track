@@ -1,95 +1,97 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { Feather } from "@expo/vector-icons";
+import Avatar from "./Avatar";
+import { StyleSheet } from "react-native";
+
 
 interface StudentCardProps {
-    isStudent:boolean
+  isStudent: boolean;
   titleAr: string;
-  titleEn:string
+  titleEn: string;
   subtitle: string;
-  btn1:string;
-    btn2:string
-
+  btn1: string;
+  btn2: string;
+  image?: string;
 }
 
-
-export default function StudentCard({ titleAr,titleEn, subtitle, btn1,btn2,isStudent}: StudentCardProps) {
+export default function StudentCard({
+  titleAr,
+  titleEn,
+  subtitle,
+  btn1,
+  btn2,
+  isStudent,
+  image,
+}: StudentCardProps) {
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        marginHorizontal: 10,
-        padding: 15,
-        borderWidth:1,
-        borderRadius: 20,
-        display:'flex',
-          justifyContent: "space-around",
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.row}>
+        {/* Left side */}
+        <View style={styles.leftSection}>
+          {isStudent && <Avatar name={titleAr} image={image} />}
 
-      }}
-    >
-        {/* first row */}
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent:'space-between'
-        }}
-      >
-        {/* first char  and titleAr&subtitle */}
-        <View style={{display:'flex',flexDirection:'row' ,gap:'4px' ,alignItems:'center',marginVertical:'5px'}}>
-        {/* fist char */}
-       {isStudent && <View
-          style={{
-            backgroundColor: "#eeee",
-            width: 50,
-            height: 50,
-            borderRadius: "100%",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: "30px",
-              textAlign: "center",
-              fontWeight: "semibold",
-            }}
-          >
-            {titleAr.charAt(0)}
-          </Text>
+          <View style={styles.textColumn}>
+            <Title variant="btnPrimary" size="xl">
+              {titleAr}
+            </Title>
+            <Title size="sm">{subtitle}</Title>
+          </View>
         </View>
-}
-        {/* fist char */}
 
-{/* titleAr & subtitle */}
-        <View
-          style={{
-            display: "flex",
-            gap:15,
-            flexDirection: "column",
-          }}
-        >
-          <Title variant="btnPrimary" size="xl">{titleAr}</Title>
-          <Title size="sm" >{subtitle}</Title>
-        </View>
-{/* titleAr & subtitle */}
-</View >
-
-        <Title >{titleEn}</Title>
+        {/* Right side */}
+        <Title>{titleEn}</Title>
       </View>
-        {/* first row */}
-<Hr ></Hr>
-        {/* second row */}
-<View style={{display:'flex' ,flexDirection:'row',gap:'3px'}}>
 
-    <Button variant="transparent" textColor="warning">{btn1} <Feather name="edit-2" /></Button>
-    <Button variant="transparent" textColor="danger">{btn2}  <Feather name="trash-2"/>  </Button>
+      <Hr />
 
-</View>
-        {/* second row */}
+      {/* Actions */}
+      <View style={styles.actionsRow}>
+        <Button variant="transparent" textColor="warning">
+          {btn1} <Feather name="edit-2" />
+        </Button>
 
-
+        <Button variant="transparent" textColor="danger">
+          {btn2} <Feather name="trash-2" />
+        </Button>
+      </View>
     </View>
   );
 }
+
+ const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    marginHorizontal: 10,
+    padding: 15,
+    borderWidth: 1,
+    borderRadius: 16,
+    gap: 12,
+  },
+
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  leftSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+
+  textColumn: {
+    flexDirection: "column",
+    gap: 6,
+  },
+
+  actionsRow: {
+    flexDirection: "row",
+    gap: 10,
+  },
+});
