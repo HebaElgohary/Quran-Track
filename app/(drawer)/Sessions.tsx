@@ -7,8 +7,8 @@ import { View } from 'react-native'
 export default function sessions() {
   return (
     <View style={{direction:'rtl'}}>
-      <Header title='الحصص' subtitle='كل تقارير الحصص' btn='تقرير حصة جديدة' />
-      <Form page='Session' btn1='الغاء' btn2='حفظ التقرير'/>
+      <Header title='الحصص' subtitle='كل تقارير الحصص' btn='تقرير حصة جديدة' formName='Sessions' />
+      {/* <Form page='Session' btn1='الغاء' btn2='حفظ التقرير'/> */}
       {/* <NoDataFallback Icon='' text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> */}
 
     </View>

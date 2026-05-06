@@ -1,7 +1,5 @@
 import { Modal, View } from "react-native";
-import StudentForm from "../StudentForm";
-import Button from "@/components/atoms/Button";
-import { useState } from "react";
+
 import getFormName from "./getFormName";
 
 export default function FormModal({ open, setOpen ,FormName}: { open: boolean; setOpen: any; FormName: string }) {
