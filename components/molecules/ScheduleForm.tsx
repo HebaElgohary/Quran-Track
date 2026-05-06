@@ -6,11 +6,11 @@ import Button from "../atoms/Button";
 
 import FormHeading from "./form/FormHeading";
 
-export default function ScheduleForm() {
+export default function ScheduleForm({ setOpen, open }: { setOpen: any; open: boolean }) {
   return (
     <View style={{backgroundColor:'white',padding:12}}>
        {/* form heading */} 
-  <FormHeading title='موعد حصة جديدة ' name={'x'}/>
+  <FormHeading title='موعد حصة جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
       <form
         style={{

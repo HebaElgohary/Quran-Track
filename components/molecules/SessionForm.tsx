@@ -6,7 +6,7 @@ import Form from "./form/Form";
 
 export default function SessionForm( { setOpen, open }: { setOpen: any; open: boolean }) {
   return (
-    <View style={{backgroundColor:'white',padding:20}}>
+    <View style={{backgroundColor:'white',padding:20,overflow:'scroll',maxHeight:'85%',borderRadius:10}}>
        {/* form heading */} 
   <FormHeading title='تقرير حصة جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
