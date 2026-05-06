@@ -1,8 +1,9 @@
 import { Modal, View } from "react-native";
 import StudentForm from "../StudentForm";
 import Button from "@/components/atoms/Button";
+import { useState } from "react";
 
-export default function FormModal({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
+export default function FormModal({ open, setOpen }: { open: boolean; setOpen: any }) {
     return (
         
 <Modal
@@ -12,14 +13,13 @@ export default function FormModal({ open, setOpen }: { open: boolean; setOpen: (
 >
   <View style={{
     flex: 1,
-    justifyContent: "flex-end",
+    paddingHorizontal: 20,
+    justifyContent: "center",
     backgroundColor: "rgba(0,0,0,0.4)"
   }}>
     
-  <StudentForm />
-   <Button onClick={() => setOpen(false)}>
-        Close
-      </Button>
+  <StudentForm setOpen={setOpen} open={open} />
+
   </View>
 </Modal>
 

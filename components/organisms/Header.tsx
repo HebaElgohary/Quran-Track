@@ -28,11 +28,11 @@ export default function Header({
     >
       <Heading title={title} subtitle={subtitle} />
       {btn && (
-        <Button size="lg" className=":hover:bg-primary" variant="btnPrimary" name="plus" onClick={() => setOpen(true)}>
+        <Button size="lg"  variant="btnPrimary" name="plus" onClick={() => setOpen(true)}>
           {btn}
         </Button>
       )}
-       <FormModal open={open} setOpen={setOpen} />
+       {open && <FormModal open={open} setOpen={setOpen} />}
     </View>
   );
 }
