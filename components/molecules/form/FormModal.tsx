@@ -2,8 +2,9 @@ import { Modal, View } from "react-native";
 import StudentForm from "../StudentForm";
 import Button from "@/components/atoms/Button";
 import { useState } from "react";
+import getFormName from "./getFormName";
 
-export default function FormModal({ open, setOpen }: { open: boolean; setOpen: any }) {
+export default function FormModal({ open, setOpen ,FormName}: { open: boolean; setOpen: any; FormName: string }) {
     return (
         
 <Modal
@@ -18,7 +19,7 @@ export default function FormModal({ open, setOpen }: { open: boolean; setOpen: a
     backgroundColor: "rgba(0,0,0,0.4)"
   }}>
     
-  <StudentForm setOpen={setOpen} open={open} />
+  {getFormName(FormName, setOpen, open)}
 
   </View>
 </Modal>
