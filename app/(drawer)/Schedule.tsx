@@ -8,9 +8,8 @@ export default function Schedule() {
   return (
 <View style={{direction:'rtl',gap:3}}>
 
-  <Header title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' />
+  <Header title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' formName='Schedule'/>
   {/* <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' icon='' /> */}
-  <ScheduleForm />
 </View>
 
 )
