@@ -11,7 +11,7 @@ import Form from "./form/Form";
 
 export default function GroupForm({ setOpen, open }: { setOpen: any; open: boolean }) {
   return (
-    <View style={{backgroundColor:'white',padding:20}}>
+    <View style={{backgroundColor:'white',padding:20,borderRadius:10}}>
        {/* form heading */} 
   <FormHeading title='مجموعة  جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}

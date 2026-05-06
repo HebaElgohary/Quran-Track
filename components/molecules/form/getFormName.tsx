@@ -13,7 +13,7 @@ export default function (FormName: string,setOpen: any,open:boolean) {
         return <GroupsForm setOpen={setOpen} open={open}/> ;
           case "Sessions":
         return <SessionForm setOpen={setOpen} open={open} /> ;
-   case "Scedule":
+   case "Schedule":
         return <ScheduleForm setOpen={setOpen} open={open} /> ;
 
   

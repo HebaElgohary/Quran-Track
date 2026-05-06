@@ -1,5 +1,4 @@
 import { btnSize, colors } from "@/constants/theme";
-import { ComponentType, ReactNode } from "react";
 import { Pressable, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
 

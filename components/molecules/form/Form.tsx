@@ -11,13 +11,13 @@ interface props{
 }
 export default function Form({page,btn1,btn2,setOpen}:props) {
   return (
-    <form
+    <View
             style={{
               display: "flex",
               flexDirection: "column",
               justifyContent:'space-between',
               overflow:'hidden',
-              color:'red'
+
             }}
           >
             <View style={{display:'flex' ,width:'80%',marginVertical:14,gap:10}}>
@@ -30,6 +30,6 @@ export default function Form({page,btn1,btn2,setOpen}:props) {
            
             <Button size='md' textColor="white" onClick={() => setOpen(false)}> {btn2}</Button>
           </View>
-          </form>
+          </View>
   )
 }

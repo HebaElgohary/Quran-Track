@@ -11,8 +11,7 @@ export default function StudentForm({ setOpen, open }: { setOpen: any; open: boo
       style={{
         backgroundColor: "white",
         padding: 16,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        borderRadius: 10,
       }}
     >
       {/* Header */}

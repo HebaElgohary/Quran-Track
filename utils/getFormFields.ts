@@ -54,7 +54,7 @@ export const getFormFields = (page: string) => {
      {
       name: "level",
       label: "المستوى ",
-      type: "checkbox",
+      type: "select",
       data: [
         { id: 0, name: "مبتدئ", checked: false },
         { id: 1, name: "متقدم", checked: false },
@@ -155,7 +155,7 @@ export const getFormFields = (page: string) => {
       type: "text",
     },
     {
-      name: "note",
+      name: "grade",
       label: "التقييم ",
       type: "select",
       data: [
@@ -172,7 +172,7 @@ export const getFormFields = (page: string) => {
 
     { name: "revision", label: " المراجعة ", type: "text" },
     { name: "tajweed", label: " احكام التجويد ", type: "text" },
-    { name: "notes", label: " ملاحظات ", type: "text" },
+    { name: "notes", label: " ملاحظات ", type: "textarea" },
   
   ];
 
