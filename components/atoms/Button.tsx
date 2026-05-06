@@ -10,6 +10,7 @@ type Props = {
   children?: React.ReactNode;
   onClick?: () => void;
     name?:string
+    setOpen?:React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export default function Button({
@@ -19,10 +20,10 @@ export default function Button({
   textColor='secondary',
   onClick,
   name,
-
+  setOpen
 }: Props) {
   return (
-    <Pressable onPress={onClick}  >
+    <Pressable onPress={onClick} className={`:hover:bg-red-600 rounded-md transition-colors duration-300`}>
       <Text
         style={{
          

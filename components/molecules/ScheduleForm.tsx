@@ -1,11 +1,9 @@
 import { getFormFields } from "@/utils/getFormFields";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import FormField from "../molecules/form/FormField";
 import Button from "../atoms/Button";
-import Title from "../atoms/Title";
-import { colors } from "@/constants/theme";
-import { Feather } from "@expo/vector-icons";
+
 import FormHeading from "./form/FormHeading";
 
 export default function ScheduleForm() {
@@ -25,7 +23,7 @@ export default function ScheduleForm() {
       >
         <View style={{display:'flex' ,width:'80%',marginVertical:14}}>
         {getFormFields("Schedule")?.map((field) => (
-          <FormField key={field.label} {...field} />
+          <FormField key={field?.label} {...field} />
         ))}
         </View>
         <View style={{display:'flex', flexDirection:'row',justifyContent:'flex-end',gap:5}}>

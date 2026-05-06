@@ -39,6 +39,35 @@ export const getFormFields = (page: string) => {
       type: "textarea",
     },
   ];
+
+   const studentFields = [
+    {
+      name: "nameAr",
+      label: "الاسم بالعربية",
+      type: "text",
+    },
+    {
+      name: "nameEn",
+      label: "الاسم بالانجليزية",
+      type: "text",
+    },
+     {
+      name: "level",
+      label: "المستوى ",
+      type: "checkbox",
+      data: [
+        { id: 0, name: "مبتدئ", checked: false },
+        { id: 1, name: "متقدم", checked: false },
+      ],
+    },
+  
+   
+    {
+      name: "notes",
+      label: "ملاحظات ",
+      type: "textarea",
+    },
+  ];
   const MonthlyReportsFields = [
     {
       label: "الطالب",
@@ -157,5 +186,8 @@ export const getFormFields = (page: string) => {
       return scheduleFields;
     case "Session":
       return sessionFields;
+         case "Students":
+      return studentFields;
+  
   }
 };

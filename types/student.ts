@@ -1,4 +1,6 @@
 export interface Student {
   id: string;
-  name: string;
+  nameAr: string;
+  nameEn: string;
+    level: string;
 }

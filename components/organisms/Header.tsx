@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 
 import Button from "../atoms/Button";
 import Heading from "../molecules/Heading";
+import FormModal from "../molecules/form/FormModal";
 
 export default function Header({
   title,
@@ -13,6 +14,8 @@ export default function Header({
   subtitle: string;
   btn?: string;
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <View
       style={{
@@ -25,10 +28,11 @@ export default function Header({
     >
       <Heading title={title} subtitle={subtitle} />
       {btn && (
-        <Button size="xl" variant="btnPrimary" name="plus">
+        <Button size="lg" className=":hover:bg-primary" variant="btnPrimary" name="plus" onClick={() => setOpen(true)}>
           {btn}
         </Button>
       )}
+       <FormModal open={open} setOpen={setOpen} />
     </View>
   );
 }
