@@ -1,9 +1,12 @@
 import { Modal, View } from "react-native";
 
-import getFormName from "./getFormName";
+import {getFormName} from "./getFormName";
 
-export default function FormModal({ open, setOpen ,FormName}: { open: boolean; setOpen: any; FormName: string }) {
-    return (
+type FormNameKey = keyof typeof getFormName;
+
+export default function FormModal({ open, setOpen, formName }: { open: boolean; setOpen: any; formName?: FormNameKey }) {
+  const FormName = formName ? getFormName[formName] : undefined;
+  return (
         
 <Modal
   visible={open}
@@ -17,7 +20,7 @@ export default function FormModal({ open, setOpen ,FormName}: { open: boolean; s
     backgroundColor: "rgba(0,0,0,0.4)"
   }}>
     
-  {getFormName(FormName, setOpen, open)}
+  {FormName ? <FormName setOpen={setOpen} open={open} /> : null}
 
   </View>
 </Modal>
