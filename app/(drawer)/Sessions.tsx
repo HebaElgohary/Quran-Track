@@ -17,7 +17,6 @@ export default function sessions() {
         { label: "محمد", value: "محمد" },
         { label: "عزير", value: "عزير" }, ]} />
       {/* <Form page='Session' btn1='الغاء' btn2='حفظ التقرير'/> */}
-      <NotificationCard />
    
     {sessions.length === 0 && <NoDataFallback Icon={() => <Feather name="book-open" size={30} color="gray" />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
 

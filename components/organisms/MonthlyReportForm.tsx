@@ -7,24 +7,27 @@ import Button from "../atoms/Button";
 export default function MonthlyReportForm() {
   return (
     <View>
-      <form
+      <View
         style={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent:'space-between',
           backgroundColor: "white",
           padding:12,
           overflow:'hidden',
-          color:'red'
+          // alignItems:'flex-start'
+
         }}
       >
-        <View style={{display:'flex' ,width:'60%'}}>
+        <View style={{display:'flex' ,flexDirection:'column',alignItems:'flex-start'}}>
         {getFormFields("MonthlyReports")?.map((field) => (
-          <FormField key={field.label} {...field} />
+          <FormField key={field?.label} {...field} />
         ))}
         </View>
-        <Button size='lg' name='file-text'>{"عرض التقرير  "}</Button>
-      </form>
+        <View style={{display:'flex', flexDirection:'row',justifyContent:'flex-end',marginVertical:15}}>
+        <Button size='lg' name='file-text' >{"عرض التقرير  "}</Button>
+     </View>
+      </View>
     </View>
   );
 }

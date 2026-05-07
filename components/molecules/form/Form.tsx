@@ -26,9 +26,9 @@ export default function Form({page,btn1,btn2,setOpen}:props) {
             ))}
             </View>
             <View style={{display:'flex', flexDirection:'row',alignItems:'flex-end',gap:5}}>
-            <Button size='md' variant="gray"  textColor="black" onClick={() => setOpen(false)}> {btn1}</Button>
+            <Button size='sm' variant="gray"  textColor="black" onClick={() => setOpen(false)}> {btn1}</Button>
            
-            <Button size='md' textColor="white" onClick={() => setOpen(false)}> {btn2}</Button>
+            <Button size='sm' textColor="white" onClick={() => setOpen(false)}> {btn2}</Button>
           </View>
           </View>
   )

@@ -16,6 +16,7 @@ export default function Select({ data }: { data: any }) {
           width: 200,
           fontSize:20,
           backgroundColor: colors.transparent,
+          alignSelf: "end",
           
         }}
         selectedValue={selected}

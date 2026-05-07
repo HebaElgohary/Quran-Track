@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 12,
     fontSize: 14,
+    // width: "100%",
     backgroundColor: "#fff",
   },
   textarea: {

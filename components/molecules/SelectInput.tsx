@@ -9,7 +9,7 @@ import { colors } from '@/constants/theme';
 export default function SelectInput({label,data}:{label?:string,data:any}) {
 
   return (
-    <View style={{gap:7,marginVertical:10 ,display:'flex',alignItems:'flex-end'}} >
+    <View style={{gap:7,marginVertical:10 ,display:'flex'}} >
      {label && <Text style={{
          fontSize: 18,
          marginBottom: 4,
