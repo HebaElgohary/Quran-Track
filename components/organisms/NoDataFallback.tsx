@@ -33,7 +33,7 @@ export default function NoDataFallback({ Icon, text, btn }: props) {
 {/* Text */}
       <View  style={{display:'flex' ,alignItems:'center'}}>
         <Subtitle>{text}</Subtitle>
-        <Button variant="btnPrimary">{btn}</Button>
+        <Button variant="btnPrimary" size="lg" name="plus">{btn}</Button>
      <View />
 
      {/* ///////////////// */}

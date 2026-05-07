@@ -29,13 +29,13 @@ export default function Button({
           color: colors[textColor],
           fontWeight:'bold',
           backgroundColor: colors[variant],
-          padding: 7,
+          padding: 9,
           width: btnSize[size],
           textAlign: "center",
           paddingVertical:12,
-          fontSize:12,
+          fontSize:10,
           borderRadius: 6,
-          display:'flex',justifyContent:'space-around',alignItems:'center',
+          display:'flex',justifyContent:'space-between',alignItems:'center',
         }}
       >
         {children}
