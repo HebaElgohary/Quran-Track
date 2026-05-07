@@ -9,7 +9,10 @@ export default function Students() {
 
   return (
     <View style={{direction:'rtl' }} >
-      <Header title='الطلاب ' subtitle='ادارة قائمةالطلاب' btn='اضافة طالب' formName='Students'/>
+      <Header title='الطلاب '
+       subtitle='ادارة قائمةالطلاب' 
+       btn='اضافة طالب'
+        formName='Students'/>
    {students.map((student) =>
     <StudentCard isStudent titleAr={student.nameAr} titleEn={student.nameEn} subtitle={student.level}  btn1='edit' btn2='delete'></StudentCard>
    )}
