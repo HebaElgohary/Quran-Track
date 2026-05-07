@@ -5,25 +5,33 @@ export const useStudents = () => {
   const [students, setStudents] = useState<any[]>([]);
 
   useEffect(() => {
-    load();
+    loadStudents();
   }, []);
 
-  const load = async () => {
+  const loadStudents = async () => {
     const data = await getStudents();
-    setStudents(data);
+    setStudents(data || []);
   };
 
   const addStudent = async (data: any) => {
     const newStudent = {
       id: Date.now().toString(),
-      name: "طالب جديد"
+      name: "طالب جديد",
+      ...data,
     };
-    Object.assign(newStudent, data);
 
-    const updated = [...students, newStudent];
-    setStudents(updated);
-    await saveStudents(updated);
+    setStudents((prev) => {
+      const updated = [...prev, newStudent];
+
+      saveStudents(updated);
+
+      return updated;
+    });
   };
 
-  return { students, addStudent };
+  return {
+    students,
+    addStudent,
+    reloadStudents: loadStudents,
+  };
 };
