@@ -13,11 +13,12 @@ export const useStudents = () => {
     setStudents(data);
   };
 
-  const addStudent = async () => {
+  const addStudent = async (data: any) => {
     const newStudent = {
       id: Date.now().toString(),
       name: "طالب جديد"
     };
+    Object.assign(newStudent, data);
 
     const updated = [...students, newStudent];
     setStudents(updated);

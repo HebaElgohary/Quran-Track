@@ -1,18 +1,37 @@
-import StudentCard from '@/components/molecules/StudentCard'
-import Header from '@/components/organisms/Header'
-import { useStudents } from '@/hooks/useStudent';
-import React from 'react'
-import { View } from 'react-native'
+import { useEffect, useState } from "react";
+import { getStudents, saveStudents } from "@/storage/studentsStorage";
 
-export default function Students() {
-    const { students, addStudent } = useStudents();
+export const useStudents = () => {
+  const [students, setStudents] = useState<any[]>([]);
 
-  return (
-    <View style={{direction:'rtl' }} >
-      <Header title='الطلاب ' subtitle='ادارة قائمةالطلاب' btn='اضافة طالب' formName='Students'/>
-   {students.map((student) =>
-    <StudentCard isStudent titleAr={student.nameAr} titleEn={student.nameEn} subtitle={student.level}  btn1='edit' btn2='delete'></StudentCard>
-   )}
-    </View>
-  )
-}
+  useEffect(() => {
+    loadStudents();
+  }, []);
+
+  const loadStudents = async () => {
+    const data = await getStudents();
+    setStudents(data || []);
+  };
+
+  const addStudent = async (data: any) => {
+    const newStudent = {
+      id: Date.now().toString(),
+      name: "طالب جديد",
+      ...data,
+    };
+
+    setStudents((prev) => {
+      const updated = [...prev, newStudent];
+
+      saveStudents(updated);
+
+      return updated;
+    });
+  };
+
+  return {
+    students,
+    addStudent,
+    reloadStudents: loadStudents,
+  };
+};
