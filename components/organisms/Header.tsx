@@ -14,7 +14,7 @@ export default function Header({
   title: string;
   subtitle: string;
   btn?: string;
-  formName: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
+  formName?: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -34,7 +34,7 @@ export default function Header({
           {btn}
         </Button>
       )}
-       { <FormModal open={open} setOpen={setOpen} formName={formName} />}
+       {formName && <FormModal open={open} setOpen={setOpen} formName={formName} />}
     </View>
   );
 }
