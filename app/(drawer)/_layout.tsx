@@ -29,19 +29,29 @@ export default function Layout() {
               alignItems: "center",
               gap: 5,
               marginVertical: 15,
+
             }}
           >
-            <Image
-              resizeMode="cover"
-              style={{ height: 80, width: 80, borderRadius: 40 }}
-              source={require("../../assets/images/julianna-huszakne-HUDIJlj9DGY-unsplash.jpg")}
-            />
+            <View       style={{
+            width: 50,
+              height: 50,
+              borderRadius: 25,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginVertical: 15,
+
+              backgroundColor: colors.warning,
+            }}>
+               <Feather name="moon" size={25} color={colors.btnPrimary} />
+            </View>
+            
 
             <View>
               <Title size="xl" variant="white">
                 متابعة القران
               </Title>
-              <Text style={{ marginHorizontal: 25, color: colors.secondary }}>
+              <Text style={{ marginHorizontal: 25, color: colors.secondary ,textAlign:'right'}}>
                 القران والتجويد
               </Text>
             </View>
