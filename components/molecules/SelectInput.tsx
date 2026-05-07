@@ -5,11 +5,11 @@ import Title from '../atoms/Title';
 import Select from './Select';
 import Subtitle from '../atoms/Subtitle';
 
-export default function SelectInput({label,data}:any) {
+export default function SelectInput({label,data}:{label?:string,data:any}) {
 
   return (
     <View style={{gap:4,marginVertical:10}} >
-      <Title size='md' variant='btnPrimary'>{label}</Title>
+     {label && <Title size='md' variant='btnPrimary'>{label}</Title>}
       <Select data={data} />
 
     </View>

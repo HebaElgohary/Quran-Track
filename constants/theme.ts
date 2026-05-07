@@ -9,7 +9,7 @@ export const colors = {
   text: "#1F1F1F",
   gray: "#7777",
   transparent:'transparent',
-  background: "#FFFFFF",
+  background: "#F8F6F2",
   white: "#FFFFFF",
   black:'#000000'
 };

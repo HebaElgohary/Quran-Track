@@ -10,16 +10,18 @@ export default function Select({ data }: { data: any }) {
       <Picker
         style={{
           borderColor: colors.gray,
-          borderWidth: 2,
-          borderRadius: 3,
-          padding: 8,
-          fontSize:20
+          borderWidth: 1,
+          borderRadius: 10,
+          padding: 12,
+          width: 200,
+          fontSize:20,
+          backgroundColor: colors.transparent,
           
         }}
         selectedValue={selected}
         onValueChange={(itemValue) => setSelected(itemValue)}
       >
-        {data.map((item) => (
+        {data.map((item: { label: string; value: string }) => (
           <Picker.Item key={item.label} label={item.label} value={item.value}  />
         ))}
       </Picker>

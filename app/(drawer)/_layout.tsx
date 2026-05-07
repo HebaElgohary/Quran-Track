@@ -63,7 +63,7 @@ export default function Layout() {
       screenOptions={{
         drawerPosition: "right",
         sceneStyle: {
-          backgroundColor: colors.secondary,
+          backgroundColor: colors.background,
           minHeight:300,
           overflow:'scroll'
         },
