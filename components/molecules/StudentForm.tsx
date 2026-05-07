@@ -1,11 +1,13 @@
 import { getFormFields } from "@/utils/getFormFields";
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import FormField from "../molecules/form/FormField";
 import Button from "../atoms/Button";
 import FormHeading from "./form/FormHeading";
+import Form from "./form/Form";
 
-export default function StudentForm({ setOpen, open }: { setOpen: any; open: boolean }) {
+export default function StudentForm({ setOpen, open , addFn}: { setOpen: any; open: boolean; addFn?: (data: any) => Promise<void> }) {
+ const formData = useState({nameAr:'', nameEn:'', level:'', notes:''});
   return (
     <View
       style={{
@@ -15,47 +17,13 @@ export default function StudentForm({ setOpen, open }: { setOpen: any; open: boo
       }}
     >
       {/* Header */}
-      <FormHeading title="موعد حصة جديدة" name={"x"} setOpen={setOpen} />
+      <FormHeading title="اضافة طالب جديد" name={"x"} setOpen={setOpen} />
 
       {/* Form Content */}
-      <View style={{ marginVertical: 14 }}>
-        {getFormFields("Students")?.map((field) => (
-          <FormField key={field?.label} {...field} />
-        ))}
-      </View>
+      <Form page="Students" btn1="اضافة"  btn2="الغاء" setOpen={setOpen} />
+     
 
-      {/* Actions */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          gap: 10,
-          marginTop: 20,
-        }}
-      >
-        <Button
-          size="md"
-          variant="gray"
-          textColor="black"
-          onClick={() => {
-            console.log("cancel clicked");
-            setOpen(!open);
-          }}
-        >
-          الغاء
-        </Button>
-
-        <Button
-          size="md"
-          textColor="white"
-          onClick={() => {
-            console.log("add clicked");
-            setOpen(!open);
-          }}
-        >
-          اضافة
-        </Button>
-      </View>
+    
     </View>
   );
 }

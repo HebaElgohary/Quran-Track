@@ -18,23 +18,22 @@ export default function Radio({
         style={{
           width: 24,
           height: 24,
+          display: "flex",
           borderRadius: 15,
-          borderWidth:selected? 3 : 0,
-          borderColor : selected? 'yellow' : 'gray'      ,     alignItems: "center",
-          justifyContent: "center",
+          borderWidth: selected ? 3 : 0,
+          borderColor: selected ? "yellow" : "gray",
         }}
       >
-        { (
+        {
           <View
             style={{
               width: 20,
               height: 20,
               borderRadius: 10,
               backgroundColor: color,
-              // borderWidth: 2,
             }}
           />
-        )}
+        }
       </View>
     </Pressable>
   );

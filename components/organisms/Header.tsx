@@ -10,11 +10,13 @@ export default function Header({
   subtitle,
   btn,
   formName,
+  AddFn,
 }: {
   title: string;
   subtitle: string;
   btn?: string;
   formName?: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
+  AddFn?: (data: any) => Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -30,11 +32,23 @@ export default function Header({
     >
       <Heading title={title} subtitle={subtitle} />
       {btn && (
-        <Button size="lg"  variant="btnPrimary" name="plus" onClick={() => setOpen(true)}>
+        <Button
+          size="lg"
+          variant="btnPrimary"
+          name="plus"
+          onClick={() => setOpen(true)}
+        >
           {btn}
         </Button>
       )}
-       {formName && <FormModal open={open} setOpen={setOpen} formName={formName} />}
+      {formName && (
+        <FormModal
+          open={open}
+          setOpen={setOpen}
+          formName={formName}
+          addFn={AddFn}
+        />
+      )}
     </View>
   );
 }

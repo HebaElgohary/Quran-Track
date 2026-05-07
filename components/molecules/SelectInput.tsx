@@ -4,12 +4,20 @@ import { Text, View } from 'react-native'
 import Title from '../atoms/Title';
 import Select from './Select';
 import Subtitle from '../atoms/Subtitle';
+import { colors } from '@/constants/theme';
 
 export default function SelectInput({label,data}:{label?:string,data:any}) {
 
   return (
-    <View style={{gap:4,marginVertical:10}} >
-     {label && <Title size='md' variant='btnPrimary'>{label}</Title>}
+    <View style={{gap:7,marginVertical:10 ,display:'flex',alignItems:'flex-end'}} >
+     {label && <Text style={{
+         fontSize: 18,
+         marginBottom: 4,
+         marginHorizontal: 8,
+         color: colors.btnPrimary,
+         fontWeight: "500",
+     
+       }}>{label}</Text>}
       <Select data={data} />
 
     </View>

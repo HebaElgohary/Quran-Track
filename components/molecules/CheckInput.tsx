@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
 import Title from "../atoms/Title";
+import { colors } from "@/constants/theme";
 
 export default function CheckInput({ data = [], label, onChange }: any) {
   const [items, setItems] = useState(data);
@@ -23,8 +24,15 @@ export default function CheckInput({ data = [], label, onChange }: any) {
   };
 
   return (
-    <View>
-      {label && <Title size="md">{label}</Title>}
+    <View style={{ gap: 12, marginVertical: 10, display: "flex", alignItems: "flex-end" }}>
+      {label && <Text style={ {
+          fontSize: 18,
+          marginBottom: 4,
+          marginHorizontal: 8,
+          color: colors.btnPrimary,
+          fontWeight: "500",
+      
+        }} >{label}</Text>}
 
       {items.map((item: any) => (
         <Checkbox

@@ -13,7 +13,7 @@ export default function Input({
 
   return (
     <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <Text  style={styles.label }>{label}</Text>}
 
       <TextInput
         {...props}
@@ -41,9 +41,12 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   label: {
-    fontSize: 14,
+    fontSize: 18,
+    marginBottom: 4,
+    marginHorizontal: 8,
     color: colors.btnPrimary,
     fontWeight: "500",
+
   },
   input: {
     borderRadius: 8,

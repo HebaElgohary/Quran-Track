@@ -56,8 +56,8 @@ export const getFormFields = (page: string) => {
       label: "المستوى ",
       type: "select",
       data: [
-        { id: 0, name: "مبتدئ", checked: false },
-        { id: 1, name: "متقدم", checked: false },
+        { id: 0, label: "مبتدئ",value:'مبتدئ', checked: false },
+        { id: 1, label: "متقدم", value:'متقدم', checked: false },
       ],
     },
   

@@ -20,12 +20,12 @@ export default function Form({page,btn1,btn2,setOpen}:props) {
 
             }}
           >
-            <View style={{display:'flex' ,width:'80%',marginVertical:14,gap:10}}>
+            <View style={{display:'flex' ,marginVertical:14,padding:12,gap:10}}>
             {getFormFields(page)?.map((field) => (
               <FormField key={field?.label} {...field} />
             ))}
             </View>
-            <View style={{display:'flex', flexDirection:'row',justifyContent:'flex-end',gap:5}}>
+            <View style={{display:'flex', flexDirection:'row',alignItems:'flex-end',gap:5}}>
             <Button size='md' variant="gray"  textColor="black" onClick={() => setOpen(false)}> {btn1}</Button>
            
             <Button size='md' textColor="white" onClick={() => setOpen(false)}> {btn2}</Button>

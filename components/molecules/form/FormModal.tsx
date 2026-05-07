@@ -4,7 +4,7 @@ import {getFormName} from "./getFormName";
 
 type FormNameKey = keyof typeof getFormName;
 
-export default function FormModal({ open, setOpen, formName }: { open: boolean; setOpen: any; formName?: FormNameKey }) {
+export default function FormModal({ open, setOpen, formName, addFn }: { open: boolean; setOpen: any; formName?: FormNameKey; addFn?: (data: any) => Promise<void> }) {
   const FormName = formName ? getFormName[formName] : undefined;
   return (
         
@@ -20,7 +20,7 @@ export default function FormModal({ open, setOpen, formName }: { open: boolean; 
     backgroundColor: "rgba(0,0,0,0.4)"
   }}>
     
-  {FormName ? <FormName setOpen={setOpen} open={open} /> : null}
+  {FormName ? <FormName setOpen={setOpen} open={open} addFn={addFn} /> : null}
 
   </View>
 </Modal>

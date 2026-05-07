@@ -9,10 +9,11 @@ interface props {
 }
 export default function FormHeading({title,name,setOpen}:props) {
   return (
-  <View  style={{backgroundColor:'white',marginVertical:10}}>
+  <View  style={{backgroundColor:'white',marginVertical:12}}>
        <View style={{display:'flex',flexDirection:'row', alignItems:'center',justifyContent:'space-between'}}>
-        <Text style={{textAlign:'left' ,fontSize:22,color:colors.btnPrimary}}>{title}</Text>
        <Feather name={name} size={25} onPress={()=>{ setOpen(!open)}}/>
+        
+        <Text style={{textAlign:'left' ,fontSize:26,fontWeight:'bold',color:colors.btnPrimary}}>{title}</Text>
        </View>
        </View>
        )
