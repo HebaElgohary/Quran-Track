@@ -4,7 +4,7 @@ import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 
 
-export default function SessionForm( { handleSubmit, setOpen, open }: {handleSubmit?: (data: any) => Promise<void>; setOpen: any; open: boolean }) {
+export default function SessionForm<T>( { handleSubmit, setOpen, open }: {handleSubmit?:T; setOpen: any; open: boolean }) {
   return (
     <View style={{backgroundColor:'white',padding:20,overflow:'scroll',maxHeight:'85%',borderRadius:10}}>
        {/* form heading */} 

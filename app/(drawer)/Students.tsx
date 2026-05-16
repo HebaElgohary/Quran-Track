@@ -7,11 +7,15 @@ import React from 'react'
 import { View } from 'react-native'
 
 export default function Students() {
-    const { students, addStudent } = useStudents();
+    const { students, addStudent,deleteStudent, updateStudent } = useStudents();
   const handleAdd = async (data: any) => {
     await addStudent(data);
     alert('تم الاضافة بنجاح');
   };
+  const handleDelete = async (id: string) => {
+    await deleteStudent(id);
+    alert('تم الحذف بنجاح');
+  }
     return (
     <View style={{direction:'rtl' }} >
       <Header title='الطلاب '
@@ -23,7 +27,7 @@ export default function Students() {
         <NoDataFallback text='لايوجد طلاب مسجلين' btn='اضافة اول طالب' Icon={() => <Feather name="users" size={30} color="gray" />}  />
         </View>}
    {students.map((student) =>
-    <StudentCard key={student.id} isStudent titleAr={student.nameAr} titleEn={student.nameEn} subtitle={student.level}  btn1='edit' btn2='delete'></StudentCard>
+    <StudentCard key={student.id} updateStudent={updateStudent} handleDelete={handleDelete} isStudent student={student} btn1='edit' btn2='delete'></StudentCard>
    )}
     </View>
   )

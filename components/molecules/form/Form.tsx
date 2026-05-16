@@ -35,8 +35,8 @@ export default function Form({handleSubmit,formData,setFormData,page,btn1,btn2,s
             <View style={{display:'flex', flexDirection:'row',alignItems:'flex-end',gap:5}}>
             <Button size='sm' variant="gray"  textColor="black" onClick={() =>
             {  console.log(formData)
-              handleSubmit(formData)
-              setOpen(false)}}> {btn1}</Button>
+             formData.id ?handleSubmit(formData.id,formData):handleSubmit(formData)
+              setOpen(false)}}>{formData.id ? 'تعديل':btn1} </Button>
            
             <Button size='sm' textColor="white" onClick={() => setOpen(false)}> {btn2}</Button>
           </View>

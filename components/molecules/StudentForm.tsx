@@ -5,9 +5,10 @@ import FormField from "../molecules/form/FormField";
 import Button from "../atoms/Button";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
+import { Student } from "@/types/student";
 
-export default function StudentForm({ setOpen, open , handleSubmit}: { setOpen: any; open: boolean; handleSubmit?: (data: any) => Promise<void> }) {
- const [formData  , setFormData] = useState({nameAr:'', nameEn:'', level:'', notes:''});
+export default function StudentForm<T>({formData:student, setOpen, open , handleSubmit}: {formData?: Student; setOpen: any; open: boolean; handleSubmit?: T }) {
+ const [formData  , setFormData] = useState(student ||{nameAr:'', nameEn:'', level:'', notes:''});
   return (
     <View
       style={{
@@ -20,7 +21,7 @@ export default function StudentForm({ setOpen, open , handleSubmit}: { setOpen: 
       <FormHeading title="اضافة طالب جديد" name={"x"} setOpen={setOpen} />
 
       {/* Form Content */}
-      <Form formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} page="Students" btn1="اضافة"  btn2="الغاء" setOpen={setOpen} />
+      <Form  formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} page="Students" btn1="اضافة"  btn2="الغاء" setOpen={setOpen} />
      
 
     
