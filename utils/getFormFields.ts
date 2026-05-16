@@ -70,6 +70,7 @@ export const getFormFields = (page: string) => {
   ];
   const MonthlyReportsFields = [
     {
+      name: "student",
       label: "الطالب",
       type: "select",
       data: [
@@ -79,6 +80,7 @@ export const getFormFields = (page: string) => {
       ],
     },
     {
+      name: "month",
       label: "الشهر",
       type: "select",
       data: [
@@ -98,6 +100,7 @@ export const getFormFields = (page: string) => {
     },
 
     {
+      name: "year",
       label: "السنة",
       type: "select",
       data: [
@@ -109,6 +112,7 @@ export const getFormFields = (page: string) => {
   ];
   const scheduleFields = [
     {
+      name: "student",
       label: "الطالب ",
       type: "select",
       data: [
@@ -136,6 +140,7 @@ export const getFormFields = (page: string) => {
 
   const sessionFields = [
     {
+      name: "student",
       label: "الطالب ",
       type: "select",
       data: [

@@ -6,8 +6,8 @@ import Button from "../atoms/Button";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 
-export default function StudentForm({ setOpen, open , addFn}: { setOpen: any; open: boolean; addFn?: (data: any) => Promise<void> }) {
- const formData = useState({nameAr:'', nameEn:'', level:'', notes:''});
+export default function StudentForm({ setOpen, open , handleSubmit}: { setOpen: any; open: boolean; handleSubmit?: (data: any) => Promise<void> }) {
+ const [formData  , setFormData] = useState({nameAr:'', nameEn:'', level:'', notes:''});
   return (
     <View
       style={{
@@ -20,7 +20,7 @@ export default function StudentForm({ setOpen, open , addFn}: { setOpen: any; op
       <FormHeading title="اضافة طالب جديد" name={"x"} setOpen={setOpen} />
 
       {/* Form Content */}
-      <Form page="Students" btn1="اضافة"  btn2="الغاء" setOpen={setOpen} />
+      <Form formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} page="Students" btn1="اضافة"  btn2="الغاء" setOpen={setOpen} />
      
 
     

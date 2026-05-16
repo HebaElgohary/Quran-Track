@@ -9,7 +9,7 @@ import { Feather } from "@expo/vector-icons";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 
-export default function GroupForm({ setOpen, open }: { setOpen: any; open: boolean }) {
+export default function GroupForm({handleSubmit, setOpen, open }: {handleSubmit?: (data: any) => Promise<void>; setOpen: any; open: boolean }) {
   return (
     <View style= {{  backgroundColor: "white",
         padding: 16,

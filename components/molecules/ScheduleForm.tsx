@@ -7,13 +7,13 @@ import Button from "../atoms/Button";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 
-export default function ScheduleForm({ setOpen, open }: { setOpen: any; open: boolean }) {
+export default function ScheduleForm({handleSubmit, setOpen, open }: {handleSubmit?: (data: any) => Promise<void>; setOpen: any; open: boolean }) {
   return (
     <View style={{backgroundColor:'white',padding:12,borderRadius:10}}>
        {/* form heading */} 
   <FormHeading title='موعد حصة جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
-<Form page='Schedule' btn1={"الغاء"} btn2={'اضافة'} setOpen={setOpen} />
+<Form handleSubmit={handleSubmit} page='Schedule' btn1={"الغاء"} btn2={'اضافة'} setOpen={setOpen} />
       
     </View>
   );

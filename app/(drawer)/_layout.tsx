@@ -7,7 +7,7 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import index from ".";
 import Groups from "./Groups";
 import MonthlyReports from "./MonthlyReports";
@@ -20,7 +20,7 @@ export default function Layout() {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator
-      drawerContent={({ ...props}) => (
+      drawerContent={({ ...props }) => (
         <DrawerContentScrollView>
           <View
             style={{
@@ -29,29 +29,35 @@ export default function Layout() {
               alignItems: "center",
               gap: 5,
               marginVertical: 15,
-
             }}
           >
-            <View       style={{
-            width: 50,
-              height: 50,
-              borderRadius: 25,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginVertical: 15,
+            <View
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 25,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginVertical: 15,
 
-              backgroundColor: colors.warning,
-            }}>
-               <Feather name="moon" size={25} color={colors.btnPrimary} />
+                backgroundColor: colors.warning,
+              }}
+            >
+              <Feather name="moon" size={25} color={colors.btnPrimary} />
             </View>
-            
 
             <View>
               <Title size="xl" variant="white">
                 متابعة القران
               </Title>
-              <Text style={{ marginHorizontal: 25, color: colors.secondary ,textAlign:'right'}}>
+              <Text
+                style={{
+                  marginHorizontal: 25,
+                  color: colors.secondary,
+                  textAlign: "right",
+                }}
+              >
                 القران والتجويد
               </Text>
             </View>
@@ -74,8 +80,8 @@ export default function Layout() {
         drawerPosition: "right",
         sceneStyle: {
           backgroundColor: colors.background,
-          minHeight:300,
-          overflow:'scroll'
+          minHeight: 300,
+          overflow: "scroll",
         },
         drawerActiveBackgroundColor: colors.warning,
         drawerActiveTintColor: colors.btnPrimary,
@@ -101,7 +107,6 @@ export default function Layout() {
       />
       <Drawer.Screen
         options={{
-
           drawerIcon: () => (
             <Feather name="users" size={20} color={colors.white} />
           ),
@@ -111,7 +116,6 @@ export default function Layout() {
       />
       <Drawer.Screen
         options={{
-        
           drawerIcon: () => (
             <Feather name="folder-minus" size={20} color={colors.white} />
           ),
@@ -122,7 +126,6 @@ export default function Layout() {
 
       <Drawer.Screen
         options={{
-         
           drawerIcon: () => (
             <Feather name="book" size={20} color={colors.white} />
           ),
@@ -132,7 +135,6 @@ export default function Layout() {
       />
       <Drawer.Screen
         options={{
-
           drawerIcon: () => (
             <Feather name="calendar" size={20} color={colors.white} />
           ),
@@ -142,7 +144,6 @@ export default function Layout() {
       />
       <Drawer.Screen
         options={{
-  
           drawerIcon: () => (
             <Feather name="file-text" size={20} color={colors.white} />
           ),
@@ -152,7 +153,6 @@ export default function Layout() {
       />
       <Drawer.Screen
         options={{
-        
           drawerIcon: () => (
             <Feather name="settings" size={20} color={colors.white} />
           ),

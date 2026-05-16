@@ -20,11 +20,10 @@ export const useStudents = () => {
       ...data,
     };
 
+    
     setStudents((prev) => {
       const updated = [...prev, newStudent];
-
       saveStudents(updated);
-
       return updated;
     });
   };

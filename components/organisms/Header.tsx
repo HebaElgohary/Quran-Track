@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-
 import Button from "../atoms/Button";
 import Heading from "../molecules/Heading";
 import FormModal from "../molecules/form/FormModal";
@@ -10,13 +9,13 @@ export default function Header({
   subtitle,
   btn,
   formName,
-  AddFn,
+  handleSubmit,
 }: {
   title: string;
   subtitle: string;
   btn?: string;
   formName?: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
-  AddFn?: (data: any) => Promise<void>;
+  handleSubmit?:(data: any) => Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -46,7 +45,7 @@ export default function Header({
           open={open}
           setOpen={setOpen}
           formName={formName}
-          addFn={AddFn}
+          handleSubmit={handleSubmit}
         />
       )}
     </View>

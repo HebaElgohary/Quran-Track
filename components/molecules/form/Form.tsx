@@ -4,12 +4,16 @@ import { View } from 'react-native'
 import FormField from './FormField'
 import Button from '@/components/atoms/Button'
 interface props{
-    page:string,
+    page:'Students'|'Groups'|'Schedule'|'Session',
     btn1?:string,
     btn2?:string,
     setOpen:any
+    formData?:any
+    setFormData?:any
+    handleSubmit?:any
 }
-export default function Form({page,btn1,btn2,setOpen}:props) {
+
+export default function Form({handleSubmit,formData,setFormData,page,btn1,btn2,setOpen}:props) {
   return (
     <View
             style={{
@@ -17,16 +21,22 @@ export default function Form({page,btn1,btn2,setOpen}:props) {
               flexDirection: "column",
               justifyContent:'space-between',
               overflow:'hidden',
-
             }}
           >
             <View style={{display:'flex' ,marginVertical:14,padding:12,gap:10}}>
             {getFormFields(page)?.map((field) => (
-              <FormField key={field?.label} {...field} />
+              <FormField 
+              value={formData?.[field?.name as keyof typeof formData] }
+              onChange={(e: any) => setFormData({ ...formData, [field?.name as keyof typeof formData]: e.target.value })}
+              key={field?.label}
+               {...field} />
             ))}
             </View>
             <View style={{display:'flex', flexDirection:'row',alignItems:'flex-end',gap:5}}>
-            <Button size='sm' variant="gray"  textColor="black" onClick={() => setOpen(false)}> {btn1}</Button>
+            <Button size='sm' variant="gray"  textColor="black" onClick={() =>
+            {  console.log(formData)
+              handleSubmit(formData)
+              setOpen(false)}}> {btn1}</Button>
            
             <Button size='sm' textColor="white" onClick={() => setOpen(false)}> {btn2}</Button>
           </View>
