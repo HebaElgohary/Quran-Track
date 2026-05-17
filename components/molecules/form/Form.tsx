@@ -3,6 +3,7 @@ import { getFormFields } from "@/utils/getFormFields";
 import React from "react";
 import { View } from "react-native";
 import FormField from "./FormField";
+import { validateStudent } from "@/utils/validateStudent";
 interface props {
   page: "Students" | "Groups" | "Schedule" | "Session";
   btn1?: string;
@@ -11,10 +12,14 @@ interface props {
   formData?: any;
   setFormData?: any;
   handleSubmit?: any;
+  errors?: any;
+  setErrors?: any;
 }
 
 export default function Form({
   handleSubmit,
+  errors,
+  setErrors,
   formData,
   setFormData,
   page,
@@ -22,6 +27,26 @@ export default function Form({
   btn2,
   setOpen,
 }: props) {
+  const onSubmit = () => {
+  const validationErrors =
+    validateStudent(formData);
+
+  setErrors(validationErrors);
+
+  if (
+    Object.keys(validationErrors).length > 0
+  ) {
+    return;
+  }
+
+  if (formData.id) {
+    handleSubmit?.(formData.id, formData);
+  } else {
+    handleSubmit?.(formData);
+  }
+
+  setOpen(false);
+};
   return (
     <View
       style={{
@@ -37,6 +62,7 @@ export default function Form({
         {getFormFields(page)?.map((field) => (
           <FormField
             value={formData?.[field?.name as keyof typeof formData]}
+           error={errors?.[field?.name as keyof typeof errors]}
             onChange={(value: any) =>
               setFormData({
                 ...formData,
@@ -60,13 +86,7 @@ export default function Form({
           size="sm"
           variant="gray"
           textColor="black"
-          onClick={() => {
-            console.log(formData);
-            formData.id
-              ? handleSubmit(formData.id, formData)
-              : handleSubmit(formData);
-            setOpen(false);
-          }}
+          onClick={onSubmit}
         >
           {formData.id ? "تعديل" : btn1}{" "}
         </Button>
