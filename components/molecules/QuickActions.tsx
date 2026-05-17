@@ -54,10 +54,12 @@ export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
           <Button
             variant={checked === "btn2" ? "btnPrimary" : "gray"}
             textColor={checked === "btn2" ? "secondary" : "primary"}
+            onclick={() => {}}
             
             size="xl"
           >
             {btn2} <Feather name={"users"} />
+            
           </Button>
         </View>
 
@@ -65,6 +67,7 @@ export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
           <Button
             variant={checked === "btn3" ? "btnPrimary" : "gray"}
             textColor={checked === "btn3" ? "secondary" : "primary"}
+            onclick={() => {}}
            
             size="xl"
           >
@@ -73,6 +76,7 @@ export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
           <Button
             size="xl"
             textColor={checked === "btn4" ? "secondary" : "primary"}
+            onclick={() => {}}
             
             variant={checked === "btn4" ? "btnPrimary" : "gray"}
           >

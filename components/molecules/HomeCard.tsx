@@ -19,6 +19,7 @@ export default function HomeCard({title,num,icon}:props) {
         borderColor:'#ccc',
         display:'flex',
         flexDirection:'row',
+        alignItems:'center',
           justifyContent: "space-between",
 
       }}>
@@ -27,8 +28,8 @@ export default function HomeCard({title,num,icon}:props) {
         <Subtitle>{title}</Subtitle>
         <Title size="xl">{num}</Title>
        </View>
-         <View style={{display:'flex',justifyContent:'center',alignItems:'center',borderRadius:15,paddingHorizontal:20,gap:10,backgroundColor:'#F1E7D0'}}>
-       <Feather name={icon} size={25} color={colors.btnPrimary} />
+         <View style={{display:'flex',justifyContent:'center',alignItems:'center',borderRadius:15,padding:15,gap:1,backgroundColor:'#F1E7D0'}}>
+       <Feather name={icon} size={20} color={colors.btnPrimary} />
         </View>
         
 
