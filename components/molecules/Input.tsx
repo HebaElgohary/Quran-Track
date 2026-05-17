@@ -17,6 +17,8 @@ export default function Input({
 
       <TextInput
         {...props}
+        value={props.value}
+      onChangeText={props.onChange}
         multiline={multiline}
         style={[
           styles.input,

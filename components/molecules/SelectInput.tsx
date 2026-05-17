@@ -1,12 +1,9 @@
-import { Picker } from '@react-native-picker/picker';
-import React, { useState } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
-import Title from '../atoms/Title';
 import Select from './Select';
-import Subtitle from '../atoms/Subtitle';
 import { colors } from '@/constants/theme';
 
-export default function SelectInput({label,data}:{label?:string,data:any}) {
+export default function SelectInput({label,value,onChange,data}:{value?:string,onChange?:any,label?:string,data:any}) {
 
   return (
     <View style={{gap:7,marginVertical:10 ,display:'flex'}} >
@@ -18,7 +15,7 @@ export default function SelectInput({label,data}:{label?:string,data:any}) {
          fontWeight: "500",
      
        }}>{label}</Text>}
-      <Select data={data} />
+      <Select data={data} value={value} onChange={onChange} />
 
     </View>
   )

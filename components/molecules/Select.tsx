@@ -2,7 +2,7 @@ import { colors } from "@/constants/theme";
 import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import { View } from "react-native";
-export default function Select({ data }: { data: any }) {
+export default function Select({ data, value, onChange }: { data: any, value: any, onChange: any }) {
   const [selected, setSelected] = useState("");
 
   return (
@@ -19,8 +19,10 @@ export default function Select({ data }: { data: any }) {
           alignSelf: "end",
           
         }}
-        selectedValue={selected}
-        onValueChange={(itemValue) => setSelected(itemValue)}
+          selectedValue={value}
+      onValueChange={(itemValue) =>
+        onChange(itemValue)
+      }
       >
         {data.map((item: { label: string; value: string }) => (
           <Picker.Item key={item.label} label={item.label} value={item.value}  />
