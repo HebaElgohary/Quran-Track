@@ -1,14 +1,11 @@
-import { getFormFields } from "@/utils/getFormFields";
 import React, { useState } from "react";
 import { View } from "react-native";
-import FormField from "../molecules/form/FormField";
-import Button from "../atoms/Button";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 import { Student } from "@/types/student";
 
 export default function StudentForm<T>({formData:student, setOpen, open , handleSubmit}: {formData?: Student; setOpen: any; open: boolean; handleSubmit?: T }) {
- const [formData  , setFormData] = useState(student ||{nameAr:'', nameEn:'', level:'', notes:''});
+ const [formData  , setFormData] = useState(student ||{nameAr:'', nameEn:'', level:'مبتدئ', notes:''});
   return (
     <View
       style={{

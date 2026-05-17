@@ -1,9 +1,7 @@
 import { colors } from "@/constants/theme";
 import { Picker } from "@react-native-picker/picker";
-import { useState } from "react";
 import { View } from "react-native";
 export default function Select({ data, value, onChange }: { data: any, value: any, onChange: any }) {
-  const [selected, setSelected] = useState("");
 
   return (
     <View>
