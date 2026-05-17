@@ -1,5 +1,5 @@
 import { btnSize, colors } from "@/constants/theme";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 type Props = {
@@ -21,26 +21,26 @@ export default function Button({
   name,
   setOpen
 }: Props) {
-  return (
-    <Pressable onPress={onClick} className={`:hover:bg-red-600 rounded-md transition-colors duration-300`}>
-      <Text
-        style={{
-         
-          color: colors[textColor],
-          fontWeight:'bold',
-          backgroundColor: colors[variant],
-          padding: 9,
-          width: btnSize[size],
-          textAlign: "center",
-          paddingVertical:12,
-          fontSize:10,
-          borderRadius: 6,
-          display:'flex',justifyContent:'space-between',alignItems:'center',
-        }}
-      >
+ return (
+  <Pressable onPress={onClick}>
+    <View
+      style={{
+        backgroundColor: colors[variant],
+        paddingVertical: 12,
+        padding: 9,
+        width: btnSize[size],
+        borderRadius: 6,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text style={{ color: colors[textColor], fontWeight: "bold", fontSize: 10 }}>
         {children}
-        {name&&<Feather  name={name}/>}
       </Text>
-    </Pressable>
-  );
+
+      {name && <Feather name={name}  color="white" />}
+    </View>
+  </Pressable>
+);
 }

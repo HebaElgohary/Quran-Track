@@ -1,6 +1,7 @@
 import HomeCard from "@/components/molecules/HomeCard";
 import QuickActions from "@/components/molecules/QuickActions";
 import Header from "@/components/organisms/Header";
+import { router } from "expo-router";
 import React from "react";
 import { View } from "react-native";
 
@@ -27,6 +28,19 @@ export default function index() {
         btn2="ادارة الطلاب"
         btn3="مواعيد الحصص"
         btn4="التقارير الشهرية"
+        onPressBtn1={() => {
+          router.push('/(drawer)/Sessions')
+        }}
+        onPressBtn2={() => {
+          router.push('/(drawer)/Students')
+        }}
+
+        onPressBtn3={() => {
+          router.push('/(drawer)/Schedule')
+        }}
+        onPressBtn4={() => {
+          router.push('/(drawer)/MonthlyReports')
+        }}
       ></QuickActions>
     </View>
   );

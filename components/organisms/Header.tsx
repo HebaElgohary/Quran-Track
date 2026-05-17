@@ -25,7 +25,7 @@ export default function Header({
       style={{
         display: "flex",
         flexDirection: "row",
-        gap: 3,
+        gap: 5,
         marginVertical: 15,
         padding: 1,
       }}
@@ -33,7 +33,7 @@ export default function Header({
       <Heading title={title} subtitle={subtitle} />
       {btn && (
         <Button
-          size="lg"
+          size="xl"
           variant="btnPrimary"
           name="plus"
           onClick={() => setOpen(true)}

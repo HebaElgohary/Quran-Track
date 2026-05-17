@@ -37,7 +37,7 @@ export default function NoDataFallback({formName, Icon, text, btn }: props) {
 {/* Text */}
       <View  style={{display:'flex' ,alignItems:'center'}}>
         <Subtitle>{text}</Subtitle>
-        <Button variant="btnPrimary" size="lg" name="plus" onClick={() => {setOpen(true);}}>{btn}</Button>
+        <Button variant="btnPrimary" size="xl" name="plus" onClick={() => {setOpen(true);}}>{btn}</Button>
      <View />
 
      {/* ///////////////// */}

@@ -9,18 +9,21 @@ interface props {
   btn2: string;
   btn3: string;
   btn4: string;
+  onPressBtn1: () => void;
+  onPressBtn2: () => void;
+  onPressBtn3: () => void;
+  onPressBtn4: () => void;
 }
-export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
+export default function QuickActions({ onPressBtn1, onPressBtn2, onPressBtn3, onPressBtn4, title, btn1, btn2, btn3, btn4 }: props) {
   const [checked, setChecked] = useState("btn1");
   return (
     <View
       style={{
         backgroundColor: "white",
-        marginHorizontal: "10px",
-        marginVertical: "30px",
-
-        padding: "15px",
-        borderRaduis: "35px",
+        marginHorizontal: 10,
+        marginVertical: 30,
+        padding: 15,
+        borderRadius: 35,
         gap: 10,
         display: "flex",
         flexDirection: "column",
@@ -45,7 +48,12 @@ export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
             variant={checked === "btn1" ? "btnPrimary" : "gray"}
             textColor={checked === "btn1" ? "secondary" : "primary"}
           
-            onclick={() => {}}
+            onClick={() => {
+              console.log("btn1 clicked");
+
+              setChecked("btn1");
+              onPressBtn1();
+            }}
             size="xl"
           >
             {btn1}
@@ -54,7 +62,11 @@ export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
           <Button
             variant={checked === "btn2" ? "btnPrimary" : "gray"}
             textColor={checked === "btn2" ? "secondary" : "primary"}
-            onclick={() => {}}
+            onClick={() => {
+              setChecked("btn2");
+              onPressBtn2();
+
+            }}
             
             size="xl"
           >
@@ -67,7 +79,11 @@ export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
           <Button
             variant={checked === "btn3" ? "btnPrimary" : "gray"}
             textColor={checked === "btn3" ? "secondary" : "primary"}
-            onclick={() => {}}
+            onClick={() => {
+              setChecked("btn3");
+              onPressBtn3();
+
+            }}
            
             size="xl"
           >
@@ -76,7 +92,11 @@ export default function QuickActions({ title, btn1, btn2, btn3, btn4 }: props) {
           <Button
             size="xl"
             textColor={checked === "btn4" ? "secondary" : "primary"}
-            onclick={() => {}}
+            onClick={() => {
+              setChecked("btn4");
+              onPressBtn4();
+
+            }}
             
             variant={checked === "btn4" ? "btnPrimary" : "gray"}
           >
