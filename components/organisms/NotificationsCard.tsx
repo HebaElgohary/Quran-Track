@@ -27,7 +27,7 @@ export default function NotificationCard(
     flexDirection: "row",
     justifyContent:'space-between',
     alignItems: "center",
-    backgroundColor: '#ec8',
+    backgroundColor: '#F1E7D0',
     marginHorizontal: 10,
     padding: 15,
     borderWidth: 1,

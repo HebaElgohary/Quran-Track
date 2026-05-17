@@ -5,13 +5,22 @@ import React from "react";
 import { View } from "react-native";
 
 export default function index() {
+
   return (
     <View style={{ direction: "rtl" }}>
       <Header
         title="الصفحة الرئيسية"
         subtitle="نظرة عامة على حصصك وطلابك "
       ></Header>
-      <HomeCard title={"عدد الطلاب"} num={2} icon=""></HomeCard>
+      {/* cards */}
+     <View style={{display:'flex',gap:10}}>
+
+      <HomeCard title={"عدد الطلاب"} num={2} icon="users"></HomeCard>
+      <HomeCard title={" حصص اليوم"} num={0} icon="calendar"></HomeCard>
+      <HomeCard title={" حصص هذا الشهر "} num={3} icon="file-text"></HomeCard>
+      <HomeCard title={" اجمالى الحصص"} num={5} icon="book-open"></HomeCard>
+</View>
+{/* //////////////// */}
       <QuickActions
         title="اجراءات سريعة"
         btn1="تقرير حصة جديدة"
