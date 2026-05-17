@@ -18,6 +18,7 @@ export default function Groups() {
       />
       {groups.length === 0 && (
         <NoDataFallback
+          formName="Groups"
           Icon={() => <Feather name="folder-minus" size={30} color="gray" />}
           text="لاتوجد مجموعات مسجلة "
           btn="اضف اول مجموعة "

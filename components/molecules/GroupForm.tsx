@@ -13,7 +13,10 @@ export default function GroupForm<T>({handleSubmit, setOpen, open }: {handleSubm
   return (
     <View style= {{  backgroundColor: "white",
         padding: 16,
-        borderRadius: 10,}}>
+        borderRadius: 10,
+        width:'100%',
+        marginHorizontal:'auto'
+        }}>
        {/* form heading */} 
   <FormHeading title='مجموعة  جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}

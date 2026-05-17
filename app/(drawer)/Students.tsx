@@ -26,9 +26,11 @@ export default function Students() {
       {students.length === 0 && <View style={{marginTop:20}}>
         <NoDataFallback text='لايوجد طلاب مسجلين' btn='اضافة اول طالب' Icon={() => <Feather name="users" size={30} color="gray" />}  />
         </View>}
+  <View style={{gap:10}}>
    {students.map((student) =>
     <StudentCard key={student.id} updateStudent={updateStudent} handleDelete={handleDelete} isStudent student={student} btn1='edit' btn2='delete'></StudentCard>
    )}
+   </View>
     </View>
   )
 }

@@ -75,9 +75,10 @@ export default function StudentCard({
   
   container: {
     backgroundColor: "white",
+    borderColor: "#ccc",
+    borderWidth: 1,
     marginHorizontal: 10,
     padding: 15,
-    borderWidth: 1,
     borderRadius: 16,
     gap: 12,
   },

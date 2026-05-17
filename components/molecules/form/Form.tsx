@@ -16,7 +16,7 @@ interface props {
   setErrors?: any;
 }
 
-export default function Form({
+export default function Form<T>({
   handleSubmit,
   errors,
   setErrors,
@@ -88,7 +88,7 @@ export default function Form({
           textColor="black"
           onClick={onSubmit}
         >
-          {formData.id ? "تعديل" : btn1}{" "}
+          {formData?.id? "تعديل" : btn1}{" "}
         </Button>
 
         <Button size="sm" textColor="white" onClick={() => setOpen(false)}>
