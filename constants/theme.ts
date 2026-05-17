@@ -7,7 +7,7 @@ export const colors = {
   danger: "#D32F2F",
   warning: "#c89d41",
   text: "#1F1F1F",
-  gray: "#7777",
+  gray: "#F1E7D0",
   transparent:'transparent',
   background: "#F8F6F2",
   white: "#FFFFFF",

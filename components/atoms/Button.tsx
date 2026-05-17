@@ -4,8 +4,8 @@ import { Feather } from "@expo/vector-icons";
 
 type Props = {
   variant?: "primary" | "danger" | "transparent"|'btnPrimary'|'gray';
-  size?:'sm'|'md'|'lg'
-  textColor?:'danger'|'warning'|'secondary'|'black'|'white'
+  size?:'sm'|'md'|'lg'|'xl'|'xxl';
+  textColor?:'danger'|'warning'|'secondary'|'black'|'white'|'primary';
   children?: React.ReactNode;
   onClick?: () => void;
     name?:string
