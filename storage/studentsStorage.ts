@@ -53,11 +53,11 @@ export const deleteStudent = async (id: number) => {
 };
 
 //----------- update Student -------//
-export const updateStudent = async (id: number, newData: any) => {
+export const updateStudent = async (newData:Student) => {
   try {
     const data = await getStudents();
     const updated = data.map((student: Student) =>
-      student.id === id ? { ...student, ...newData } : student
+      student.id === newData.id ? { ...student, ...newData } : student
     );
     await AsyncStorage.setItem(KEY, JSON.stringify(updated));
   } catch (error) {

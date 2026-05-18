@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStudents, addStudent } from "../storage/studentsStorage";
+import { getStudents, addStudent , updateStudent, deleteStudent} from "../storage/studentsStorage";
 import { Student } from "@/types/appTypes";
 
 export const useStudents = () => {
@@ -25,10 +25,10 @@ export const useStudents = () => {
     // ADD Student
     // =========================
     const createStudent = async (
-      groupData: Omit<Student, "id">
+      studentData: Omit<Student, "id">
     ) => {
       try {
-        await addStudent(groupData);
+        await addStudent(studentData);
   
         await loadStudents();
       } catch (error) {
@@ -36,28 +36,44 @@ export const useStudents = () => {
       }
     };
 
-  const deleteStudent = async (id: string) => {
-    const updated = students.filter(
-      (student) => student.id !== id
-    );
 
-    setStudents(updated);
-    await addStudents(updated);
-  };
+    
+      // =========================
+      // UPDATE STUDENT
+      // =========================
+      const editStudent = async (updatedStudent: Student) => {
+        try {
+          await updateStudent(updatedStudent);
+    
+          await loadStudents();
+        } catch (error) {
+          console.log("Error updating group", error);
+        }
+      };
+      
 
-  const updateStudent = async (
-    id: string,
-    newData: any
-  ) => {
-    const updated = students.map((student) =>
-      student.id === id
-        ? { ...student, ...newData }
-        : student
-    );
+  // const deleteStudent = async (id: string) => {
+  //   const updated = students.filter(
+  //     (student) => student.id !== id
+  //   );
 
-    setStudents(updated);
-    await saveStudents(updated);
-  };
+  //   setStudents(updated);
+  //   await addStudents(updated);
+  // };
+
+  // const updateStudent = async (
+  //   id: number,
+  //   newData: any
+  // ) => {
+  //   const updated = students.map((student) =>
+  //     student.id === id
+  //       ? { ...student, ...newData }
+  //       : student
+  //   );
+
+  //   setStudents(updated);
+  //   await saveStudents(updated);
+  // };
 
   return {
     students,
