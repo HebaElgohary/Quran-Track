@@ -50,36 +50,37 @@ export const useStudents = () => {
           console.log("Error updating group", error);
         }
       };
-      
 
-  // const deleteStudent = async (id: string) => {
-  //   const updated = students.filter(
-  //     (student) => student.id !== id
-  //   );
 
-  //   setStudents(updated);
-  //   await addStudents(updated);
-  // };
+  // =========================
+  // DELETE STUDENT
+  // =========================
+  const removeStudent = async (studentId: number) => {
+    try {
+      await deleteStudent(studentId);
 
-  // const updateStudent = async (
-  //   id: number,
-  //   newData: any
-  // ) => {
-  //   const updated = students.map((student) =>
-  //     student.id === id
-  //       ? { ...student, ...newData }
-  //       : student
-  //   );
+      await loadStudents();
+    } catch (error) {
+      console.log("Error deleting group", error);
+    }
+  };
 
-  //   setStudents(updated);
-  //   await saveStudents(updated);
-  // };
+  // =========================
+  // FIRST LOAD
+  // =========================
+  useEffect(() => {
+    loadStudents();
+  }, []);
 
   return {
     students,
-    addStudent,
-    deleteStudent,
-    updateStudent,
-    reloadStudents: loadStudents,
+    loading,
+
+    loadStudents,
+    editStudent,
+    removeStudent,
+
+    createStudent,
+ 
   };
-};
+}
