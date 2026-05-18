@@ -8,14 +8,14 @@ import Title from "../atoms/Title";
 import Avatar from "./Avatar";
 import FormModal from "./form/FormModal";
 
-type updateType = (id: string, newData: any) => Promise<void>;
+type updateType = ( newData: Student) => Promise<void>;
 interface StudentCardProps {
   isStudent: boolean;
   student: Student;
   btn1: string;
   btn2: string;
   image?: string;
-  handleDelete: (id: string) => void;
+  handleDelete: (id: number) => void;
   updateStudent: updateType;
 }
 
