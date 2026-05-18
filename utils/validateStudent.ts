@@ -1,4 +1,4 @@
-import { Student } from "@/types/student";
+import { Student } from "@/types/appTypes";
 
 export const validateStudent = (data: Student) => {
   const errors: Record<string, string> = {};
@@ -15,23 +15,15 @@ export const validateStudent = (data: Student) => {
   // Arabic validation
   const arabicRegex = /^[\u0600-\u06FF\s]+$/;
 
-  if (
-    data.nameAr &&
-    !arabicRegex.test(data.nameAr)
-  ) {
-    errors.nameAr =
-      "الاسم العربي يجب ان يحتوي على حروف عربية فقط";
+  if (data.nameAr && !arabicRegex.test(data.nameAr)) {
+    errors.nameAr = "الاسم العربي يجب ان يحتوي على حروف عربية فقط";
   }
 
   // English validation
   const englishRegex = /^[A-Za-z\s]+$/;
 
-  if (
-    data.nameEn &&
-    !englishRegex.test(data.nameEn)
-  ) {
-    errors.nameEn =
-      "الاسم الانجليزي يجب ان يحتوي على حروف انجليزية فقط";
+  if (data.nameEn && !englishRegex.test(data.nameEn)) {
+    errors.nameEn = "الاسم الانجليزي يجب ان يحتوي على حروف انجليزية فقط";
   }
 
   return errors;

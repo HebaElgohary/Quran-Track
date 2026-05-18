@@ -1,30 +1,30 @@
 export interface Student {
-  id: string;
+  id: number;
   nameAr: string;
   nameEn: string;
     level: string;
     notes: string;
-     groupId?: string; // Add groupId 
+     groupId?: number; // Add groupId 
 
 }
 
 
 
  export type Group = {
-  id: string;
+  id: number;
   nameAr: string;
   nameEn: string;
   color: string;
 };
 
  export type Session = {
-  id: string;
+  id: number;
   groupId: string;
   date: string;
 };
 
  export type Report = {
-  id: string;
+  id: number;
   studentId: string;
   note: string;
 };

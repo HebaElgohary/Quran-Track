@@ -1,4 +1,4 @@
-import { Student } from "@/types/student";
+import { Student } from "@/types/appTypes";
 import React, { useState } from "react";
 import { View } from "react-native";
 import Form from "./form/Form";

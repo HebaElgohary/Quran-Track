@@ -1,33 +1,32 @@
-import { View } from "react-native";
+import { Student } from "@/types/appTypes";
+import { Feather } from "@expo/vector-icons";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
-import { Feather } from "@expo/vector-icons";
 import Avatar from "./Avatar";
-import { StyleSheet } from "react-native";
-import { Student } from "@/types/student";
 import FormModal from "./form/FormModal";
-import { useState } from "react";
 
 type updateType = (id: string, newData: any) => Promise<void>;
 interface StudentCardProps {
   isStudent: boolean;
- student:Student;
+  student: Student;
   btn1: string;
   btn2: string;
   image?: string;
-  handleDelete:(id:string)=>void
-  updateStudent:updateType;
+  handleDelete: (id: string) => void;
+  updateStudent: updateType;
 }
 
 export default function StudentCard({
- student,
+  student,
   btn1,
   btn2,
   isStudent,
   image,
   handleDelete,
-  updateStudent
+  updateStudent,
 }: StudentCardProps) {
   const [open, setOpen] = useState(false);
   return (
@@ -54,25 +53,34 @@ export default function StudentCard({
 
       {/* Actions */}
       <View style={styles.actionsRow}>
-        <Button variant="transparent" textColor="warning" onClick={() => setOpen(true)}>
+        <Button
+          variant="transparent"
+          textColor="warning"
+          onClick={() => setOpen(true)}
+        >
           {btn1} <Feather name="edit-2" />
         </Button>
 
-        <Button variant="transparent" textColor="danger" onClick={() => handleDelete(student.id)}>
+        <Button
+          variant="transparent"
+          textColor="danger"
+          onClick={() => handleDelete(student.id)}
+        >
           {btn2} <Feather name="trash-2" />
         </Button>
       </View>
-      <FormModal<updateType> open={open} setOpen={setOpen} formData={student}
-      formName="Students" 
-      handleSubmit={updateStudent}
-       />
+      <FormModal<updateType>
+        open={open}
+        setOpen={setOpen}
+        formData={student}
+        formName="Students"
+        handleSubmit={updateStudent}
+      />
     </View>
   );
-
 }
 
- const styles = StyleSheet.create({
-  
+const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     borderColor: "#ccc",

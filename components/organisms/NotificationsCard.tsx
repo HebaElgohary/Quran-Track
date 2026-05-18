@@ -1,12 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
-
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { colors } from "@/constants/theme";
-
-
 
 
 export default function NotificationCard(
