@@ -1,4 +1,4 @@
-import { Student, StudentForm } from "@/types/appTypes";
+import { Student, StudentFormData } from "@/types/appTypes";
 import React, { useState } from "react";
 import { View } from "react-native";
 import Form from "./form/Form";
@@ -16,7 +16,7 @@ export default function StudentForm<T>({
   handleSubmit?: (data: T) => Promise<void>;
 }) {
   const [formData, setFormData] = useState(
-    student || {} as StudentForm,
+    student || {} as StudentFormData,
   );
   const [errors, setErrors] = useState<any>({});
   return (

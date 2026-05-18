@@ -7,7 +7,7 @@ export interface Student {
      groupId?: number; // Add groupId 
 
 }
-export type StudentForm = Omit<Student, "id" | "groupId">;
+export type StudentFormData = Omit<Student, "id" | "groupId">;
 
 
 

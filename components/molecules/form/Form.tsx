@@ -27,6 +27,7 @@ export default function Form<T>({
   btn2,
   setOpen,
 }: props<T>) {
+  console.log('formData in group`', formData);
   const onSubmit = () => {
   const validationErrors =
     validateStudent(formData);
