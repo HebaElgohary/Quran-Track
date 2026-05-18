@@ -39,7 +39,7 @@ export default function Button({
         {children}
       </Text>
 
-      {name && <Feather name={name}  color="white" />}
+      {name && <Feather name={name as any}  color="white" />}
     </View>
   </Pressable>
 );
