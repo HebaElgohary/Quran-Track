@@ -67,12 +67,12 @@ export const updateStudent = async (newData:Student) => {
 
 //------ assign students to group -------//
 export const assignStudentsToGroup = async (
-  studentIds: string[],
-  groupId: string
+  studentIds: number[],
+  groupId: number
 ) => {
   const students = await getStudents();
 
-  const updated = students.map((student) =>
+  const updated = students.map((student: Student) =>
     studentIds.includes(student.id)
       ? { ...student, groupId }
       : student
