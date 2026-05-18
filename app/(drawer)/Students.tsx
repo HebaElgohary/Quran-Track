@@ -2,18 +2,19 @@ import StudentCard from '@/components/molecules/StudentCard'
 import Header from '@/components/organisms/Header'
 import NoDataFallback from '@/components/organisms/NoDataFallback';
 import { useStudents } from '@/hooks/useStudent';
+import { Student } from '@/types/appTypes';
 import { Feather } from '@expo/vector-icons';
 import React from 'react'
 import { View } from 'react-native'
 
 export default function Students() {
-    const { students, addStudent,deleteStudent, updateStudent } = useStudents();
-  const handleAdd = async (data: any) => {
-    await addStudent(data);
+    const { students, createStudent, editStudent, removeStudent } = useStudents();
+  const handleAdd = async (data: Student) => {
+    await createStudent(data);
     alert('تم الاضافة بنجاح');
   };
-  const handleDelete = async (id: string) => {
-    await deleteStudent(id);
+  const handleDelete = async (id: number) => {
+    await removeStudent(id);
     alert('تم الحذف بنجاح');
   }
     return (
