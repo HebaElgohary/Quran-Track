@@ -4,8 +4,7 @@ import Button from "../atoms/Button";
 import Heading from "../molecules/Heading";
 import FormModal from "../molecules/form/FormModal";
 
-type AddType=(data: any) => Promise<void>
-export default function Header({
+export default function Header<T>({
   title,
   subtitle,
   btn,
@@ -16,7 +15,7 @@ export default function Header({
   subtitle: string;
   btn?: string;
   formName?: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
-  handleSubmit?:AddType;
+  handleSubmit?:T;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -42,7 +41,7 @@ export default function Header({
         </Button>
       )}
       {formName && (
-        <FormModal<AddType>
+        <FormModal<T>
           open={open}
           setOpen={setOpen}
           formName={formName}

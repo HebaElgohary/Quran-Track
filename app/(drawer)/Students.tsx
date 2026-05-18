@@ -7,9 +7,11 @@ import { Feather } from '@expo/vector-icons';
 import React from 'react'
 import { View } from 'react-native'
 
+type AddType=(data: Student) => Promise<void>
+
 export default function Students() {
     const { students, createStudent, editStudent, removeStudent } = useStudents();
-  const handleAdd = async (data: Student) => {
+  const handleAdd:AddType = async (data: Student) => {
     await createStudent(data);
     alert('تم الاضافة بنجاح');
   };
@@ -19,7 +21,8 @@ export default function Students() {
   }
     return (
     <View style={{direction:'rtl' }} >
-      <Header title='الطلاب '
+      <Header<AddType>
+       title='الطلاب '
        subtitle='ادارة قائمةالطلاب' 
        handleSubmit={handleAdd}
        btn='اضافة طالب'

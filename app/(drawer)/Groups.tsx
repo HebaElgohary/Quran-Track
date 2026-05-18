@@ -4,6 +4,7 @@ import NotificationCard from "@/components/organisms/NotificationsCard";
 import useGroups from "@/hooks/useGroup";
 import { addGroup } from "@/storage/groupsStorage";
 import { assignStudentsToGroup } from "@/storage/studentsStorage";
+import { GroupFormData } from "@/types/appTypes";
 
 import { Feather } from "@expo/vector-icons";
 import React from "react";
@@ -12,7 +13,8 @@ import { View } from "react-native";
 export default function Groups() {
  const { groups, loading,createGroup } = useGroups();
 
-const AddGroup = async (formData:any) => {
+ type addGroupType = (formData: GroupFormData) => Promise<void>
+const AddGroup:addGroupType = async (formData:GroupFormData) => {
   const { students, ...groupData } = formData;
 
   const group  = await addGroup(groupData);
@@ -22,7 +24,7 @@ const AddGroup = async (formData:any) => {
 };
   return (
     <View style={{ direction: "rtl" }}>
-      <Header
+      <Header <addGroupType>
         formName="Groups"
         title="المجموعات"
         subtitle="قسم طلابك لمجموعات وشارك تقاريرهم الشهرية دفعة واحدة  "

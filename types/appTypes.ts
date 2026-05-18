@@ -16,6 +16,9 @@ export interface Student {
   nameEn: string;
   color: string;
 };
+export type GroupFormData = Omit<Group, "id"> & {
+  students: any[];
+};
 
  export type Session = {
   id: number;
