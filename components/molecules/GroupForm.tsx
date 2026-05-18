@@ -3,7 +3,7 @@ import {  View } from "react-native";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 
-export default function GroupForm<T>({handleSubmit, setOpen, open }: {handleSubmit?: T; setOpen: any; open: boolean }) {
+export default function GroupForm<T>({handleSubmit, setOpen, open }: {handleSubmit?: (data: T)=>Promise<void>; setOpen: any; open: boolean }) {
   return (
     <View style= {{  backgroundColor: "white",
         padding: 16,
