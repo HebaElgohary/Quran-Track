@@ -1,29 +1,40 @@
 import { useEffect, useState } from "react";
-import { getStudents, saveStudents } from "../storage/studentsStorage";
+import { getStudents, addStudent } from "../storage/studentsStorage";
+import { Student } from "@/types/appTypes";
 
 export const useStudents = () => {
-  const [students, setStudents] = useState<any[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    loadStudents();
-  }, []);
-
+  // LOAD Students
+  // =========================
   const loadStudents = async () => {
-    const data = await getStudents();
-    setStudents(data || []);
+    try {
+      setLoading(true);
+
+      const data = await getStudents();
+
+      setStudents(data);
+    } catch (error) {
+      console.log("Error loading groups", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const addStudent = async (data: any) => {
-    const newStudent = {
-      id: Date.now().toString(),
-      ...data,
+    // ADD Student
+    // =========================
+    const createStudent = async (
+      groupData: Omit<Student, "id">
+    ) => {
+      try {
+        await addStudent(groupData);
+  
+        await loadStudents();
+      } catch (error) {
+        console.log("Error creating group", error);
+      }
     };
-
-    const updated = [...students, newStudent];
-
-    setStudents(updated);
-    await saveStudents(updated);
-  };
 
   const deleteStudent = async (id: string) => {
     const updated = students.filter(
@@ -31,7 +42,7 @@ export const useStudents = () => {
     );
 
     setStudents(updated);
-    await saveStudents(updated);
+    await addStudents(updated);
   };
 
   const updateStudent = async (

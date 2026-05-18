@@ -6,7 +6,7 @@ import {
   addGroup,
   updateGroup,
   deleteGroup,
-} from "@/storage/groups";
+} from "@/storage/groupsStorage";
 
 import { Group } from "@/types/appTypes";
 
