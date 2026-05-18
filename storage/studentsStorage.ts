@@ -3,9 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const KEY = 'students';
 
+//------- get Students -------//
 export const getStudents = async () => {
-
-
   try {
     const data = await AsyncStorage.getItem(KEY);
 
@@ -15,6 +14,7 @@ export const getStudents = async () => {
     return [];
   }
 };
+//------- add Student -------//
 export const addStudent = async (newStudent: Omit<Student, "id">) => {
   
 
@@ -40,3 +40,16 @@ export const addStudent = async (newStudent: Omit<Student, "id">) => {
   }
 
 };
+
+//------- delete Student -------//
+const deleteStudent = async (id: number) => {
+  try {
+    const data = await getStudents();
+    const updated = data.filter((student: Student) => student.id !== id);
+    await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+  } catch (error) {
+    console.log("Error deleting group", error);
+  }
+};
+
+//
