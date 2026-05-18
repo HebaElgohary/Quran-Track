@@ -2,6 +2,8 @@ import Header from "@/components/organisms/Header";
 import NoDataFallback from "@/components/organisms/NoDataFallback";
 import NotificationCard from "@/components/organisms/NotificationsCard";
 import useGroups from "@/hooks/useGroup";
+import { addGroup } from "@/storage/groupsStorage";
+import { assignStudentsToGroup } from "@/storage/studentsStorage";
 
 import { Feather } from "@expo/vector-icons";
 import React from "react";
@@ -13,9 +15,10 @@ export default function Groups() {
 const AddGroup = async (formData:any) => {
   const { students, ...groupData } = formData;
 
-  const newGroup = await addGroup(groupData);
+  const group  = await addGroup(groupData);
+  if(!group) return
 
-  await assignStudentsToGroup(students, newGroup.id);
+  await assignStudentsToGroup(students, group.id);
 };
   return (
     <View style={{ direction: "rtl" }}>

@@ -16,7 +16,7 @@ export const getGroups = async (): Promise<Group[]> => {
 };
 
 //-------- ADD GROUP --------//
-export const addGroup = async (newGroup: Omit<Group, "id">) => {
+export const addGroup = async (newGroup: Omit<Group, "id">): Promise<Group> => {
   try {
     // old groups
     const oldGroups = await getGroups();
@@ -32,9 +32,10 @@ export const addGroup = async (newGroup: Omit<Group, "id">) => {
     // save
     await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(updatedGroups));
 
-    return updatedGroups;
+    return  group;
   } catch (error) {
     console.log("Error adding group", error);
+    throw error;
   }
 
 };
@@ -59,6 +60,8 @@ export const updateGroup = async (updatedGroup: Group) => {
     return updatedGroups;
   } catch (error) {
     console.log("Error updating group", error);
+      throw error;
+
   }
 };
 
