@@ -15,7 +15,7 @@ export const getGroups = async (): Promise<Group[]> => {
   }
 };
 
-// ADD GROUP
+//-------- ADD GROUP --------//
 export const addGroup = async (newGroup: Omit<Group, "id">) => {
   try {
     // old groups
@@ -27,7 +27,6 @@ export const addGroup = async (newGroup: Omit<Group, "id">) => {
       ...newGroup,
     };
 
-    // updated array
     const updatedGroups = [...oldGroups, group];
 
     // save
@@ -40,7 +39,7 @@ export const addGroup = async (newGroup: Omit<Group, "id">) => {
 
 };
 
-// update GROUP
+//---------- update GROUP ----------//
 export const updateGroup = async (updatedGroup: Group) => {
   try {
     // old groups
@@ -60,5 +59,16 @@ export const updateGroup = async (updatedGroup: Group) => {
     return updatedGroups;
   } catch (error) {
     console.log("Error updating group", error);
+  }
+};
+
+//---------- delete GROUP ----------//
+export const deleteGroup = async (groupId: number) => {
+  try {
+    const oldGroups = await getGroups();
+    const updatedGroups = oldGroups.filter((group) => group.id !== groupId);
+    await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(updatedGroups));
+  } catch (error) {
+    console.log("Error deleting group", error);
   }
 };
