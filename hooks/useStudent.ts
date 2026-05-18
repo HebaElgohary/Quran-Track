@@ -16,7 +16,6 @@ export const useStudents = () => {
   const addStudent = async (data: any) => {
     const newStudent = {
       id: Date.now().toString(),
-      name: "طالب جديد",
       ...data,
     };
 

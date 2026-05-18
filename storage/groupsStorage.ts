@@ -37,4 +37,28 @@ export const addGroup = async (newGroup: Omit<Group, "id">) => {
   } catch (error) {
     console.log("Error adding group", error);
   }
+
+};
+
+// update GROUP
+export const updateGroup = async (updatedGroup: Group) => {
+  try {
+    // old groups
+    const oldGroups = await getGroups();
+    
+    // updated array
+    const updatedGroups = oldGroups.map((group) => {
+      if (group.id === updatedGroup.id) {
+        return updatedGroup;
+      }
+      return group;
+    });
+
+    // save
+    await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(updatedGroups));
+
+    return updatedGroups;
+  } catch (error) {
+    console.log("Error updating group", error);
+  }
 };
