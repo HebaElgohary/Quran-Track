@@ -42,7 +42,7 @@ export const addStudent = async (newStudent: Omit<Student, "id">) => {
 };
 
 //------- delete Student -------//
-const deleteStudent = async (id: number) => {
+export const deleteStudent = async (id: number) => {
   try {
     const data = await getStudents();
     const updated = data.filter((student: Student) => student.id !== id);
@@ -52,4 +52,15 @@ const deleteStudent = async (id: number) => {
   }
 };
 
-//
+//----------- update Student -------//
+export const updateStudent = async (id: number, newData: any) => {
+  try {
+    const data = await getStudents();
+    const updated = data.map((student: Student) =>
+      student.id === id ? { ...student, ...newData } : student
+    );
+    await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+  } catch (error) {
+    console.log("Error updating group", error);
+  }
+}
