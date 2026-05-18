@@ -4,7 +4,7 @@ import {getFormName} from "./getFormName";
 
 type FormNameKey = keyof typeof getFormName;
 
-export default function FormModal<T>({formData, open, setOpen, formName, handleSubmit }: {formData?: any; open: boolean; setOpen: any; formName?: FormNameKey; handleSubmit?: T}) {
+export default function FormModal<T>({formData, open, setOpen, formName, handleSubmit }: {formData?: any; open: boolean; setOpen: any; formName?: FormNameKey; handleSubmit?: (data: T) => Promise<void>; }) {
   const FormName = formName ? getFormName[formName] : undefined;
   return (
 

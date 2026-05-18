@@ -1,6 +1,5 @@
 import Header from "@/components/organisms/Header";
 import NoDataFallback from "@/components/organisms/NoDataFallback";
-import NotificationCard from "@/components/organisms/NotificationsCard";
 import useGroups from "@/hooks/useGroup";
 import { addGroup } from "@/storage/groupsStorage";
 import { assignStudentsToGroup } from "@/storage/studentsStorage";
@@ -11,17 +10,19 @@ import React from "react";
 import { View } from "react-native";
 
 export default function Groups() {
- const { groups, loading,createGroup } = useGroups();
+  const { groups, loading, createGroup } = useGroups();
 
- type addGroupType = (formData: GroupFormData) => Promise<void>
-const AddGroup:addGroupType = async (formData:GroupFormData) => {
-  const { students, ...groupData } = formData;
+  type addGroupType = GroupFormData;
+  const AddGroup: (formData: GroupFormData) => Promise<void> = async (
+    formData: GroupFormData,
+  ) => {
+    const { students, ...groupData } = formData;
 
-  const group  = await addGroup(groupData);
-  if(!group) return
+    const group = await addGroup(groupData);
+    if (!group) return;
 
-  await assignStudentsToGroup(students, group.id);
-};
+    await assignStudentsToGroup(students, group.id);
+  };
   return (
     <View style={{ direction: "rtl" }}>
       <Header<addGroupType>
@@ -38,8 +39,6 @@ const AddGroup:addGroupType = async (formData:GroupFormData) => {
           text="لاتوجد مجموعات مسجلة "
           btn="اضف اول مجموعة "
           handleSubmit={AddGroup}
-
-
         />
       )}
     </View>

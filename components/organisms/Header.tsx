@@ -15,7 +15,7 @@ export default function Header<T>({
   subtitle: string;
   btn?: string;
   formName?: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
-  handleSubmit?:T;
+  handleSubmit?:(data:T)=>Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
 

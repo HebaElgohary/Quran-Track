@@ -15,7 +15,7 @@ export default function NoDataFallback<T>({
   text: string;
   btn: string;
   formName?: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
-  handleSubmit?: T;
+  handleSubmit?:  (formData: T) => Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
   return (

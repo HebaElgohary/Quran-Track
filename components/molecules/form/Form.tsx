@@ -4,14 +4,14 @@ import React from "react";
 import { View } from "react-native";
 import FormField from "./FormField";
 import { validateStudent } from "@/utils/validateStudent";
-interface props {
+interface props<T> {
   page: "Students" | "Groups" | "Schedule" | "Session";
   btn1?: string;
   btn2?: string;
   setOpen: any;
   formData?: any;
   setFormData?: any;
-  handleSubmit?: any;
+  handleSubmit?: (data: T) => Promise<void>;
   errors?: any;
   setErrors?: any;
 }
@@ -26,7 +26,7 @@ export default function Form<T>({
   btn1,
   btn2,
   setOpen,
-}: props) {
+}: props<T>) {
   const onSubmit = () => {
   const validationErrors =
     validateStudent(formData);
@@ -40,7 +40,7 @@ export default function Form<T>({
   }
 
   if (formData.id) {
-    handleSubmit?.(formData.id, formData);
+    handleSubmit?.(formData);
   } else {
     handleSubmit?.(formData);
   }

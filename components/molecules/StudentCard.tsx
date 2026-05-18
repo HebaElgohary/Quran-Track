@@ -8,7 +8,7 @@ import Title from "../atoms/Title";
 import Avatar from "./Avatar";
 import FormModal from "./form/FormModal";
 
-type updateType = ( newData: Student) => Promise<void>;
+type updateDataType =Student;
 interface StudentCardProps {
   isStudent: boolean;
   student: Student;
@@ -16,7 +16,7 @@ interface StudentCardProps {
   btn2: string;
   image?: string;
   handleDelete: (id: number) => void;
-  updateStudent: updateType;
+  updateStudent:  ( newData: updateDataType) => Promise<void>;
 }
 
 export default function StudentCard({
@@ -69,7 +69,7 @@ export default function StudentCard({
           {btn2} <Feather name="trash-2" />
         </Button>
       </View>
-      <FormModal<updateType>
+      <FormModal<updateDataType>
         open={open}
         setOpen={setOpen}
         formData={student}

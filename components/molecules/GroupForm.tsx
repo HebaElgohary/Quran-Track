@@ -14,7 +14,7 @@ export default function GroupForm<T>({handleSubmit, setOpen, open }: {handleSubm
        {/* form heading */} 
   <FormHeading title='مجموعة  جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
-      <Form page='Groups' btn1={"الغاء"} btn2={'اضافة'} setOpen={setOpen} />
+      <Form<T> page='Groups' btn1={"الغاء"} btn2={'اضافة'} setOpen={setOpen} handleSubmit={handleSubmit}/>
     
     </View>
   );
