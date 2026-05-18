@@ -24,7 +24,7 @@ const AddGroup:addGroupType = async (formData:GroupFormData) => {
 };
   return (
     <View style={{ direction: "rtl" }}>
-      <Header <addGroupType>
+      <Header<addGroupType>
         formName="Groups"
         title="المجموعات"
         subtitle="قسم طلابك لمجموعات وشارك تقاريرهم الشهرية دفعة واحدة  "
@@ -32,11 +32,14 @@ const AddGroup:addGroupType = async (formData:GroupFormData) => {
         handleSubmit={AddGroup}
       />
       {groups.length === 0 && (
-        <NoDataFallback
+        <NoDataFallback<addGroupType>
           formName="Groups"
           Icon={() => <Feather name="folder-minus" size={30} color="gray" />}
           text="لاتوجد مجموعات مسجلة "
           btn="اضف اول مجموعة "
+          handleSubmit={AddGroup}
+
+
         />
       )}
     </View>

@@ -28,7 +28,10 @@ export default function Students() {
        btn='اضافة طالب'
       formName='Students'/>
       {students.length === 0 && <View style={{marginTop:20}}>
-        <NoDataFallback text='لايوجد طلاب مسجلين' btn='اضافة اول طالب' Icon={() => <Feather name="users" size={30} color="gray" />}  />
+        <NoDataFallback 
+        text='لايوجد طلاب مسجلين' 
+        btn='اضافة اول طالب'
+         Icon={() => <Feather name="users" size={30} color="gray" />}  />
         </View>}
   <View style={{gap:10}}>
    {students.map((student) =>
