@@ -64,3 +64,24 @@ export const updateStudent = async (newData:Student) => {
     console.log("Error updating group", error);
   }
 }
+
+//------ assign students to group -------//
+export const assignStudentsToGroup = async (
+  studentIds: string[],
+  groupId: string
+) => {
+  const students = await getStudents();
+
+  const updated = students.map((student) =>
+    studentIds.includes(student.id)
+      ? { ...student, groupId }
+      : student
+  );
+
+  await AsyncStorage.setItem(
+    KEY,
+    JSON.stringify(updated)
+  );
+
+  return updated;
+};
