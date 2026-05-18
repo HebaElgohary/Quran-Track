@@ -1,13 +1,42 @@
+import { Student } from '@/types/appTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const KEY = 'students';
 
 export const getStudents = async () => {
-  const data = await AsyncStorage.getItem(KEY);
-  return data ? JSON.parse(data) : [];
-};
 
-export const saveStudents = async (students: any[]) => {
+
+  try {
+    const data = await AsyncStorage.getItem(KEY);
+
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.log("Error getting groups", error);
+    return [];
+  }
+};
+export const addStudent = async (newStudent: Omit<Student, "id">) => {
   
-  await AsyncStorage.setItem(KEY, JSON.stringify(students));
+
+  try {
+    // old groups
+    const oldStudents = await getStudents();
+
+    // create group
+    const student: Student = {
+      id: Date.now(),
+      ...newStudent
+    };
+
+    // updated array
+    const updatedStudents = [...oldStudents, student];
+
+    // save
+  await AsyncStorage.setItem(KEY, JSON.stringify(updatedStudents));
+
+    return updatedStudents;
+  } catch (error) {
+    console.log("Error adding group", error);
+  }
+
 };
