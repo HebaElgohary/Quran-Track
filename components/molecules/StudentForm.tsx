@@ -1,42 +1,40 @@
-import { Student, StudentFormData } from "@/types/appTypes";
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
+import { useStudentForm } from "@/hooks/useStudentForm";
 
-export default function StudentForm<T>({
-  formData: student,
+export default function StudentForm({
   setOpen,
-  open,
   handleSubmit,
-}: {
-  formData?: Student;
-  setOpen: any;
-  open: boolean;
-  handleSubmit?: (data: T) => Promise<void>;
-}) {
-  const [formData, setFormData] = useState(
-    student || {nameAr: "", nameEn: "", level: "مبتدئ"} as StudentFormData,
-  );
-  const [errors, setErrors] = useState<any>({});
-  return (
-    <View
-      style={{
-        backgroundColor: "white",
-        padding: 16,
-        borderRadius: 10,
-      }}
-    >
-      {/* Header */}
-      <FormHeading title="اضافة طالب جديد" name={"x"} setOpen={setOpen} />
+  formData: student,
+}: any) {
+  const {
+    formData,
+    setFormData,
+    errors,
+    validate,
+    reset,
+  } = useStudentForm(student);
 
-      {/* Form Content */}
-      <Form<T>
+  const onSubmit = async () => {
+    const isValid = validate();
+    if (!isValid) return;
+
+    await handleSubmit?.(formData);
+    reset();
+    setOpen(false);
+  };
+
+  return (
+    <View style={{ backgroundColor: "white", padding: 16, borderRadius: 10 }}>
+      <FormHeading name="x" title="اضافة طالب" setOpen={setOpen} />
+
+      <Form
         formData={formData}
         errors={errors}
-        setErrors={setErrors}
         setFormData={setFormData}
-        handleSubmit={handleSubmit}
+        handleSubmit={onSubmit}
         page="Students"
         btn1="اضافة"
         btn2="الغاء"
