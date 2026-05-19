@@ -11,7 +11,7 @@ interface props<T> {
   setOpen: any;
   formData?: any;
   setFormData?: any;
-  handleSubmit?: (data: T) => Promise<void>;
+  handleSubmit?: () => Promise<void>;
   errors?: any;
   setErrors?: any;
 }
@@ -20,7 +20,6 @@ interface props<T> {
 export default function Form<T>({
   handleSubmit,
   errors,
-  setErrors,
   formData,
   setFormData,
   page,
@@ -31,22 +30,7 @@ export default function Form<T>({
 const fields = useMemo(() => getFormFields(page), [page]);
 
   console.log('formData in group', formData);
-  const onSubmit = () => {
-  const validationErrors =
-    validateStudent(formData);
 
-  setErrors(validationErrors);
-
-  if (
-    Object.keys(validationErrors).length > 0
-  ) {
-    return;
-  }
-
-    handleSubmit?.(formData);
- 
-  setOpen(false);
-};
 
   return (
     <View
@@ -92,7 +76,7 @@ const fields = useMemo(() => getFormFields(page), [page]);
           size="sm"
           variant="gray"
           textColor="black"
-          onClick={onSubmit}
+          onClick={handleSubmit}
         >
           {formData?.id? "تعديل" : btn1}{" "}
         </Button>
