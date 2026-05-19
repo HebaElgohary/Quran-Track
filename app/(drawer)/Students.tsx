@@ -9,6 +9,7 @@ import { View } from 'react-native'
 
 type AddDataType= Student
 
+
 export default function Students() {
     const { students, createStudent, editStudent, removeStudent } = useStudents();
   const handleAdd: (data: AddDataType)  => Promise<void> = async (data: AddDataType) => {
