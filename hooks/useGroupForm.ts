@@ -1,9 +1,10 @@
-import { useForm } from "./useForm";
+// import { useForm } from "./useForm";
 import { GroupFormData } from "@/types/appTypes";
 import { validateGroup } from "@/utils/validateGroup";
+import { useState } from "react";
 
 export function useGroupForm(initial?: GroupFormData) {
-  const form = useForm<GroupFormData>(
+  const form = useState<GroupFormData>(
     initial || {
       nameAr: "",
       nameEn: "",
