@@ -31,7 +31,7 @@ export default function Button({
         width: btnSize[size],
         borderRadius: 6,
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
       }}
     >

@@ -33,8 +33,8 @@ export default function Header<T>({
       {btn && (
         <Button
           size="xl"
-          variant="btnPrimary"
           name="plus"
+          variant="btnPrimary"
           onClick={() => setOpen(true)}
         >
           {btn}
