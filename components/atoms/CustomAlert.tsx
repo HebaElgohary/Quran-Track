@@ -33,7 +33,7 @@ export default function CustomAlert({
   showConfirmButton={true}
   confirmText={confirmText}
   cancelText={cancelText}
-  
+  contentContainerStyle={{backgroundColor:colors.background}}
   confirmButtonColor={colors.danger}
   cancelButtonColor={colors.btnPrimary}
 
