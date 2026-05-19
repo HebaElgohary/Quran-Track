@@ -52,6 +52,9 @@ const confirmDelete = async () => {
       formName='Students'/>
       {students.length === 0 && <View style={{marginTop:20}}>
         <NoDataFallback 
+        formName='Students'
+        handleSubmit={handleAdd}
+        
         text='لايوجد طلاب مسجلين' 
         btn='اضافة اول طالب'
          Icon={() => <Feather name="users" size={30} color="gray" />}  />

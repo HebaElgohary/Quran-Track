@@ -1,6 +1,4 @@
 import { colors } from "@/constants/theme";
-import { GroupFormData } from "@/types/appTypes";
-
 export const getFormFields = (page: string) => {
   const groupFields = [
     {

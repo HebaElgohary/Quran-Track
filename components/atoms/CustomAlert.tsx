@@ -24,7 +24,7 @@ export default function CustomAlert({
   showCancelButton = true,
 }: CustomAlertProps) {
   return (
- <AwesomeAlert
+<AwesomeAlert
   show={show}
   title={title}
   message={message}
@@ -33,10 +33,19 @@ export default function CustomAlert({
   showConfirmButton={true}
   confirmText={confirmText}
   cancelText={cancelText}
-  contentContainerStyle={{backgroundColor:colors.background}}
+  
+  contentContainerStyle={{
+    backgroundColor: colors.background,
+  }}
+
+  overlayStyle={{
+    backgroundColor: "rgba(0,0,0,0.4)",
+      flex: 1,
+
+  }}
+
   confirmButtonColor={colors.danger}
   cancelButtonColor={colors.btnPrimary}
-
   onCancelPressed={onCancel}
   onConfirmPressed={onConfirm}
 />
