@@ -1,5 +1,5 @@
-import { GroupFormData ,Group} from "@/types/appTypes";
-// import { validateGroup } from "@/utils/validateGroup";
+import { Group, GroupFormData } from "@/types/appTypes";
+import { validateGroup } from "@/utils/validateGroup";
 import { useState } from "react";
 
 export function useGroupForm(initial?: Group) {
@@ -10,19 +10,32 @@ export function useGroupForm(initial?: Group) {
       color: "",
       students: [],
       notes: "",
-    }
+    },
   );
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-//   const validate = () => {
-//     const errors = validateGroup(form.formData);
-//     form.setErrors(errors);
-//     return Object.keys(errors).length === 0;
-//   };
+  const reset = () => {
+    setFormData({
+      nameAr: "",
+      nameEn: "",
+      color: "",
+      students: [],
+      notes: "",
+    });
+    setErrors({});
+  };
+  const validate = () => {
+    const validationErrors = validateGroup(formData);
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
   return {
     formData,
 
     setFormData,
-    // validate,
+    validate,
+    errors,
+    setErrors,
   };
 }
