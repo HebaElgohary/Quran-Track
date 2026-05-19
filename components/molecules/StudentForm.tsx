@@ -16,7 +16,7 @@ export default function StudentForm<T>({
   handleSubmit?: (data: T) => Promise<void>;
 }) {
   const [formData, setFormData] = useState(
-    student || {} as StudentFormData,
+    student || {nameAr: "", nameEn: "", level: "مبتدئ"} as StudentFormData,
   );
   const [errors, setErrors] = useState<any>({});
   return (
