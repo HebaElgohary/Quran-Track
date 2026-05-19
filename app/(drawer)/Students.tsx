@@ -6,6 +6,8 @@ import { Student } from '@/types/appTypes';
 import { Feather } from '@expo/vector-icons';
 import React from 'react'
 import { View } from 'react-native'
+import Toast from 'react-native-toast-message';
+
 
 type AddDataType= Student
 
@@ -14,11 +16,17 @@ export default function Students() {
     const { students, createStudent, editStudent, removeStudent } = useStudents();
   const handleAdd: (data: AddDataType)  => Promise<void> = async (data: AddDataType) => {
     await createStudent(data);
-    alert('تم الاضافة بنجاح');
+    Toast.show({
+    type: 'success',
+    text1: 'تم إضافة الطالب بنجاح',
+  });
   };
   const handleDelete = async (id: number) => {
     await removeStudent(id);
-    alert('تم الحذف بنجاح');
+  Toast.show({
+    type: 'success',
+    text1: 'تم حذف الطالب',
+  })
   }
     return (
     <View style={{direction:'rtl' }} >
