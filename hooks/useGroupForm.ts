@@ -1,10 +1,9 @@
-// import { useForm } from "./useForm";
-import { GroupFormData } from "@/types/appTypes";
-import { validateGroup } from "@/utils/validateGroup";
+import { GroupFormData ,Group} from "@/types/appTypes";
+// import { validateGroup } from "@/utils/validateGroup";
 import { useState } from "react";
 
-export function useGroupForm(initial?: GroupFormData) {
-  const form = useState<GroupFormData>(
+export function useGroupForm(initial?: Group) {
+  const [formData, setFormData] = useState<GroupFormData>(
     initial || {
       nameAr: "",
       nameEn: "",
@@ -14,14 +13,16 @@ export function useGroupForm(initial?: GroupFormData) {
     }
   );
 
-  const validate = () => {
-    const errors = validateGroup(form.formData);
-    form.setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
+//   const validate = () => {
+//     const errors = validateGroup(form.formData);
+//     form.setErrors(errors);
+//     return Object.keys(errors).length === 0;
+//   };
 
   return {
-    ...form,
-    validate,
+    formData,
+
+    setFormData,
+    // validate,
   };
 }

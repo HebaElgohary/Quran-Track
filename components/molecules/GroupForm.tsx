@@ -3,12 +3,11 @@ import {  View } from "react-native";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 import { Group, GroupFormData } from "@/types/appTypes";
+import {useGroupForm} from "@/hooks/useGroupForm";
 
   
 export default function GroupForm<T>({ handleSubmit, formData: group, setOpen, open }: { formData?: Group; handleSubmit?: (data: T)=>Promise<void>; setOpen: any; open: boolean }) {
-  const [formData, setFormData] = useState(
-     group || {} 
-   );
+  const {formData, setFormData} = useGroupForm(group);
   return (
     <View style= {{  backgroundColor: "white",
         padding: 16,

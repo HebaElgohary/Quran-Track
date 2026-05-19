@@ -19,7 +19,7 @@ export type StudentFormData = Omit<Student, "id" | "groupId">;
   notes: string;
 };
 export type GroupFormData = Omit<Group, "id"> & {
-  students: any[];
+  students?: any[];
 };
 
  export type Session = {
