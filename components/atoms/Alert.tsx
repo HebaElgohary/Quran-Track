@@ -1,10 +1,11 @@
 import AwesomeAlert from "react-native-awesome-alerts";
-import React from 'react'
+import React, { useState } from 'react'
 
-export default function AwesomeAlert() {
+export default function Alert({show,handlePress,setShowAlert}:any) {
+
   return (
 <AwesomeAlert
-  show={showAlert}
+  show={show}
   title="Delete Student"
   message="Are you sure?"
   closeOnTouchOutside={true}
@@ -12,8 +13,8 @@ export default function AwesomeAlert() {
   showConfirmButton={true}
   confirmText="Delete"
   onCancelPressed={() => setShowAlert(false)}
-  onConfirmPressed={handleDelete}
-/>  ; 
+  onConfirmPressed={handlePress}
+/>  
  )
 }
 
