@@ -12,7 +12,7 @@ export function useStudentForm(initial?: Student) {
     }
   );
 
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState< Record<string, string>>({});
 
   const reset = () => {
     setFormData({
