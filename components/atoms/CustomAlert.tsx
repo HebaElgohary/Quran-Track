@@ -1,5 +1,6 @@
 import AwesomeAlert from "react-native-awesome-alerts";
 import React from "react";
+import { colors } from "@/constants/theme";
 
 interface CustomAlertProps {
   show: boolean;
@@ -23,17 +24,21 @@ export default function CustomAlert({
   showCancelButton = true,
 }: CustomAlertProps) {
   return (
-    <AwesomeAlert
-      show={show}
-      title={title}
-      message={message}
-      closeOnTouchOutside={true}
-      showCancelButton={showCancelButton}
-      showConfirmButton={true}
-      confirmText={confirmText}
-      cancelText={cancelText}
-      onCancelPressed={onCancel}
-      onConfirmPressed={onConfirm}
-    />
+ <AwesomeAlert
+  show={show}
+  title={title}
+  message={message}
+  closeOnTouchOutside={true}
+  showCancelButton={showCancelButton}
+  showConfirmButton={true}
+  confirmText={confirmText}
+  cancelText={cancelText}
+  
+  confirmButtonColor={colors.danger}
+  cancelButtonColor={colors.btnPrimary}
+
+  onCancelPressed={onCancel}
+  onConfirmPressed={onConfirm}
+/>
   );
 }

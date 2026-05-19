@@ -58,15 +58,16 @@ const confirmDelete = async () => {
         </View>}
   <View style={{gap:10}}>
    {students.map((student) =>
-    <StudentCard key={student.id} updateStudent={editStudent} handleDelete={confirmDelete} isStudent student={student} btn1='edit' btn2='delete'></StudentCard>
+    <StudentCard key={student.id} updateStudent={editStudent} handleDelete={openDeleteAlert} isStudent student={student} btn1='edit' btn2='delete'></StudentCard>
    )}
    </View>
    {/* // will show alert in case of delete only */}
    <CustomAlert
   show={selectedStudentId !== null}
   title="حذف الطالب"
-  message="هل أنت متأكد؟"
+  message="هل أنت متأكد أنك تريد حذف هذا الطالب؟"
   confirmText="حذف"
+  cancelText="الغاء"
   onCancel={() => setSelectedStudentId(null)}
   onConfirm={confirmDelete}
 />
