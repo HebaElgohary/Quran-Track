@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
-import Title from "../atoms/Title";
 import { colors } from "@/constants/theme";
 
 export default function CheckInput({ data = [], label, onChange }: any) {
   const [items, setItems] = useState(data);
-
+  const [checked, setChecked] = useState([]);
+console.log('Checkbox',data)
   // sync with props update
   useEffect(() => {
     setItems(data);
@@ -18,7 +18,10 @@ export default function CheckInput({ data = [], label, onChange }: any) {
     );
 
     setItems(updated);
-
+    // array of checked users id 
+const checkedItems = updated.filter((item: any) => item.checked);
+    setChecked(checkedItems.map((item: any) => item.id));
+    ////////////////////////
     // optional: lift state up
     onChange?.(updated);
   };

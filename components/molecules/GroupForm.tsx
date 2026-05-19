@@ -7,7 +7,7 @@ import { Group, GroupFormData } from "@/types/appTypes";
   
 export default function GroupForm<T>({ handleSubmit, formData: group, setOpen, open }: { formData?: Group; handleSubmit?: (data: T)=>Promise<void>; setOpen: any; open: boolean }) {
   const [formData, setFormData] = useState(
-     group || {} as GroupFormData,
+     group || {} 
    );
   return (
     <View style= {{  backgroundColor: "white",

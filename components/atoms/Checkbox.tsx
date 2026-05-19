@@ -12,7 +12,8 @@ export default function Checkbox({ label, checked, onChange }: props) {
     <View style={{marginHorizontal:10 ,display:'flex',flexDirection:'row' ,gap:5,alignItems:'center',marginVertical:6}}>
       <View><Text style={{fontSize: 16}}>{label}</Text></View>
        
-        <Pressable onPress={onChange}>   <View style={{ width: 20, height: 20, backgroundColor: "#eee"  }}>
+        <Pressable onPress={onChange}>  
+           <View style={{ width: 20, height: 20, backgroundColor: "#eee"  }}>
         {checked&& <Ionicons name='checkbox' color={colors.btnPrimary}  size={20}/>}
       </View></Pressable>
    

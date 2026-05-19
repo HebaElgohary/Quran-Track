@@ -27,7 +27,7 @@ export default function Form<T>({
   btn2,
   setOpen,
 }: props<T>) {
-  console.log('formData in group`', formData);
+  console.log('formData in group', formData);
   const onSubmit = () => {
   const validationErrors =
     validateStudent(formData);
@@ -60,8 +60,11 @@ export default function Form<T>({
       <View
         style={{ display: "flex", marginVertical: 14, padding: 12, gap: 10 }}
       >
-        {getFormFields(page)?.map((field) => (
-          <FormField
+        {getFormFields(page)?.map((field) => 
+    { 
+          console.log('form filds areeeeeeeeeeeee',field)
+
+           return  <FormField
             value={formData?.[field?.name as keyof typeof formData]}
            error={errors?.[field?.name as keyof typeof errors]}
             onChange={(value: any) =>
@@ -73,7 +76,9 @@ export default function Form<T>({
             key={field?.label}
             {...field}
           />
-        ))}
+ } 
+        
+        )}
       </View>
       <View
         style={{

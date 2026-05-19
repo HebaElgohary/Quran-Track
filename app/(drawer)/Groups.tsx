@@ -6,7 +6,7 @@ import { assignStudentsToGroup } from "@/storage/studentsStorage";
 import { GroupFormData, } from "@/types/appTypes";
 
 import { Feather } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 
 export default function Groups() {
