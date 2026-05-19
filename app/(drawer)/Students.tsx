@@ -22,7 +22,7 @@ const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
 };
 // delete student in case of confirm alert //
 const confirmDelete = async () => {
-  if (!selectedStudentId) return;
+  if (selectedStudentId===null) return;
 
   await removeStudent(selectedStudentId);
 
@@ -58,7 +58,11 @@ const confirmDelete = async () => {
         </View>}
   <View style={{gap:10}}>
    {students.map((student) =>
-    <StudentCard key={student.id} updateStudent={editStudent} handleDelete={openDeleteAlert} isStudent student={student} btn1='edit' btn2='delete'></StudentCard>
+    <StudentCard key={student.id}
+     updateStudent={editStudent}
+      handleDelete={openDeleteAlert} 
+      isStudent student={student} 
+      btn1='edit' btn2='delete'></StudentCard>
    )}
    </View>
    {/* // will show alert in case of delete only */}

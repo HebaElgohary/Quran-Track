@@ -10,10 +10,13 @@ export default function Layout() {
   I18nManager.forceRTL(true)
   ,[])
   return (
+    <>
     <Stack >
-      <Toast />
 
         <Stack.Screen name="(drawer)" options={{headerShown: false}} />
     </Stack>
+      <Toast />
+      </>
+
   )
 }
