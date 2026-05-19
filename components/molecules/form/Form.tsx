@@ -1,6 +1,6 @@
 import Button from "@/components/atoms/Button";
 import { getFormFields } from "@/utils/getFormFields";
-import React from "react";
+import React,{useMemo} from "react";
 import { View } from "react-native";
 import FormField from "./FormField";
 import { validateStudent } from "@/utils/validateStudent";
@@ -16,6 +16,7 @@ interface props<T> {
   setErrors?: any;
 }
 
+
 export default function Form<T>({
   handleSubmit,
   errors,
@@ -27,6 +28,8 @@ export default function Form<T>({
   btn2,
   setOpen,
 }: props<T>) {
+const fields = useMemo(() => getFormFields(page), [page]);
+
   console.log('formData in group', formData);
   const onSubmit = () => {
   const validationErrors =
@@ -40,14 +43,11 @@ export default function Form<T>({
     return;
   }
 
-  if (formData.id) {
     handleSubmit?.(formData);
-  } else {
-    handleSubmit?.(formData);
-  }
-
+ 
   setOpen(false);
 };
+
   return (
     <View
       style={{
@@ -60,11 +60,11 @@ export default function Form<T>({
       <View
         style={{ display: "flex", marginVertical: 14, padding: 12, gap: 10 }}
       >
-        {getFormFields(page)?.map((field) => 
+        {fields?.map((field) => 
     { 
           console.log('form filds areeeeeeeeeeeee',field)
 
-           return  <FormField
+           return <FormField
             value={formData?.[field?.name as keyof typeof formData]}
            error={errors?.[field?.name as keyof typeof errors]}
             onChange={(value: any) =>

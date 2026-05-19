@@ -1,6 +1,6 @@
-import { Student } from "@/types/appTypes";
+import { Student,StudentFormData } from "@/types/appTypes";
 
-export const validateStudent = (data: Student) => {
+export const validateStudent = (data: Student|StudentFormData) => {
   const errors: Record<string, string> = {};
 
   // Required fields
