@@ -32,7 +32,6 @@ export function useGroupForm(initial?: Group) {
 
   return {
     formData,
-
     setFormData,
     validate,
     errors,
