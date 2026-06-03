@@ -20,8 +20,8 @@ export default function Groups() {
 
     const group = await addGroup(groupData);
     if (!group) return;
-
-    await assignStudentsToGroup(students, group.id);
+const studentsIds = students?.map((student) => student.id) || [];
+    await assignStudentsToGroup(studentsIds, group.id);
   };
   return (
     <View style={{ direction: "rtl" }}>
