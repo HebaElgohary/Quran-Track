@@ -8,7 +8,7 @@ import {
   deleteGroup,
 } from "@/storage/groupsStorage";
 
-import { Group } from "@/types/appTypes";
+import { Group, Student } from "@/types/appTypes";
 
 export default function useGroups() {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -35,11 +35,11 @@ export default function useGroups() {
   // ADD GROUP
   // =========================
   const createGroup = async (
-    groupData: Omit<Group, "id">
+    groupData: Omit<Group, "id">,
+    students?: Student[]
   ) => {
     try {
-      await addGroup(groupData);
-
+      await addGroup(groupData, students);
       await loadGroups();
     } catch (error) {
       console.log("Error creating group", error);
@@ -82,9 +82,7 @@ export default function useGroups() {
   return {
     groups,
     loading,
-
     loadGroups,
-
     createGroup,
     editGroup,
     removeGroup,

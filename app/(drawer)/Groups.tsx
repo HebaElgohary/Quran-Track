@@ -8,6 +8,7 @@ import { GroupFormData, } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function Groups() {
   const { groups, loading, createGroup } = useGroups();
@@ -17,11 +18,12 @@ export default function Groups() {
     formData: GroupFormData,
   ) => {
     const { students, ...groupData } = formData;
+     await createGroup(groupData,students);
+     Toast.show({
+    type: 'success',
+    text1: 'تم إضافة المجموعة بنجاح',
+  });
 
-    const group = await addGroup(groupData,students);
-    if (!group) return;
-const studentsIds = students?.map((student) => student.id) || [];
-    await assignStudentsToGroup(studentsIds, group.id);
   };
   return (
     <View style={{ direction: "rtl" }}>

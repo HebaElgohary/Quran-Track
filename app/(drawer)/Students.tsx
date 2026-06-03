@@ -3,6 +3,7 @@ import StudentCard from '@/components/molecules/StudentCard'
 import Header from '@/components/organisms/Header'
 import NoDataFallback from '@/components/organisms/NoDataFallback';
 import { useStudents } from '@/hooks/useStudent';
+import { useToast } from '@/hooks/useToast';
 import { Student } from '@/types/appTypes';
 import { Feather } from '@expo/vector-icons';
 import React, { useState } from 'react'
@@ -16,6 +17,7 @@ type AddDataType= Student
 export default function Students() {
     const { students, createStudent, editStudent, removeStudent } = useStudents();
 const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
+const {showSuccess,showError} = useToast();
 // alert in case of delte only to make sure he really wants to delete student 
     const openDeleteAlert = (id: number) => {
   setSelectedStudentId(id);
@@ -26,20 +28,16 @@ const confirmDelete = async () => {
 
   await removeStudent(selectedStudentId);
 
-  Toast.show({
-    type: 'success',
-    text1: 'تم حذف الطالب',
-  });
+  showSuccess( 'تم حذف الطالب',
+  );
 
   setSelectedStudentId(null);
 };
 // -----------------------------//
   const handleAdd: (data: AddDataType)  => Promise<void> = async (data: AddDataType) => {
     await createStudent(data);
-    Toast.show({
-    type: 'success',
-    text1: 'تم إضافة الطالب بنجاح',
-  });
+    showSuccess( 'تم إضافة الطالب بنجاح',
+  );
   };
 
     return (
