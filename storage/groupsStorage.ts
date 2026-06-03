@@ -1,5 +1,6 @@
-import { Group } from "@/types/appTypes";
+import { Group, Student } from "@/types/appTypes";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { assignStudentsToGroup } from "./studentsStorage";
 
 const GROUPS_KEY = "groups";
 
@@ -16,7 +17,7 @@ export const getGroups = async (): Promise<Group[]> => {
 };
 
 //-------- ADD GROUP --------//
-export const addGroup = async (newGroup: Omit<Group, "id">): Promise<Group> => {
+export const addGroup = async (newGroup: Omit<Group, "id">,students?: Student[]): Promise<Group> => {
   try {
     // old groups
     const oldGroups = await getGroups();
@@ -29,9 +30,12 @@ export const addGroup = async (newGroup: Omit<Group, "id">): Promise<Group> => {
 
     const updatedGroups = [...oldGroups, group];
 
-    // save
+    // save group
     await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(updatedGroups));
-
+  
+  //add students to group if exist by add gropuID to each student then save students again with new groupId
+    const studentsIds = students?.map((student) => student.id) || [];
+     await assignStudentsToGroup(studentsIds, group.id);
     return  group;
   } catch (error) {
     console.log("Error adding group", error);

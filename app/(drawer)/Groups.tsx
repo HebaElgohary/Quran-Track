@@ -18,7 +18,7 @@ export default function Groups() {
   ) => {
     const { students, ...groupData } = formData;
 
-    const group = await addGroup(groupData);
+    const group = await addGroup(groupData,students);
     if (!group) return;
 const studentsIds = students?.map((student) => student.id) || [];
     await assignStudentsToGroup(studentsIds, group.id);
