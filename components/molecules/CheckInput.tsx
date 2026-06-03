@@ -36,7 +36,19 @@ const checkedItems = updated.filter((item: any) => item.checked);
           fontWeight: "500",
       
         }} >{label}</Text>}
+<View style={{ backgroundColor: '#fff',
+   borderRadius: 6,
+   borderWidth: 1,
+   borderColor: colors.gray,
+   margin: 10,
+    width: "100%",
+    maxHeight: 150,
+    overflowY: "scroll",
 
+    display:'flex'
+    ,flexDirection:'column'
+    ,gap:6,
+    alignItems:'flex-end' }}>
       {items.map((item: any) => (
         <Checkbox
           key={item.id}
@@ -45,6 +57,7 @@ const checkedItems = updated.filter((item: any) => item.checked);
           onChange={() => toggleItem(item.id)}
         />
       ))}
+    </View>
     </View>
   );
 }

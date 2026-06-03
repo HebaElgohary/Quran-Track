@@ -25,11 +25,14 @@ export const getFormFields = (page: string) => {
     {
       name: "students",
       label: "الطلاب ",
-      type: "select",
+      type: "checkbox",
       data: [
-        { id: 0, label: "حكيم",value:'حكيم', checked: false },
-        { id: 1, label: "زكريا", value:'زكريا', checked: false },
-        { id: 2, label: "عزير", value:'عزير', checked: false },
+        { id: 0, name: "حكيم"  ,value:'حكيم', checked: false },
+        { id: 1, name: "زكريا" , value:'زكريا', checked: false },
+        { id: 2, name: "عزير"  , value:'عزير', checked: false },
+         { id: 3, name: "احمد"  ,value:'احمد', checked: false },
+        { id: 4, name: "محمد" , value:'محمد', checked: false },
+        { id: 5, name: "سعد"  , value:'سعد', checked: false },
       ],
     },
     {

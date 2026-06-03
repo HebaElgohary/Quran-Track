@@ -53,6 +53,7 @@ const fields = useMemo(() => getFormFields(page), [page]);
             value={formData?.[field?.name as keyof typeof formData]}
            error={errors?.[field?.name as keyof typeof errors]}
             onChange={(value: any) =>
+
               setFormData({
                 ...formData,
                 [field?.name as keyof typeof formData]: value,
@@ -77,7 +78,9 @@ const fields = useMemo(() => getFormFields(page), [page]);
           size="sm"
           variant="gray"
           textColor="black"
-          onClick={() => handleSubmit?.(formData)}
+          onClick={() =>{
+            console.log('group daaaaaaata is ',formData);
+            handleSubmit?.(formData)}}
         >
           {formData?.id? "تعديل" : btn1}{" "}
         </Button>
