@@ -1,17 +1,16 @@
 import Header from "@/components/organisms/Header";
 import NoDataFallback from "@/components/organisms/NoDataFallback";
 import useGroups from "@/hooks/useGroup";
-import { addGroup } from "@/storage/groupsStorage";
-import { assignStudentsToGroup } from "@/storage/studentsStorage";
-import { GroupFormData, } from "@/types/appTypes";
+import { useToast } from "@/hooks/useToast";
 
+import { GroupFormData, } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native";
-import Toast from "react-native-toast-message";
 
 export default function Groups() {
   const { groups, loading, createGroup } = useGroups();
+  const { showSuccess } = useToast();
 
   type addGroupType = GroupFormData;
   const AddGroup: (formData: GroupFormData) => Promise<void> = async (
@@ -19,10 +18,8 @@ export default function Groups() {
   ) => {
     const { students, ...groupData } = formData;
      await createGroup(groupData,students);
-     Toast.show({
-    type: 'success',
-    text1: 'تم إضافة المجموعة بنجاح',
-  });
+     showSuccess( 'تم إضافة المجموعة بنجاح',
+  );
 
   };
   return (
