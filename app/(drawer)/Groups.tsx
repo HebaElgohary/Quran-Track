@@ -1,8 +1,8 @@
+import GroupCard from "@/components/molecules/GroupCard";
 import Header from "@/components/organisms/Header";
 import NoDataFallback from "@/components/organisms/NoDataFallback";
 import useGroups from "@/hooks/useGroup";
 import { useToast } from "@/hooks/useToast";
-
 import { GroupFormData, } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
@@ -16,6 +16,7 @@ export default function Groups() {
   const AddGroup: (formData: GroupFormData) => Promise<void> = async (
     formData: GroupFormData,
   ) => {
+    console.log('group data areeeeeee',formData)
     const { students, ...groupData } = formData;
      await createGroup(groupData,students);
      showSuccess( 'تم إضافة المجموعة بنجاح',
@@ -40,6 +41,11 @@ export default function Groups() {
           handleSubmit={AddGroup}
         />
       )}
+      {
+        groups.map((group) => (
+          <GroupCard key={group.id} group={group} />
+      }
+      
     </View>
   );
 }

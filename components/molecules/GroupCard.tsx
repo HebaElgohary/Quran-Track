@@ -3,11 +3,10 @@ import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
+import { GroupFormData } from "@/types/appTypes";
 
 interface GroupCardProps {
-  titleAr: string;
-  titleEn:string
-  subtitle: string;
+ group:GroupFormData;
   btn1:string;
     btn2:string;
     btn3:string
@@ -16,14 +15,15 @@ interface GroupCardProps {
 }
 
 
-export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2,btn3}: GroupCardProps) {
+export default function GroupCard({ group, btn1,btn2,btn3}: GroupCardProps) {
+  const studentCount = group.students ? group.students.length : 0;
   return (
     <View
       style={{
         backgroundColor: "white",
-        marginHorizontal: "10px",
-        padding: "15px",
-        borderRaduis: "10px",
+        marginHorizontal: 10,
+        padding: 15,
+        borderRadius: 10,
         display:'flex',
           justifyContent: "space-around",
 
@@ -38,7 +38,7 @@ export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2,btn3}: 
         }}
       >
         {/* first char  and titleAr&subtitle */}
-        <View style={{display:'flex',flexDirection:'row' ,gap:'4px' ,alignItems:'center',marginVertical:'5px'}}>
+        <View style={{display:'flex',flexDirection:'row' ,gap:4 ,alignItems:'center',marginVertical:5}}>
    
 
 {/* titleAr & subtitle */}
@@ -50,13 +50,13 @@ export default function GroupCard({ titleAr,titleEn, subtitle, btn1,btn2,btn3}: 
             marginVertical:7
           }}
         >
-          <Title >{titleAr}</Title>
-          <Text>{subtitle}</Text>
+          <Title >{group.nameAr}</Title>
+          <Text>{studentCount} طالب</Text>
         </View>
 {/* titleAr & subtitle */}
 </View>
 
-        <Text>{titleEn}</Text>
+        <Text>{group.nameEn}</Text>
       </View>
         {/* first row */}
 <Hr ></Hr>

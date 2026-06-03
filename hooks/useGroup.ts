@@ -24,6 +24,7 @@ export default function useGroups() {
       const data = await getGroups();
 
       setGroups(data);
+      return data;
     } catch (error) {
       console.log("Error loading groups", error);
     } finally {
