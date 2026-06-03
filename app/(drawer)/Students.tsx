@@ -8,7 +8,6 @@ import { Student } from '@/types/appTypes';
 import { Feather } from '@expo/vector-icons';
 import React, { useState } from 'react'
 import { View } from 'react-native'
-import Toast from 'react-native-toast-message';
 
 
 type AddDataType= Student
@@ -41,7 +40,7 @@ const confirmDelete = async () => {
   };
 
     return (
-    <View style={{direction:'rtl' }} >
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
       <Header<AddDataType>
        title='الطلاب '
        subtitle='ادارة قائمةالطلاب' 

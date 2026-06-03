@@ -24,7 +24,7 @@ export default function Groups() {
 
   };
   return (
-    <View style={{ direction: "rtl" }}>
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
       <Header<addGroupType>
         formName="Groups"
         title="المجموعات"
@@ -43,7 +43,7 @@ export default function Groups() {
       )}
       {
         groups.map((group) => (
-          <GroupCard key={group.id} group={group} />
+          <GroupCard key={group.id} group={group} />))
       }
       
     </View>

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {  View } from "react-native";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
-import { Group, GroupFormData } from "@/types/appTypes";
+import { Group } from "@/types/appTypes";
 import {useGroupForm} from "@/hooks/useGroupForm";
 
   
@@ -13,7 +13,7 @@ export default function GroupForm<T>({ handleSubmit, formData: group, setOpen, o
         padding: 16,
         borderRadius: 10,
         width:'100%',
-        marginHorizontal:'auto'
+        marginHorizontal:'auto',
         }}>
        {/* form heading */} 
   <FormHeading title='مجموعة  جديدة ' name={'x'} setOpen={setOpen} />

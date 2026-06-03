@@ -11,7 +11,7 @@ interface props<T> {
   setOpen: any;
   formData?: any;
   setFormData?: any;
-  handleSubmit?: () => Promise<void>;
+  handleSubmit?: (data:T) => Promise<void>;
   errors?: any;
   setErrors?: any;
 }
@@ -38,7 +38,8 @@ const fields = useMemo(() => getFormFields(page), [page]);
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        overflow: "hidden",
+        maxHeight: 500,
+        overflowY: "scroll",
       }}
     >
       <View
@@ -76,7 +77,7 @@ const fields = useMemo(() => getFormFields(page), [page]);
           size="sm"
           variant="gray"
           textColor="black"
-          onClick={handleSubmit}
+          onClick={() => handleSubmit?.(formData)}
         >
           {formData?.id? "تعديل" : btn1}{" "}
         </Button>

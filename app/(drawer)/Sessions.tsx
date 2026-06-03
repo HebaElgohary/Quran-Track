@@ -9,7 +9,7 @@ import { View } from 'react-native'
 export default function sessions() {
   const sessions = [];
   return (
-    <View style={{direction:'rtl'}}>
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
       <Header title='الحصص' subtitle='كل تقارير الحصص' btn='تقرير حصة جديدة' formName='Sessions' />
      <Filter     data={ [
         { label: "كل الطلاب", value: "كل الطلاب" },

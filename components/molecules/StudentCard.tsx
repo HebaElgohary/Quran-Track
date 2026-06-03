@@ -38,7 +38,7 @@ export default function StudentCard({
           {isStudent && <Avatar name={student.nameAr} image={image} />}
 
           <View style={styles.textColumn}>
-            <Title variant="btnPrimary" size="xl">
+            <Title variant="btnPrimary" size="md">
               {student.nameAr}
             </Title>
             <Title size="sm">{student.level}</Title>

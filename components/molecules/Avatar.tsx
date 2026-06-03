@@ -12,9 +12,9 @@ export default function Avatar({ name, image }: Props) {
       <Image
         source={{ uri: image }}
         style={{
-          width: 50,
-          height: 50,
-          borderRadius: 25,
+          width: 60,
+          height: 60,
+          borderRadius: 30,
         }}
       />
     );
@@ -24,9 +24,9 @@ export default function Avatar({ name, image }: Props) {
     <View
       style={{
         backgroundColor: "#eee",
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
         alignItems: "center",
         justifyContent: "center",
       }}

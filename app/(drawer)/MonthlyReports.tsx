@@ -5,7 +5,7 @@ import { View } from 'react-native'
 
 export default function MonthlyReports() {
   return (
-    <View style={{direction:'rtl'}}>
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
     <Header title='التقرير الشهرى' subtitle='ملخص شامل لما ت انجازه فى الشهر '></Header>
     <MonthlyReportForm></MonthlyReportForm>
  </View>

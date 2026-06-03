@@ -8,7 +8,7 @@ import { View } from 'react-native'
 export default function Schedule() {
   const schedule = [];
   return (
-<View style={{direction:'rtl',gap:3}}>
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
 
   <Header title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' formName='Schedule'/>
       <NotificationCard />

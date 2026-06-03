@@ -24,7 +24,7 @@ export default function Header<T>({
       style={{
         display: "flex",
         flexDirection: "row",
-        gap: 5,
+        // gap: 3,
         marginVertical: 15,
         padding: 1,
       }}
