@@ -3,28 +3,35 @@ import Header from "@/components/organisms/Header";
 import NoDataFallback from "@/components/organisms/NoDataFallback";
 import useGroups from "@/hooks/useGroup";
 import { useToast } from "@/hooks/useToast";
-import { GroupFormData, } from "@/types/appTypes";
+import { GroupFormData } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native";
+type addGroupType = GroupFormData;
 
 export default function Groups() {
+  //calling hooks
   const { groups, loading, createGroup } = useGroups();
   const { showSuccess } = useToast();
-
-  type addGroupType = GroupFormData;
+  //------------------------------//
   const AddGroup: (formData: GroupFormData) => Promise<void> = async (
     formData: GroupFormData,
   ) => {
-    console.log('group data areeeeeee',formData)
+    console.log("inside addGroup");
+    console.log("group data areeeeeee", formData);
     const { students, ...groupData } = formData;
-     await createGroup(groupData,students);
-     showSuccess( 'تم إضافة المجموعة بنجاح',
-  );
-
+    await createGroup(groupData, students);
+    showSuccess("تم إضافة المجموعة بنجاح");
   };
   return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
+    <View
+      style={{
+        direction: "rtl",
+        overflowY: "scroll",
+        height: "100%",
+        paddingVertical: 50,
+      }}
+    >
       <Header<addGroupType>
         formName="Groups"
         title="المجموعات"
@@ -41,11 +48,8 @@ export default function Groups() {
           handleSubmit={AddGroup}
         />
       )}
-      {
-        groups.map((group) => (
-          <GroupCard key={group.id} group={group} />))
-      }
-      
+      {groups.length > 0 && <>there are groups</> &&
+        groups.map((group) => <GroupCard key={group.id} group={group} />)}
     </View>
   );
 }

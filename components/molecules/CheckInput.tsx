@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
 import { colors } from "@/constants/theme";
 
@@ -36,14 +36,20 @@ const checkedItems = updated.filter((item: any) => item.checked);
           fontWeight: "500",
       
         }} >{label}</Text>}
-<View style={{ backgroundColor: '#fff',
-   borderRadius: 6,
+        
+        <ScrollView
+  style={{    width: "100%",
+    maxHeight: 150,   borderRadius: 6,
    borderWidth: 1,
-   borderColor: colors.gray,
+   borderColor: colors.gray, }}
+  contentContainerStyle={{
+    paddingBottom: 20,
+  }}
+>
+<View style={{ backgroundColor: '#fff',
+
    margin: 10,
-    width: "100%",
-    maxHeight: 150,
-    overflowY: "scroll",
+ 
 
     display:'flex'
     ,flexDirection:'column'
@@ -58,6 +64,7 @@ const checkedItems = updated.filter((item: any) => item.checked);
         />
       ))}
     </View>
+    </ScrollView>
     </View>
   );
 }

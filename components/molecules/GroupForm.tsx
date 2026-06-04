@@ -22,8 +22,8 @@ export default function GroupForm<T>({ handleSubmit, formData: group, setOpen, o
         formData={formData}
         setFormData={setFormData}
        page='Groups'
-        btn1={"الغاء"} 
-        btn2={'اضافة'} 
+        btn1={'اضافة'}
+        btn2={"الغاء"} 
         setOpen={setOpen}
          handleSubmit={handleSubmit}/>
     

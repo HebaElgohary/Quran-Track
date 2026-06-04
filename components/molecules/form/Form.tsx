@@ -1,7 +1,7 @@
 import Button from "@/components/atoms/Button";
 import { getFormFields } from "@/utils/getFormFields";
 import React,{useMemo} from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import FormField from "./FormField";
 import { validateStudent } from "@/utils/validateStudent";
 interface props<T> {
@@ -33,13 +33,19 @@ const fields = useMemo(() => getFormFields(page), [page]);
 
 
   return (
+    <ScrollView
+  style={{ maxHeight: 500 }}
+  contentContainerStyle={{
+    paddingBottom: 20,
+  }}
+>
     <View
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         maxHeight: 500,
-        overflowY: "scroll",
+        // overflowY: "scroll",
       }}
     >
       <View
@@ -47,7 +53,6 @@ const fields = useMemo(() => getFormFields(page), [page]);
       >
         {fields?.map((field) => 
     { 
-          console.log('form filds areeeeeeeeeeeee',field)
 
            return <FormField
             value={formData?.[field?.name as keyof typeof formData]}
@@ -79,8 +84,12 @@ const fields = useMemo(() => getFormFields(page), [page]);
           variant="gray"
           textColor="black"
           onClick={() =>{
-            console.log('group daaaaaaata is ',formData);
-            handleSubmit?.(formData)}}
+            console.log('btttttttttttttnnnnnnnnnnnnnnnnn clicked')
+            console.log(' daaaaaaata isssssssss ',formData);
+            handleSubmit?.(formData)
+            setOpen(false)
+          }
+          }
         >
           {formData?.id? "تعديل" : btn1}{" "}
         </Button>
@@ -91,5 +100,6 @@ const fields = useMemo(() => getFormFields(page), [page]);
         </Button>
       </View>
     </View>
+    </ScrollView>
   );
 }

@@ -61,7 +61,8 @@ const confirmDelete = async () => {
     <StudentCard key={student.id}
      updateStudent={editStudent}
       handleDelete={openDeleteAlert} 
-      isStudent student={student} 
+      isStudent 
+      student={student} 
       btn1='edit' btn2='delete'></StudentCard>
    )}
    </View>
