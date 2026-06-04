@@ -5,6 +5,7 @@ import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
+import { groupColors } from "@/constants/theme";
 
 interface GroupCardProps {
   group: GroupFormData;
@@ -19,6 +20,9 @@ export default function GroupCard({ group }: GroupCardProps) {
         marginHorizontal: 10,
         padding: 15,
         borderRadius: 10,
+        marginVertical: 5,
+        borderTopWidth: 5,
+        borderTopColor: groupColors[group.color as keyof typeof groupColors],
         display: "flex",
         justifyContent: "space-around",
       }}

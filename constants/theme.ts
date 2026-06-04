@@ -14,6 +14,16 @@ export const colors = {
   black:'#000000'
 };
 
+export const groupColors = {
+  '0': "#1C4033",
+  '1': "#C8E6C9",
+  '2': "#c89d41",
+  '3': "#D32F2F", 
+  '4': "#C5CAE9",
+  '5': "#BBDEFB",
+  '6': "#B3E5FC",
+}
+
 export const spacing = {
   xs: 4,
   sm: 8,

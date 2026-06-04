@@ -36,7 +36,7 @@ export default function RadioInput({ data = [], label, onChange }: Props) {
         </Text>
       )}
 
-      <View style={{ flexDirection: "row", gap: 10 }}>
+      <View style={{ flexDirection: "row-reverse", gap: 10 }}>
         {data.map((item) => (
           <Radio
             key={item.id}
