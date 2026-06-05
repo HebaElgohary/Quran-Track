@@ -31,7 +31,7 @@ export default function Form<T>({
 }: props<T>) {
   const data = useFormData(page)
   console.log('formData in group', formData);
-const fields = useMemo(() => getFormFields(page, data), [page]);
+const fields = useMemo(() => getFormFields(page, data), [page,data]);
 
 
 

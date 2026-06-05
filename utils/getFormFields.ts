@@ -27,6 +27,8 @@ export const getFormFields = (page: string,Data:FormData) => {
       name: "students",
       label: "الطلاب ",
       type: "checkbox",
+        source: "students",
+
        students:
       Data?.map(item => ({
         id: item.id,
