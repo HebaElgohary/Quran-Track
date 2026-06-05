@@ -6,14 +6,22 @@ import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { groupColors } from "@/constants/theme";
+import { useStudents } from "@/hooks/useStudent";
 
 interface GroupCardProps {
   group: Group;
-  setSelectedGroupId: (id: number) => void; // electedGroupId
+  setSelectedGroupId: (id: number) => void; //selectedGroupId
 }
 
 export default function GroupCard({ group, setSelectedGroupId }: GroupCardProps) {
-  const studentCount = group.students ? group.students.length : 0;
+  const { students } = useStudents()
+  console.log(students)
+  const groupStudents = students.filter(
+  student => student.groupId === group.id
+);
+  
+
+  const studentCount = groupStudents ? groupStudents.length : 0;
   return (
     <View
       style={{

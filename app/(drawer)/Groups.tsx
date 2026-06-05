@@ -17,6 +17,9 @@ export default function Groups() {
   const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(null);
   //------------------------------//
   console.log(groups[0]?.students);
+  console.log('groups are',groups);
+  console.log(groups[0]);
+
   console.log(groups[4]);
 
   const AddGroup: (formData: GroupFormData) => Promise<void> = async (
@@ -25,6 +28,7 @@ export default function Groups() {
     console.log("inside addGroup");
     console.log("group data areeeeeee", formData);
     const { students, ...groupData } = formData;
+    console.log('students before send to creategroup',students)
     await createGroup(groupData, students);
     showSuccess("تم إضافة المجموعة بنجاح");
   };

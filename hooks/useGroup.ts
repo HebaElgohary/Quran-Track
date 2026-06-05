@@ -42,8 +42,8 @@ export default function useGroups() {
   ) => {
     console.log('inside create group ',students)
     try {
-      await addGroup(groupData, students);
-      setGroups((prev) => [...prev, { id: Date.now(), ...groupData, students }]);
+     const group = await addGroup(groupData, students);
+      setGroups((prev) => [...prev, { ...group }]);
       await loadGroups();
     } catch (error) {
       console.log("Error creating group", error);

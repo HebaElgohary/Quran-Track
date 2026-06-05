@@ -4,8 +4,10 @@ import React,{useMemo} from "react";
 import { ScrollView, View } from "react-native";
 import FormField from "./FormField";
 import { validateStudent } from "@/utils/validateStudent";
+import { useFormData } from "@/hooks/useFormData";
+import { FormName } from "@/types/appTypes";
 interface props<T> {
-  page: "Students" | "Groups" | "Schedule" | "Session";
+  page: FormName;
   btn1?: string;
   btn2?: string;
   setOpen: any;
@@ -27,9 +29,10 @@ export default function Form<T>({
   btn2,
   setOpen,
 }: props<T>) {
-const fields = useMemo(() => getFormFields(page), [page]);
-
+  const data =useMemo(() => useFormData(page), [page])
   console.log('formData in group', formData);
+const fields = useMemo(() => getFormFields(page, data), [page]);
+
 
 
   return (

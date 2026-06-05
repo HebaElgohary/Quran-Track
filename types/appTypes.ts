@@ -32,3 +32,7 @@ export type GroupFormData = Omit<Group, "id">
   studentId: string;
   note: string;
 };
+
+export type FormName="Students" | "Groups" | "Sessions" | "Schedule" 
+
+export type FormData = Student[] | Group[]

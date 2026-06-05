@@ -1,5 +1,5 @@
 import { colors } from "@/constants/theme";
-export const getFormFields = (page: string) => {
+export const getFormFields = (page: string, data: any) => {
   const groupFields = [
     {
       name: "nameAr",
