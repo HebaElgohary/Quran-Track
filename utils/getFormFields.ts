@@ -1,6 +1,6 @@
 import { colors } from "@/constants/theme";
 import { FormData } from "@/types/appTypes";
-export const getFormFields = (page: string, data: FormData) => {
+export const getFormFields = (page: string,Data:FormData) => {
   const groupFields = [
     {
       name: "nameAr",
@@ -16,28 +16,24 @@ export const getFormFields = (page: string, data: FormData) => {
       name: "color",
       label: "اللون ",
       type: "radio",
-   students:
-      data?.map(item => ({
-        id: item.id,
-        name: item.nameAr,
-        value: item.id,
-        checked: false,
-      })) || [],
-  
-
+      data: [
+        { color: colors.btnPrimary, id: 0, checked: false },
+        { color: colors.secondary, id: 1, checked: false },
+        { color: colors.warning, id: 2, checked: false },
+        { color: colors.danger, id: 3, checked: false },
+      ],
     },
     {
       name: "students",
       label: "الطلاب ",
       type: "checkbox",
-      students: [
-        { id: 0, name: "حكيم"  ,value:'حكيم', checked: false },
-        { id: 1, name: "زكريا" , value:'زكريا', checked: false },
-        { id: 2, name: "عزير"  , value:'عزير', checked: false },
-         { id: 3, name: "احمد"  ,value:'احمد', checked: false },
-        { id: 4, name: "محمد" , value:'محمد', checked: false },
-        { id: 5, name: "سعد"  , value:'سعد', checked: false },
-      ],
+       students:
+      Data?.map(item => ({
+        id: item.id,
+        name: item.nameAr,
+        value: item.id,
+        checked: false,
+      })) || [],
     },
     {
       name: "notes",

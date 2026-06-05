@@ -29,7 +29,7 @@ export default function Form<T>({
   btn2,
   setOpen,
 }: props<T>) {
-  const data =useMemo(() => useFormData(page), [page])
+  const data = useFormData(page)
   console.log('formData in group', formData);
 const fields = useMemo(() => getFormFields(page, data), [page]);
 
