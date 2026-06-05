@@ -1,5 +1,6 @@
 import { colors } from "@/constants/theme";
-export const getFormFields = (page: string, data: any) => {
+import { FormData } from "@/types/appTypes";
+export const getFormFields = (page: string, data: FormData) => {
   const groupFields = [
     {
       name: "nameAr",
@@ -15,12 +16,15 @@ export const getFormFields = (page: string, data: any) => {
       name: "color",
       label: "اللون ",
       type: "radio",
-      data: [
-        { color: colors.btnPrimary, id: 0, checked: false },
-        { color: colors.secondary, id: 1, checked: false },
-        { color: colors.warning, id: 2, checked: false },
-        { color: colors.danger, id: 3, checked: false },
-      ],
+   students:
+      data?.map(item => ({
+        id: item.id,
+        name: item.nameAr,
+        value: item.id,
+        checked: false,
+      })) || [],
+  
+
     },
     {
       name: "students",
