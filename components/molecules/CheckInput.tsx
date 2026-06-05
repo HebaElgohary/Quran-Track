@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
 import { colors } from "@/constants/theme";
 
-export default function CheckInput({ data = [], label, onChange }: any) {
+export default function CheckInput({ students: data = [], label, onChange }: any) {
   const [items, setItems] = useState(data);
   const [checked, setChecked] = useState([]);
 console.log('Checkbox',data)
@@ -12,19 +12,20 @@ console.log('Checkbox',data)
     setItems(data);
   }, [data]);
 
-  const toggleItem = (id: string | number) => {
-    const updated = items.map((item: any) =>
-      item.id === id ? { ...item, checked: !item.checked } : item
-    );
+ const toggleItem = (id: string | number) => {
+  const updated = items.map((item: any) =>
+    item.id === id ? { ...item, checked: !item.checked } : item
+  );
 
-    setItems(updated);
-    // array of checked users id 
-const checkedItems = updated.filter((item: any) => item.checked);
-    setChecked(checkedItems.map((item: any) => item.id));
-    ////////////////////////
-    // optional: lift state up
-    onChange?.(updated);
-  };
+  setItems(updated);
+
+  const selectedStudents = updated
+    .filter((item: any) => item.checked)
+    // .map((item: any) => item.value);
+console.log('selected students are',selectedStudents)
+  onChange?.(selectedStudents);
+
+};
 
   return (
     <View style={{ gap: 12, marginVertical: 10, display: "flex", alignItems: "flex-end" }}>
@@ -60,7 +61,7 @@ const checkedItems = updated.filter((item: any) => item.checked);
           key={item.id}
           label={item.name}
           checked={item.checked}
-          onChange={() => toggleItem(item.id)}
+          onChange={() => toggleItem(item.id) }
         />
       ))}
     </View>

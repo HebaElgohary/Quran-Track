@@ -1,4 +1,4 @@
-import { GroupFormData } from "@/types/appTypes";
+import { Group } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { Text, View } from "react-native";
@@ -8,10 +8,11 @@ import Title from "../atoms/Title";
 import { groupColors } from "@/constants/theme";
 
 interface GroupCardProps {
-  group: GroupFormData;
+  group: Group;
+  setSelectedGroupId: (id: number) => void; // electedGroupId
 }
 
-export default function GroupCard({ group }: GroupCardProps) {
+export default function GroupCard({ group, setSelectedGroupId }: GroupCardProps) {
   const studentCount = group.students ? group.students.length : 0;
   return (
     <View
@@ -79,8 +80,8 @@ export default function GroupCard({ group }: GroupCardProps) {
         <Button variant="transparent" textColor="danger">
           <Feather name="edit" size={20} color="black" />
         </Button>
-        <Button variant="transparent" textColor="danger">
-          <Feather name="trash-2" size={20} color="black" />
+        <Button variant="transparent" textColor="danger" onClick={() => {setSelectedGroupId(group.id)}} >
+          <Feather name="trash-2" size={20} color="red" />
         </Button>
       </View>
       {/* second row */}

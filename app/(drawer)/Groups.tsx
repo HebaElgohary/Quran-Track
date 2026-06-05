@@ -1,3 +1,4 @@
+import CustomAlert from "@/components/atoms/CustomAlert";
 import GroupCard from "@/components/molecules/GroupCard";
 import Header from "@/components/organisms/Header";
 import NoDataFallback from "@/components/organisms/NoDataFallback";
@@ -11,9 +12,13 @@ type addGroupType = GroupFormData;
 
 export default function Groups() {
   //calling hooks
-  const { groups, loading, createGroup } = useGroups();
+  const { groups, loading, createGroup, removeGroup } = useGroups();
   const { showSuccess } = useToast();
+  const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(null);
   //------------------------------//
+  console.log(groups[0]?.students);
+  console.log(groups[4]);
+
   const AddGroup: (formData: GroupFormData) => Promise<void> = async (
     formData: GroupFormData,
   ) => {
@@ -23,6 +28,24 @@ export default function Groups() {
     await createGroup(groupData, students);
     showSuccess("تم إضافة المجموعة بنجاح");
   };
+
+  // alert in case of delte only to make sure he really wants to delete student 
+    const openDeleteAlert = (id: number) => {
+  setSelectedGroupId(id);
+};
+// delete student in case of confirm alert //
+const confirmDelete = async () => {
+  if (selectedGroupId===null) return;
+
+  await removeGroup(selectedGroupId);
+
+  showSuccess( 'تم حذف المجموعة',
+  );
+
+  setSelectedGroupId(null);
+};
+// -----------------------------//
+
   return (
     <View
       style={{
@@ -48,8 +71,19 @@ export default function Groups() {
           handleSubmit={AddGroup}
         />
       )}
-      {groups.length > 0 && <>there are groups</> &&
-        groups.map((group) => <GroupCard key={group.id} group={group} />)}
+      {groups.length > 0  &&
+        groups.map((group) => <GroupCard key={group.id} group={group} setSelectedGroupId={setSelectedGroupId} />)}
+
+           <CustomAlert
+          show={selectedGroupId !== null}
+          title="حذف المجموعة"
+          message="هل أنت متأكد أنك تريد حذف هذه المجموعة؟"
+          confirmText="حذف"
+          cancelText="الغاء"
+          onCancel={() => setSelectedGroupId(null)}
+          onConfirm={confirmDelete}
+        />
+        {/* //-----------------------------// */}
     </View>
   );
 }

@@ -45,7 +45,6 @@ const fields = useMemo(() => getFormFields(page), [page]);
         flexDirection: "column",
         justifyContent: "space-between",
         maxHeight: 500,
-        // overflowY: "scroll",
       }}
     >
       <View

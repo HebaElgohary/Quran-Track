@@ -24,12 +24,9 @@ const {showSuccess,showError} = useToast();
 // delete student in case of confirm alert //
 const confirmDelete = async () => {
   if (selectedStudentId===null) return;
-
   await removeStudent(selectedStudentId);
-
   showSuccess( 'تم حذف الطالب',
   );
-
   setSelectedStudentId(null);
 };
 // -----------------------------//

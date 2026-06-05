@@ -26,7 +26,7 @@ export const getFormFields = (page: string) => {
       name: "students",
       label: "الطلاب ",
       type: "checkbox",
-      data: [
+      students: [
         { id: 0, name: "حكيم"  ,value:'حكيم', checked: false },
         { id: 1, name: "زكريا" , value:'زكريا', checked: false },
         { id: 2, name: "عزير"  , value:'عزير', checked: false },
