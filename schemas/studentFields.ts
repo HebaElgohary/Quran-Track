@@ -1,4 +1,6 @@
-export const studentFields = [
+import { FormFieldSchema } from "@/types/appTypes";
+
+export const studentFields: FormFieldSchema[] = [
   {
     name: "nameAr",
     label: "الاسم بالعربية",

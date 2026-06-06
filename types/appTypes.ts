@@ -36,3 +36,23 @@ export type GroupFormData = Omit<Group, "id">
 export type FormName="Students" | "Groups" | "Sessions" | "Schedule" 
 
 export type FormData = Student[] | Group[]
+
+export type FieldSource =
+  | "students"
+  | "groups";
+
+export interface FormFieldSchema {
+  name: string;
+  label: string;
+  type:
+    | "text"
+    | "textarea"
+    | "radio"
+    | "checkbox"
+    | "select"
+    | "number";
+
+  source?: FieldSource;
+
+  data?: any[];
+}

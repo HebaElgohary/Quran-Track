@@ -1,6 +1,7 @@
 import { colors } from "@/constants/theme";
+import { FormFieldSchema } from "@/types/appTypes";
 
- export const groupFields = [
+ export const groupFields: FormFieldSchema[] = [
     {
       name: "nameAr",
       label: "الاسم بالعربية",
@@ -26,7 +27,7 @@ import { colors } from "@/constants/theme";
       name: "students",
       label: "الطلاب ",
       type: "checkbox",
-        source: "students",
+     source: "students",
     },
     {
       name: "notes",
