@@ -1,7 +1,7 @@
-// import { groupFields } from "@/schemas/groupFields";
+import { groupFields } from "@/schemas/groupFields";
 import { studentFields } from "@/schemas/studentFields";
 
-const formSchemas = {
+export const formSchemas = {
   Students: studentFields,
-//   Groups: groupFields,
+  Groups: groupFields,
 };

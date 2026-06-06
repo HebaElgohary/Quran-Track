@@ -5,6 +5,7 @@ import { ScrollView, View } from "react-native";
 import FormField from "./FormField";
 import { validateStudent } from "@/utils/validateStudent";
 import { useFormData } from "@/hooks/useFormData";
+import { formSchemas } from "@/utils/formSchemas";
 import { FormName, Student } from "@/types/appTypes";
 interface props<T> {
   page: FormName;
@@ -33,7 +34,7 @@ export default function Form<T>({
   setOpen,
 }: props<T>) {
   console.log('formData in groupppppppppppppppppppp', data);
-const fields = useMemo(() => getFormFields(page), [page]);
+const fields = useMemo(() => formSchemas[page], [page]);
 
 const fieldData = {
   data: data.map((item:Student) => ({
