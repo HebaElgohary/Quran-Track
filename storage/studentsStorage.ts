@@ -107,3 +107,20 @@ export const removeStudentsFromGroup = async (
     throw error;
   }
 };
+
+// --------- get group students ----------//
+export const getStudentsByGroupId = async (
+  groupId: number
+): Promise<Student[]> => {
+  try {
+    const students = await getStudents();
+
+    return students.filter(
+      (student:Student) => student.groupId === groupId
+    );
+  } catch (error) {
+    console.log("Error getting group students", error);
+    return [];
+  }
+};
+// ---------------------------------------//
