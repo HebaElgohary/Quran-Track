@@ -1,5 +1,5 @@
 import Button from "@/components/atoms/Button";
-import { FormName, Student } from "@/types/appTypes";
+import { FormFieldSchema, FormName, Student,SourcesMap } from "@/types/appTypes";
 import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
 import { ScrollView, View } from "react-native";
@@ -32,7 +32,7 @@ export default function Form<T>({
   const fields = useMemo(() => formSchemas[page], [page]);
 
   //------- source resolver-------//
-  const sources = {
+  const sources: Partial<SourcesMap> = {
     students: data.map((student) => ({
       id: student.id,
       name: student.nameAr,
@@ -60,7 +60,7 @@ export default function Form<T>({
         <View
           style={{ display: "flex", marginVertical: 14, padding: 12, gap: 10 }}
         >
-          {fields.map((field) => {
+          {fields.map((field:FormFieldSchema) => {
             const fieldProps = {
               ...field,
               data: field.source? sources[field.source] : field.data,
@@ -72,7 +72,7 @@ export default function Form<T>({
                 {...fieldProps}
                 value={formData?.[field.name]}
                 error={errors?.[field.name]}
-                onChange={(value) =>
+                onChange={(value: string) =>
                   setFormData({
                     ...formData,
                     [field.name]: value,

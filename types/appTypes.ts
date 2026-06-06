@@ -39,7 +39,21 @@ export type FormData = Student[] | Group[]
 
 export type FieldSource =
   | "students"
-  | "groups";
+  | "groups"
+  // | "sessions"
+  // | "reports"
+  // | "schedule";
+  export type SourceOption = {
+  id: number;
+  name: string;
+  value: number | string;
+  checked: boolean;
+};
+
+export type SourcesMap = {
+  students: SourceOption[];
+  groups: SourceOption[];
+};
 
 export interface FormFieldSchema {
   name: string;
