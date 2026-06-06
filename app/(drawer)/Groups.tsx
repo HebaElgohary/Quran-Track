@@ -17,7 +17,7 @@ export default function Groups() {
   const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(null);
   //------------------------------//
 
-  const AddGroup: (formData: GroupFormData) => Promise<void> = async (
+  const AddGroup: (formData: Group) => Promise<void> = async (
     formData: GroupFormData,
   ) => {
     console.log("inside addGroup");
@@ -46,7 +46,7 @@ const confirmDelete = async () => {
 // -----------------------------//
 //  update group  //
 const updateGroup = async (updatedGroup: Group) => {
-  const { students, ...groupData } = updatedGroup;
+  const { data: students, ...groupData } = updatedGroup;
   try {
     await editGroup(groupData,students);
     showSuccess( 'تم تحديث المجموعة',

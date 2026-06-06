@@ -85,3 +85,25 @@ export const assignStudentsToGroup = async (
 
   return updated;
 };
+//------ remove students from group -------//
+export const removeStudentsFromGroup = async (
+  groupId: number
+) => {
+  try {
+    const students = await getStudents();
+
+    const updatedStudents = students.map((student:Student) =>
+      student.groupId === groupId
+        ? { ...student, groupId: undefined }
+        : student
+    );
+
+    await AsyncStorage.setItem(
+      KEY,
+      JSON.stringify(updatedStudents)
+    );
+  } catch (error) {
+    console.log("Error removing students from group", error);
+    throw error;
+  }
+};

@@ -41,7 +41,7 @@ export default function GroupForm({
         id: student.id,
         name: student.nameAr,
         value: student.id,
-        checked: false,
+        checked:  student.groupId === group?.id,
       })),
     };
     //---------------------------//
