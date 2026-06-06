@@ -1,6 +1,6 @@
 import { Group, Student } from "@/types/appTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { assignStudentsToGroup } from "./studentsStorage";
+import { assignStudentsToGroup, removeStudentsFromGroup } from "./studentsStorage";
 
 const GROUPS_KEY = "groups";
 
@@ -79,10 +79,14 @@ export const updateGroup = async (
       students?.map((student) => student.id) ?? [];
 
     if (studentIds.length > 0) {
-      await assignStudentsToGroup(
-        studentIds,
-        updatedGroup.id
-      );
+  await removeStudentsFromGroup(
+  updatedGroup.id
+);
+
+await assignStudentsToGroup(
+  studentIds,
+  updatedGroup.id
+);
     }
 
     return updatedGroups;
@@ -110,8 +114,7 @@ export const deleteGroup = async (
       JSON.stringify(updatedGroups)
     );
 
-    // TODO:
-    // remove groupId from students that belong to this group
+    await removeStudentsFromGroup(groupId);
   } catch (error) {
     console.log("Error deleting group", error);
     throw error;
