@@ -5,7 +5,7 @@ import { ScrollView, View } from "react-native";
 import FormField from "./FormField";
 import { validateStudent } from "@/utils/validateStudent";
 import { useFormData } from "@/hooks/useFormData";
-import { FormName } from "@/types/appTypes";
+import { FormName, Student } from "@/types/appTypes";
 interface props<T> {
   page: FormName;
   btn1?: string;
@@ -15,8 +15,10 @@ interface props<T> {
   setFormData?: any;
   handleSubmit?: (data:T) => Promise<void>;
   errors?: any;
+  data:Student[];
   setErrors?: any;
 }
+
 
 
 export default function Form<T>({
@@ -26,14 +28,21 @@ export default function Form<T>({
   setFormData,
   page,
   btn1,
+  data,
   btn2,
   setOpen,
 }: props<T>) {
-  const data = useFormData(page)
-  console.log('formData in group', formData);
-const fields = useMemo(() => getFormFields(page, data), [page,data]);
+  console.log('formData in groupppppppppppppppppppp', data);
+const fields = useMemo(() => getFormFields(page), [page]);
 
-
+const fieldData = {
+  data: data.map((item:Student) => ({
+    id: item.id,
+    name: item.nameAr,
+    value: item.id,
+    checked: false,
+  })),
+};
 
   return (
     <ScrollView
@@ -59,6 +68,8 @@ const fields = useMemo(() => getFormFields(page, data), [page,data]);
            return <FormField
             value={formData?.[field?.name as keyof typeof formData]}
            error={errors?.[field?.name as keyof typeof errors]}
+          {...fieldData}
+
             onChange={(value: any) =>
 
               setFormData({

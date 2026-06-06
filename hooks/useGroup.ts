@@ -53,9 +53,9 @@ export default function useGroups() {
   // =========================
   // UPDATE GROUP
   // =========================
-  const editGroup = async (updatedGroup: Group) => {
+  const editGroup = async (updatedGroup: Group, students?: Student[]) => {
     try {
-      await updateGroup(updatedGroup);
+      await updateGroup(updatedGroup,students);
 
       await loadGroups();
     } catch (error) {

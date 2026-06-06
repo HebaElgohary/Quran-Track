@@ -1,6 +1,6 @@
 import { colors } from "@/constants/theme";
 import { FormData } from "@/types/appTypes";
-export const getFormFields = (page: string,Data:FormData) => {
+export const getFormFields = (page: string) => {
   const groupFields = [
     {
       name: "nameAr",
@@ -29,13 +29,13 @@ export const getFormFields = (page: string,Data:FormData) => {
       type: "checkbox",
         source: "students",
 
-       students:
-      Data?.map(item => ({
-        id: item.id,
-        name: item.nameAr,
-        value: item.id,
-        checked: false,
-      })) || [],
+      //  data:
+      // Data?.map(item => ({
+      //   id: item.id,
+      //   name: item.nameAr,
+      //   value: item.id,
+      //   checked: false,
+      // })) || [],
     },
     {
       name: "notes",
@@ -89,18 +89,18 @@ export const getFormFields = (page: string,Data:FormData) => {
       label: "الشهر",
       type: "select",
       data: [
-        { label: "يناير", value: "يناير" },
-        { label: "فبراير", value: "فبراير" },
-        { label: "مارس", value: "مارس" },
-        { label: "ابريل", value: "ابريل" },
-        { label: "مايو", value: "مايو" },
-        { label: "يونيه", value: "يونيه" },
-        { label: "يوليو", value: "يوليو" },
-        { label: "اغسطس", value: "اغسطس" },
-        { label: "سبتمبر", value: "سبتمبر" },
-        { label: "اكتوبر", value: "اكتوبر" },
-        { label: "نوفمبر", value: "نوفمبر" },
-        { label: "ديسمبر", value: "ديسمبر" },
+        { name: "january", label: "يناير", value: "يناير" },
+        {name: "february", label: "فبراير", value: "فبراير" },
+        { name: "march", label: "مارس", value: "مارس" },
+        { name: "april", label: "ابريل", value: "ابريل" },
+        {name: "may", label: "مايو", value: "مايو" },
+        { name: "june", label: "يونيه", value: "يونيه" },
+        {name: "july", label: "يوليو", value: "يوليو" },
+        { name: "august", label: "اغسطس", value: "اغسطس" },
+        { name: "september", label: "سبتمبر", value: "سبتمبر" },
+        {name: "october", label: "اكتوبر", value: "اكتوبر" },
+        {name: "november", label: "نوفمبر", value: "نوفمبر" },
+        {name: "december", label: "ديسمبر", value: "ديسمبر" },
       ],
     },
 
@@ -109,9 +109,9 @@ export const getFormFields = (page: string,Data:FormData) => {
       label: "السنة",
       type: "select",
       data: [
-        { label: "2026", value: "2026" },
-        { label: "2027", value: "2027" },
-        { label: "2028", value: "2028" },
+        { name: "2026", label: "2026", value: "2026" },
+        { name : "2027", label: "2027", value: "2027" },
+        {name: "2028", label: "2028", value: "2028" },
       ],
     },
   ];
@@ -121,9 +121,9 @@ export const getFormFields = (page: string,Data:FormData) => {
       label: "الطالب ",
       type: "select",
       data: [
-        { label: "حكيم", value: "حكيم" },
-        { label: "محمد", value: "محمد" },
-        { label: "عزير", value: "عزير" },
+        { name: "hakim", label: "حكيم", value: "حكيم" },
+        {name: "mohamed", label: "محمد", value: "محمد" },
+        {name: "Uzair", label: "عزير", value: "عزير" },
       ],
     },
     {
@@ -149,9 +149,9 @@ export const getFormFields = (page: string,Data:FormData) => {
       label: "الطالب ",
       type: "select",
       data: [
-        { label: "حكيم", value: "حكيم" },
-        { label: "محمد", value: "محمد" },
-        { label: "عزير", value: "عزير" },
+        { name: "hakim", label: "حكيم", value: "حكيم" },
+        {name: "mohamed", label: "محمد", value: "محمد" },
+        { name  : "Uzair", label: "عزير", value: "عزير" },
       ],
     },
     {
@@ -169,10 +169,10 @@ export const getFormFields = (page: string,Data:FormData) => {
       label: "التقييم ",
       type: "select",
       data: [
-        { label: "مقبول", value: "مقبول" },
-        { label: "جيد", value: "جيد" },
-        { label: "جيد جدا", value: "جيد جدا" },
-        { label: "ممتاز", value: "ممتاز" },
+        { name: "accepted", label: "مقبول", value: "مقبول" },
+        {name: "good", label: "جيد", value: "جيد" },
+        {name : "veryGood", label: "جيد جدا", value: "جيد جدا" },
+        {name : "excellent", label: "ممتاز", value: "ممتاز" },
       ],
     },
     { name: "from", label: "من اية ", type: "number" },

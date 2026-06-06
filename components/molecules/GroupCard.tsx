@@ -1,19 +1,23 @@
 import { Group } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { groupColors } from "@/constants/theme";
 import { useStudents } from "@/hooks/useStudent";
+import FormModal from "./form/FormModal";
 
-interface GroupCardProps {
+interface GroupCardProps<T> {
   group: Group;
   setSelectedGroupId: (id: number) => void; //selectedGroupId
+  updateGroup: (data: T) => Promise<void>;
 }
 
-export default function GroupCard({ group, setSelectedGroupId }: GroupCardProps) {
+export default function GroupCard<T>({ group, setSelectedGroupId ,updateGroup}: GroupCardProps<T>) {
+  
+  const [open,setOpen] = useState(false)
   const { students } = useStudents()
   console.log(students)
   const groupStudents = students.filter(
@@ -29,8 +33,9 @@ export default function GroupCard({ group, setSelectedGroupId }: GroupCardProps)
         marginHorizontal: 10,
         padding: 15,
         borderRadius: 10,
-        marginVertical: 5,
-        borderTopWidth: 5,
+        marginVertical: 10,
+        borderTopWidth: 10,
+        
         borderTopColor: groupColors[group.color as keyof typeof groupColors],
         display: "flex",
         justifyContent: "space-around",
@@ -85,14 +90,28 @@ export default function GroupCard({ group, setSelectedGroupId }: GroupCardProps)
           marginVertical: 10,
         }}
       >
-        <Button variant="transparent" textColor="danger">
+        <Button variant="transparent" textColor="danger" onClick={() =>{
+          // updateGroup(group)
+          setOpen(!open)}}>
           <Feather name="edit" size={20} color="black" />
         </Button>
         <Button variant="transparent" textColor="danger" onClick={() => {setSelectedGroupId(group.id)}} >
           <Feather name="trash-2" size={20} color="red" />
         </Button>
       </View>
+
       {/* second row */}
+
+      {/* //modal form */}
+        <FormModal<T>
+              open={open}
+              setOpen={setOpen}
+              formData={group}
+            data={groupStudents}
+              formName="Groups"
+              handleSubmit={updateGroup}
+            />
+            {/* ------------------------ */}
     </View>
   );
 }

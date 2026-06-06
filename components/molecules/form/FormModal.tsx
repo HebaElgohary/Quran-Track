@@ -1,10 +1,11 @@
 import { Modal, View } from "react-native";
 import {getFormName} from "./getFormName";
+import { FormData } from "@/types/appTypes";
 
 
 type FormNameKey = keyof typeof getFormName;
 
-export default function FormModal<T>({formData, open, setOpen, formName, handleSubmit }: {formData?: any; open: boolean; setOpen: any; formName?: FormNameKey; handleSubmit?: (data: T) => Promise<void>; }) {
+export default function FormModal<T>({data,formData, open, setOpen, formName, handleSubmit }: { data?: FormData; formData?: any; open: boolean; setOpen: any; formName?: FormNameKey; handleSubmit?: (data: T) => Promise<void>; }) {
   const FormName = formName ? getFormName[formName] : undefined;
   return (
 
@@ -20,7 +21,7 @@ export default function FormModal<T>({formData, open, setOpen, formName, handleS
     backgroundColor: "rgba(0,0,0,0.4)"
   }}>
     
-  {FormName ? <FormName 
+  {FormName ? <FormName
   formData={formData}
   setOpen={setOpen} 
   open={open} 

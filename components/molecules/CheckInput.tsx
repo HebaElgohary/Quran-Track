@@ -3,8 +3,9 @@ import { ScrollView, Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
 import { colors } from "@/constants/theme";
 
-export default function CheckInput({ students: data = [], label, onChange }: any) {
+export default function CheckInput({  data, label, onChange }: any) {
   const [items, setItems] = useState(data);
+  console.log('cheeeeeeeeeeeeeeek data',items)
   const [checked, setChecked] = useState([]);
 console.log('Checkbox',data)
   // sync with props update
@@ -56,7 +57,7 @@ console.log('selected students are',selectedStudents)
     ,flexDirection:'column'
     ,gap:6,
     alignItems:'flex-end' }}>
-      {items.map((item: any) => (
+      {items?.map((item: any) => (
         <Checkbox
           key={item.id}
           label={item.name}

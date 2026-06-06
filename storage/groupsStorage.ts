@@ -1,10 +1,12 @@
 import { Group, Student } from "@/types/appTypes";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { assignStudentsToGroup } from "./studentsStorage";
 
 const GROUPS_KEY = "groups";
 
+// =========================
 // GET ALL GROUPS
+// =========================
 export const getGroups = async (): Promise<Group[]> => {
   try {
     const data = await AsyncStorage.getItem(GROUPS_KEY);
@@ -16,13 +18,16 @@ export const getGroups = async (): Promise<Group[]> => {
   }
 };
 
-//-------- ADD GROUP --------//
-export const addGroup = async (newGroup: Omit<Group, "id">,students?: Student[]): Promise<Group> => {
+// =========================
+// ADD GROUP
+// =========================
+export const addGroup = async (
+  newGroup: Omit<Group, "id">,
+  students?: Student[]
+): Promise<Group> => {
   try {
-    // old groups
     const oldGroups = await getGroups();
 
-    // create group
     const group: Group = {
       id: Date.now(),
       ...newGroup,
@@ -30,52 +35,85 @@ export const addGroup = async (newGroup: Omit<Group, "id">,students?: Student[])
 
     const updatedGroups = [...oldGroups, group];
 
-    // save group
-    await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(updatedGroups));
-  
-  //add students to group if exist by add gropuID to each student then save students again with new groupId
-    const studentsIds = students?.map((student) => student.id) || [];
-     await assignStudentsToGroup(studentsIds, group.id);
-    return  group;
+    await AsyncStorage.setItem(
+      GROUPS_KEY,
+      JSON.stringify(updatedGroups)
+    );
+
+    const studentIds =
+      students?.map((student) => student.id) ?? [];
+
+    if (studentIds.length > 0) {
+      await assignStudentsToGroup(studentIds, group.id);
+    }
+
+    return group;
   } catch (error) {
     console.log("Error adding group", error);
     throw error;
   }
-
 };
 
-//---------- update GROUP ----------//
-export const updateGroup = async (updatedGroup: Group) => {
+// =========================
+// UPDATE GROUP
+// =========================
+export const updateGroup = async (
+  updatedGroup: Group,
+  students?: Student[]
+): Promise<Group[]> => {
   try {
-    // old groups
     const oldGroups = await getGroups();
-    
-    // updated array
-    const updatedGroups = oldGroups.map((group) => {
-      if (group.id === updatedGroup.id) {
-        return updatedGroup;
-      }
-      return group;
-    });
 
-    // save
-    await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(updatedGroups));
+    const updatedGroups = oldGroups.map((group) =>
+      group.id === updatedGroup.id
+        ? updatedGroup
+        : group
+    );
+
+    await AsyncStorage.setItem(
+      GROUPS_KEY,
+      JSON.stringify(updatedGroups)
+    );
+
+    const studentIds =
+      students?.map((student) => student.id) ?? [];
+
+    if (studentIds.length > 0) {
+      await assignStudentsToGroup(
+        studentIds,
+        updatedGroup.id
+      );
+    }
 
     return updatedGroups;
   } catch (error) {
     console.log("Error updating group", error);
-      throw error;
-
+    throw error;
   }
 };
 
-//---------- delete GROUP ----------//
-export const deleteGroup = async (groupId: number) => {
+// =========================
+// DELETE GROUP
+// =========================
+export const deleteGroup = async (
+  groupId: number
+): Promise<void> => {
   try {
     const oldGroups = await getGroups();
-    const updatedGroups = oldGroups.filter((group) => group.id !== groupId);
-    await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(updatedGroups));
+
+    const updatedGroups = oldGroups.filter(
+      (group) => group.id !== groupId
+    );
+
+    await AsyncStorage.setItem(
+      GROUPS_KEY,
+      JSON.stringify(updatedGroups)
+    );
+
+    // TODO:
+    // remove groupId from students that belong to this group
   } catch (error) {
     console.log("Error deleting group", error);
+    throw error;
   }
 };

@@ -2,7 +2,7 @@ import { Group, GroupFormData } from "@/types/appTypes";
 import { validateGroup } from "@/utils/validateGroup";
 import { useState } from "react";
 
-export function useGroupForm(initial?: Group) {
+export function useGroupForm(initial?: GroupFormData) {
   const [formData, setFormData] = useState<GroupFormData>(
     initial || {
       nameAr: "",
@@ -36,5 +36,6 @@ export function useGroupForm(initial?: Group) {
     validate,
     errors,
     setErrors,
+    reset,
   };
 }
