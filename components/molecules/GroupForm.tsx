@@ -1,19 +1,19 @@
 import { useGroupForm } from "@/hooks/useGroupForm";
-import { Group } from "@/types/appTypes";
+import { Group, GroupFormData, SourcesMap } from "@/types/appTypes";
 import React from "react";
 import { View } from "react-native";
 import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
 import { useStudents } from "@/hooks/useStudent";
 
-export default function GroupForm<T>({
+export default function GroupForm({
   handleSubmit,
   formData: group,
   setOpen,
   open,
 }: {
   formData?: Group;
-  handleSubmit?: (data: T) => Promise<void>;
+  handleSubmit?: (data: GroupFormData) => Promise<void>;
   setOpen: any;
   open: boolean;
 }) {
@@ -25,14 +25,26 @@ export default function GroupForm<T>({
   const { formData, setFormData, errors, validate, reset } =
     useGroupForm(group);
 
+
   const onSubmit = async () => {
     const isValid = validate();
     if (!isValid) return;
 
-    if (handleSubmit) await handleSubmit(formData as T);
+    if (handleSubmit) await handleSubmit(formData);
     reset();
     setOpen(false);
   };
+
+    //------- source resolver-------//
+    const sources: Partial<SourcesMap> = {
+      students: students.map((student) => ({
+        id: student.id,
+        name: student.nameAr,
+        value: student.id,
+        checked: false,
+      })),
+    };
+    //---------------------------//
 
   return (
     <View
@@ -47,13 +59,14 @@ export default function GroupForm<T>({
       {/* form heading */}
       <FormHeading title="مجموعة  جديدة " name={"x"} setOpen={setOpen} />
       {/* /////////////////// */}
-      <Form<T>
+      <Form<GroupFormData>
         formData={formData}
         setFormData={setFormData}
         page="Groups"
         btn1={"اضافة"}
         btn2={"الغاء"}
-        data={students}
+          sources={sources}
+
         setOpen={setOpen}
         handleSubmit={handleSubmit}
       />

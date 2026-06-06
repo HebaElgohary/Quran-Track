@@ -1,46 +1,34 @@
 import Button from "@/components/atoms/Button";
-import { FormFieldSchema, FormName, Student,SourcesMap } from "@/types/appTypes";
+import { FormFieldSchema, FormName, SourcesMap } from "@/types/appTypes";
 import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
 import { ScrollView, View } from "react-native";
 import FormField from "./FormField";
-interface props<T> {
+interface props<T extends Record<string, any>> {
   page: FormName;
   btn1?: string;
   btn2?: string;
   setOpen: any;
-  formData?: any;
-  setFormData?: any;
+  formData?: T;
+  setFormData: React.Dispatch<React.SetStateAction<T>>;
   handleSubmit?: (data: T) => Promise<void>;
   errors?: any;
-  data: Student[];
+  sources: Partial<SourcesMap>;
   setErrors?: any;
 }
 
-export default function Form<T>({
+export default function Form<T extends Record<string, any>>({
   handleSubmit,
   errors,
   formData,
   setFormData,
+  sources,
   page,
   btn1,
-  data,
   btn2,
   setOpen,
 }: props<T>) {
-  console.log("formData in groupppppppppppppppppppp", data);
   const fields = useMemo(() => formSchemas[page], [page]);
-
-  //------- source resolver-------//
-  const sources: Partial<SourcesMap> = {
-    students: data.map((student) => ({
-      id: student.id,
-      name: student.nameAr,
-      value: student.id,
-      checked: false,
-    })),
-  };
-  //---------------------------//
 
   return (
     <ScrollView
@@ -60,10 +48,10 @@ export default function Form<T>({
         <View
           style={{ display: "flex", marginVertical: 14, padding: 12, gap: 10 }}
         >
-          {fields.map((field:FormFieldSchema) => {
+          {fields.map((field: FormFieldSchema) => {
             const fieldProps = {
               ...field,
-              data: field.source? sources[field.source] : field.data,
+              data: field.source ? sources[field.source] : field.data,
             };
 
             return (
@@ -72,11 +60,11 @@ export default function Form<T>({
                 {...fieldProps}
                 value={formData?.[field.name]}
                 error={errors?.[field.name]}
-                onChange={(value: string) =>
-                  setFormData({
-                    ...formData,
+                onChange={(value: unknown) =>
+                  setFormData((prev) => ({
+                    ...prev,
                     [field.name]: value,
-                  })
+                  }))
                 }
               />
             );
@@ -97,7 +85,7 @@ export default function Form<T>({
             onClick={() => {
               console.log("btttttttttttttnnnnnnnnnnnnnnnnn clicked");
               console.log(" daaaaaaata isssssssss ", formData);
-              handleSubmit?.(formData);
+              handleSubmit?.(formData as T);
               setOpen(false);
             }}
           >
