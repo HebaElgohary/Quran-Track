@@ -1,24 +1,29 @@
 import { FormFieldSchema } from "@/types/appTypes";
 
-export const sFields: FormFieldSchema[] = [
-  {
-    name: "nameAr",
-    label: "الاسم بالعربية",
-    type: "text",
-  },
-  {
-    name: "nameEn",
-    label: "الاسم بالانجليزية",
-    type: "text",
-  },
-  {
-    name: "level",
-    label: "المستوى",
-    type: "select",
-  },
-  {
-    name: "notes",
-    label: "ملاحظات",
-    type: "textarea",
-  },
-];
+export const scheduleFields: FormFieldSchema[] = [
+    {
+      name: "student",
+      label: "الطالب ",
+      type: "select",
+      data: [
+        { name: "hakim", label: "حكيم", value: "حكيم" },
+        {name: "mohamed", label: "محمد", value: "محمد" },
+        {name: "Uzair", label: "عزير", value: "عزير" },
+      ],
+    },
+    {
+      name: "time",
+      label: "الموعد",
+      type: "text",
+    },
+    {
+      name: "duration",
+      label: "المدة ",
+      type: "text",
+    },
+    {
+      name: "note",
+      label: "ملاحظة ",
+      type: "textarea",
+    },
+  ];
