@@ -1,4 +1,4 @@
-import { Group } from "@/types/appTypes";
+import { Group, GroupFormData } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
@@ -9,15 +9,16 @@ import { groupColors } from "@/constants/theme";
 import { useStudents } from "@/hooks/useStudent";
 import FormModal from "./form/FormModal";
 
-interface GroupCardProps<T> {
+ type editGroupType= Group
+interface GroupCardProps{
   group: Group;
   setSelectedGroupId: (id: number) => void; //selectedGroupId
-  updateGroup: (data: T) => Promise<void>;
+  updateGroup: (data: editGroupType) => Promise<void>;
 }
 
-export default function GroupCard<T>({ group, setSelectedGroupId ,updateGroup}: GroupCardProps<T>) {
+export default function GroupCard({ group, setSelectedGroupId ,updateGroup}: GroupCardProps) {
   
-  const [open,setOpen] = useState(false)
+  const [open,setOpen] = useState(false) 
   const { students } = useStudents()
   console.log(students)
   const groupStudents = students.filter(
@@ -103,7 +104,7 @@ export default function GroupCard<T>({ group, setSelectedGroupId ,updateGroup}: 
       {/* second row */}
 
       {/* //modal form */}
-        <FormModal<T>
+        <FormModal<editGroupType>
               open={open}
               setOpen={setOpen}
               formData={group}

@@ -6,44 +6,52 @@ import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
 import { useStudents } from "@/hooks/useStudent";
 
-export default function GroupForm({
+
+export default function GroupForm<T>({
   handleSubmit,
   formData: group,
   setOpen,
   open,
 }: {
-  formData?: Group;
-  handleSubmit?: (data: GroupFormData) => Promise<void>;
-  setOpen: any;
+  formData?: T;
+  handleSubmit?: (data: T) => Promise<void>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   open: boolean;
 }) {
   const { students } = useStudents()
   console.log(students);
-  const groupStudents = students.filter(
-    (student) => student.groupId === group?.id,
-  );
+
   const { formData, setFormData, errors, validate, reset } =
-    useGroupForm(group);
+    useGroupForm(group );
 
 
-  const onSubmit = async () => {
-    const isValid = validate();
-    if (!isValid) return;
 
-    if (handleSubmit) await handleSubmit(formData);
-    reset();
-    setOpen(false);
-  };
+const onSubmit = async () => {
+  console.log("GROUP FORM ONSUBMIT");
+
+  const isValid = validate();
+
+  console.log("IS VALID", isValid);
+
+  if (!isValid) return;
+
+  if (handleSubmit) {
+    console.log("CALLING ADDGROUP");
+    await handleSubmit(formData as T);
+      setOpen(false);
+
+  }
+};
 
     //------- source resolver-------//
-    const sources: Partial<SourcesMap> = {
-      students: students.map((student) => ({
-        id: student.id,
-        name: student.nameAr,
-        value: student.id,
-        checked:  student.groupId === group?.id,
-      })),
-    };
+const sources: Partial<SourcesMap> = {
+  students: (students ?? []).map((student) => ({
+    id: student.id,
+    name: student.nameAr,
+    value: student.id,
+    checked: student.groupId === (group as Group)?.id,
+  })),
+};
     //---------------------------//
 
   return (
@@ -59,7 +67,7 @@ export default function GroupForm({
       {/* form heading */}
       <FormHeading title="مجموعة  جديدة " name={"x"} setOpen={setOpen} />
       {/* /////////////////// */}
-      <Form<GroupFormData>
+      <Form<T>
         formData={formData}
         setFormData={setFormData}
         page="Groups"
@@ -68,7 +76,7 @@ export default function GroupForm({
           sources={sources}
 
         setOpen={setOpen}
-        handleSubmit={handleSubmit}
+        handleSubmit={onSubmit}
       />
     </View>
   );

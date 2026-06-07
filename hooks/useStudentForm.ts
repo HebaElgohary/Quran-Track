@@ -3,7 +3,7 @@ import { Student, StudentFormData } from "@/types/appTypes";
 import { validateStudent } from "@/utils/validateStudent";
 
 export function useStudentForm(initial?: Student) {
-  const [formData, setFormData] = useState<StudentFormData>(
+  const [formData, setFormData] = useState<StudentFormData|Student>(
     initial || {
       nameAr: "",
       nameEn: "",

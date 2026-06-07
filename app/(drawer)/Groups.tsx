@@ -17,8 +17,9 @@ export default function Groups() {
   const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(null);
   //------------------------------//
 
-  const AddGroup: (formData: Group) => Promise<void> = async (
-    formData: GroupFormData,
+  console.log('num of grouooopppps;',groups)
+  const AddGroup: (formData: addGroupType) => Promise<void> = async (
+    formData: addGroupType,
   ) => {
     console.log("inside addGroup");
     console.log("group data areeeeeee", formData);
@@ -28,10 +29,6 @@ export default function Groups() {
     showSuccess("تم إضافة المجموعة بنجاح");
   };
 
-  // alert in case of delte only to make sure he really wants to delete student 
-    const openDeleteAlert = (id: number) => {
-  setSelectedGroupId(id);
-};
 // delete student in case of confirm alert //
 const confirmDelete = async () => {
   if (selectedGroupId===null) return;
@@ -46,7 +43,7 @@ const confirmDelete = async () => {
 // -----------------------------//
 //  update group  //
 const updateGroup = async (updatedGroup: Group) => {
-  const { data: students, ...groupData } = updatedGroup;
+  const {  students, ...groupData } = updatedGroup;
   try {
     await editGroup(groupData,students);
     showSuccess( 'تم تحديث المجموعة',
@@ -83,7 +80,11 @@ const updateGroup = async (updatedGroup: Group) => {
         />
       )}
       {groups.length > 0  &&
-        groups.map((group) => <GroupCard<addGroupType> key={group.id} group={group} setSelectedGroupId={setSelectedGroupId} updateGroup={updateGroup} />)}
+        groups.map((group) => <GroupCard
+         key={group.id} 
+         group={group} 
+         setSelectedGroupId={setSelectedGroupId} 
+         updateGroup={updateGroup} />)}
 
            <CustomAlert
           show={selectedGroupId !== null}

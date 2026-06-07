@@ -4,20 +4,20 @@ import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
 import { ScrollView, View } from "react-native";
 import FormField from "./FormField";
-interface props<T extends Record<string, any>> {
+interface props<T> {
   page: FormName;
   btn1?: string;
   btn2?: string;
   setOpen: any;
   formData?: T;
   setFormData: React.Dispatch<React.SetStateAction<T>>;
-  handleSubmit?: (data: T) => Promise<void>;
+  handleSubmit?: () => Promise<void>;
   errors?: any;
-  sources: Partial<SourcesMap>;
+  sources?: Partial<SourcesMap>;
   setErrors?: any;
 }
 
-export default function Form<T extends Record<string, any>>({
+export default function Form<T>({
   handleSubmit,
   errors,
   formData,
@@ -51,7 +51,7 @@ export default function Form<T extends Record<string, any>>({
           {fields.map((field: FormFieldSchema) => {
             const fieldProps = {
               ...field,
-              data: field.source ? sources[field.source] : field.data,
+              data: field.source ? sources?.[field.source] : field.data,
             };
 
             return (
@@ -83,13 +83,12 @@ export default function Form<T extends Record<string, any>>({
             variant="gray"
             textColor="black"
             onClick={() => {
-              console.log("btttttttttttttnnnnnnnnnnnnnnnnn clicked");
+              console.log("form btn clicked");
               console.log(" daaaaaaata isssssssss ", formData);
-              handleSubmit?.(formData as T);
-              setOpen(false);
+              handleSubmit?.();
             }}
           >
-            {formData?.id ? "تعديل" : btn1}{" "}
+            {(formData as any)?.id ? "تعديل" : btn1}
           </Button>
 
           <Button size="sm" textColor="white" onClick={() => setOpen(false)}>

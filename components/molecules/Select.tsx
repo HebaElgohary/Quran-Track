@@ -2,6 +2,7 @@ import { colors } from "@/constants/theme";
 import { Picker } from "@react-native-picker/picker";
 import { View } from "react-native";
 export default function Select({ data, value, onChange }: { data: any, value: any, onChange: any }) {
+  console.log("SELECT DATA", data);
 
   return (
     <View>
@@ -14,7 +15,7 @@ export default function Select({ data, value, onChange }: { data: any, value: an
           width: 200,
           fontSize:20,
           backgroundColor: colors.transparent,
-          alignSelf: "end",
+          // alignSelf: "end",
           
         }}
           selectedValue={value}
@@ -22,9 +23,13 @@ export default function Select({ data, value, onChange }: { data: any, value: an
         onChange(itemValue)
       }
       >
-        {data.map((item: { label: string; value: string }) => (
-          <Picker.Item key={item.label} label={item.label} value={item.value}  />
-        ))}
+     {(data ?? []).map((item:{label:string,value:string,id:number,checked:boolean}) => (
+  <Picker.Item
+    key={item.label}
+    label={item.label}
+    value={item.value}
+  />
+))}
       </Picker>
     </View>
   );
