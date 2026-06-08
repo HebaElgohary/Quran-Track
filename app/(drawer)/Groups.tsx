@@ -88,7 +88,7 @@ export default function Groups() {
       )}
       {groups.length > 0 &&
         groups.map((group) => (
-          <GroupCard<editGroupType>
+          <GroupCard
             key={group.id}
             group={group}
               students={students}

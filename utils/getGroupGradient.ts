@@ -1,4 +1,4 @@
-const getGroupGradient = (color: string) => {
+export const getGroupGradient = (color: string) => {
   const map: Record<string, [string, string]> = {
     primary: ["#6366F1", "#A5B4FC"],
     secondary: ["#EC4899", "#F9A8D4"],
