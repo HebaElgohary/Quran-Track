@@ -17,6 +17,8 @@ export default function CheckInput({
   }, [data]);
 
   const toggleItem = (item: any) => {
+      console.log("clicked item", item);
+
     const student = item.data;
 
     const exists = value.some((s: Student) => s.id === student.id);

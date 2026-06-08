@@ -8,51 +8,56 @@ import { Group, GroupFormData } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native";
-type addGroupType = Group;
+type addGroupType = GroupFormData;
+type editGroupType = Group;
 
 export default function Groups() {
   //calling hooks
-  const { groups, loading, createGroup, removeGroup,editGroup } = useGroups();
+  const { groups, loading, createGroup, removeGroup, editGroup } = useGroups();
   const { showSuccess } = useToast();
-  const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(null);
+  const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(
+    null,
+  );
   //------------------------------//
 
-  console.log('num of grouooopppps;',groups)
+  console.log("num of grouooopppps;", groups);
   const AddGroup: (formData: addGroupType) => Promise<void> = async (
     formData: addGroupType,
   ) => {
     console.log("inside addGroup");
     console.log("group data areeeeeee", formData);
     const { students, ...groupData } = formData;
-    console.log('students before send to creategroup',students)
+    console.log("students before send to creategroup", students);
     await createGroup(groupData, students);
     showSuccess("تم إضافة المجموعة بنجاح");
   };
 
-// delete student in case of confirm alert //
-const confirmDelete = async () => {
-  if (selectedGroupId===null) return;
+  // delete student in case of confirm alert //
+  const confirmDelete = async () => {
+    if (selectedGroupId === null) return;
 
-  await removeGroup(selectedGroupId);
+    await removeGroup(selectedGroupId);
 
-  showSuccess( 'تم حذف المجموعة',
-  );
+    showSuccess("تم حذف المجموعة");
 
-  setSelectedGroupId(null);
-};
-// -----------------------------//
-//  update group  //
-const updateGroup = async (updatedGroup: Group) => {
-  const {  students, ...groupData } = updatedGroup;
-  try {
-    await editGroup(groupData,students);
-    showSuccess( 'تم تحديث المجموعة',
-    );
-  } catch (error) {
-    console.log("Error updating group", error);
-  }
-};
-// -----------------------------//
+    setSelectedGroupId(null);
+  };
+  // -----------------------------//
+  //  update group  //
+  const updateGroup = async (updatedGroup: Group) => {
+  console.log('updatedGroup.students', updatedGroup.students);
+    console.log(updatedGroup);
+    const { students, ...groupData } = updatedGroup;
+  console.log("STUDENTS RECEIVED", students);
+    try {
+      await editGroup(groupData, students);
+      window.location.reload();
+      showSuccess("تم تحديث المجموعة");
+    } catch (error) {
+      console.log("Error updating group", error);
+    }
+  };
+  // -----------------------------//
 
   return (
     <View
@@ -79,23 +84,26 @@ const updateGroup = async (updatedGroup: Group) => {
           handleSubmit={AddGroup}
         />
       )}
-      {groups.length > 0  &&
-        groups.map((group) => <GroupCard
-         key={group.id} 
-         group={group} 
-         setSelectedGroupId={setSelectedGroupId} 
-         updateGroup={updateGroup} />)}
+      {groups.length > 0 &&
+        groups.map((group) => (
+          <GroupCard<editGroupType>
+            key={group.id}
+            group={group}
+            setSelectedGroupId={setSelectedGroupId}
+            updateGroup={updateGroup}
+          />
+        ))}
 
-           <CustomAlert
-          show={selectedGroupId !== null}
-          title="حذف المجموعة"
-          message="هل أنت متأكد أنك تريد حذف هذه المجموعة؟"
-          confirmText="حذف"
-          cancelText="الغاء"
-          onCancel={() => setSelectedGroupId(null)}
-          onConfirm={confirmDelete}
-        />
-        {/* //-----------------------------// */}
+      <CustomAlert
+        show={selectedGroupId !== null}
+        title="حذف المجموعة"
+        message="هل أنت متأكد أنك تريد حذف هذه المجموعة؟"
+        confirmText="حذف"
+        cancelText="الغاء"
+        onCancel={() => setSelectedGroupId(null)}
+        onConfirm={confirmDelete}
+      />
+      {/* //-----------------------------// */}
     </View>
   );
 }

@@ -1,11 +1,10 @@
 import { useGroupForm } from "@/hooks/useGroupForm";
-import { Group, GroupFormData, SourcesMap } from "@/types/appTypes";
+import { useStudents } from "@/hooks/useStudent";
+import { Group, SourcesMap } from "@/types/appTypes";
 import React from "react";
 import { View } from "react-native";
 import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
-import { useStudents } from "@/hooks/useStudent";
-
 
 export default function GroupForm<T>({
   handleSubmit,
@@ -18,42 +17,43 @@ export default function GroupForm<T>({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   open: boolean;
 }) {
-  const { students } = useStudents()
+  const { students } = useStudents();
   console.log(students);
 
-  const { formData, setFormData, errors, validate, reset } =
-    useGroupForm(group as Group);
+  const { formData, setFormData, errors, validate, reset } = useGroupForm(
+    group as Group,
+  );
 
+  const onSubmit = async () => {
+    console.log("GROUP FORM ONSUBMIT");
 
+    const isValid = validate();
 
-const onSubmit = async () => {
-  console.log("GROUP FORM ONSUBMIT");
+    console.log("IS VALID", isValid);
 
-  const isValid = validate();
+    if (!isValid) return;
 
-  console.log("IS VALID", isValid);
-
-  if (!isValid) return;
-
-  if (handleSubmit) {
-    console.log("CALLING ADDGROUP");
-    await handleSubmit(formData as T);
+    if (handleSubmit) {
+      console.log("CALLING ADDGROUP");
+      console.log("FORM DATA BEFORE UPDATE");
+      console.log(formData);
+      console.log("SELECTED STUDENTS", formData.students);
+      await handleSubmit(formData as T);
       setOpen(false);
+    }
+  };
 
-  }
-};
-
-    //------- source resolver-------//
-const sources: Partial<SourcesMap> = {
-  students: (students ?? []).map((student) => ({
-    id: student.id,
-    name: student.nameAr,
-    value: student.id,
-    checked: student.groupId === (group as Group)?.id,
-    data: student,
-  })),
-};
-    //---------------------------//
+  //------- source resolver-------//
+  const sources: Partial<SourcesMap> = {
+    students: (students ?? []).map((student) => ({
+      id: student.id,
+      name: student.nameAr,
+      value: student.id,
+      checked: student.groupId === (group as Group)?.id,
+      data: student,
+    })),
+  };
+  //---------------------------//
 
   return (
     <View
@@ -74,8 +74,7 @@ const sources: Partial<SourcesMap> = {
         page="Groups"
         btn1={"اضافة"}
         btn2={"الغاء"}
-          sources={sources}
-
+        sources={sources}
         setOpen={setOpen}
         handleSubmit={onSubmit}
       />

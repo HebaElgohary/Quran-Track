@@ -16,7 +16,7 @@ interface GroupCardProps{
   updateGroup: (data: editGroupType) => Promise<void>;
 }
 
-export default function GroupCard({ group, setSelectedGroupId ,updateGroup}: GroupCardProps) {
+export default function GroupCard<T>({ group, setSelectedGroupId ,updateGroup}: GroupCardProps) {
   
   const [open,setOpen] = useState(false) 
   const { students } = useStudents()
@@ -25,7 +25,10 @@ export default function GroupCard({ group, setSelectedGroupId ,updateGroup}: Gro
   student => student.groupId === group.id
 );
   
-
+const groupWithStudents = {
+  ...group,
+  students: groupStudents,
+};
   const studentCount = groupStudents ? groupStudents.length : 0;
   return (
     <View
@@ -107,8 +110,8 @@ export default function GroupCard({ group, setSelectedGroupId ,updateGroup}: Gro
         <FormModal<editGroupType>
               open={open}
               setOpen={setOpen}
-              formData={group}
-            data={groupStudents}
+              formData={groupWithStudents}
+              data={groupStudents}
               formName="Groups"
               handleSubmit={updateGroup}
             />
