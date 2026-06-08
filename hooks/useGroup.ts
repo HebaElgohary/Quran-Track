@@ -1,18 +1,20 @@
 // hooks/useGroups.ts
 
-import { useEffect, useState } from "react";
 import {
-  getGroups,
   addGroup,
-  updateGroup,
   deleteGroup,
+  getGroups,
+  updateGroup,
 } from "@/storage/groupsStorage";
+import { useEffect, useState } from "react";
 
 import { Group, Student } from "@/types/appTypes";
+import { useStudents } from "./useStudent";
 
 export default function useGroups() {
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(false);
+  const { loadStudents, assignToGroup, removeFromGroup } = useStudents();
 
   // =========================
   // LOAD GROUPS
@@ -37,14 +39,14 @@ export default function useGroups() {
   // =========================
   const createGroup = async (
     groupData: Omit<Group, "id">,
-    students?: Student[]
-  
+    students?: Student[],
   ) => {
-    console.log('inside create group ',students)
+    console.log("inside create group ", students);
     try {
-     const group = await addGroup(groupData, students);
+      const group = await addGroup(groupData, students);
       setGroups((prev) => [...prev, { ...group }]);
       await loadGroups();
+      await loadStudents();
     } catch (error) {
       console.log("Error creating group", error);
     }
@@ -54,13 +56,16 @@ export default function useGroups() {
   // UPDATE GROUP
   // =========================
   const editGroup = async (updatedGroup: Group, students?: Student[]) => {
-    try {
-      await updateGroup(updatedGroup,students);
+    await updateGroup(updatedGroup, students);
 
-      await loadGroups();
-    } catch (error) {
-      console.log("Error updating group", error);
+    if (students?.length) {
+      await assignToGroup(
+        students.map((s) => s.id),
+        updatedGroup.id,
+      );
     }
+
+    await loadGroups();
   };
 
   // =========================
@@ -71,6 +76,7 @@ export default function useGroups() {
       await deleteGroup(groupId);
 
       await loadGroups();
+      await loadStudents();
     } catch (error) {
       console.log("Error deleting group", error);
     }

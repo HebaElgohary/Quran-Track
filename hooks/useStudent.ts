@@ -63,16 +63,16 @@ export const useStudents = () => {
     }
   };
   //------------------------------------//
-// ------------removeFromGroup ------------//
+  // ------------removeFromGroup ------------//
   const removeFromGroup = async (groupId: number) => {
-  try {
-    await removeStudentsFromGroup(groupId);
-    await loadStudents();
-  } catch (error) {
-    console.log("Error removing students from group", error);
-  }
-};
-//----------------------------//
+    try {
+      await removeStudentsFromGroup(groupId);
+      await loadStudents();
+    } catch (error) {
+      console.log("Error removing students from group", error);
+    }
+  };
+  //----------------------------//
   // =========================
   // DELETE STUDENT
   // =========================
@@ -96,7 +96,7 @@ export const useStudents = () => {
   return {
     students,
     loading,
-
+    removeFromGroup,
     loadStudents,
     editStudent,
     removeStudent,

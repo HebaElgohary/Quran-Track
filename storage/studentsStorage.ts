@@ -1,7 +1,7 @@
-import { Student } from "@/types/appTypes";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Student } from '@/types/appTypes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const KEY = "students";
+const KEY = 'students';
 
 //------- get Students -------//
 export const getStudents = async () => {
@@ -16,6 +16,8 @@ export const getStudents = async () => {
 };
 //------- add Student -------//
 export const addStudent = async (newStudent: Omit<Student, "id">) => {
+  
+
   try {
     // old groups
     const oldStudents = await getStudents();
@@ -23,19 +25,20 @@ export const addStudent = async (newStudent: Omit<Student, "id">) => {
     // create group
     const student: Student = {
       id: Date.now(),
-      ...newStudent,
+      ...newStudent
     };
 
     // updated array
     const updatedStudents = [...oldStudents, student];
 
     // save
-    await AsyncStorage.setItem(KEY, JSON.stringify(updatedStudents));
+  await AsyncStorage.setItem(KEY, JSON.stringify(updatedStudents));
 
     return updatedStudents;
   } catch (error) {
     console.log("Error adding group", error);
   }
+
 };
 
 //------- delete Student -------//
@@ -50,46 +53,55 @@ export const deleteStudent = async (id: number) => {
 };
 
 //----------- update Student -------//
-export const updateStudent = async (newData: Student) => {
+export const updateStudent = async (newData:Student) => {
   try {
     const data = await getStudents();
     const updated = data.map((student: Student) =>
-      student.id === newData.id ? { ...student, ...newData } : student,
+      student.id === newData.id ? { ...student, ...newData } : student
     );
     await AsyncStorage.setItem(KEY, JSON.stringify(updated));
   } catch (error) {
     console.log("Error updating group", error);
   }
-};
+}
 
 //------ assign students to group -------//
 export const assignStudentsToGroup = async (
   studentIds: number[],
-  groupId: number,
+  groupId: number
 ) => {
   const students = await getStudents();
-  console.log("studentIds", studentIds);
-  console.log("groupId", groupId);
+
   const updated = students.map((student: Student) =>
-    studentIds.includes(student.id) ? { ...student, groupId } : student,
+    studentIds.includes(student.id)
+      ? { ...student, groupId }
+      : student
   );
 
-  await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+  await AsyncStorage.setItem(
+    KEY,
+    JSON.stringify(updated)
+  );
 
   return updated;
 };
 //------ remove students from group -------//
-export const removeStudentsFromGroup = async (groupId: number) => {
+export const removeStudentsFromGroup = async (
+  groupId: number
+) => {
   try {
     const students = await getStudents();
 
-    const updatedStudents = students.map((student: Student) =>
+    const updatedStudents = students.map((student:Student) =>
       student.groupId === groupId
         ? { ...student, groupId: undefined }
-        : student,
+        : student
     );
 
-    await AsyncStorage.setItem(KEY, JSON.stringify(updatedStudents));
+    await AsyncStorage.setItem(
+      KEY,
+      JSON.stringify(updatedStudents)
+    );
   } catch (error) {
     console.log("Error removing students from group", error);
     throw error;
@@ -98,12 +110,14 @@ export const removeStudentsFromGroup = async (groupId: number) => {
 
 // --------- get group students ----------//
 export const getStudentsByGroupId = async (
-  groupId: number,
+  groupId: number
 ): Promise<Student[]> => {
   try {
     const students = await getStudents();
 
-    return students.filter((student: Student) => student.groupId === groupId);
+    return students.filter(
+      (student:Student) => student.groupId === groupId
+    );
   } catch (error) {
     console.log("Error getting group students", error);
     return [];

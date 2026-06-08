@@ -53,7 +53,7 @@ export default function Groups() {
   console.log("STUDENTS RECEIVED", students);
     try {
       await editGroup(groupData, students);
-      // window.location.reload();
+      window.location.reload();
       showSuccess("تم تحديث المجموعة");
     } catch (error) {
       console.log("Error updating group", error);

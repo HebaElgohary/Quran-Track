@@ -1,6 +1,7 @@
 import { Group, Student } from "@/types/appTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { assignStudentsToGroup, getStudents, removeStudentsFromGroup } from "./studentsStorage";
+import { assignStudentsToGroup, removeStudentsFromGroup } from "./studentsStorage";
+
 const GROUPS_KEY = "groups";
 
 // =========================
@@ -60,8 +61,6 @@ export const updateGroup = async (
   updatedGroup: Group,
   students?: Student[]
 ): Promise<Group[]> => {
-    console.log("students received", students);
-
   try {
     const oldGroups = await getGroups();
 
@@ -75,36 +74,19 @@ export const updateGroup = async (
       GROUPS_KEY,
       JSON.stringify(updatedGroups)
     );
-  console.log("students received in storage", students);
 
     const studentIds =
       students?.map((student) => student.id) ?? [];
 
     if (studentIds.length > 0) {
-      const before = await getStudents();
-  console.log(before);
   await removeStudentsFromGroup(
   updatedGroup.id
 );
-  console.log("AFTER REMOVE");
-  const afterRemove = await getStudents();
-  console.log(afterRemove);
 
 await assignStudentsToGroup(
   studentIds,
   updatedGroup.id
 );
-const verify = await getStudents();
-
-console.log(
-  "GROUP STUDENTS AFTER ASSIGN",
-  verify.filter(
-    s => s.groupId === updatedGroup.id
-  )
-);
- console.log("AFTER ASSIGN");
-  const afterAssign = await getStudents();
-  console.log(afterAssign);
     }
 
     return updatedGroups;
