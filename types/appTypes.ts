@@ -23,13 +23,13 @@ export type GroupFormData = Omit<Group, "id">
 
  export type Session = {
   id: number;
-  groupId: string;
+  groupId: number;
   date: string;
 };
 
  export type Report = {
   id: number;
-  studentId: string;
+  studentId: number;
   note: string;
 };
 

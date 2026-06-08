@@ -3,6 +3,7 @@ import GroupCard from "@/components/molecules/GroupCard";
 import Header from "@/components/organisms/Header";
 import NoDataFallback from "@/components/organisms/NoDataFallback";
 import useGroups from "@/hooks/useGroup";
+import { useStudents } from "@/hooks/useStudent";
 import { useToast } from "@/hooks/useToast";
 import { Group, GroupFormData } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
@@ -15,6 +16,7 @@ export default function Groups() {
   //calling hooks
   const { groups, loading, createGroup, removeGroup, editGroup } = useGroups();
   const { showSuccess } = useToast();
+  const { students,assignToGroup } = useStudents();
   const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(
     null,
   );
@@ -51,7 +53,7 @@ export default function Groups() {
   console.log("STUDENTS RECEIVED", students);
     try {
       await editGroup(groupData, students);
-      window.location.reload();
+      // window.location.reload();
       showSuccess("تم تحديث المجموعة");
     } catch (error) {
       console.log("Error updating group", error);
@@ -89,6 +91,8 @@ export default function Groups() {
           <GroupCard<editGroupType>
             key={group.id}
             group={group}
+              students={students}
+
             setSelectedGroupId={setSelectedGroupId}
             updateGroup={updateGroup}
           />

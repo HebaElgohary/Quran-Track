@@ -1,4 +1,4 @@
-import { Group, GroupFormData } from "@/types/appTypes";
+import { Group, GroupFormData, Student } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
@@ -14,12 +14,12 @@ interface GroupCardProps{
   group: Group;
   setSelectedGroupId: (id: number) => void; //selectedGroupId
   updateGroup: (data: editGroupType) => Promise<void>;
+  students: Student[]
 }
 
-export default function GroupCard<T>({ group, setSelectedGroupId ,updateGroup}: GroupCardProps) {
+export default function GroupCard<T>({ students, group, setSelectedGroupId ,updateGroup}: GroupCardProps) {
   
   const [open,setOpen] = useState(false) 
-  const { students } = useStudents()
   console.log(students)
   const groupStudents = students.filter(
   student => student.groupId === group.id

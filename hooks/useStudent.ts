@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStudents, addStudent , updateStudent, deleteStudent} from "../storage/studentsStorage";
+import { getStudents, addStudent , updateStudent, deleteStudent, assignStudentsToGroup} from "../storage/studentsStorage";
 import { Student } from "@/types/appTypes";
 
 export const useStudents = () => {
@@ -50,7 +50,16 @@ export const useStudents = () => {
           console.log("Error updating group", error);
         }
       };
-
+//  ------------assignToGroup ------------//
+     const assignToGroup = async (studentIds: number[], groupId: number) => {
+  try {
+    await assignStudentsToGroup(studentIds, groupId);
+    await loadStudents(); // 
+  } catch (error) {
+    console.log("Error assigning students to group", error);
+  }
+};
+//------------------------------------//
 
   // =========================
   // DELETE STUDENT
@@ -61,6 +70,7 @@ export const useStudents = () => {
 
       await loadStudents();
     } catch (error) {
+
       console.log("Error deleting group", error);
     }
   };
@@ -79,7 +89,7 @@ export const useStudents = () => {
     loadStudents,
     editStudent,
     removeStudent,
-
+assignToGroup,
     createStudent,
  
   };
