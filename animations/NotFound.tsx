@@ -1,9 +1,9 @@
 import LottieView from "lottie-react-native";
 
-export default function LottieAnimation() {
+export default function Notfound() {
   return (
     <LottieView
-      source={require("@/assets/animations/loading.json")}
+      source={require("@/assets/images/lottie/notFound.json")}
       autoPlay
       loop
     />

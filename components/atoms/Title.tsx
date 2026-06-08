@@ -8,7 +8,7 @@ interface   TitleProps {
   children: React.ReactNode
   
 }
-export default function Title({ children, size = "xl", variant = "btnPrimary" }: TitleProps) {
+export default function Title({ children, size = "xl", variant = "btnPrimary"}: TitleProps) {
   return (
     <View >
     <Text style={{color:colors[variant] ,fontSize: sizeClass[size],fontWeight: 'semibold',maxWidth:110}}> {children}</Text> 

@@ -3,6 +3,7 @@ import { View } from "react-native";
 import Button from "../atoms/Button";
 import Subtitle from "../atoms/Subtitle";
 import FormModal from "../molecules/form/FormModal";
+import LottieAnimation from "../../animations/NotFound";
 
 export default function NoDataFallback<T>({
   formName,
@@ -34,7 +35,8 @@ export default function NoDataFallback<T>({
     >
       {/* icon */}
       <View style={{ display: "flex", alignItems: "center" }}>
-        <Icon />
+        {/* <Icon /> */}
+        <LottieAnimation />
       </View>
       {/* ////////////// */}
 

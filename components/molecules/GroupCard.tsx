@@ -41,7 +41,7 @@ export default function GroupCard({
     accentColor + "18",
     "#ffffff",
     "#ffffff",
-  ];
+  ] as const;
 
   const groupStudents = students.filter(
     (student) => student.groupId === group.id
@@ -113,10 +113,10 @@ export default function GroupCard({
             {/* LEFT */}
             <View style={{ flex: 1 }}>
               <Title
-                style={{
-                  fontSize: 18,
-                  fontWeight: "700",
-                }}
+                // style={{
+                //   fontSize: 18,
+                //   fontWeight: 700,
+                // }}
               >
                 {group.nameAr}
               </Title>
