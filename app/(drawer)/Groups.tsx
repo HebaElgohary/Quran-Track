@@ -7,6 +7,7 @@ import { useStudents } from "@/hooks/useStudent";
 import { useToast } from "@/hooks/useToast";
 import { Group, GroupFormData } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
+import Loading from "../../animations/Loading";
 import React from "react";
 import { View } from "react-native";
 type addGroupType = GroupFormData;
@@ -16,7 +17,7 @@ export default function Groups() {
   //calling hooks
   const { groups, loading, createGroup, removeGroup, editGroup } = useGroups();
   const { showSuccess } = useToast();
-  const { students,assignToGroup } = useStudents();
+  const { students,assignToGroup,removeFromGroup ,loadStudents} = useStudents();
   const [selectedGroupId, setSelectedGroupId] = React.useState<number | null>(
     null,
   );
@@ -26,11 +27,19 @@ export default function Groups() {
   const AddGroup: (formData: addGroupType) => Promise<void> = async (
     formData: addGroupType,
   ) => {
+    const { students, ...groupdata } = formData;
     console.log("inside addGroup");
     console.log("group data areeeeeee", formData);
-    const { students, ...groupData } = formData;
+ 
     console.log("students before send to creategroup", students);
-    await createGroup(groupData, students);
+  const group  =  await createGroup(groupdata, students);
+  console.log('group created', group);
+    await assignToGroup(
+  students.map((s) => s.id),
+  group?.id as number
+);
+
+await loadStudents();
     showSuccess("تم إضافة المجموعة بنجاح");
   };
 
@@ -51,9 +60,11 @@ export default function Groups() {
     console.log(updatedGroup);
     const { students, ...groupData } = updatedGroup;
   console.log("STUDENTS RECEIVED", students);
+  const studentIds = students?.map((student) => student.id);
     try {
-      await editGroup(groupData, students);
-      window.location.reload();
+      await removeFromGroup(groupData.id);
+      await assignToGroup(studentIds, groupData.id);
+      await editGroup(updatedGroup, students);
       showSuccess("تم تحديث المجموعة");
     } catch (error) {
       console.log("Error updating group", error);
@@ -86,13 +97,13 @@ export default function Groups() {
           handleSubmit={AddGroup}
         />
       )}
+      {loading && <Loading />}
       {groups.length > 0 &&
         groups.map((group) => (
           <GroupCard
             key={group.id}
             group={group}
-              students={students}
-
+            students={students}
             setSelectedGroupId={setSelectedGroupId}
             updateGroup={updateGroup}
           />

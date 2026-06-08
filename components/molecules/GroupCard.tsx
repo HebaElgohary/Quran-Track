@@ -17,7 +17,7 @@ import Title from "../atoms/Title";
 type editGroupType = Group;
 
 interface GroupCardProps {
-  group: Group;
+  group: Omit<Group, "students">  ;
   setSelectedGroupId: (id: number) => void;
   updateGroup: (data: editGroupType) => Promise<void>;
   students: Student[];
@@ -67,7 +67,7 @@ export default function GroupCard({
       useNativeDriver: true,
     }).start();
   };
-
+console.log('group students inside the card',groupStudents)
   return (
     <Animated.View
       style={{
@@ -119,8 +119,9 @@ export default function GroupCard({
                 // }}
               >
                 {group.nameAr}
+                
               </Title>
-
+{groupStudents.map((student) => <Text>{student.nameAr}</Text>)}
               <View
                 style={{
                   flexDirection: "row",

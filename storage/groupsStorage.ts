@@ -1,4 +1,4 @@
-import { Group, Student } from "@/types/appTypes";
+import { Group, GroupFormData, Student } from "@/types/appTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { assignStudentsToGroup, removeStudentsFromGroup } from "./studentsStorage";
 
@@ -22,16 +22,26 @@ export const getGroups = async (): Promise<Group[]> => {
 // ADD GROUP
 // =========================
 export const addGroup = async (
-  newGroup: Omit<Group, "id">,
+  newGroup: Omit<GroupFormData, "students">,
   students?: Student[]
-): Promise<Group> => {
+): Promise <Omit<Group, "students">> => {
   try {
+    
     const oldGroups = await getGroups();
 
-    const group: Group = {
+
+    const group:  Omit<Group, "students"> = {
       id: Date.now(),
       ...newGroup,
     };
+
+    // console.log('students in add groupStorage',students)
+    //     const studentIds =
+    //   students?.map((student) => student.id) ?? [];
+
+    // if (studentIds.length > 0) {
+    //   await assignStudentsToGroup(studentIds, group.id);
+    // }
 
     const updatedGroups = [...oldGroups, group];
 
@@ -40,12 +50,7 @@ export const addGroup = async (
       JSON.stringify(updatedGroups)
     );
 
-    const studentIds =
-      students?.map((student) => student.id) ?? [];
 
-    if (studentIds.length > 0) {
-      await assignStudentsToGroup(studentIds, group.id);
-    }
 
     return group;
   } catch (error) {

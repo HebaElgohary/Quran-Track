@@ -55,6 +55,7 @@ export const useStudents = () => {
   };
   //  ------------assignToGroup ------------//
   const assignToGroup = async (studentIds: number[], groupId: number) => {
+   console.log('students inside assignToGroup', studentIds);
     try {
       await assignStudentsToGroup(studentIds, groupId);
       await loadStudents(); //

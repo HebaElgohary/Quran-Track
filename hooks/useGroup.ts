@@ -8,13 +8,13 @@ import {
 } from "@/storage/groupsStorage";
 import { useEffect, useState } from "react";
 
-import { Group, Student } from "@/types/appTypes";
+import { Group, Student , GroupFormData} from "@/types/appTypes";
 import { useStudents } from "./useStudent";
 
 export default function useGroups() {
-  const [groups, setGroups] = useState<Group[]>([]);
+  const [groups, setGroups] = useState<Omit<Group, "students">[]>([]);
   const [loading, setLoading] = useState(false);
-  const { loadStudents, assignToGroup, removeFromGroup } = useStudents();
+  // const { loadStudents, assignToGroup, removeFromGroup } = useStudents();
 
   // =========================
   // LOAD GROUPS
@@ -38,18 +38,20 @@ export default function useGroups() {
   // ADD GROUP
   // =========================
   const createGroup = async (
-    groupData: Omit<Group, "id">,
+   groupData: Omit<GroupFormData, "students">,
     students?: Student[],
   ) => {
     console.log("inside create group ", students);
+    
     try {
       const group = await addGroup(groupData, students);
+      console.log("GROUP FROM STORAGE", group);
       setGroups((prev) => [...prev, { ...group }]);
       await loadGroups();
-      await loadStudents();
+      return group;
     } catch (error) {
-      console.log("Error creating group", error);
-    }
+  console.log("Error creating group", error);
+  throw error;    }
   };
 
   // =========================
@@ -57,14 +59,6 @@ export default function useGroups() {
   // =========================
   const editGroup = async (updatedGroup: Group, students?: Student[]) => {
     await updateGroup(updatedGroup, students);
-
-    if (students?.length) {
-      await assignToGroup(
-        students.map((s) => s.id),
-        updatedGroup.id,
-      );
-    }
-
     await loadGroups();
   };
 
@@ -76,7 +70,7 @@ export default function useGroups() {
       await deleteGroup(groupId);
 
       await loadGroups();
-      await loadStudents();
+      // await loadStudents();
     } catch (error) {
       console.log("Error deleting group", error);
     }

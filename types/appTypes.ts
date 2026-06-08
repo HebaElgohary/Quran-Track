@@ -17,7 +17,7 @@ export type StudentFormData = Omit<Student, "id" | "groupId">;
   nameEn: string;
   color: string;
   notes: string;
-  students?: Student[];
+  students: Student[];
 };
 export type GroupFormData = Omit<Group, "id"> 
 
