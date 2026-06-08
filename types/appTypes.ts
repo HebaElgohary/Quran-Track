@@ -43,13 +43,13 @@ export type FieldSource =
   // | "sessions"
   // | "reports"
   // | "schedule";
-  export type SourceOption = {
+export type SourceOption<T = unknown> = {
   id: number;
   name: string;
   value: number | string;
   checked: boolean;
+  data?: T;
 };
-
 export type SourcesMap = {
   students: SourceOption[];
   groups: SourceOption[];

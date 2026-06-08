@@ -1,4 +1,5 @@
 import { colors } from "@/constants/theme";
+import { Student } from "@/types/appTypes";
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
@@ -15,16 +16,17 @@ export default function CheckInput({
     setItems(data ?? []);
   }, [data]);
 
-  const toggleItem = (id: number) => {
-    const exists = value.includes(id);
+  const toggleItem = (item: any) => {
+    const student = item.data;
+
+    const exists = value.some((s: Student) => s.id === student.id);
 
     const updated = exists
-      ? value.filter((x: number) => x !== id)
-      : [...value, id];
+      ? value.filter((s: Student) => s.id !== student.id)
+      : [...value, student];
 
     onChange?.(updated);
   };
-
   return (
     <View
       style={{
@@ -74,8 +76,8 @@ export default function CheckInput({
             <Checkbox
               key={item.id}
               label={item.name}
-              checked={value.includes(item.id)}
-              onChange={() => toggleItem(item.id)}
+              checked={value.some((s: Student) => s.id === item.id)}
+              onChange={() => toggleItem(item)}
             />
           ))}
         </View>

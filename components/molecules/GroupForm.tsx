@@ -22,7 +22,7 @@ export default function GroupForm<T>({
   console.log(students);
 
   const { formData, setFormData, errors, validate, reset } =
-    useGroupForm(group );
+    useGroupForm(group as Group);
 
 
 
@@ -50,6 +50,7 @@ const sources: Partial<SourcesMap> = {
     name: student.nameAr,
     value: student.id,
     checked: student.groupId === (group as Group)?.id,
+    data: student,
   })),
 };
     //---------------------------//

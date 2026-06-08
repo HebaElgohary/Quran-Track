@@ -2,48 +2,31 @@ import { Group, GroupFormData } from "@/types/appTypes";
 import { validateGroup } from "@/utils/validateGroup";
 import { useState } from "react";
 
-const emptyGroup: GroupFormData = {
-  nameAr: "",
-  nameEn: "",
-  color: "",
-  students: [], // ✅ لازم تكون IDs فقط
-  notes: "",
-};
-
 export function useGroupForm(initial?: Group) {
   const [formData, setFormData] = useState<GroupFormData>(
-    initial
-      ? {
-          nameAr: initial.nameAr ?? "",
-          nameEn: initial.nameEn ?? "",
-          color: initial.color ?? "",
-          students: (initial.students as any) ?? [],
-          notes: initial.notes ?? "",
-        }
-      : emptyGroup
+    initial || {
+      nameAr: "",
+      nameEn: "",
+      color: "",
+      students: [],
+      notes: "",
+    },
   );
-
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const reset = () => {
-    setFormData(emptyGroup);
+    setFormData({
+      nameAr: "",
+      nameEn: "",
+      color: "",
+      students: [],
+      notes: "",
+    });
     setErrors({});
   };
-
   const validate = () => {
-    // 🔒 حماية من undefined + normalization
-    const safeData: GroupFormData = {
-      nameAr: formData.nameAr ?? "",
-      nameEn: formData.nameEn ?? "",
-      color: formData.color ?? "",
-      students: formData.students ?? [],
-      notes: formData.notes ?? "",
-    };
-
-    const validationErrors = validateGroup(safeData);
-
+    const validationErrors = validateGroup(formData);
     setErrors(validationErrors);
-
     return Object.keys(validationErrors).length === 0;
   };
 

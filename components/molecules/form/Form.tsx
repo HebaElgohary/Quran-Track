@@ -30,6 +30,7 @@ export default function Form<T>({
 }: props<T>) {
   const fields = useMemo(() => formSchemas[page], [page]);
 
+  
   return (
     <ScrollView
       style={{ maxHeight: 500 }}
@@ -58,7 +59,7 @@ export default function Form<T>({
               <FormField
                 key={field.name}
                 {...fieldProps}
-                value={formData?.[field.name]}
+                value={formData?.[field.name as keyof T]}
                 error={errors?.[field.name]}
                 onChange={(value: unknown) =>
                   setFormData((prev) => ({
