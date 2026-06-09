@@ -1,26 +1,21 @@
 import React from "react";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
-import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { Feather } from "@expo/vector-icons";
-import Avatar from "./Avatar";
-import { StyleSheet } from "react-native";
+import { StyleSheet } from "react-native" ;
 import { colors } from "@/constants/theme";
 
 
 interface SessionCardProps {
   nameAr: string;
- 
   time:string,
   surah:string
-grade:string
-tajweed:string
+  grade:string
 }
 
 export default function SessionCard({
   nameAr,
-tajweed,
   surah,
   time,
   grade,
