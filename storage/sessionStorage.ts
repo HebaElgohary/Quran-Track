@@ -22,7 +22,7 @@ const KEY = 'session';
 // ADD Session
 // =========================
 export const addSession = async (
-  newSession: SessionFormData,
+  newSession:Omit< SessionFormData, "student">,
   studentId: number
 ): Promise <Session> => {
   try {

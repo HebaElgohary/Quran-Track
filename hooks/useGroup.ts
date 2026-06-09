@@ -22,9 +22,7 @@ export default function useGroups() {
   const loadGroups = async () => {
     try {
       setLoading(true);
-
       const data = await getGroups();
-
       setGroups(data);
       return data;
     } catch (error) {
