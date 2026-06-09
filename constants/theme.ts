@@ -11,7 +11,12 @@ export const colors = {
   transparent:'transparent',
   background: "#F8F6F2",
   white: "#FFFFFF",
-  black:'#000000'
+  black:'#000000',
+  excellent: "#A9ECCC",
+  veryGood: "#CAE9FA",
+  good: "#FDE68A",
+  average: "#c89d41",
+  bad: "#FECDD3",
 };
 
 export const groupColors = {

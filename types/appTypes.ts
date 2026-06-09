@@ -1,7 +1,7 @@
 export interface Student {
   id: number;
-  nameAr: string;
-  nameEn: string;
+   nameAr: string;
+   nameEn: string;
     level: string;
     notes: string;
      groupId?: number; // Add groupId 

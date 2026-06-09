@@ -1,62 +1,85 @@
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { Feather } from "@expo/vector-icons";
 import Avatar from "./Avatar";
 import { StyleSheet } from "react-native";
+import { colors } from "@/constants/theme";
 
 
 interface SessionCardProps {
-  isStudent: boolean;
-  titleAr: string;
-  titleEn: string;
-  subtitle: string;
-  btn1: string;
-  btn2: string;
-  image?: string;
+  nameAr: string;
+ 
+  time:string,
+  surah:string
+grade:string
 }
 
 export default function SessionCard({
-  titleAr,
-  titleEn,
-  subtitle,
-  btn1,
-  btn2,
-  isStudent,
-  image,
+  nameAr,
+
+  surah,
+  time,
+  grade,
+  
 }: SessionCardProps) {
+ const gradeColors={
+  "ممتاز":colors.excellent,
+  "جيد":colors.good,
+  "متوسط":colors.average,
+  "ضعيف":colors.bad,
+  "جيد جدا":colors.veryGood,
+  // "مقبول":colors.accepted
+ }
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.row}>
-        {/* Left side */}
-        <View style={styles.leftSection}>
-          {isStudent && <Avatar name={titleAr} image={image} />}
-
-          <View style={styles.textColumn}>
-            <Title variant="btnPrimary" size="xl">
-              {titleAr}
-            </Title>
-            <Title size="sm">{subtitle}</Title>
-          </View>
-        </View>
-
-        {/* Right side */}
-        <Title>{titleEn}</Title>
+  <View style={{display:'flex',flexDirection:'column',gap:20}}>
+    {/* first row */}
+    <View style={styles.row}>
+      <Title>{nameAr}</Title>
+      <View style={{backgroundColor:colors.veryGood,padding:3,borderRadius:10}}>
+        <Text style={{fontSize:20,color:colors.btnPrimary}}>{grade}</Text>
       </View>
+      <Text>{time}</Text>
 
-      <Hr />
+    </View>
+    {/* ---------------------- */}
+
+    {/* second row */}
+    <View style={styles.row}>
+          <Title size="md">السورة{':'}</Title>
+          <Text>{surah}</Text>
+    </View>
+    {/* ---------------------- */}
+       {/* third row */}
+    <View style={styles.row}>
+          <Title size="md">حفظ جديد{':'}</Title>
+          <Text>{surah}</Text>
+    </View>
+    {/* ---------------------- */} 
+      {/* fourth row */}
+    <View style={styles.row}>
+          <Title size="md">مراجعة{':'}</Title>
+          <Text>{surah}</Text>
+    </View>
+    {/* ---------------------- */}
+  </View>
+  {/* ---------------------- */}
 
       {/* Actions */}
       <View style={styles.actionsRow}>
-        <Button variant="transparent" textColor="warning">
-          {btn1} <Feather name="edit-2" />
+        <Button variant="transparent" textColor="warning" size="sm">
+          تقرير <Feather name="file-text" />
         </Button>
 
-        <Button variant="transparent" textColor="danger">
-          {btn2} <Feather name="trash-2" />
+        <Button variant="transparent" textColor="danger" size="sm">
+          تعديل <Feather name="edit-2" />
+        </Button>
+           <Button variant="transparent" textColor="danger" size="sm">
+        حذف <Feather name="trash-2" />
         </Button>
       </View>
     </View>
@@ -67,6 +90,9 @@ export default function SessionCard({
   container: {
     backgroundColor: "white",
     marginHorizontal: 10,
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
     padding: 15,
     borderWidth: 1,
     borderRadius: 16,
@@ -75,8 +101,9 @@ export default function SessionCard({
 
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     alignItems: "center",
+    gap: 10,
   },
 
   leftSection: {
@@ -92,6 +119,7 @@ export default function SessionCard({
 
   actionsRow: {
     flexDirection: "row",
-    gap: 10,
+    // width: "30%",
+    // gap: 10,
   },
 });

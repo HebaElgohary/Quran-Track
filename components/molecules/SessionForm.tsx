@@ -10,7 +10,7 @@ export default function SessionForm<T>( { handleSubmit, setOpen, open }: {handle
        {/* form heading */} 
   <FormHeading title='تقرير حصة جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
-      <Form handleSubmit={handleSubmit} page='Session' btn1={"الغاء"} btn2={'اضافة'} setOpen={setOpen} />
+      <Form handleSubmit={handleSubmit} page='Sessions' btn1={"الغاء"} btn2={'اضافة'} setOpen={setOpen} />
     
     </View>
   );

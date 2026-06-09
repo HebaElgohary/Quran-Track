@@ -5,11 +5,13 @@ export const sessionFields: FormFieldSchema[] = [
       name: "student",
       label: "الطالب ",
       type: "select",
-      data: [
-        { name: "hakim", label: "حكيم", value: "حكيم" },
-        {name: "mohamed", label: "محمد", value: "محمد" },
-        { name  : "Uzair", label: "عزير", value: "عزير" },
-      ],
+      // data: [
+      //   { name: "hakim", label: "حكيم", value: "حكيم" },
+      //   {name: "mohamed", label: "محمد", value: "محمد" },
+      //   { name  : "Uzair", label: "عزير", value: "عزير" },
+      // ],
+     source: "students",
+
     },
     {
       name: "time",
@@ -28,6 +30,8 @@ export const sessionFields: FormFieldSchema[] = [
       data: [
         { name: "accepted", label: "مقبول", value: "مقبول" },
         {name: "good", label: "جيد", value: "جيد" },
+        {name : "average", label: "متوسط", value: "متوسط" },
+        {name : "poor", label: "ضعيف", value: "ضعيف" },
         {name : "veryGood", label: "جيد جدا", value: "جيد جدا" },
         {name : "excellent", label: "ممتاز", value: "ممتاز" },
       ],

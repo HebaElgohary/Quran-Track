@@ -1,3 +1,5 @@
+import Form from '@/components/molecules/form/Form'
+import SessionCard from '@/components/molecules/SessionCard'
 import Filter from '@/components/organisms/Filter'
 import Header from '@/components/organisms/Header'
 import NoDataFallback from '@/components/organisms/NoDataFallback'
@@ -16,9 +18,11 @@ export default function sessions() {
         { label: "حكيم", value: "حكيم" },
         { label: "محمد", value: "محمد" },
         { label: "عزير", value: "عزير" }, ]} />
-      {/* <Form page='Session' btn1='الغاء' btn2='حفظ التقرير'/> */}
    
     {sessions.length === 0 && <NoDataFallback Icon={() => <Feather name="book-open" size={30} color="gray" />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
+<SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'  />
+<SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'  />
+<SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'  />
 
     </View>
   )

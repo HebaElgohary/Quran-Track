@@ -194,7 +194,7 @@ export const getFormFields = (page: string) => {
       return MonthlyReportsFields;
     case "Schedule":
       return scheduleFields;
-    case "Session":
+    case "Sessions":
       return sessionFields;
          case "Students":
       return studentFields;
