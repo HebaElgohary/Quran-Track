@@ -64,7 +64,8 @@ export interface FormFieldSchema {
     | "radio"
     | "checkbox"
     | "select"
-    | "number";
+    | "number"
+    |"date";
 
   source?: FieldSource;
 

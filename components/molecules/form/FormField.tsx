@@ -3,6 +3,7 @@ import Input from "@/components/molecules/Input";
 import React from "react";
 import RadioInput from "../RadioInput";
 import SelectInput from "../SelectInput";
+import DateInput from "../DateInput";
 
 export default function FormField(props: any) {
   const { type } = props;
@@ -15,4 +16,5 @@ export default function FormField(props: any) {
   if (type == "radio") return <RadioInput {...props} />;
   if (type == "select") return <SelectInput {...props} />;
   if (type == "checkbox") return <CheckInput {...props} />;
+  if (type == "date") return <DateInput {...props} />;
 }
