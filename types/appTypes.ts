@@ -1,18 +1,15 @@
 export interface Student {
   id: number;
-   nameAr: string;
-   nameEn: string;
-    level: string;
-    notes: string;
-    sessions?: Session[];
-     groupId?: number; // Add groupId 
-
+  nameAr: string;
+  nameEn: string;
+  level: string;
+  notes: string;
+  sessions?: Session[];
+  groupId?: number; // Add groupId
 }
 export type StudentFormData = Omit<Student, "id" | "groupId">;
 
-
-
- export type Group = {
+export type Group = {
   id: number;
   nameAr: string;
   nameEn: string;
@@ -20,9 +17,9 @@ export type StudentFormData = Omit<Student, "id" | "groupId">;
   notes: string;
   students: Student[];
 };
-export type GroupFormData = Omit<Group, "id"> 
+export type GroupFormData = Omit<Group, "id">;
 
- export type Session = {
+export type Session = {
   id: number;
   studentId: number;
   date: string;
@@ -32,28 +29,28 @@ export type GroupFormData = Omit<Group, "id">
   from: string;
   to: string;
   new: string;
-  revision:string
-  tajweed:string
+  revision: string;
+  tajweed: string;
 };
 
-export type SessionFormData = Omit<Session, "id">
+export type SessionFormData = Omit<Session, "id" | "studentId"> & {
+  student: Student;
+};
 
- export type Report = {
+export type Report = {
   id: number;
   studentId: number;
   note: string;
 };
 
-export type FormName="Students" | "Groups" | "Sessions" | "Schedule" 
+export type FormName = "Students" | "Groups" | "Sessions" | "Schedule";
 
-export type FormData = Student[] | Group[]
+export type FormData = Student[] | Group[];
 
-export type FieldSource =
-  | "students"
-  | "groups"
-  // | "sessions"
-  // | "reports"
-  // | "schedule";
+export type FieldSource = "students" | "groups";
+// | "sessions"
+// | "reports"
+// | "schedule";
 export type SourceOption<T = unknown> = {
   id: number;
   name: string;
@@ -76,7 +73,7 @@ export interface FormFieldSchema {
     | "checkbox"
     | "select"
     | "number"
-    |"date";
+    | "date";
 
   source?: FieldSource;
 

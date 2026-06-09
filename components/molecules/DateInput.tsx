@@ -74,7 +74,8 @@ export default function DateInput({
             width: "100%",
           }}
         />
-      ) : (
+      ) :
+       (
         show && (
           <DateTimePicker
             value={selectedDate}
@@ -88,7 +89,8 @@ export default function DateInput({
             }}
           />
         )
-      )}
+      )
+      }
     </View>
   );
 }

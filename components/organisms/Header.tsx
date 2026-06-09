@@ -44,6 +44,7 @@ export default function Header<T>({
         <FormModal<T>
           open={open}
           setOpen={setOpen}
+          
           formName={formName}
           handleSubmit={handleSubmit}
         />
