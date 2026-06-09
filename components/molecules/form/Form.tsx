@@ -13,7 +13,7 @@ interface props<T> {
   setOpen: any;
   formData?: T;
   setFormData: React.Dispatch<React.SetStateAction<T>>;
-  handleSubmit?: () => Promise<void>;
+  handleSubmit?: (data: T) => Promise<void>;
   errors?: any;
   sources?: Partial<SourcesMap>;
   setErrors?: any;

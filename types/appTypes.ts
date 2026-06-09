@@ -4,6 +4,7 @@ export interface Student {
    nameEn: string;
     level: string;
     notes: string;
+    sessions?: Session[];
      groupId?: number; // Add groupId 
 
 }
@@ -23,9 +24,19 @@ export type GroupFormData = Omit<Group, "id">
 
  export type Session = {
   id: number;
-  groupId: number;
+  studentId: number;
   date: string;
+  surah: string;
+  grade: string;
+  notes: string;
+  from: string;
+  to: string;
+  new: string;
+  revision:string
+  tajweed:string
 };
+
+export type SessionFormData = Omit<Session, "id">
 
  export type Report = {
   id: number;
