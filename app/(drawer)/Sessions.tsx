@@ -20,9 +20,8 @@ export default function sessions() {
         { label: "عزير", value: "عزير" }, ]} />
    
     {sessions.length === 0 && <NoDataFallback Icon={() => <Feather name="book-open" size={30} color="gray" />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
-<SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'  />
-<SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'  />
-<SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'  />
+<SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز' tajweed='اخفاء'  />
+
 
     </View>
   )

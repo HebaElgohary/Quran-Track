@@ -15,11 +15,12 @@ interface SessionCardProps {
   time:string,
   surah:string
 grade:string
+tajweed:string
 }
 
 export default function SessionCard({
   nameAr,
-
+tajweed,
   surah,
   time,
   grade,
@@ -66,16 +67,18 @@ export default function SessionCard({
           <Text>{surah}</Text>
     </View>
     {/* ---------------------- */}
+ 
+
   </View>
   {/* ---------------------- */}
 
       {/* Actions */}
       <View style={styles.actionsRow}>
-        <Button variant="transparent" textColor="warning" size="sm">
+        <Button variant="transparent" textColor="primary" size="sm">
           تقرير <Feather name="file-text" />
         </Button>
 
-        <Button variant="transparent" textColor="danger" size="sm">
+        <Button variant="transparent" textColor="warning" size="sm">
           تعديل <Feather name="edit-2" />
         </Button>
            <Button variant="transparent" textColor="danger" size="sm">
