@@ -55,7 +55,7 @@ const confirmDelete = async () => {
     <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
       <Header<AddDataType> title='الحصص' 
       subtitle='كل تقارير الحصص' btn='تقرير حصة جديدة' formName='Sessions' handleSubmit={addSession} />
-     <Filter     data={ [
+     <Filter      data={ [
         { label: "كل الطلاب", value: "كل الطلاب" },
         { label: "حكيم", value: "حكيم" },
         { label: "محمد", value: "محمد" },

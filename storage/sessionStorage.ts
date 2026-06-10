@@ -59,6 +59,23 @@ export const deleteSession = async (id: number) => {
 };
 
 
+//----------- update Session -------//
+export const updateStudent = async (newData:Session) => {
+  try {
+    const data = await getSessions();
+    const updated = data.map((session: Session) =>
+      session.id === newData.id ? { ...session, ...newData } : session
+    );
+    await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+  } catch (error) {
+    console.log("Error updating group", error);
+  }
+}
+
+//------ assign students to group -------//
+
+
+
 
 
 
