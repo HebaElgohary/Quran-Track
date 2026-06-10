@@ -21,8 +21,8 @@ export default function sessions() {
   
 useEffect(() => {
    
-console.log('students',students)
-console.log('sessions',sessions)
+console.log('studentsssss',students)
+console.log('sessionsssss',sessions)
 
 
 }, )
@@ -50,8 +50,8 @@ console.log('sessions',sessions)
    student={students.find((student) => student.id == session.studentId) as Student}
     time={session.date} 
     surah={session.surah}
-     grade={session.grade}   />)}
-{/* <SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'   /> */}
+     grade={session.grade}   />)} 
+{/* {/* <SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'   /> */}
 
 
     </View>

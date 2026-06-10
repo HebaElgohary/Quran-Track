@@ -1,4 +1,4 @@
-import { addSession, getSessions } from "@/storage/sessionStorage";
+import { addSession, deleteSession, getSessions } from "@/storage/sessionStorage";
 import { Session, SessionFormData } from "@/types/appTypes";
 import { use, useEffect, useState } from "react";
 
@@ -33,8 +33,23 @@ export const useSession = () => {
       console.log("Error creating group", error);
     }
   };
+
+  
+  // =========================
+  // DELETE SESSION
+  // =========================
+  const removeSession = async (studentId: number) => {
+    try {
+      await deleteSession(studentId);
+
+      await loadSessions();
+    } catch (error) {
+      console.log("Error deleting group", error);
+    }
+  };
+
     useEffect(() => {
     loadSessions();
-  });
-  return { createSession, loadSessions, sessions, loading };
+  }, []);
+  return { createSession, loadSessions, sessions, loading,removeSession };
 };

@@ -12,7 +12,7 @@ interface SessionCardProps {
   time:string,
   surah:string
   grade:string
-  student: Student;
+  student?: Student;
 }
 
 export default function SessionCard({
@@ -37,7 +37,7 @@ export default function SessionCard({
   <View style={{display:'flex',flexDirection:'column',gap:20}}>
     {/* first row */}
     <View style={styles.row}>
-      <Title>{student.nameEn}</Title>
+      <Title>{student?.nameEn}</Title>
       <View style={{backgroundColor:colors.veryGood,padding:3,borderRadius:10}}>
         <Text style={{fontSize:20,color:colors.btnPrimary}}>{grade}</Text>
       </View>
