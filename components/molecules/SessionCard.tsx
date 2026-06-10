@@ -13,13 +13,15 @@ interface SessionCardProps {
   surah:string
   grade:string
   student?: Student;
+  handelDelete:()=>void
 }
 
 export default function SessionCard({
   surah,
   time,
   grade,
-  student
+  student,
+  handelDelete
   
 }: SessionCardProps) {
  const gradeColors={
@@ -78,7 +80,7 @@ export default function SessionCard({
         <Button variant="transparent" textColor="warning" size="sm">
           تعديل <Feather name="edit-2" />
         </Button>
-           <Button variant="transparent" textColor="danger" size="sm">
+           <Button variant="transparent" textColor="danger" size="sm" onClick={handelDelete}>
         حذف <Feather name="trash-2" />
         </Button>
       </View>
