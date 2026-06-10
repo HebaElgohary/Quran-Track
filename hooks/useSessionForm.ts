@@ -6,7 +6,7 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
     studentId: 0,
     date: "",
     surah: "",
-    grade: "",
+    grade: "مقبول",
     notes: "",
     from: "",
     to: "",
