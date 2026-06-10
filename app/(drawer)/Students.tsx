@@ -4,13 +4,13 @@ import Header from '@/components/organisms/Header'
 import NoDataFallback from '@/components/organisms/NoDataFallback';
 import { useStudents } from '@/hooks/useStudent';
 import { useToast } from '@/hooks/useToast';
-import { Student } from '@/types/appTypes';
+import { Student, StudentFormData } from '@/types/appTypes';
 import { Feather } from '@expo/vector-icons';
 import React, { useState } from 'react'
 import { View } from 'react-native'
 
 
-type AddDataType= Student
+type AddDataType= StudentFormData
 
 
 export default function Students() {

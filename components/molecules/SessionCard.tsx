@@ -36,7 +36,7 @@ export default function SessionCard({
   <View style={{display:'flex',flexDirection:'column',gap:20}}>
     {/* first row */}
     <View style={styles.row}>
-      {/* <Title>{student.nameAr}</Title> */}
+      <Title>{student.nameAr}</Title>
       <View style={{backgroundColor:colors.veryGood,padding:3,borderRadius:10}}>
         <Text style={{fontSize:20,color:colors.btnPrimary}}>{grade}</Text>
       </View>
