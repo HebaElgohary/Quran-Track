@@ -47,6 +47,18 @@ export const addSession = async (
   }
 };
 
+//------- delete Session -------//
+export const deleteSession = async (id: number) => {
+  try {
+    const data = await getSessions();
+    const updated = data.filter((session: Session) => session.id !== id);
+    await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+  } catch (error) {
+    console.log("Error deleting group", error);
+  }
+};
+
+
 
 
 
