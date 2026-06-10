@@ -30,13 +30,14 @@ export default function SessionCard({
   "جيد جدا":colors.veryGood,
   // "مقبول":colors.accepted
  }
+ console.log('student in sessionCard is',student)
   return (
     <View style={styles.container}>
       {/* Header */}
   <View style={{display:'flex',flexDirection:'column',gap:20}}>
     {/* first row */}
     <View style={styles.row}>
-      <Title>{student.nameAr}</Title>
+      <Title>{student.nameEn}</Title>
       <View style={{backgroundColor:colors.veryGood,padding:3,borderRadius:10}}>
         <Text style={{fontSize:20,color:colors.btnPrimary}}>{grade}</Text>
       </View>

@@ -21,8 +21,11 @@ export default function sessions() {
   
 useEffect(() => {
    
+console.log('students',students)
+console.log('sessions',sessions)
 
-}, [])
+
+}, )
 
   const  addSession = async(formData: AddDataType) => {
     console.log('data inside addsession',formData)
