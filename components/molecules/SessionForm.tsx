@@ -3,8 +3,9 @@ import { View } from "react-native";
 import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
 import { useSessionForm } from "@/hooks/useSessionForm";
-import { Session, SessionFormData } from "@/types/appTypes";
+import { Session, SessionFormData, SourcesMap } from "@/types/appTypes";
 import { useSession } from "@/hooks/useSession";
+import { useStudents } from "@/hooks/useStudent";
 
 export default function SessionForm<T>({
   handleSubmit,
@@ -18,13 +19,27 @@ export default function SessionForm<T>({
   formData?: T;
 }) {
 const { formData, setFormData, errors, reset } =  useSessionForm(session as Session)
-  const { createSession} = useSession()
 
-  //----------------- add handler ---------------//
-const addSession = async (formData: SessionFormData) => {
+const { students } = useStudents();
+  //------- source resolver-------//
+  const sources: Partial<SourcesMap> = {
+    students: (students ?? []).map((student) => ({
+      id: student.id,
+      name: student.nameEn,
+      value: student.id,
+      label: student.nameAr,
+      checked: false,
+    })),
+  };
 
- await createSession(formData);
-}
+  //---------------------------//
+  const onSubmit = async () => {
+    // const isValid = true;
+    // if (!isValid) return;
+    await handleSubmit?.(formData as T);
+    reset();
+    setOpen(false);
+  }
   return (
     <View
       style={{
@@ -39,13 +54,15 @@ const addSession = async (formData: SessionFormData) => {
       <FormHeading title="تقرير حصة جديدة " name={"x"} setOpen={setOpen} />
       {/* /////////////////// */}
       <Form<T>
-        handleSubmit={handleSubmit}
+        handleSubmit={onSubmit}
         formData={formData}
         setFormData={setFormData}
         page="Sessions"
-        btn1={"الغاء"}
-        btn2={"اضافة"}
+     
         setOpen={setOpen}
+        errors={errors}
+        sources={sources}
+        
       />
     </View>
   );

@@ -22,9 +22,9 @@ const KEY = 'session';
 // ADD Session
 // =========================
 export const addSession = async (
-  newSession:Omit< SessionFormData, "student">,
-  studentId: number
+  Session:SessionFormData,
 ): Promise <Session> => {
+    console.log('formData inside addsession storage',Session)
   try {
     
     const oldSessions = await getSessions();
@@ -32,8 +32,7 @@ export const addSession = async (
 
     const session:Session = {
       id: Date.now(),
-      ...newSession,
-      studentId:studentId
+      ...Session,
     };
     const updatedSessions = [...oldSessions, session];
 

@@ -2,7 +2,7 @@ import { FormFieldSchema } from "@/types/appTypes";
 
 export const sessionFields: FormFieldSchema[] = [
   {
-    name: "student",
+    name: "studentId",
     label: "الطالب ",
     type: "select",
     // data: [

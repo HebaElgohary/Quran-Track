@@ -33,9 +33,7 @@ export type Session = {
   tajweed: string;
 };
 
-export type SessionFormData = Omit<Session, "id" | "studentId"> & {
-  student: Student;
-};
+export type SessionFormData = Omit<Session, "id" > 
 
 export type Report = {
   id: number;
@@ -55,7 +53,7 @@ export type SourceOption<T = unknown> = {
   id: number;
   name: string;
   value: number | string;
-  checked: boolean;
+  checked?: boolean;
   data?: T;
 };
 export type SourcesMap = {

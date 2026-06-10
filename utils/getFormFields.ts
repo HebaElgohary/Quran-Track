@@ -153,6 +153,7 @@ export const getFormFields = (page: string) => {
         {name: "mohamed", label: "محمد", value: "محمد" },
         { name  : "Uzair", label: "عزير", value: "عزير" },
       ],
+      
     },
     {
       name: "time",

@@ -5,20 +5,21 @@ import Title from "../atoms/Title";
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet } from "react-native" ;
 import { colors } from "@/constants/theme";
+import { Student } from "@/types/appTypes";
 
 
 interface SessionCardProps {
-  nameAr: string;
   time:string,
   surah:string
   grade:string
+  student: Student;
 }
 
 export default function SessionCard({
-  nameAr,
   surah,
   time,
   grade,
+  student
   
 }: SessionCardProps) {
  const gradeColors={
@@ -35,7 +36,7 @@ export default function SessionCard({
   <View style={{display:'flex',flexDirection:'column',gap:20}}>
     {/* first row */}
     <View style={styles.row}>
-      <Title>{nameAr}</Title>
+      {/* <Title>{student.nameAr}</Title> */}
       <View style={{backgroundColor:colors.veryGood,padding:3,borderRadius:10}}>
         <Text style={{fontSize:20,color:colors.btnPrimary}}>{grade}</Text>
       </View>

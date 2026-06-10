@@ -8,12 +8,11 @@ import { colors } from "@/constants/theme";
 
 interface props<T> {
   page: FormName;
-  btn1?: string;
-  btn2?: string;
+ 
   setOpen: any;
   formData?: T;
   setFormData: React.Dispatch<React.SetStateAction<T>>;
-  handleSubmit?: (data: T) => Promise<void>;
+  handleSubmit?: () => Promise<void>;
   errors?: any;
   sources?: Partial<SourcesMap>;
   setErrors?: any;
@@ -26,8 +25,7 @@ export default function Form<T>({
   setFormData,
   sources,
   page,
-  btn1,
-  btn2,
+
   setOpen,
 }: props<T>) {
   const fields = useMemo(() => formSchemas[page], [page]);
@@ -144,7 +142,7 @@ export default function Form<T>({
             textColor="black"
             onClick={() => setOpen(false)}
           >
-            {btn2}
+            {"الغاء"}
           </Button>
         </View>
 
@@ -160,7 +158,7 @@ export default function Form<T>({
               handleSubmit?.();
             }}
           >
-            {(formData as any)?.id ? "تعديل" : btn1}
+            {(formData as any)?.id ? "تعديل" : "اضافة"}
           </Button>
         </View>
       </View>

@@ -19,11 +19,14 @@ export default function Select({ data, value, onChange }: { data: any, value: an
           
         }}
           selectedValue={value}
-      onValueChange={(itemValue) =>
-        onChange(itemValue)
+          onValueChange={(itemValue) =>
+          onChange(itemValue)
       }
       >
-     {(data ?? []).map((item:{label:string,value:string,id:number,checked:boolean}) => (
+     {(data ?? []).map((item:{label:string,
+     value:string
+     ,id:number
+     ,checked:boolean}) => (
   <Picker.Item
     key={item.label}
     label={item.label}
