@@ -1,4 +1,4 @@
-import { addSession, deleteSession, getSessions } from "@/storage/sessionStorage";
+import { addSession, deleteSession, getSessions ,updateSession} from "@/storage/sessionStorage";
 import { Session, SessionFormData } from "@/types/appTypes";
 import { use, useEffect, useState } from "react";
 
@@ -33,6 +33,19 @@ export const useSession = () => {
       console.log("Error creating group", error);
     }
   };
+
+   // =========================
+    // UPDATE SESSION
+    // =========================
+    const editStudent = async (updatedSession: Session) => {
+      try {
+        await updateSession(updatedSession);
+  
+        await loadSessions();
+      } catch (error) {
+        console.log("Error updating group", error);
+      }
+    };
 
   
   // =========================

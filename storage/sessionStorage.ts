@@ -60,7 +60,7 @@ export const deleteSession = async (id: number) => {
 
 
 //----------- update Session -------//
-export const updateStudent = async (newData:Session) => {
+export const updateSession = async (newData:Session) => {
   try {
     const data = await getSessions();
     const updated = data.map((session: Session) =>
