@@ -64,6 +64,10 @@ export const useSchedule = () => {
               console.log("Error deleting group", error);
             }
           };
+          
+    useEffect(() => {
+    loadSchedules();
+  }, []);
   
 
   return { schedules, loading, loadSchedules,createSchedule ,editSchedule,removeSchedule};
