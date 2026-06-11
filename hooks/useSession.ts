@@ -55,9 +55,9 @@ export const useSession = () => {
   // =========================
   // DELETE SESSION
   // =========================
-  const removeSession = async (studentId: number) => {
+  const removeSession = async (sessionId: number) => {
     try {
-      await deleteSession(studentId);
+      await deleteSession(sessionId);
 
       await loadSessions();
     } catch (error) {

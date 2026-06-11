@@ -1,4 +1,4 @@
-import { addSchedule, getSchedules, updateSchedule } from "@/storage/scheduleStorage";
+import { addSchedule, deleteSchedule, getSchedules, updateSchedule } from "@/storage/scheduleStorage";
 import { Schedule, ScheduleFormData } from "@/types/appTypes";
 import { use, useEffect, useState } from "react";
 
@@ -52,7 +52,19 @@ export const useSchedule = () => {
           }
         };
     
+          // =========================
+          // DELETE Schedule
+          // =========================
+          const removeSchedule = async (scheduleId: number) => {
+            try {
+              await deleteSchedule(scheduleId);
+        
+              await loadSchedules();
+            } catch (error) {
+              console.log("Error deleting group", error);
+            }
+          };
   
 
-  return { schedules, loading, loadSchedules,createSchedule ,editSchedule};
+  return { schedules, loading, loadSchedules,createSchedule ,editSchedule,removeSchedule};
 };
