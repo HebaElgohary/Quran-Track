@@ -72,7 +72,7 @@ export const updateSession = async (newData:Session) => {
   }
 }
 
-//------ assign students to group -------//
+
 
 
 

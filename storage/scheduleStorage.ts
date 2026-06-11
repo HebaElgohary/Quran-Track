@@ -58,3 +58,17 @@ export const deleteSchedule = async (id: number) => {
   }
 };
 
+
+//----------- update Schedule -------//
+export const updateSchedule = async (newData:Schedule) => {
+  try {
+    const data = await getSchedules();
+    const updated = data.map((schedule: Schedule) =>
+      schedule.id === newData.id ? { ...schedule, ...newData } : schedule
+    );
+    await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+  } catch (error) {
+    console.log("Error updating group", error);
+  }
+}
+
