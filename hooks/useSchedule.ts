@@ -1,8 +1,8 @@
-import { addSchedule, getSchedules } from "@/storage/scheduleStorage";
+import { addSchedule, getSchedules, updateSchedule } from "@/storage/scheduleStorage";
 import { Schedule, ScheduleFormData } from "@/types/appTypes";
 import { use, useEffect, useState } from "react";
 
-export const useSession = () => {
+export const useSchedule = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +38,21 @@ export const useSession = () => {
         console.log("Error creating group", error);
       }
     };
+
+     // =========================
+        // UPDATE Schedule
+        // =========================
+        const editSchedule = async (updatedSchedule: Schedule) => {
+          try {
+            await updateSchedule(updatedSchedule);
+      
+            await loadSchedules();
+          } catch (error) {
+            console.log("Error updating group", error);
+          }
+        };
+    
   
 
-  return { schedules, loading, loadSchedules,createSchedule };
+  return { schedules, loading, loadSchedules,createSchedule ,editSchedule};
 };
