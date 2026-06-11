@@ -154,7 +154,7 @@ export default function Layout() {
       />
 
       <Drawer.Screen
-        name="Schedule"
+        name="Schedules"
         options={{
           title: "المواعيد",
 

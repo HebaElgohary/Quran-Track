@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { View } from 'react-native'
 
 type AddDataType = ScheduleFormData
-export default function Schedule() {
+export default function Schedules() {
   const { schedules, createSchedule, removeSchedule } = useSchedule();
   const { showSuccess } = useToast()
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
@@ -33,19 +33,19 @@ const confirmDelete = async () => {
   await removeSchedule(selectedScheduleId);
   showSuccess( 'تم حذف الحصة',
   );
-  setSelectedSessionId(null);
+  setSelectedScheduleId(null);
 };
 // -----------------------------//
 
 
-  };
+  
   return (
     <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
 
-  <Header title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' formName='Schedule'/>
+  <Header<AddDataType> handleSubmit={addSchedule}  title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' formName='Schedule'/>
       <NotificationCard />
   
-  {schedule.length === 0 && <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
+  {schedules.length === 0 && <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
 </View>
 
 )
