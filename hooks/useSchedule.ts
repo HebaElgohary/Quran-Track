@@ -1,5 +1,5 @@
-import { getSchedules } from "@/storage/scheduleStorage";
-import { Schedule } from "@/types/appTypes";
+import { addSchedule, getSchedules } from "@/storage/scheduleStorage";
+import { Schedule, ScheduleFormData } from "@/types/appTypes";
 import { use, useEffect, useState } from "react";
 
 export const useSession = () => {
@@ -23,5 +23,22 @@ export const useSession = () => {
     }
   };
 
-  return { schedules, loading, loadSchedules };
+  
+  // =========================
+  // CREATE Schedule 
+  // =========================
+   const createSchedule = async (formData: ScheduleFormData) => {
+      console.log("formdata createSession", formData);
+      const { studentId, ...rest } = formData;
+      console.log('student id in createStudent',studentId)
+      try {
+      await addSchedule(formData);
+      await loadSchedules();
+      } catch (error) {
+        console.log("Error creating group", error);
+      }
+    };
+  
+
+  return { schedules, loading, loadSchedules,createSchedule };
 };

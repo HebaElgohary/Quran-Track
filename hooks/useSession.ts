@@ -22,6 +22,10 @@ export const useSession = () => {
       setLoading(false);
     }
   };
+
+  // =========================
+  // CREATE SESSION 
+  // =========================
   const createSession = async (formData: SessionFormData) => {
     console.log("formdata createSession", formData);
     const { studentId, ...rest } = formData;
