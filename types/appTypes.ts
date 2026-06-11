@@ -26,8 +26,8 @@ export type Session = {
   surah: string;
   grade: string;
   notes: string;
-  from: string;
-  to: string;
+  from: number;
+  to: number;
   new: string;
   revision: string;
   tajweed: string;

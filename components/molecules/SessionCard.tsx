@@ -5,21 +5,37 @@ import Title from "../atoms/Title";
 import { Feather } from "@expo/vector-icons";
 import { colors } from "@/constants/theme";
 import { Student } from "@/types/appTypes";
+import { Session } from "@/types/appTypes";
+import FormModal from "./form/FormModal";
 
+type updateDataType=Session
 interface SessionCardProps {
   time: string;
   surah: string;
   grade: string;
   student?: Student;
+  from: number;
+  to: number;
+  next: string;
+  revision: string;
   handelDelete: () => void;
+  handleUpdate: (data: updateDataType) =>Promise<void> ;
+  session:Session
 }
 
+
 export default function SessionCard({
+ session,
   surah,
   time,
   grade,
   student,
+  from,
+  to,
+  next,
+  revision,
   handelDelete,
+  handleUpdate,
 }: SessionCardProps) {
   const gradeColors: Record<string, string> = {
     ممتاز: colors.excellent,
@@ -28,6 +44,7 @@ export default function SessionCard({
     متوسط: colors.average,
     ضعيف: colors.bad,
   };
+  const [open, setOpen] = React.useState(false);
 
   return (
     <View style={styles.container}>
@@ -59,16 +76,18 @@ export default function SessionCard({
         <View style={styles.row}>
           <Text style={styles.label}>السورة:</Text>
           <Text style={styles.value}>{surah || "-"}</Text>
+          <Text style={styles.value}>{` (${to}-${from}) `}</Text>
+
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>الحفظ الجديد:</Text>
-          <Text style={styles.value}>{surah || "-"}</Text>
+          <Text style={styles.value}>{next}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>المراجعة:</Text>
-          <Text style={styles.value}>{surah || "-"}</Text>
+          <Text style={styles.value}>{revision || "-"}</Text>
         </View>
       </View>
 
@@ -78,7 +97,10 @@ export default function SessionCard({
           تقرير <Feather name="file-text" />
         </Button>
 
-        <Button variant="transparent" textColor="warning" size="sm">
+        <Button variant="transparent" textColor="warning" size="sm" 
+            onClick={() => setOpen(true)} >
+
+
           تعديل <Feather name="edit-2" />
         </Button>
 
@@ -91,7 +113,15 @@ export default function SessionCard({
           حذف <Feather name="trash-2" />
         </Button>
       </View>
+         <FormModal<updateDataType>
+              open={open}
+              setOpen={setOpen}
+              formData={session}
+              formName="Sessions"
+              handleSubmit={handleUpdate}
+            />
     </View>
+    
   );
 }
 

@@ -15,7 +15,7 @@ import { View } from 'react-native'
 
 type AddDataType= SessionFormData
 export default function sessions() {
-  const{createSession,sessions,removeSession} =useSession();
+  const{createSession,sessions,removeSession,editSession} =useSession();
  const {students} = useStudents()
  const {showSuccess,showError} = useToast();
  const [selectedSessionId, setSelectedSessionId] = useState<number | null>(null);
@@ -61,15 +61,23 @@ const confirmDelete = async () => {
         { label: "محمد", value: "محمد" },
         { label: "عزير", value: "عزير" }, ]} />
    
-    {sessions.length === 0 && <NoDataFallback Icon={() => <Feather name="book-open" size={30} color="gray" />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
+    {sessions.length === 0 && <NoDataFallback<AddDataType> formName='Sessions' handleSubmit={addSession}  Icon={() =>
+       <Feather name="book-open" size={30} color="gray"   />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
 {sessions.map((session) => 
 <SessionCard
    key={session.id} 
    student={students.find((student) => student.id == session.studentId) as Student}
     time={session.date} 
     surah={session.surah}
+    from={session.from}
+    next={session.new}
+    revision={session.revision}
+    to={session.to}
+     grade={session.grade}  
+session={session}
     handelDelete={() => openDeleteAlert(session.id)}
-     grade={session.grade}   />)} 
+    handleUpdate={editSession}
+      />)} 
 {/* {/* <SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'   /> */}
 
 

@@ -1,4 +1,5 @@
 import { Session, SessionFormData } from "@/types/appTypes";
+import { validateSession } from "@/utils/validateSession";
 import { useState } from "react";
 
 export const useSessionForm = (initial?: Session) => {
@@ -24,8 +25,8 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
     surah: "",
     grade: "",
     notes: "",
-    from: "",
-    to: "",
+    from:0 ,
+    to: 0,
     new: "",
     revision: "",
     tajweed: "",
@@ -33,18 +34,18 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
     setErrors({});
   };
 
-//   const validate = () => {
-//     const validationErrors = validateStudent(formData);
-//     setErrors(validationErrors);
-//     return Object.keys(validationErrors).length === 0;
-//   };
+  const validate = () => {
+    const validationErrors = validateSession(formData);
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
   return {
     formData,
     setFormData,
     errors,
     setErrors,
-    // validate,
+    validate,
     reset,
   };
 }

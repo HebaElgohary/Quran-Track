@@ -37,7 +37,7 @@ export const useSession = () => {
    // =========================
     // UPDATE SESSION
     // =========================
-    const editStudent = async (updatedSession: Session) => {
+    const editSession = async (updatedSession: Session) => {
       try {
         await updateSession(updatedSession);
   
@@ -64,5 +64,5 @@ export const useSession = () => {
     useEffect(() => {
     loadSessions();
   }, []);
-  return { createSession, loadSessions, sessions, loading,removeSession };
+  return { createSession,editSession, loadSessions, sessions, loading,removeSession };
 };

@@ -18,7 +18,7 @@ export default function SessionForm<T>({
   open: boolean;
   formData?: T;
 }) {
-const { formData, setFormData, errors, reset } =  useSessionForm(session as Session)
+const { formData, setFormData, errors, reset, validate } =  useSessionForm(session as Session)
 
 const { students } = useStudents();
   //------- source resolver-------//
@@ -34,8 +34,12 @@ const { students } = useStudents();
 
   //---------------------------//
   const onSubmit = async () => {
-    // const isValid = true;
-    // if (!isValid) return;
+     const isValid = validate();
+    if (!isValid) return;
+
+    await handleSubmit?.(formData as T);
+    reset();
+    setOpen(false);
     await handleSubmit?.(formData as T);
     reset();
     setOpen(false);
