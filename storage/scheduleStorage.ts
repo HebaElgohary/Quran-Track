@@ -29,8 +29,6 @@ export const addSchedule = async (
   try {
     
     const oldSchedules = await getSchedules();
-
-
     const schedule:Schedule = {
       id: Date.now(),
       ...Schedule,
@@ -47,3 +45,16 @@ export const addSchedule = async (
     throw error;
   }
 };
+
+
+//------- delete schedule -------//
+export const deleteSchedule = async (id: number) => {
+  try {
+    const data = await getSchedules();
+    const updated = data.filter((schedule: Schedule) => schedule.id !== id);
+    await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+  } catch (error) {
+    console.log("Error deleting group", error);
+  }
+};
+
