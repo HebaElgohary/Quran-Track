@@ -5,15 +5,21 @@ export const scheduleFields: FormFieldSchema[] = [
       name: "student",
       label: "الطالب ",
       type: "select",
-      data: [
-        { name: "hakim", label: "حكيم", value: "حكيم" },
-        {name: "mohamed", label: "محمد", value: "محمد" },
-        {name: "Uzair", label: "عزير", value: "عزير" },
-      ],
+      // data: [
+      //   { name: "hakim", label: "حكيم", value: "حكيم" },
+      //   {name: "mohamed", label: "محمد", value: "محمد" },
+      //   {name: "Uzair", label: "عزير", value: "عزير" },
+      // ],
+      source: "students",
     },
     {
-      name: "time",
+      name: "date",
       label: "الموعد",
+      type: "text",
+    },
+        {
+      name: "time",
+      label: "الساعة",
       type: "text",
     },
     {

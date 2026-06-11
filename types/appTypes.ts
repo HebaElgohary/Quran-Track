@@ -34,6 +34,17 @@ export type Session = {
 };
 
 export type SessionFormData = Omit<Session, "id" > 
+export type Schedule = {
+  id: number;
+  studentId: number;
+  date: string;
+  time: string;
+  duration: number;
+  notes: string;
+
+};
+
+export type ScheduleFormData = Omit<Schedule, "id" > 
 
 export type Report = {
   id: number;
