@@ -1,10 +1,10 @@
-import { Schedule } from '@/types/appTypes';
+import { Schedule, ScheduleFormData } from '@/types/appTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const KEY = 'schedule';
 
 // =========================
-// GET Sessions
+// GET Schedules
 // =========================
  export const getSchedules = async (): Promise<Schedule[]> => {
   try {
@@ -16,4 +16,34 @@ const KEY = 'schedule';
     return [];
   }
 
+};
+
+ 
+// =========================
+// ADD Scehedule
+// =========================
+export const addSchedule = async (
+  Schedule:ScheduleFormData,
+): Promise <Schedule> => {
+    console.log('formData inside addsession storage',Schedule)
+  try {
+    
+    const oldSchedules = await getSchedules();
+
+
+    const schedule:Schedule = {
+      id: Date.now(),
+      ...Schedule,
+    };
+    const updatedSchedules = [...oldSchedules, schedule];
+
+    await AsyncStorage.setItem(
+     KEY,
+      JSON.stringify(updatedSchedules)
+    );
+    return schedule;
+  } catch (error) {
+    console.log("Error adding group", error);
+    throw error;
+  }
 };
