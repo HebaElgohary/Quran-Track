@@ -1,5 +1,4 @@
 import { Schedule, ScheduleFormData } from "@/types/appTypes";
-import { validateSession } from "@/utils/validateSession";
 import { useState } from "react";
 
 export const useScheduleForm = (initial?: Schedule) => {

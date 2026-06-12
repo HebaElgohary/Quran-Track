@@ -15,7 +15,7 @@ export const scheduleFields: FormFieldSchema[] = [
     {
       name: "date",
       label: "الموعد",
-      type: "text",
+      type: "date",
     },
         {
       name: "time",

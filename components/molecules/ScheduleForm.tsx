@@ -5,9 +5,12 @@ import { View } from "react-native";
 
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
-
-export default function ScheduleForm<T>({handleSubmit, setOpen, open }: {handleSubmit?: (data: T) => Promise<void>; setOpen: any; open: boolean }) {
- const { formData, setFormData, errors, reset, validate } =  useScehduleForm(session as Session)
+import { useScheduleForm } from "@/hooks/useScheduleForm";
+import { Schedule, SourcesMap } from "@/types/appTypes";
+import { useStudents } from "@/hooks/useStudent";
+export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:schedule }: {handleSubmit?: (data: T) => Promise<void>;formData?: T; setOpen: any; open: boolean }) {
+ const { formData, setFormData, errors, reset } =  useScheduleForm(schedule as Schedule)
+ const { students } = useStudents();
  
    //------- source resolver-------//
    const sources: Partial<SourcesMap> = {
@@ -19,6 +22,18 @@ export default function ScheduleForm<T>({handleSubmit, setOpen, open }: {handleS
        checked: false,
      })),
    };
+
+    const onSubmit = async () => {
+    //  const isValid = validate();
+    // if (!isValid) return;
+
+    await handleSubmit?.(formData as T);
+    reset();
+    setOpen(false);
+    await handleSubmit?.(formData as T);
+    reset();
+    setOpen(false);
+  }
  
   return (
     <View style={{backgroundColor:'white',padding:12,borderRadius:10}}>
@@ -26,7 +41,11 @@ export default function ScheduleForm<T>({handleSubmit, setOpen, open }: {handleS
   <FormHeading title='موعد حصة جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
 <Form<T>
- handleSubmit={handleSubmit}
+ handleSubmit={onSubmit}
+  formData={formData}
+  errors={errors}
+  setFormData={setFormData}
+  sources={sources}
   page='Schedule'
    setOpen={setOpen}
     />

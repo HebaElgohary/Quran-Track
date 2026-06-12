@@ -1,3 +1,5 @@
+import CustomAlert from '@/components/atoms/CustomAlert'
+import ScheduleCard from '@/components/molecules/ScheduleCard'
 import Header from '@/components/organisms/Header'
 import NoDataFallback from '@/components/organisms/NoDataFallback'
 import NotificationCard from '@/components/organisms/NotificationsCard'
@@ -37,8 +39,6 @@ const confirmDelete = async () => {
 };
 // -----------------------------//
 
-
-  
   return (
     <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
 
@@ -46,6 +46,21 @@ const confirmDelete = async () => {
       <NotificationCard />
   
   {schedules.length === 0 && <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
+
+  <ScheduleCard 
+  openDeleteAlert={openDeleteAlert} 
+  confirmDelete={confirmDelete} />
+
+   <CustomAlert
+          show={selectedScheduleId !== null}
+          title="حذف المجموعة"
+          message="هل أنت متأكد أنك تريد حذف هذه المجموعة؟"
+          confirmText="حذف"
+          cancelText="الغاء"
+          onCancel={() => setSelectedScheduleId(null)}
+          onConfirm={confirmDelete}
+        />
+        {/* //-----------------------------// */}
 </View>
 
 )
