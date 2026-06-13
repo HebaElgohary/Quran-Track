@@ -28,6 +28,17 @@ export const scheduleFields: FormFieldSchema[] = [
       type: "text",
     },
     {
+  name: "AmPm",
+  label: "AM / PM",
+  type: "select",
+  data: [
+    { id: 0, label: "AM", value: "AM" ,checked: false },
+    {id: 1, label: "PM", value: "PM" ,checked: false },
+  ],
+},
+
+
+    {
       name: "note",
       label: "ملاحظة ",
       type: "textarea",

@@ -40,6 +40,7 @@ export type Schedule = {
   date: string;
   time: string;
   duration: number;
+  AmPm:string
   notes: string;
 
 };

@@ -20,6 +20,7 @@ interface Props {
   duration: number;
   handelUpdate: (data: updateDataType) => Promise<void>;
   openDeleteAlert: () => void;
+  AmPm: string;
 }
 
 export default function ScheduleCard({
@@ -30,6 +31,7 @@ export default function ScheduleCard({
   date,
   time,
   duration,
+  AmPm
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
@@ -112,7 +114,7 @@ export default function ScheduleCard({
               </Title>
               <Text style={{ color: "#6B7280", marginTop: 2 }}>
   
-    {formatDate(date) }{"    •     "} {time}
+    {formatDate(date) }{"    •     "} {time} {AmPm}
               </Text>
             </View>
           </View>

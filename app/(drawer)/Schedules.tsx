@@ -51,6 +51,7 @@ const confirmDelete = async () => {
 
 <View style={{display:'flex',flexDirection:'column',gap:20,}}>
   {schedules && schedules.map((schedule:Schedule) =><ScheduleCard 
+  AmPm={schedule.AmPm}
   schedule={schedule}
      student={students.find((student) => student.id == schedule.studentId) }
   date={schedule.date}

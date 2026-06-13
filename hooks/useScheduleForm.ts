@@ -10,6 +10,7 @@ export const useScheduleForm = (initial?: Schedule) => {
       time: "",
       duration: 0,
       notes: "",
+      AmPm:"Am",
     },
   );
 
@@ -22,6 +23,7 @@ export const useScheduleForm = (initial?: Schedule) => {
       time: "",
       duration: 0,
       notes: "",
+      AmPm:"Am",
     });
     setErrors({});
   };
