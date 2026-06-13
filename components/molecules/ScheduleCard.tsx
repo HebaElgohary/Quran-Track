@@ -1,12 +1,12 @@
 import { Schedule, Student } from "@/types/appTypes";
+import { getDayName } from "@/utils/getDayName";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { Text, View } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
-import { RectButton, Swipeable } from "react-native-gesture-handler";
-import { getDayName } from "@/utils/getDayName";
 import SwipeCard from "./SwipeCard";
 
 type updateDataType = Schedule;
@@ -71,11 +71,8 @@ export default function ScheduleCard({
   };
 
   return (
-    <SwipeCard
-  onEdit={() => setOpen(true)}
-  onDelete={openDeleteAlert}
->
-  {/* your schedule UI here */}
+    <SwipeCard onEdit={() => setOpen(true)} onDelete={openDeleteAlert}>
+      {/* your schedule UI here */}
       <View
         style={{
           backgroundColor: "#fff",
@@ -113,7 +110,7 @@ export default function ScheduleCard({
                 {student?.nameAr || student?.nameEn || "طالب غير معروف"}
               </Title>
               <Text style={{ color: "#6B7280", marginTop: 2 }}>
-               {getDayName(date)}    •     {date}    •    {time} 
+                {getDayName(date)} • {date} • {time}
               </Text>
             </View>
           </View>
@@ -170,6 +167,5 @@ export default function ScheduleCard({
         />
       </View>
     </SwipeCard>
-
   );
 }
