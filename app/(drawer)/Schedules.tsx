@@ -13,7 +13,7 @@ import { View } from 'react-native'
 
 type AddDataType = ScheduleFormData
 export default function Schedules() {
-  const { schedules, createSchedule, removeSchedule } = useSchedule();
+  const { schedules, createSchedule, removeSchedule, editSchedule } = useSchedule();
   const { students } = useStudents();
   const { showSuccess } = useToast()
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
@@ -51,11 +51,13 @@ const confirmDelete = async () => {
 
 <View style={{display:'flex',flexDirection:'column',gap:20,}}>
   {schedules && schedules.map((schedule:Schedule) =><ScheduleCard 
+  schedule={schedule}
      student={students.find((student) => student.id == schedule.studentId) }
   date={schedule.date}
   time={schedule.time}
   duration={schedule.duration}
   key={schedule.id}
+  handelUpdate={editSchedule}
   openDeleteAlert={() => openDeleteAlert(schedule.id)} 
   />)}
   </View>

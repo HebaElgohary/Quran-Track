@@ -1,24 +1,34 @@
-import { Student } from "@/types/appTypes";
+import { Schedule, Student } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
+import FormModal from "./form/FormModal";
+
+
+type updateDataType=Schedule
 
 interface Props {
   student?: Student;
+  schedule: Schedule;
   date: string;
   time: string;
   duration: number;
+  handelUpdate: (data: updateDataType) =>Promise<void>
   openDeleteAlert: () => void;
 }
 export default function ScheduleCard({
+  schedule,
+  handelUpdate,
   openDeleteAlert,
   student,
   date,
   time,
   duration,
 }: Props) {
+      const [open, setOpen] = React.useState(false);
+    
   return (
     <View
       style={{
@@ -52,7 +62,7 @@ export default function ScheduleCard({
         variant="transparent"
         textColor="warning"
         size="sm"
-        // onClick={() => setOpen(true)}
+        onClick={() => setOpen(true)}
       >
         تعديل <Feather name="edit-2" />
       </Button>
@@ -65,6 +75,13 @@ export default function ScheduleCard({
       >
         حذف <Feather name="trash-2" />
       </Button>
+          <FormModal<updateDataType>
+                    open={open}
+                    setOpen={setOpen}
+                    formData={schedule}
+                    formName="Schedule"
+                    handleSubmit={handelUpdate}
+                  />
     </View>
   );
 }
