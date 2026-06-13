@@ -1,12 +1,7 @@
 import { Group, Student } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import React, { useState } from "react";
-import {
-  Animated,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Pressable, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { groupColors } from "@/constants/theme";
 import FormModal from "./form/FormModal";
@@ -17,7 +12,7 @@ import Title from "../atoms/Title";
 type editGroupType = Group;
 
 interface GroupCardProps {
-  group: Omit<Group, "students">  ;
+  group: Omit<Group, "students">;
   setSelectedGroupId: (id: number) => void;
   updateGroup: (data: editGroupType) => Promise<void>;
   students: Student[];
@@ -32,27 +27,23 @@ export default function GroupCard({
   const [open, setOpen] = useState(false);
   const scaleAnim = useState(new Animated.Value(1))[0];
 
-  // ===== USERS COLOR (SOURCE OF TRUTH) =====
   const accentColor =
     groupColors[group.color as keyof typeof groupColors] || "#6366F1";
 
-  // ===== GRADIENT BASED ON USER COLOR =====
-  const gradient = [
-    accentColor + "18",
-    "#ffffff",
-    "#ffffff",
-  ] as const;
+  const gradient = [`${accentColor}15`, "#fff", "#fff"] as const;
 
   const groupStudents = students.filter(
-    (student) => student.groupId === group.id
+    (s) => s.groupId === group.id
   );
 
-  const groupWithStudents = {
-    ...group,
-    students: groupStudents,
-  };
-
   const studentCount = groupStudents.length;
+   const groupWithStudents = {
+
+    ...group,
+
+    students: groupStudents,
+
+  };
 
   const onPressIn = () => {
     Animated.spring(scaleAnim, {
@@ -67,162 +58,194 @@ export default function GroupCard({
       useNativeDriver: true,
     }).start();
   };
-console.log('group students inside the card',groupStudents)
+
   return (
     <Animated.View
       style={{
         transform: [{ scale: scaleAnim }],
-        marginHorizontal: 12,
+        width: "92%",
+        alignSelf: "center",
         marginVertical: 10,
-        width: "90%",
       }}
     >
-      <Pressable
-        onPressIn={onPressIn}
-        onPressOut={onPressOut}
-        style={{ width: "100%" }}
-      >
-        <LinearGradient
-          colors={gradient}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
+      <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
+        <View
           style={{
-            borderRadius: 18,
-            padding: 16,
-            width: "100%",
-            minHeight: 150,
-
-            borderLeftWidth: 6,
-            borderLeftColor: accentColor,
-
-            shadowColor: accentColor,
-            shadowOpacity: 0.2,
-            shadowRadius: 12,
-            shadowOffset: { width: 0, height: 6 },
-            elevation: 4,
+            flexDirection: "row",
+            borderRadius: 24,
+            overflow: "hidden",
+            shadowColor: "#000",
+            shadowOpacity: 0.08,
+            shadowRadius: 10,
+            elevation: 3,
           }}
         >
-          {/* ================= HEADER ================= */}
+          {/* Accent bar */}
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
+              width: 6,
+              backgroundColor: accentColor,
+            }}
+          />
+
+          <LinearGradient
+            colors={gradient}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              flex: 1,
+              padding: 16,
+              minHeight: 140,
             }}
           >
-            {/* LEFT */}
-            <View style={{ flex: 1 }}>
-              <Title
-                // style={{
-                //   fontSize: 18,
-                //   fontWeight: 700,
-                // }}
-              >
-                {group.nameAr}
-                
-              </Title>
-{groupStudents.map((student) => <Text>{student.nameAr}</Text>)}
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 6,
-                  gap: 6,
-                }}
-              >
-                <Feather name="users" size={14} color="#6B7280" />
-                <Text style={{ color: "#6B7280", fontSize: 13 }}>
-                  {studentCount}{" "}
-                  {studentCount === 1 ? "طالب" : "طلاب"}
-                </Text>
-              </View>
-            </View>
-
-            {/* COLOR DOT */}
+            {/* HEADER */}
             <View
               style={{
-                width: 14,
-                height: 14,
-                borderRadius: 7,
-                backgroundColor: accentColor,
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
-            />
-          </View>
+            >
+              <View style={{ flex: 1 }}>
+                <Title>{group.nameAr}</Title>
 
-          {/* ================= ENGLISH NAME ================= */}
-          <Text
-            style={{
-              marginTop: 6,
-              color: "#9CA3AF",
-              fontSize: 13,
-              fontStyle: "italic",
-            }}
-          >
-            {group.nameEn}
-          </Text>
+                <Text
+                  style={{
+                    color: "#9CA3AF",
+                    marginTop: 2,
+                    fontSize: 13,
+                    fontStyle: "italic",
+                  }}
+                >
+                  {group.nameEn}
+                </Text>
 
-          {/* ================= DIVIDER ================= */}
-          <View style={{ marginVertical: 12 }}>
+                {/* Students chips */}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    marginTop: 10,
+                    gap: 6,
+                  }}
+                >
+                  {groupStudents.slice(0, 3).map((s) => (
+                    <View
+                      key={s.id}
+                      style={{
+                        paddingHorizontal: 8,
+                        paddingVertical: 4,
+                        borderRadius: 12,
+                        backgroundColor: "#F3F4F6",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: "#374151",
+                        }}
+                      >
+                        {s.nameAr}
+                      </Text>
+                    </View>
+                  ))}
+
+                  {studentCount > 3 && (
+                    <View
+                      style={{
+                        paddingHorizontal: 8,
+                        paddingVertical: 4,
+                        borderRadius: 12,
+                        backgroundColor: `${accentColor}20`,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: "#374151",
+                        }}
+                      >
+                        +{studentCount - 3}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+
+                {/* count */}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 10,
+                    gap: 6,
+                  }}
+                >
+                  <Feather name="users" size={14} color="#6B7280" />
+                  <Text style={{ color: "#6B7280", fontSize: 13 }}>
+                    {studentCount} طلاب
+                  </Text>
+                </View>
+              </View>
+
+              {/* color badge */}
+              <View
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: 7,
+                  backgroundColor: accentColor,
+                }}
+              />
+            </View>
+
             <Hr />
-          </View>
 
-          {/* ================= ACTIONS ================= */}
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              gap: 10,
-            }}
-          >
-            <Button
-              variant="transparent"
-              onClick={() => setOpen(!open)}
+            {/* ACTIONS (modern icons) */}
+            <View
               style={{
-                paddingVertical: 10,
-                paddingHorizontal: 12,
-                borderRadius: 12,
-                backgroundColor: `${accentColor}18`,
                 flexDirection: "row",
-                alignItems: "center",
-                gap: 6,
+                justifyContent: "flex-end",
+                gap: 14,
               }}
             >
-              <Feather name="edit" size={16} color="#374151" />
-              <Text style={{ fontSize: 12, color: "#374151" }}>
-                تعديل
-              </Text>
-            </Button>
+              <Pressable
+                onPress={() => setOpen(true)}
+                style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 19,
+                  backgroundColor: `${accentColor}15`,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Feather name="edit-2" size={16} color={accentColor} />
+              </Pressable>
 
-            <Button
-              variant="transparent"
-              onClick={() => setSelectedGroupId(group.id)}
-              style={{
-                paddingVertical: 10,
-                paddingHorizontal: 12,
-                borderRadius: 12,
-                backgroundColor: "#FEE2E2",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              <Feather name="trash-2" size={16} color="#DC2626" />
-              <Text style={{ fontSize: 12, color: "#DC2626" }}>
-                حذف
-              </Text>
-            </Button>
-          </View>
+              <Pressable
+                onPress={() => setSelectedGroupId(group.id)}
+                style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 19,
+                  backgroundColor: "#FEE2E2",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Feather name="trash-2" size={16} color="#DC2626" />
+              </Pressable>
+            </View>
 
-          {/* ================= MODAL ================= */}
-          <FormModal<editGroupType>
-            open={open}
-            setOpen={setOpen}
-            formData={groupWithStudents}
-            data={groupStudents}
-            formName="Groups"
-            handleSubmit={updateGroup}
-          />
-        </LinearGradient>
+            <FormModal<editGroupType>
+              open={open}
+              setOpen={setOpen}
+              formData={groupWithStudents}
+              data={groupStudents}
+              formName="Groups"
+              handleSubmit={updateGroup}
+            />
+          </LinearGradient>
+        </View>
       </Pressable>
     </Animated.View>
   );
