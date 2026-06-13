@@ -57,7 +57,6 @@ const confirmDelete = async () => {
   duration={schedule.duration}
   key={schedule.id}
   openDeleteAlert={() => openDeleteAlert(schedule.id)} 
-  // confirmDelete={confirmDelete} 
   />)}
   </View>
 
