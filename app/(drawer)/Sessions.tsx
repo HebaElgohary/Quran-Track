@@ -15,7 +15,7 @@ import { View } from 'react-native'
 
 type AddDataType= SessionFormData
 export default function sessions() {
-  const{createSession,sessions,removeSession,editSession} =useSession();
+  const{createSession,sessions,loading,removeSession,editSession} =useSession();
  const {students} = useStudents()
  const {showSuccess,showError} = useToast();
  const [selectedSessionId, setSelectedSessionId] = useState<number | null>(null);
@@ -61,7 +61,7 @@ const confirmDelete = async () => {
         { label: "محمد", value: "محمد" },
         { label: "عزير", value: "عزير" }, ]} />
    
-    {sessions.length === 0 && <NoDataFallback<AddDataType> formName='Sessions' handleSubmit={addSession}  Icon={() =>
+    {sessions.length === 0 &&!loading && <NoDataFallback<AddDataType> formName='Sessions' handleSubmit={addSession}  Icon={() =>
        <Feather name="book-open" size={30} color="gray"   />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
 {sessions.map((session) => 
 <SessionCard

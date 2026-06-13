@@ -45,8 +45,10 @@ const confirmDelete = async () => {
        handleSubmit={handleAdd}
        btn='اضافة طالب'
       formName='Students'/>
-      {!students && <Loading />}
-      {/* {students.length === 0 && <View style={{marginTop:20}}>
+      {loading&& <Loading />}
+      {students.length === 0 && !loading && 
+
+       <View style={{marginTop:20}}>
         <NoDataFallback 
         formName='Students'
         handleSubmit={handleAdd}
@@ -54,7 +56,7 @@ const confirmDelete = async () => {
         text='لايوجد طلاب مسجلين' 
         btn='اضافة اول طالب'
          Icon={() => <Feather name="users" size={30} color="gray" />}  />
-        </View>} */}
+        </View>}
   <View style={{gap:10}}>
    {students.map((student) =>
     <StudentCard key={student.id}

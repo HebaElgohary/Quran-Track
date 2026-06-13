@@ -88,7 +88,7 @@ await loadStudents();
         btn="مجموعة جديدة "
         handleSubmit={AddGroup}
       />
-      {groups.length === 0 && (
+      {groups.length === 0 && !loading && (
         <NoDataFallback<addGroupType>
           formName="Groups"
           Icon={() => <Feather name="folder-minus" size={30} color="gray" />}
