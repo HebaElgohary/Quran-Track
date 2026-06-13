@@ -30,65 +30,90 @@ export default function StudentCard({
 }: StudentCardProps) {
   const [open, setOpen] = useState(false);
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.row}>
-        {/* Left side */}
-        <View style={styles.leftSection}>
-          {isStudent && <Avatar name={student.nameAr} image={image} />}
+<View style={styles.container}>
+  <View style={styles.row}>
+    <View style={styles.leftSection}>
+      {isStudent && (
+        <Avatar
+          name={student.nameAr}
+          image={image}
+        />
+      )}
 
-          <View style={styles.textColumn}>
-            <Title variant="btnPrimary" size="md">
-              {student.nameAr}
-            </Title>
-            <Title size="sm">{student.level}</Title>
-          </View>
-        </View>
+      <View style={styles.textColumn}>
+        <Title variant="btnPrimary" size="md">
+          {student.nameAr}
+        </Title>
 
-        {/* Right side */}
-        <Title>{student.nameEn}</Title>
+        <Title size="sm">
+          {student.level}
+        </Title>
       </View>
-
-      <Hr />
-
-      {/* Actions */}
-      <View style={styles.actionsRow}>
-        <Button
-          variant="transparent"
-          textColor="warning"
-          onClick={() => setOpen(true)}
-        >
-          {btn1} <Feather name="edit-2" />
-        </Button>
-
-        <Button
-          variant="transparent"
-          textColor="danger"
-          onClick={() => handleDelete(student.id)}
-        >
-          {btn2} <Feather name="trash-2" />
-        </Button>
-      </View>
-      <FormModal<updateDataType>
-        open={open}
-        setOpen={setOpen}
-        formData={student}
-        formName="Students"
-        handleSubmit={updateStudent}
-      />
     </View>
+
+    <View style={styles.badge}>
+      <Title size="sm">
+        {student.nameEn}
+      </Title>
+    </View>
+  </View>
+
+  <Hr />
+
+  <View style={styles.actionsRow}>
+    <View style={styles.actionBtn}>
+      <Button
+        variant="transparent"
+        textColor="warning"
+        onClick={() => setOpen(true)}
+      >
+        {btn1} <Feather name="edit-2" />
+      </Button>
+    </View>
+
+    <View style={styles.actionBtn}>
+      <Button
+        variant="transparent"
+        textColor="danger"
+        onClick={() => handleDelete(student.id)}
+      >
+        {btn2} <Feather name="trash-2" />
+      </Button>
+    </View>
+  </View>
+
+  <FormModal<updateDataType>
+    open={open}
+    setOpen={setOpen}
+    formData={student}
+    formName="Students"
+    handleSubmit={updateStudent}
+  />
+</View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
-    borderColor: "#ccc",
-    borderWidth: 1,
-    marginHorizontal: 10,
-    padding: 15,
-    borderRadius: 16,
-    gap: 12,
+    backgroundColor: "#fff",
+    marginHorizontal: 12,
+    marginVertical: 6,
+
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+
+    borderRadius: 24,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+
+    elevation: 3,
+
+    gap: 16,
   },
 
   row: {
@@ -100,16 +125,29 @@ const styles = StyleSheet.create({
   leftSection: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 14,
+    flex: 1,
   },
 
   textColumn: {
-    flexDirection: "column",
-    gap: 6,
+    gap: 4,
+    flexShrink: 1,
+  },
+
+  badge: {
+    backgroundColor: "#F3F7F8",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
   },
 
   actionsRow: {
     flexDirection: "row",
     gap: 10,
+  },
+
+  actionBtn: {
+    flex: 1,
+    alignItems: "center",
   },
 });

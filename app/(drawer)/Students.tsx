@@ -6,6 +6,7 @@ import { useStudents } from '@/hooks/useStudent';
 import { useToast } from '@/hooks/useToast';
 import { Student, StudentFormData } from '@/types/appTypes';
 import { Feather } from '@expo/vector-icons';
+import Loading from '../../animations/Loading';
 import React, { useState } from 'react'
 import { View } from 'react-native'
 
@@ -14,7 +15,7 @@ type AddDataType= StudentFormData
 
 
 export default function Students() {
-    const { students, createStudent, editStudent, removeStudent } = useStudents();
+    const { students, createStudent, editStudent, removeStudent ,loading} = useStudents();
 const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
 const {showSuccess,showError} = useToast();
 // alert in case of delte only to make sure he really wants to delete student 
@@ -44,7 +45,8 @@ const confirmDelete = async () => {
        handleSubmit={handleAdd}
        btn='اضافة طالب'
       formName='Students'/>
-      {students.length === 0 && <View style={{marginTop:20}}>
+      {!students && <Loading />}
+      {/* {students.length === 0 && <View style={{marginTop:20}}>
         <NoDataFallback 
         formName='Students'
         handleSubmit={handleAdd}
@@ -52,7 +54,7 @@ const confirmDelete = async () => {
         text='لايوجد طلاب مسجلين' 
         btn='اضافة اول طالب'
          Icon={() => <Feather name="users" size={30} color="gray" />}  />
-        </View>}
+        </View>} */}
   <View style={{gap:10}}>
    {students.map((student) =>
     <StudentCard key={student.id}

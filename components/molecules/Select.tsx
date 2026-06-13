@@ -1,36 +1,54 @@
-import { colors } from "@/constants/theme";
-import { Picker } from "@react-native-picker/picker";
+import React from "react";
 import { View } from "react-native";
-export default function Select({ data, value, onChange }: { data: any, value: any, onChange: any }) {
-  console.log("SELECT DATA", data);
+import { Dropdown } from "react-native-element-dropdown";
+import { colors } from "@/constants/theme";
 
+interface SelectProps {
+  data: any[];
+  value: string | number;
+  onChange: (value: number) => void;
+}
+
+export default function Select({
+  data,
+  value,
+  onChange,
+}: SelectProps) {
   return (
     <View>
-      <Picker
+      <Dropdown
         style={{
-          borderColor: colors.gray,
+          height: 56,
           borderWidth: 1,
-          borderRadius: 10,
-          padding: 12,
-          width: 200,
-          fontSize:20,
-          backgroundColor: colors.transparent,
-          // alignSelf: "end",
-          
+          borderColor: colors.gray,
+          borderRadius: 14,
+          paddingHorizontal: 16,
+          backgroundColor: "#fff",
         }}
-  selectedValue={value}
-  onValueChange={(itemValue) => onChange(Number(itemValue))}
->
-  <Picker.Item label="اختر الطالب" value={0} color="#999" />
-
-  {(data ?? []).map((item) => (
-    <Picker.Item
-      key={item.id}
-      label={item.label}
-      value={item.id}
-    />
-  ))}
-</Picker>
+        placeholderStyle={{
+          color: "#999",
+          fontSize: 16,
+          textAlign: "right",
+        }}
+        selectedTextStyle={{
+          color: "#222",
+          fontSize: 16,
+          textAlign: "right",
+        }}
+        containerStyle={{
+          borderRadius: 14,
+          overflow: "hidden",
+        }}
+        itemTextStyle={{
+          textAlign: "right",
+        }}
+        data={data}
+        labelField="label"
+        valueField="id"
+        
+        value={value}
+        onChange={(item) => onChange(item.value)}
+      />
     </View>
   );
 }

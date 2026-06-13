@@ -47,7 +47,7 @@ const confirmDelete = async () => {
   <Header<AddDataType> handleSubmit={addSchedule}  title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' formName='Schedule'/>
       <NotificationCard />
   
-  {schedules.length === 0 && <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
+  {schedules.length === 0 && <NoDataFallback handleSubmit={addSchedule} text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
 
 <View style={{display:'flex',flexDirection:'column',gap:20,}}>
   {schedules && schedules.map((schedule:Schedule) =><ScheduleCard 

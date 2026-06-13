@@ -1,3 +1,4 @@
+import Button from '@/components/atoms/Button'
 import { colors } from '@/constants/theme'
 import { Feather } from '@expo/vector-icons'
 import React from 'react'
@@ -11,7 +12,7 @@ export default function FormHeading({title,name,setOpen}:props) {
   return (
   <View  style={{backgroundColor:'white',marginVertical:12}}>
        <View style={{display:'flex',flexDirection:'row', alignItems:'center',justifyContent:'space-between'}}>
-       <Feather name={name} size={25} onPress={()=>{ setOpen(!open)}}/>
+      <Button variant="transparent" textColor="danger" onClick={()=>{ setOpen(false)}}>  <Feather name={'x'} size={25} /></Button>
         
         <Text style={{textAlign:'left' ,fontSize:26,fontWeight:'bold',color:colors.btnPrimary}}>{title}</Text>
        </View>

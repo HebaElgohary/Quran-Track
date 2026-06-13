@@ -25,6 +25,7 @@ export default function NoDataFallback<T>({
         backgroundColor: "white",
         padding: 16,
         display: "flex",
+        flex: 1,
 
         flexDirection: "column",
         justifyContent: "center",
