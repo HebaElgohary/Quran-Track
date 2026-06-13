@@ -8,7 +8,6 @@ import { colors } from "@/constants/theme";
 
 interface props<T> {
   page: FormName;
- 
   setOpen: any;
   formData?: T;
   setFormData: React.Dispatch<React.SetStateAction<T>>;
@@ -25,7 +24,6 @@ export default function Form<T>({
   setFormData,
   sources,
   page,
-
   setOpen,
 }: props<T>) {
   const fields = useMemo(() => formSchemas[page], [page]);
@@ -35,7 +33,7 @@ export default function Form<T>({
       style={{
         width: "100%",
         maxHeight: 700,
-        backgroundColor: "#ffffff",
+        backgroundColor: "#fff",
         borderRadius: 22,
         overflow: "hidden",
         shadowColor: "#000",
@@ -68,13 +66,7 @@ export default function Form<T>({
             : "Form"}
         </Text>
 
-        <Text
-          style={{
-            fontSize: 12,
-            color: "#9CA3AF",
-            marginTop: 4,
-          }}
-        >
+        <Text style={{ fontSize: 12, color: "#9CA3AF", marginTop: 4 }}>
           املأ البيانات المطلوبة ثم اضغط حفظ
         </Text>
       </View>
@@ -88,42 +80,60 @@ export default function Form<T>({
         }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ gap: 16 }}>
+        <View style={{ gap: 14 }}>
           {fields.map((field: FormFieldSchema) => {
+            const fieldError = errors?.[field.name];
+
             const fieldProps = {
               ...field,
               data: field.source ? sources?.[field.source] : field.data,
             };
 
             return (
-              <View
-                key={field.name}
-                style={{
-                  backgroundColor: "#FAFAFA",
-                  borderRadius: 16,
-                  padding: 12,
-                  borderWidth: 1,
-                  borderColor: "#F0F0F0",
-                }}
-              >
-                <FormField
-                  {...fieldProps}
-                  value={formData?.[field.name as keyof T]}
-                  error={errors?.[field.name]}
-                  onChange={(value: unknown) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      [field.name]: value,
-                    }))
-                  }
-                />
+              <View key={field.name}>
+                {/* FIELD CONTAINER */}
+                <View
+                  style={{
+                    backgroundColor: "#FAFAFA",
+                    borderRadius: 16,
+                    padding: 12,
+                    borderWidth: fieldError ? 1.5 : 1,
+                    borderColor: fieldError ? "#EF4444" : "#E5E7EB",
+                  }}
+                >
+                  <FormField
+                    {...fieldProps}
+                    value={formData?.[field.name as keyof T]}
+                    error={fieldError}
+                    onChange={(value: unknown) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        [field.name]: value,
+                      }))
+                    }
+                  />
+                </View>
+
+                {/* ERROR TEXT */}
+                {fieldError && (
+                  <Text
+                    style={{
+                      color: "#EF4444",
+                      fontSize: 12,
+                      marginTop: 4,
+                      marginLeft: 6,
+                    }}
+                  >
+                    {fieldError}
+                  </Text>
+                )}
               </View>
             );
           })}
         </View>
       </ScrollView>
 
-      {/* FOOTER ACTIONS */}
+      {/* FOOTER */}
       <View
         style={{
           flexDirection: "row",
@@ -142,7 +152,7 @@ export default function Form<T>({
             textColor="black"
             onClick={() => setOpen(false)}
           >
-            {"الغاء"}
+            الغاء
           </Button>
         </View>
 
@@ -154,7 +164,7 @@ export default function Form<T>({
             textColor="white"
             onClick={() => {
               console.log("form btn clicked");
-              console.log(" daaaaaaata isssssssss ", formData);
+              console.log("data:", formData);
               handleSubmit?.();
             }}
           >
