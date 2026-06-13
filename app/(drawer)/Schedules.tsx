@@ -4,6 +4,7 @@ import Header from '@/components/organisms/Header'
 import NoDataFallback from '@/components/organisms/NoDataFallback'
 import NotificationCard from '@/components/organisms/NotificationsCard'
 import { useSchedule } from '@/hooks/useSchedule'
+import { useStudents } from '@/hooks/useStudent'
 import { useToast } from '@/hooks/useToast'
 import { Schedule, ScheduleFormData } from '@/types/appTypes'
 import { Feather } from '@expo/vector-icons'
@@ -13,13 +14,14 @@ import { View } from 'react-native'
 type AddDataType = ScheduleFormData
 export default function Schedules() {
   const { schedules, createSchedule, removeSchedule } = useSchedule();
+  const { students } = useStudents();
   const { showSuccess } = useToast()
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
   // --------------- add handler ------------//
   const addSchedule = async(formData: AddDataType) => {
     console.log('data inside addsession',formData)
     await createSchedule(formData);
-    showSuccess('تم اضافة الحصة بنجاح');
+    showSuccess('تم اضافة الموعد بنجاح');
     
   };
 
@@ -47,9 +49,17 @@ const confirmDelete = async () => {
   
   {schedules.length === 0 && <NoDataFallback text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
 
-  <ScheduleCard 
-  openDeleteAlert={openDeleteAlert} 
-  confirmDelete={confirmDelete} />
+<View style={{display:'flex',flexDirection:'column',gap:20,}}>
+  {schedules && schedules.map((schedule:Schedule) =><ScheduleCard 
+     student={students.find((student) => student.id == schedule.studentId) }
+  date={schedule.date}
+  time={schedule.time}
+  duration={schedule.duration}
+  key={schedule.id}
+  openDeleteAlert={() => openDeleteAlert(schedule.id)} 
+  // confirmDelete={confirmDelete} 
+  />)}
+  </View>
 
    <CustomAlert
           show={selectedScheduleId !== null}

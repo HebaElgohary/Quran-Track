@@ -1,8 +1,5 @@
-import { getFormFields } from "@/utils/getFormFields";
 import React from "react";
 import { View } from "react-native";
-
-
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
@@ -26,13 +23,12 @@ export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:sc
     const onSubmit = async () => {
     //  const isValid = validate();
     // if (!isValid) return;
+  console.log('formData before submit', formData);
 
     await handleSubmit?.(formData as T);
     reset();
     setOpen(false);
-    await handleSubmit?.(formData as T);
-    reset();
-    setOpen(false);
+  
   }
  
   return (
