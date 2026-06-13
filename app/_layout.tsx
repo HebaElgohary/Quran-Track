@@ -1,22 +1,13 @@
-import React, { useEffect } from 'react'
-import {Stack} from "expo-router";
-import { I18nManager } from 'react-native';
-import Toast from 'react-native-toast-message';
-
+import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Stack } from "expo-router";
 
 export default function Layout() {
-  I18nManager.forceRTL(true)
-  useEffect(()=>
-  I18nManager.forceRTL(true)
-  ,[])
   return (
-    <>
-    <Stack >
-
-        <Stack.Screen name="(drawer)" options={{headerShown: false}} />
-    </Stack>
-      <Toast />
-      </>
-
-  )
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(drawer)" />
+      </Stack>
+    </GestureHandlerRootView>
+  );
 }
