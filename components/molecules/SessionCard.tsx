@@ -7,6 +7,7 @@ import { colors } from "@/constants/theme";
 import { Student } from "@/types/appTypes";
 import { Session } from "@/types/appTypes";
 import FormModal from "./form/FormModal";
+import { formatDate } from "@/utils/formatDate";
 
 type updateDataType=Session
 interface SessionCardProps {
@@ -55,7 +56,16 @@ export default function SessionCard({
             {student?.nameAr || student?.nameEn || "طالب غير معروف"}
           </Title>
 
-          <Text style={styles.time}>{time}</Text>
+          <Text style={styles.time}><View style={{
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 6,
+}}>
+  <Feather name="calendar" size={14} color="#888" />
+  <Text style={{ color: "#888", fontSize: 13 }}>
+    {formatDate(time)}
+  </Text>
+</View></Text>
         </View>
 
         <View

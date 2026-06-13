@@ -8,6 +8,7 @@ import Button from "../atoms/Button";
 import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
+import { formatDate } from "@/utils/formatDate";
 
 type updateDataType = Schedule;
 
@@ -110,7 +111,8 @@ export default function ScheduleCard({
                 {student?.nameAr || student?.nameEn || "طالب غير معروف"}
               </Title>
               <Text style={{ color: "#6B7280", marginTop: 2 }}>
-                {getDayName(date)} • {date} • {time}
+  
+    {formatDate(date) }{"    •     "} {time}
               </Text>
             </View>
           </View>
