@@ -6,8 +6,9 @@ import { useScheduleForm } from "@/hooks/useScheduleForm";
 import { Schedule, SourcesMap } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
 export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:schedule }: {handleSubmit?: (data: T) => Promise<void>;formData?: T; setOpen: any; open: boolean }) {
- const { formData, setFormData, errors, reset } =  useScheduleForm(schedule as Schedule)
  const { students } = useStudents();
+ 
+  const { formData, setFormData, errors, reset, validate } =  useScheduleForm(schedule as Schedule)
  
    //------- source resolver-------//
    const sources: Partial<SourcesMap> = {
@@ -21,8 +22,8 @@ export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:sc
    };
 
     const onSubmit = async () => {
-    //  const isValid = validate();
-    // if (!isValid) return;
+     const isValid = validate();
+    if (!isValid) return;
   console.log('formData before submit', formData);
 
     await handleSubmit?.(formData as T);

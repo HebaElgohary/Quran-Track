@@ -18,22 +18,19 @@ export default function Select({ data, value, onChange }: { data: any, value: an
           // alignSelf: "end",
           
         }}
-          selectedValue={value}
-          onValueChange={(itemValue) =>
-          onChange(itemValue)
-      }
-      >
-     {(data ?? []).map((item:{label:string,
-     value:string
-     ,id:number
-     ,checked:boolean}) => (
-  <Picker.Item
-    key={item.label}
-    label={item.label}
-    value={item.value}
-  />
-))}
-      </Picker>
+  selectedValue={value}
+  onValueChange={(itemValue) => onChange(Number(itemValue))}
+>
+  <Picker.Item label="اختر الطالب" value={0} color="#999" />
+
+  {(data ?? []).map((item) => (
+    <Picker.Item
+      key={item.id}
+      label={item.label}
+      value={item.id}
+    />
+  ))}
+</Picker>
     </View>
   );
 }

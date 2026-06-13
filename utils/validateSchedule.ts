@@ -19,8 +19,5 @@ export const validateSchedule = (data: ScheduleFormData) => {
     errors.duration = "ادخل مدة صحيحة";
   }
 
-  return {
-    isValid: Object.keys(errors).length === 0,
-    errors,
-  };
+  return errors;
 };

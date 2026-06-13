@@ -5,9 +5,11 @@ import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
+import { RectButton, Swipeable } from "react-native-gesture-handler";
+import { getDayName } from "@/utils/getDayName";
+import SwipeCard from "./SwipeCard";
 
-
-type updateDataType=Schedule
+type updateDataType = Schedule;
 
 interface Props {
   student?: Student;
@@ -15,9 +17,10 @@ interface Props {
   date: string;
   time: string;
   duration: number;
-  handelUpdate: (data: updateDataType) =>Promise<void>
+  handelUpdate: (data: updateDataType) => Promise<void>;
   openDeleteAlert: () => void;
 }
+
 export default function ScheduleCard({
   schedule,
   handelUpdate,
@@ -27,61 +30,146 @@ export default function ScheduleCard({
   time,
   duration,
 }: Props) {
-      const [open, setOpen] = React.useState(false);
-    
+  const [open, setOpen] = React.useState(false);
+
+  // ---------- SWIPE RIGHT (EDIT) ----------
+  const renderRightActions = () => {
+    return (
+      <RectButton
+        style={{
+          backgroundColor: "#F59E0B",
+          justifyContent: "center",
+          alignItems: "center",
+          width: 80,
+          marginVertical: 6,
+          borderRadius: 16,
+        }}
+        onPress={() => setOpen(true)}
+      >
+        <Feather name="edit-2" size={20} color="white" />
+      </RectButton>
+    );
+  };
+
+  // ---------- SWIPE LEFT (DELETE) ----------
+  const renderLeftActions = () => {
+    return (
+      <RectButton
+        style={{
+          backgroundColor: "#EF4444",
+          justifyContent: "center",
+          alignItems: "center",
+          width: 80,
+          marginVertical: 6,
+          borderRadius: 16,
+        }}
+        onPress={openDeleteAlert}
+      >
+        <Feather name="trash-2" size={20} color="white" />
+      </RectButton>
+    );
+  };
+
   return (
-    <View
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        gap: 11,
-        alignItems: "center",
-        backgroundColor: "#FFFF",
-        padding: 15,
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: "#ccc",
-      }}
-    >
-      <Feather name="bell" size={30} color="gray" />
+    <SwipeCard
+  onEdit={() => setOpen(true)}
+  onDelete={openDeleteAlert}
+>
+  {/* your schedule UI here */}
       <View
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 5,
-          justifyContent: "space-between",
+          backgroundColor: "#fff",
+          borderRadius: 18,
+          padding: 16,
+          borderWidth: 1,
+          borderColor: "#eee",
+          marginBottom: 12,
         }}
       >
-        <Title> {student?.nameAr || student?.nameEn || "طالب غير معروف"}</Title>
-        <Text>
-          {date} {time}
-        </Text>
-        <Text>{duration} دقيقة</Text>
-      </View>
-      <Button
-        variant="transparent"
-        textColor="warning"
-        size="sm"
-        onClick={() => setOpen(true)}
-      >
-        تعديل <Feather name="edit-2" />
-      </Button>
+        {/* HEADER */}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+            <View
+              style={{
+                width: 42,
+                height: 42,
+                borderRadius: 12,
+                backgroundColor: "#F3F4F6",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Feather name="bell" size={20} color="#6B7280" />
+            </View>
 
-      <Button
-        variant="transparent"
-        textColor="danger"
-        size="sm"
-        onClick={openDeleteAlert}
-      >
-        حذف <Feather name="trash-2" />
-      </Button>
-          <FormModal<updateDataType>
-                    open={open}
-                    setOpen={setOpen}
-                    formData={schedule}
-                    formName="Schedule"
-                    handleSubmit={handelUpdate}
-                  />
-    </View>
+            <View>
+              <Title>
+                {student?.nameAr || student?.nameEn || "طالب غير معروف"}
+              </Title>
+              <Text style={{ color: "#6B7280", marginTop: 2 }}>
+               {getDayName(date)}    •     {date}    •    {time} 
+              </Text>
+            </View>
+          </View>
+
+          <View
+            style={{
+              backgroundColor: "#EEF2FF",
+              paddingHorizontal: 10,
+              paddingVertical: 4,
+              borderRadius: 12,
+            }}
+          >
+            <Text style={{ fontSize: 12, color: "#4F46E5", fontWeight: "600" }}>
+              {duration} دقيقة
+            </Text>
+          </View>
+        </View>
+
+        {/* ACTION BUTTONS */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            marginTop: 14,
+            gap: 10,
+          }}
+        >
+          <Button
+            variant="transparent"
+            textColor="warning"
+            size="sm"
+            onClick={() => setOpen(true)}
+          >
+            <Feather name="edit-2" size={14} /> تعديل
+          </Button>
+
+          <Button
+            variant="transparent"
+            textColor="danger"
+            size="sm"
+            onClick={openDeleteAlert}
+          >
+            <Feather name="trash-2" size={14} /> حذف
+          </Button>
+        </View>
+
+        {/* MODAL */}
+        <FormModal<updateDataType>
+          open={open}
+          setOpen={setOpen}
+          formData={schedule}
+          formName="Schedule"
+          handleSubmit={handelUpdate}
+        />
+      </View>
+    </SwipeCard>
+
   );
 }

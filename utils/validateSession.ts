@@ -25,7 +25,7 @@ export const validateSession = (
   if (
     data.from === undefined ||
     data.from === null ||
-    data.from === ""
+    data.from === 0
   ) {
     errors.from = "بداية الآيات مطلوبة";
   }
@@ -33,7 +33,7 @@ export const validateSession = (
   if (
     data.to === undefined ||
     data.to === null ||
-    data.to === ""
+    data.to === 0
   ) {
     errors.to = "نهاية الآيات مطلوبة";
   }
