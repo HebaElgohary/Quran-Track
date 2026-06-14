@@ -45,7 +45,14 @@ export type Schedule = {
 
 };
 
-export type ScheduleFormData = Omit<Schedule, "id" > 
+export type ScheduleFormData = Omit<Schedule, "id" > // Omit id from Schedule
+export type MonthlyReports = {
+  id: number;
+  studentId: number;
+  month: string;
+  year: number;
+}
+export type MonthlyReportsFormData = Omit<MonthlyReports, "id" > 
 
 export type Report = {
   id: number;
