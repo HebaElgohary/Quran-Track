@@ -6,7 +6,7 @@ const KEY = "monthlyReport";
 // =========================
 // GET ALL MonthlyReports
 // =========================
-export const getMonthlyReport: () => Promise<MonthlyReports[]> = async () => {
+export const getMonthlyReports: () => Promise<MonthlyReports[]> = async () => {
   try {
     const data = await AsyncStorage.getItem(KEY);
 
@@ -20,7 +20,7 @@ export const getMonthlyReport: () => Promise<MonthlyReports[]> = async () => {
 export const addMonthlyReport : ( monthlyReport: MonthlyReportsFormData) => Promise<MonthlyReports> = async (monthlyReport) => {
   console.log("formData inside addmonthlyreport storage", monthlyReport);
   try {
-    const oldMonthlyReport = await getMonthlyReport();
+    const oldMonthlyReport = await getMonthlyReports();
     const report: MonthlyReports = {
       id: Date.now(),
       ...monthlyReport,
