@@ -1,5 +1,5 @@
 import { MonthlyReports, MonthlyReportsFormData } from "@/types/appTypes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addMonthlyReport, getMonthlyReports } from "../storage/monthlyReportsStorage";
 export const useMonthlyReports=()=>{
   const [monthlyReports, setMonthlyReports] = useState<MonthlyReports[]>([]);
@@ -35,6 +35,9 @@ export const useMonthlyReports=()=>{
         console.log("Error creating group", error);
       }
     }
+        useEffect(() => {
+        loadMonthlyReports();
+      }, []);
 
 return {monthlyReports,loading,loadMonthlyReports,createMonthlyReport}
 }

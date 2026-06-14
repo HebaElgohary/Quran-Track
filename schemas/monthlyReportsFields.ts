@@ -1,9 +1,12 @@
-  export const MonthlyReportsFields = [
+import { FormFieldSchema } from "@/types/appTypes";
+
+  export const MonthlyReportsFields: FormFieldSchema[]  = [
     {
       name: "student",
       label: "الطالب",
       type: "select",
-    sourece: "students",
+
+    source: "students",
     },
     {
       name: "month",

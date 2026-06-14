@@ -81,7 +81,8 @@ export default function Form<T>({
         showsVerticalScrollIndicator={false}
       >
         <View style={{ gap: 14 }}>
-          {fields.map((field: FormFieldSchema) => {
+          {fields.map((field: FormFieldSchema) =>
+           {
             const fieldError = errors?.[field.name];
 
             const fieldProps = {
