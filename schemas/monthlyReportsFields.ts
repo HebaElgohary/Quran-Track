@@ -2,29 +2,28 @@ import { FormFieldSchema } from "@/types/appTypes";
 
   export const MonthlyReportsFields: FormFieldSchema[]  = [
     {
-      name: "student",
+      name: "studentId",
       label: "الطالب",
       type: "select",
-
-    source: "students",
+      source: "students",
     },
     {
       name: "month",
       label: "الشهر",
       type: "select",
       data: [
-        { name: "january", label: "يناير", value: "يناير" },
-        {name: "february", label: "فبراير", value: "فبراير" },
-        { name: "march", label: "مارس", value: "مارس" },
-        { name: "april", label: "ابريل", value: "ابريل" },
-        {name: "may", label: "مايو", value: "مايو" },
-        { name: "june", label: "يونيه", value: "يونيه" },
-        {name: "july", label: "يوليو", value: "يوليو" },
-        { name: "august", label: "اغسطس", value: "اغسطس" },
-        { name: "september", label: "سبتمبر", value: "سبتمبر" },
-        {name: "october", label: "اكتوبر", value: "اكتوبر" },
-        {name: "november", label: "نوفمبر", value: "نوفمبر" },
-        {name: "december", label: "ديسمبر", value: "ديسمبر" },
+        { name: "january", label: "يناير", value: "يناير",checked: false },
+        {name: "february", label: "فبراير", value: "فبراير" ,checked: false},
+        { name: "march", label: "مارس", value: "مارس" ,checked: false},
+        { name: "april", label: "ابريل", value: "ابريل",checked: false },
+        {name: "may", label: "مايو", value: "مايو",checked: false },
+        { name: "june", label: "يونيه", value: "يونيه",checked: false },
+        {name: "july", label: "يوليو", value: "يوليو" ,checked: false},
+        { name: "august", label: "اغسطس", value: "اغسطس",checked: false },
+        { name: "september", label: "سبتمبر", value: "سبتمبر",checked: false },
+        {name: "october", label: "اكتوبر", value: "اكتوبر",checked: false },
+        {name: "november", label: "نوفمبر", value: "نوفمبر",checked: false },
+        {name: "december", label: "ديسمبر", value: "ديسمبر" ,checked: false},
       ],
     },
 
@@ -33,9 +32,9 @@ import { FormFieldSchema } from "@/types/appTypes";
       label: "السنة",
       type: "select",
       data: [
-        { name: "2026", label: "2026", value: "2026" },
-        { name : "2027", label: "2027", value: "2027" },
-        {name: "2028", label: "2028", value: "2028" },
+        { name: "2026", label: "2026", value: "2026",checked: false },
+        { name : "2027", label: "2027", value: "2027" ,checked: false},
+        {name: "2028", label: "2028", value: "2028" ,checked: false},
       ],
     },
   ];

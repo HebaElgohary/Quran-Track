@@ -1,5 +1,5 @@
-import { MonthlyReports, MonthlyReportsFormData, Schedule, ScheduleFormData, Student } from "@/types/appTypes";
-import { validateSchedule } from "@/utils/validateSchedule";
+import { MonthlyReports, MonthlyReportsFormData } from "@/types/appTypes";
+import { validateMonthlyReports } from "@/utils/validateMonthlyReports";
 import { useState } from "react";
 
 export const useMonthlyReportsForm = (initial?: MonthlyReports) => {
@@ -7,7 +7,7 @@ export const useMonthlyReportsForm = (initial?: MonthlyReports) => {
     initial || {
   studentId: 0,
   month: '',
-  year: 0,
+  year: '',
     } 
   );
 
@@ -17,16 +17,22 @@ export const useMonthlyReportsForm = (initial?: MonthlyReports) => {
     setFormData(  {
   studentId: 0,
   month: '',
-  year: 0,
+  year: '',
     } );
     setErrors({});
   };
 
-  const validate = () => {
-    const validationErrors = validateMonthlyReports(formData);
-    setErrors(validationErrors);
-    return Object.keys(validationErrors).length === 0;
-  };
+
+const validate = () => {
+  const validationErrors = validateMonthlyReports(formData);
+
+  console.log("formData", formData);
+  console.log("validationErrors", validationErrors);
+
+  setErrors(validationErrors);
+
+  return Object.keys(validationErrors).length === 0;
+};
 
   return {
     formData,

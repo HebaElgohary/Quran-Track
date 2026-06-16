@@ -50,7 +50,7 @@ export type MonthlyReports = {
   id: number;
   studentId: number;
   month: string;
-  year: number;
+  year: string;
 }
 export type MonthlyReportsFormData = Omit<MonthlyReports, "id" > 
 

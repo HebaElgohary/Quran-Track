@@ -1,6 +1,6 @@
-import { MonthlyReports } from "@/types/appTypes";
+import { MonthlyReports, MonthlyReportsFormData } from "@/types/appTypes";
 
-export const validateMonthlyReports = (data: MonthlyReports) => {
+export const validateMonthlyReports = (data: MonthlyReportsFormData) => {
   const errors: Partial<Record<keyof MonthlyReports, string>> = {};
 
   // studentId
@@ -14,7 +14,7 @@ export const validateMonthlyReports = (data: MonthlyReports) => {
   }
 
   // year
-  if (!data.year || data.year < 2000) {
+  if (!data.year || Number(data.year) < 2026) {
     errors.year = "السنة غير صحيحة";
   }
 

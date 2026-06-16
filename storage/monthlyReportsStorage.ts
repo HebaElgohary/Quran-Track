@@ -10,10 +10,10 @@ export const getMonthlyReports: () => Promise<MonthlyReports[]> = async () => {
   try {
     const data = await AsyncStorage.getItem(KEY);
 
-    return data ? JSON.parse(data) : null;
+    return data ? JSON.parse(data) : [];
   } catch (error) {
     console.log("Error getting groups", error);
-    return null;
+    return [];
   }
 };
 

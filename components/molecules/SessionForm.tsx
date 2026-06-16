@@ -40,9 +40,7 @@ const { students } = useStudents();
     await handleSubmit?.(formData as T);
     reset();
     setOpen(false);
-    await handleSubmit?.(formData as T);
-    reset();
-    setOpen(false);
+  
   }
   return (
     <View

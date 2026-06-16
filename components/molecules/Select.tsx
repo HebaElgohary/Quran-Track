@@ -44,7 +44,7 @@ export default function Select({
         }}
         data={data}
         labelField="label"
-        valueField="id"
+        valueField="value"
         
         value={value}
         onChange={(item) => onChange(item.value)}
