@@ -1,6 +1,6 @@
 import { useGroupForm } from "@/hooks/useGroupForm";
 import { useStudents } from "@/hooks/useStudent";
-import { Group, SourcesMap } from "@/types/appTypes";
+import { Group, GroupFormData, SourcesMap } from "@/types/appTypes";
 import React from "react";
 import { View } from "react-native";
 import Form from "./form/Form";
@@ -68,12 +68,11 @@ export default function GroupForm<T>({
       {/* form heading */}
       <FormHeading title="مجموعة  جديدة " name={"x"} setOpen={setOpen} />
       {/* /////////////////// */}
-      <Form<T>
+      <Form<GroupFormData>
         formData={formData}
         setFormData={setFormData}
         page="Groups"
-        btn1={"اضافة"}
-        btn2={"الغاء"}
+        errors={errors}
         sources={sources}
         setOpen={setOpen}
         handleSubmit={onSubmit}

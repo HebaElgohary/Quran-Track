@@ -3,7 +3,7 @@ import React from "react";
 import { View } from "react-native";
 import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
-import { Student } from "@/types/appTypes";
+import { Student, StudentFormData } from "@/types/appTypes";
 
 export default function StudentForm<T>({
   setOpen,
@@ -30,14 +30,12 @@ export default function StudentForm<T>({
     <View style={{ backgroundColor: "white", padding: 16, borderRadius: 10 }}>
       <FormHeading name="x" title="اضافة طالب" setOpen={setOpen} />
 
-      <Form<T>
+      <Form<StudentFormData>
         formData={formData}
         errors={errors}
         setFormData={setFormData}
         handleSubmit={onSubmit}
         page="Students"
-        btn1="اضافة"
-        btn2="الغاء"
         setOpen={setOpen}
       />
     </View>

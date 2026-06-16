@@ -55,7 +55,7 @@ const { students } = useStudents();
       {/* form heading */}
       <FormHeading title="تقرير حصة جديدة " name={"x"} setOpen={setOpen} />
       {/* /////////////////// */}
-      <Form<T>
+      <Form<SessionFormData>
         handleSubmit={onSubmit}
         formData={formData}
         setFormData={setFormData}

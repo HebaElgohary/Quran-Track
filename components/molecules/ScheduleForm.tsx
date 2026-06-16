@@ -3,7 +3,7 @@ import { View } from "react-native";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
-import { Schedule, SourcesMap } from "@/types/appTypes";
+import { Schedule, ScheduleFormData, SourcesMap } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
 export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:schedule }: {handleSubmit?: (data: T) => Promise<void>;formData?: T; setOpen: any; open: boolean }) {
  const { students } = useStudents();
@@ -37,7 +37,7 @@ export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:sc
        {/* form heading */} 
   <FormHeading title='موعد حصة جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}
-<Form<T>
+<Form<ScheduleFormData>
  handleSubmit={onSubmit}
   formData={formData}
   errors={errors}
