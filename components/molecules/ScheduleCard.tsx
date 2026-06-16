@@ -1,5 +1,5 @@
 import { Schedule, Student } from "@/types/appTypes";
-import { getDayName } from "@/utils/getDayName";
+import { formatDate } from "@/utils/formatDate";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { Text, View } from "react-native";
@@ -8,7 +8,6 @@ import Button from "../atoms/Button";
 import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
-import { formatDate } from "@/utils/formatDate";
 
 type updateDataType = Schedule;
 
@@ -31,7 +30,7 @@ export default function ScheduleCard({
   date,
   time,
   duration,
-  AmPm
+  AmPm,
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
@@ -78,6 +77,8 @@ export default function ScheduleCard({
       {/* your schedule UI here */}
       <View
         style={{
+          width: "96%",
+          marginHorizontal: "2%",
           backgroundColor: "#fff",
           borderRadius: 18,
           padding: 16,
@@ -112,10 +113,14 @@ export default function ScheduleCard({
               <Title>
                 {student?.nameAr || student?.nameEn || "طالب غير معروف"}
               </Title>
-              <Text style={{ color: "#6B7280", marginTop: 2 }}>
-  
-    {formatDate(date) }{"    •     "} {time} {AmPm}
-              </Text>
+              <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
+                <Text style={{ color: "#6B7280", marginTop: 2 }}>
+                  {formatDate(date)}
+                </Text>
+                <Text style={{ color: "#6B7280", marginTop: 2 }}>
+                  {time} {AmPm}
+                </Text>
+              </View>
             </View>
           </View>
 

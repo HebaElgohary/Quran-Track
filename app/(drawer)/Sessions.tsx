@@ -52,7 +52,7 @@ const confirmDelete = async () => {
 
 
   return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5}} >
       <Header<AddDataType> title='الحصص' 
       subtitle='كل تقارير الحصص' btn='تقرير حصة جديدة' formName='Sessions' handleSubmit={addSession} />
      <Filter      data={ [

@@ -19,7 +19,7 @@ const { showSuccess } = useToast();
     console.log('added',formData);
   }
   return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5}} >
     <Header title='التقرير الشهرى' subtitle='ملخص شامل لما ت انجازه فى الشهر '></Header>
     <MonthlyReportForm<AddType> handleSubmit={addMonthlyReport} />
       {loading && <Loadign />}

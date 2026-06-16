@@ -9,7 +9,7 @@ import { View } from "react-native";
 export default function index() {
 const {students} = useStudents();
   return (
-    <View style={{ direction: "rtl" }}>
+    <View style={{ direction: "rtl" ,padding:5}}>
       <Header
         title="الصفحة الرئيسية"
         subtitle="نظرة عامة على حصصك وطلابك "
@@ -37,7 +37,7 @@ const {students} = useStudents();
         }}
 
         onPressBtn3={() => {
-          router.push('/(drawer)/Schedule')
+          router.push('/(drawer)/Schedules')
         }}
         onPressBtn4={() => {
           router.push('/(drawer)/MonthlyReports')

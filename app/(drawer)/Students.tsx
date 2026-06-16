@@ -38,7 +38,7 @@ const confirmDelete = async () => {
   };
 
     return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5 }} >
       <Header<AddDataType>
        title='الطلاب '
        subtitle='ادارة قائمةالطلاب' 

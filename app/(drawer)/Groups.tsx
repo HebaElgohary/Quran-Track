@@ -79,6 +79,7 @@ await loadStudents();
         overflowY: "scroll",
         height: "100%",
         paddingVertical: 50,
+        paddingHorizontal: 5,
       }}
     >
       <Header<addGroupType>

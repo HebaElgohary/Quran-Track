@@ -42,14 +42,14 @@ const confirmDelete = async () => {
 // -----------------------------//
 
   return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
+    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingHorizontal:5,paddingVertical:50}} >
 
   <Header<AddDataType> handleSubmit={addSchedule}  title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' formName='Schedule'/>
       <NotificationCard />
   
   {schedules.length === 0 && !loading && <NoDataFallback handleSubmit={addSchedule} text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
 
-<View style={{display:'flex',flexDirection:'column',gap:20,}}>
+<View style={{display:'flex',flexDirection:'column',gap:10,marginTop:50}}>
   {schedules && schedules.map((schedule:Schedule) =><ScheduleCard 
   AmPm={schedule.AmPm}
   schedule={schedule}

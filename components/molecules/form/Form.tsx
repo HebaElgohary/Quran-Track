@@ -139,6 +139,8 @@ export default function Form<T>({
         style={{
           flexDirection: "row",
           gap: 10,
+          alignItems: "center",
+          justifyContent: "flex-start",
           padding: 14,
           borderTopWidth: 1,
           borderTopColor: "#F1F1F1",
@@ -146,7 +148,7 @@ export default function Form<T>({
         }}
       >
         {/* Cancel */}
-        <View style={{ flex: 1 }}>
+        <View style={{  }}>
           <Button
             size="sm"
             variant="gray"
@@ -158,7 +160,7 @@ export default function Form<T>({
         </View>
 
         {/* Submit */}
-        <View style={{ flex: 2 }}>
+        <View style={{  }}>
           <Button
             size="sm"
             variant="btnPrimary"
