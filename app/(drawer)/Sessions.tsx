@@ -8,7 +8,7 @@ import NotificationCard from '@/components/organisms/NotificationsCard'
 import {  useSession } from '@/hooks/useSession'
 import { useStudents } from '@/hooks/useStudent'
 import { useToast } from '@/hooks/useToast'
-import { SessionFormData, Student } from '@/types/appTypes'
+import { SessionFormData, SourcesMap, Student } from '@/types/appTypes'
 import { Feather } from '@expo/vector-icons'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
@@ -19,8 +19,10 @@ export default function sessions() {
  const {students} = useStudents()
  const {showSuccess,showError} = useToast();
  const [selectedSessionId, setSelectedSessionId] = useState<number | null>(null);
- 
-  
+ const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
+  const filteredSessions = selectedStudentId
+  ? sessions.filter((s) => s.studentId === selectedStudentId)
+  : sessions;
 useEffect(() => {
    
 console.log('studentsssss',students)
@@ -50,20 +52,28 @@ const confirmDelete = async () => {
 };
 // -----------------------------//
 
+  const sources: Partial<SourcesMap> = {
+    students: (students).map((student) => ({
+      id: student.id,
+      name: student.nameEn,
+      value: student.id,
+      label: student.nameAr,
+      checked: false,
+    })),
+  };
 
   return (
     <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5}} >
       <Header<AddDataType> title='الحصص' 
       subtitle='كل تقارير الحصص' btn='تقرير حصة جديدة' formName='Sessions' handleSubmit={addSession} />
-     <Filter      data={ [
-        { label: "كل الطلاب", value: "كل الطلاب" },
-        { label: "حكيم", value: "حكيم" },
-        { label: "محمد", value: "محمد" },
-        { label: "عزير", value: "عزير" }, ]} />
-   
+<Filter
+  data={sources.students  } 
+  value={selectedStudentId}
+  onChange={setSelectedStudentId}
+/>   
     {sessions.length === 0 &&!loading && <NoDataFallback<AddDataType> formName='Sessions' handleSubmit={addSession}  Icon={() =>
        <Feather name="book-open" size={30} color="gray"   />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
-{sessions.map((session) => 
+{filteredSessions.map((session) => 
 <SessionCard
    key={session.id} 
    student={students.find((student) => student.id == session.studentId) as Student}
@@ -74,7 +84,7 @@ const confirmDelete = async () => {
     revision={session.revision}
     to={session.to}
      grade={session.grade}  
-session={session}
+    session={session}
     handelDelete={() => openDeleteAlert(session.id)}
     handleUpdate={editSession}
       />)} 
