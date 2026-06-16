@@ -8,6 +8,9 @@ export const colors = {
   warning: "#c89d41",
   text: "#1F1F1F",
   gray: "#F1E7D0",
+  pink: "#FFC0CB",
+  orange: "#FFA500",
+  violet: "#a01ce4",
   transparent:'transparent',
   background: "#F8F6F2",
   white: "#FFFFFF",
@@ -17,16 +20,17 @@ export const colors = {
   good: "#FDE68A",
   average: "#c89d41",
   bad: "#FECDD3",
+
 };
 
 export const groupColors = {
-  '0': "#1C4033",
-  '1': "#C8E6C9",
-  '2': "#c89d41",
-  '3': "#D32F2F", 
-  '4': "#C5CAE9",
-  '5': "#BBDEFB",
-  '6': "#B3E5FC",
+  '0': colors.orange,
+  '1': colors.secondary,
+  '2': colors.pink,
+  '3': colors.danger, 
+  '4': colors.violet
+  // '5': "#BBDEFB",
+  // '6': "#B3E5FC",
 }
 
 export const spacing = {

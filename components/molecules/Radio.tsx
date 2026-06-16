@@ -1,39 +1,43 @@
 import React from "react";
 import { Pressable, View } from "react-native";
 
-type RadioProps = {
+type ColorRadioProps = {
   selected: boolean;
   onPress: () => void;
-  color?: string;
+  color: string;
 };
 
-export default function Radio({
+export default function ColorRadio({
   selected,
   onPress,
-  color = "#000",
-}: RadioProps) {
+  color,
+}: ColorRadioProps) {
   return (
     <Pressable onPress={onPress}>
       <View
         style={{
-          width: 24,
-          height: 24,
-          display: "flex",
-          borderRadius: 15,
-          borderWidth: selected ? 3 : 0,
-          borderColor: selected ? "yellow" : "gray",
+          width: 32,
+          height: 32,
+          borderRadius: 16,
+          backgroundColor: color,
+          alignItems: "center",
+          justifyContent: "center",
+
+          // border when selected
+          borderWidth: selected ? 3 : 1,
+          borderColor: selected ? "#000" : "#ddd",
         }}
       >
-        {
+        {selected && (
           <View
             style={{
-              width: 20,
-              height: 20,
-              borderRadius: 10,
-              backgroundColor: color,
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              backgroundColor: "#fff",
             }}
           />
-        }
+        )}
       </View>
     </Pressable>
   );
