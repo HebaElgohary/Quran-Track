@@ -12,7 +12,7 @@ export default function Header<T>({
   handleSubmit,
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   btn?: string;
   formName?: "Students" | "Groups" | "Sessions" | "Schedule" | undefined;
   handleSubmit?:(data:T)=>Promise<void>;

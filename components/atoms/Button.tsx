@@ -35,7 +35,8 @@ export default function Button({
         alignItems: "center",
       }}
     >
-      <Text style={{ color: colors[textColor], fontWeight: "bold", fontSize: 10 }}>
+      <Text
+       style={{ color: colors[textColor], fontWeight: "bold", fontSize: 10 }}>
         {children}
       </Text>
 

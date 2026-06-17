@@ -1,15 +1,15 @@
+import { colors } from "@/constants/theme";
+import { Session, Student } from "@/types/appTypes";
+import { formatDate } from "@/utils/formatDate";
+import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
-import { Feather } from "@expo/vector-icons";
-import { colors } from "@/constants/theme";
-import { Student } from "@/types/appTypes";
-import { Session } from "@/types/appTypes";
 import FormModal from "./form/FormModal";
-import { formatDate } from "@/utils/formatDate";
 
-type updateDataType=Session
+type updateDataType = Session;
 interface SessionCardProps {
   time: string;
   surah: string;
@@ -20,13 +20,13 @@ interface SessionCardProps {
   next: string;
   revision: string;
   handelDelete: () => void;
-  handleUpdate: (data: updateDataType) =>Promise<void> ;
-  session:Session
+  handleUpdate: (data: updateDataType) => Promise<void>;
+  session: Session;
+  onReport: () => void;
 }
 
-
 export default function SessionCard({
- session,
+  session,
   surah,
   time,
   grade,
@@ -37,6 +37,7 @@ export default function SessionCard({
   revision,
   handelDelete,
   handleUpdate,
+  onReport,
 }: SessionCardProps) {
   const gradeColors: Record<string, string> = {
     ممتاز: colors.excellent,
@@ -56,24 +57,27 @@ export default function SessionCard({
             {student?.nameAr || student?.nameEn || "طالب غير معروف"}
           </Title>
 
-          <Text style={styles.time}><View style={{
-  flexDirection: "row",
-  alignItems: "center",
-  gap: 6,
-}}>
-  <Feather name="calendar" size={14} color="#888" />
-  <Text style={{ color: "#888", fontSize: 13 }}>
-    {formatDate(time)}
-  </Text>
-</View></Text>
+          <Text style={styles.time}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <Feather name="calendar" size={14} color="#888" />
+              <Text style={{ color: "#888", fontSize: 13 }}>
+                {formatDate(time)}
+              </Text>
+            </View>
+          </Text>
         </View>
 
         <View
           style={[
             styles.gradeBadge,
             {
-              backgroundColor:
-                gradeColors[grade] || colors.btnPrimary,
+              backgroundColor: gradeColors[grade] || colors.btnPrimary,
             },
           ]}
         >
@@ -87,7 +91,6 @@ export default function SessionCard({
           <Text style={styles.label}>السورة:</Text>
           <Text style={styles.value}>{surah || "-"}</Text>
           <Text style={styles.value}>{` (${to}-${from}) `}</Text>
-
         </View>
 
         <View style={styles.row}>
@@ -103,14 +106,21 @@ export default function SessionCard({
 
       {/* Actions */}
       <View style={styles.actionsRow}>
-        <Button variant="transparent" textColor="primary" size="sm">
+        <Button
+          variant="transparent"
+          textColor="primary"
+          size="sm"
+          onClick={onReport}
+        >
           تقرير <Feather name="file-text" />
         </Button>
 
-        <Button variant="transparent" textColor="warning" size="sm" 
-            onClick={() => setOpen(true)} >
-
-
+        <Button
+          variant="transparent"
+          textColor="warning"
+          size="sm"
+          onClick={() => setOpen(true)}
+        >
           تعديل <Feather name="edit-2" />
         </Button>
 
@@ -123,15 +133,14 @@ export default function SessionCard({
           حذف <Feather name="trash-2" />
         </Button>
       </View>
-         <FormModal<updateDataType>
-              open={open}
-              setOpen={setOpen}
-              formData={session}
-              formName="Sessions"
-              handleSubmit={handleUpdate}
-            />
+      <FormModal<updateDataType>
+        open={open}
+        setOpen={setOpen}
+        formData={session}
+        formName="Sessions"
+        handleSubmit={handleUpdate}
+      />
     </View>
-    
   );
 }
 

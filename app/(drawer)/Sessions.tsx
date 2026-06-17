@@ -1,5 +1,6 @@
 import CustomAlert from '@/components/atoms/CustomAlert'
 import SessionCard from '@/components/molecules/SessionCard'
+import SessionDetails from '@/components/molecules/SessionDetails'
 import Filter from '@/components/organisms/Filter'
 import Header from '@/components/organisms/Header'
 import NoDataFallback from '@/components/organisms/NoDataFallback'
@@ -18,6 +19,9 @@ export default function sessions() {
  const {showSuccess,showError} = useToast();
  const [selectedSessionId, setSelectedSessionId] = useState<number | null>(null);
  const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
+ const [reportId, setReportId] =  useState<number | null>(null);
+ const [report, setReport] =  useState(false);
+
   const filteredSessions = selectedStudentId
   ? sessions.filter((s) => s.studentId === selectedStudentId)
   : sessions;
@@ -60,8 +64,15 @@ const confirmDelete = async () => {
     })),
   };
 
+  const openReport = (id: number) => {
+    setReportId(id);
+    setReport(true);
+  };
+
   return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5}} >
+
+  <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5}}>
+      {!reportId ?   <View  >
       <Header<AddDataType> title='الحصص' 
       subtitle='كل تقارير الحصص' btn='تقرير حصة جديدة' formName='Sessions' handleSubmit={addSession} />
 <Filter
@@ -71,7 +82,7 @@ const confirmDelete = async () => {
 />   
     {sessions.length === 0 &&!loading && <NoDataFallback<AddDataType> formName='Sessions' handleSubmit={addSession}  Icon={() =>
        <Feather name="book-open" size={30} color="gray"   />}  text='لاتوجد حصص مسجلة ' btn='اضف اول حصة '/> }
-{filteredSessions.map((session) => 
+{!reportId&&filteredSessions.map((session) => 
 <SessionCard
    key={session.id} 
    student={students.find((student) => student.id == session.studentId) as Student}
@@ -85,8 +96,9 @@ const confirmDelete = async () => {
     session={session}
     handelDelete={() => openDeleteAlert(session.id)}
     handleUpdate={editSession}
+   onReport={() => openReport(session.id) }
+
       />)} 
-{/* {/* <SessionCard nameAr='حكيم' time='10:00' surah='الفاتحة' grade='ممتاز'   /> */}
 
 
   {/* // will show alert in case of delete only */}
@@ -101,5 +113,14 @@ const confirmDelete = async () => {
 />
 {/* //-----------------------------// */}
     </View>
-  )
+:
+ <SessionDetails  reportId={reportId} /> }
+
+
+ </View>
+
+
+)
+
+
 }
