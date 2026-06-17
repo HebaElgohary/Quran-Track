@@ -6,9 +6,11 @@ import Button from "../atoms/Button";
 import SessionReport from "./SessionReport";
 
 export default function SessionDetails({
+  closeReport,
   reportId,
 }: {
   reportId?: number | null;
+  closeReport: () => void;
 }) {
   const { sessions } = useSession();
 
@@ -28,7 +30,8 @@ export default function SessionDetails({
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
+          justifyContent: "flex-end",
+          gap: 14,
         }}
       >
         <Button size="md" variant="gray" textColor="black">
@@ -41,7 +44,7 @@ export default function SessionDetails({
             style={{ marginLeft: 5 }}
           />
         </Button>
-        <Button size="md" variant="gray" textColor="black">
+        <Button size="md" variant="gray" textColor="black" onClick={closeReport}>
           <Feather name="arrow-left" style={{ alignSelf: "flex-end", marginRight: 10 }} size={12} color="black" />
           <Text style={{ fontSize: 10, marginLeft: 8 }}>رجوع</Text>
         </Button>

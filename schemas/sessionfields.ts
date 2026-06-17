@@ -4,12 +4,7 @@ export const sessionFields: FormFieldSchema[] = [
   {
     name: "studentId",
     label: "الطالب ",
-    type: "select",
-    // data: [
-    //   { name: "hakim", label: "حكيم", value: "حكيم" },
-    //   {name: "mohamed", label: "محمد", value: "محمد" },
-    //   { name  : "Uzair", label: "عزير", value: "عزير" },
-    // ],
+    type: "select",  
     source: "students",
   },
   {
