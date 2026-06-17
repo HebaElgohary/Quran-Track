@@ -3,6 +3,7 @@ import { useSession } from "@/hooks/useSession";
 import { Feather } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
+import SessionReport from "./SessionReport";
 
 export default function SessionDetails({
   reportId,
@@ -103,7 +104,9 @@ export default function SessionDetails({
         </View>
       </View>
       {/* ------------------------------------- */}
-      <Text>{session.surah}</Text>
+       {/* -------------Session Report----------------  */}
+       <SessionReport />
+       {/* -------------------------------------- */}
     </View>
   );
 }
