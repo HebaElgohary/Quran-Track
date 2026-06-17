@@ -1,17 +1,15 @@
 import { colors } from "@/constants/theme";
-import { View } from "react-native";
+import { View, type ViewStyle } from "react-native";
 
-export default function Hr() {
-  return (
-    <View
-      style={{
-        height: 1,
-        width: 120,
-        backgroundColor: colors.warning,
-        marginHorizontal: 30,
-        marginVertical: 5,
-        borderRadius: 150,
-      }}
-    />
-  );
+const defaultStyle: ViewStyle = {
+  height: 1,
+  width: 120,
+  backgroundColor: colors.warning,
+  marginHorizontal: 30,
+  marginVertical: 5,
+  borderRadius: 150,
+};
+
+export default function Hr({ style }: { style?: ViewStyle }) {
+  return <View style={[defaultStyle, style]} />;
 }
