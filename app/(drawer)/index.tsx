@@ -8,6 +8,7 @@ import React, { useCallback, useEffect } from "react";
 import { View } from "react-native";
 import {getSessionsToday} from '@/utils/getSessionsToday'
 import { useSchedule } from "@/hooks/useSchedule";
+import { getSessionsThisMonth } from "@/utils/getSessionsThisMonth ";
 
 export default function index() {
 const {students,loadStudents} = useStudents();
@@ -22,6 +23,9 @@ const sessionsToday = React.useMemo(() => {
   return getSessionsToday(schedules);
 }, [schedules]);
 
+const sessionsThisMonth = React.useMemo(() => {
+  return getSessionsThisMonth(schedules);
+}, [schedules]);
 
   return (
     <View style={{ direction: "rtl" ,padding:5}}>
@@ -34,8 +38,8 @@ const sessionsToday = React.useMemo(() => {
 
       <HomeCard title={"عدد الطلاب"} num={students.length} icon="users"></HomeCard>
       <HomeCard title={" حصص اليوم"} num={sessionsToday} icon="calendar"></HomeCard>
-      <HomeCard title={" حصص هذا الشهر "} num={3} icon="file-text"></HomeCard>
-      <HomeCard title={" اجمالى الحصص"} num={5} icon="book-open"></HomeCard>
+      <HomeCard title={" حصص هذا الشهر "} num={sessionsThisMonth} icon="file-text"></HomeCard>
+      <HomeCard title={" اجمالى الحصص"} num={schedules.length} icon="book-open"></HomeCard>
 </View>
 {/* //////////////// */}
       <QuickActions
