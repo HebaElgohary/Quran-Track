@@ -1,72 +1,81 @@
-import { addSession, deleteSession, getSessions ,updateSession} from "@/storage/sessionStorage";
+import {
+  addSession,
+  deleteSession,
+  getSessions,
+  updateSession,
+} from "@/storage/sessionStorage";
 import { Session, SessionFormData } from "@/types/appTypes";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useSession = () => {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(false);
 
-
   // =========================
-  // LOAD SESSIONS
+  // LOAD
   // =========================
   const loadSessions = async () => {
     try {
       setLoading(true);
       const data = await getSessions();
-      setSessions(data);
-      return data;
+      setSessions(data || []);
     } catch (error) {
-      console.log("Error loading groups", error);
+      console.log("Error loading sessions", error);
+      setSessions([]);
     } finally {
       setLoading(false);
     }
   };
 
   // =========================
-  // CREATE SESSION 
+  // CREATE
   // =========================
   const createSession = async (formData: SessionFormData) => {
-    console.log("formdata createSession", formData);
-    const { studentId, ...rest } = formData;
-    console.log('student id in createStudent',studentId)
     try {
-    await addSession(formData);
-    await loadSessions();
+      await addSession(formData);
+      await loadSessions(); // refresh
     } catch (error) {
-      console.log("Error creating group", error);
+      console.log("Error creating session", error);
     }
   };
 
-   // =========================
-    // UPDATE SESSION
-    // =========================
-    const editSession = async (updatedSession: Session) => {
-      try {
-        await updateSession(updatedSession);
-  
-        await loadSessions();
-      } catch (error) {
-        console.log("Error updating group", error);
-      }
-    };
-
-  
   // =========================
-  // DELETE SESSION
+  // UPDATE
   // =========================
-  const removeSession = async (sessionId: number) => {
+  const editSession = async (updated: Session) => {
     try {
-      await deleteSession(sessionId);
-
-      await loadSessions();
+      await updateSession(updated);
+      await loadSessions(); // 
     } catch (error) {
-      console.log("Error deleting group", error);
+      console.log("Error updating session", error);
     }
   };
 
-    useEffect(() => {
+  // =========================
+  // DELETE
+  // =========================
+  const removeSession = async (id: number) => {
+    try {
+      await deleteSession(id);
+      await loadSessions(); // 
+    } catch (error) {
+      console.log("Error deleting session", error);
+    }
+  };
+
+  // =========================
+  // INIT
+  // =========================
+  useEffect(() => {
     loadSessions();
   }, []);
-  return { createSession,editSession, loadSessions, sessions, loading,removeSession };
+
+  return {
+    sessions,
+    loading,
+    createSession,
+    editSession,
+    removeSession,
+    loadSessions,
+  };
 };
