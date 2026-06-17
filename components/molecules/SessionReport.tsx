@@ -2,8 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
+import { Session } from "@/types/appTypes";
+import { useStudents } from "@/hooks/useStudent";
 
-export default function SessionReport() {
+export default function SessionReport({session}:{session:Session}) {
+    const {students} = useStudents();
+    const student=students.find(s=>s.id===session.studentId);
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -24,12 +28,12 @@ export default function SessionReport() {
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>اسم الطالب</Text>
-          <Text style={styles.value}>زكريا</Text>
+          <Text style={styles.value}>{student?.nameAr}</Text>
         </View>
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>التاريخ</Text>
-          <Text style={styles.value}>1/1/2023</Text>
+          <Text style={styles.value}>{session.date}</Text>
         </View>
       </View>
 
@@ -37,39 +41,39 @@ export default function SessionReport() {
       <View style={styles.detailsCard}>
         <View style={{...styles.row,backgroundColor: "#F1E7D0", justifyContent: "space-between",display:'flex',flexDirection:'row'  }}>
           <Text style={styles.label}>التقييم</Text>
-          <Text style={styles.value}>جيد</Text>
+          <Text style={styles.value}>{session.grade}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>السورة</Text>
-          <Text style={{...styles.value,flex:1}}>المائدة</Text>
+          <Text style={{...styles.value,flex:1}}>{session.surah}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>الآيات</Text>
-          <Text style={{...styles.value,flex:1}}>1 - 22</Text>
+          <Text style={{...styles.value,flex:1}}>{session.from}-{session.to}</Text>
         </View>
 
         <View style={styles.row}>
-          <Text style={styles.label}>الحفظ الجديد</Text>
-          <Text style={styles.value}>
-            المائدة من الآية 22 إلى الآية 33
+          <Text style={styles.label}> الحفظ الجديد </Text>
+          <Text style={{...styles.value,flex:1}}>
+            {session.new}
           </Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>المراجعة</Text>
-          <Text style={{...styles.value,flex:1}}>مراجعة سورة البقرة</Text>
+          <Text style={{...styles.value,flex:1}}> {session.revision} </Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>أحكام التجويد</Text>
-          <Text style={{...styles.value,flex:1}}>الإدغام</Text>
+          <Text style={{...styles.value,flex:1}}>{session.tajweed}</Text>
         </View>
 
         <View style={[styles.row, styles.lastRow]}>
           <Text style={styles.label}>ملاحظة</Text>
-          <Text style={{...styles.value,flex:1}}>مستوى الحفظ جيد</Text>
+          <Text style={{...styles.value,flex:1}}>  {session.notes}</Text>
         </View>
       </View>
 
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
     margin: 12,
-    gap: 18,
+    gap: 20,
     shadowColor: "#000",
     shadowOpacity: 0.06,
     shadowRadius: 8,
@@ -134,13 +138,12 @@ const styles = StyleSheet.create({
 
   infoColumn: {
     flex: 1,
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: 6,
   },
 
   detailsCard: {
-    // borderWidth: 1,
-    // borderColor: "#E5E7EB",
+   
     borderRadius: 12,
     overflow: "hidden",
   },

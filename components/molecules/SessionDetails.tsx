@@ -105,7 +105,7 @@ export default function SessionDetails({
       </View>
       {/* ------------------------------------- */}
        {/* -------------Session Report----------------  */}
-       <SessionReport />
+       <SessionReport session={session} />
        {/* -------------------------------------- */}
     </View>
   );
