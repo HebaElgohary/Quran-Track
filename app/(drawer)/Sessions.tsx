@@ -114,7 +114,8 @@ const confirmDelete = async () => {
 {/* //-----------------------------// */}
     </View>
 :
- <SessionDetails  reportId={reportId} closeReport={() => setReportId(null)}/> }
+ <SessionDetails     handleUpdate={editSession}
+  reportId={reportId} closeReport={() => setReportId(null)}/> }
 
 
  </View>

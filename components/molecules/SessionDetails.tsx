@@ -4,19 +4,35 @@ import { Feather } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import SessionReport from "./SessionReport";
+import FormModal from "./form/FormModal";
+import { Session } from "@/types/appTypes";
+import { useCallback, useMemo, useState } from "react";
+import { useFocusEffect } from "expo-router";
 
+type updateDataType = Session;
 export default function SessionDetails({
+      handleUpdate,
+
   closeReport,
   reportId,
 }: {
+  handleUpdate: (data: updateDataType) => Promise<void>;
+
   reportId?: number | null;
   closeReport: () => void;
 }) {
-  const { sessions } = useSession();
+  const { sessions,loadSessions } = useSession();
+  const [open, setOpen] = useState(false);
 
-  const session = reportId
-    ? sessions.find((s) => s.id === Number(reportId))
-    : null;
+  useFocusEffect(
+    useCallback(() => {
+      loadSessions();
+    }, [])
+  );
+  const session: Session | null = useMemo<Session | null>(() =>
+    reportId ? sessions.find((s) => s.id === Number(reportId)) ?? null : null,
+    [sessions, reportId]
+  );
 
   if (!session) {
     return <Text>الجلسة غير موجودة</Text>;
@@ -48,8 +64,8 @@ export default function SessionDetails({
           <Feather name="arrow-left" style={{ alignSelf: "flex-end", marginRight: 10 }} size={12} color="black" />
           <Text style={{ fontSize: 10, marginLeft: 8 }}>رجوع</Text>
         </Button>
-        <Button size="md" variant="gray" textColor="black">
-          <Feather name="edit-2" size={12} color="black" />
+        <Button size="md" variant="gray" textColor="black" onClick={() => setOpen(true)}>
+          <Feather name="edit-2" size={12} color="black"  />
           <Text style={{ fontSize: 10, marginLeft: 8 }}>تعديل</Text>
         </Button>
       </View>
@@ -110,6 +126,17 @@ export default function SessionDetails({
        {/* -------------Session Report----------------  */}
        <SessionReport session={session} />
        {/* -------------------------------------- */}
+          <View>
+          <FormModal<updateDataType>
+               open={open}
+               setOpen={setOpen}
+               formData={session}
+               formName="Sessions"
+               handleSubmit={handleUpdate}
+             />
+           </View>
+
+     
     </View>
   );
 }
