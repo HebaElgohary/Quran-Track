@@ -3,22 +3,38 @@ import * as Sharing from "expo-sharing";
 import { Session } from "@/types/appTypes";
 
 export async function shareSessionPdf(session: Session, studentName: string) {
-  try {
   const html = `
 <!DOCTYPE html>
 <html dir="rtl">
 <head>
+<title>تقرير الحصة</title>
 <meta charset="UTF-8" />
 
 <style>
 *{
   box-sizing:border-box;
 }
+  
+@page {
+  size: A4;
+  margin: 0;
+}
+  .page {
+  width: 210mm;
+  height: 297mm;
+  padding: 24px;
+  background: white;
+}
 
-body{
+body {
+   margin: 0;
+  padding: 0;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  background: white;
   font-family: Arial, sans-serif;
   background:#f5f5f5;
-  padding:24px;
 }
 
 .card{
@@ -110,7 +126,6 @@ hr{
 <body>
 
 <div class="infoCard">
-
 <div class="infoItem">
 <div class="infoLabel">اسم المعلم</div>
 <div>الأستاذ معاذ</div>
@@ -175,20 +190,22 @@ hr{
 </div>
 
 </div>
-
 </body>
 </html>
 `;
- 
-   const result = await Print.printToFileAsync({ html });
+ const file = await Print.printToFileAsync({
+    html,
+    base64: false,
+     width: 595, // A4 width in points
+  height: 842, // A4 height
+  });
 
-    if (!result?.uri) {
-      console.error("printToFileAsync returned:", result);
-      throw new Error("Failed to generate PDF file");
-    }
-
-    await Sharing.shareAsync(result.uri);
-  } catch (error) {
-    console.error("shareSessionPdf error:", error);
-  }
+if (!file?.uri) {
+  console.log("PDF generation failed");
+  return;
+}
+  await Sharing.shareAsync(file.uri, {
+    mimeType: "application/pdf",
+    dialogTitle: "مشاركة التقرير",
+  });
 }

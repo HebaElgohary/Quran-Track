@@ -9,10 +9,6 @@ import { Session } from "@/types/appTypes";
 import { useCallback, useMemo, useState } from "react";
 import { useFocusEffect } from "expo-router";
 import { useRef } from "react";
-import { generatePdfAndShare } from "@/utils/generatePdfAndShare";
-import { captureRef } from "react-native-view-shot";
-import * as Print from "expo-print";
-import * as Sharing from "expo-sharing";
 import { shareSessionPdf } from "@/utils/shareSessionPdf";
 import { useStudents } from "@/hooks/useStudent";
 
