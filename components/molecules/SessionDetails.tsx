@@ -8,6 +8,11 @@ import FormModal from "./form/FormModal";
 import { Session } from "@/types/appTypes";
 import { useCallback, useMemo, useState } from "react";
 import { useFocusEffect } from "expo-router";
+import { useRef } from "react";
+import { generatePdfAndShare } from "@/utils/generatePdfAndShare";
+import { captureRef } from "react-native-view-shot";
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
 
 type updateDataType = Session;
 export default function SessionDetails({
@@ -23,8 +28,8 @@ export default function SessionDetails({
 }) {
   const { sessions,loadSessions } = useSession();
   const [open, setOpen] = useState(false);
+  const reportRef = useRef<View>(null);
 
-  
   useFocusEffect(
     useCallback(() => {
       loadSessions();
@@ -51,7 +56,8 @@ export default function SessionDetails({
           gap: 14,
         }}
       >
-        <Button size="md" variant="gray" textColor="black">
+        <Button size="md" variant="gray" textColor="black"   onClick={()=>generatePdfAndShare}
+>
         
           <Text style={{ fontSize: 10, marginLeft: 8 }}>واتساب</Text>
             <Feather
@@ -125,7 +131,7 @@ export default function SessionDetails({
       </View>
       {/* ------------------------------------- */}
        {/* -------------Session Report----------------  */}
-       <SessionReport session={session} />
+       <SessionReport session={session}    ref={reportRef}/>
        {/* -------------------------------------- */}
           <View>
           <FormModal<updateDataType>

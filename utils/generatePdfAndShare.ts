@@ -1,8 +1,13 @@
-const generatePdfAndShare = async () => {
-  try {
-    if (!reportRef.current) return;
+import { captureRef } from "react-native-view-shot";
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
 
-    const imageUri = await captureRef(reportRef, {
+// Accept a ref to the view to capture. reportRef should be a React RefObject
+export const generatePdfAndShare = async (reportRef: any) => {
+  try {
+    if (!reportRef || !reportRef.current) return;
+
+    const imageUri = await captureRef(reportRef.current, {
       format: "png",
       quality: 1,
     });
@@ -18,9 +23,7 @@ const generatePdfAndShare = async () => {
       </html>
     `;
 
-    const { uri } = await Print.printToFileAsync({
-      html,
-    });
+    const { uri } = await Print.printToFileAsync({ html });
 
     await Sharing.shareAsync(uri);
   } catch (error) {
