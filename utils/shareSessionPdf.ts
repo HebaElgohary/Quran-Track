@@ -2,10 +2,8 @@ import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import { Session } from "@/types/appTypes";
 
-export async function shareSessionPdf(
-  session: Session,
-  studentName: string
-) {
+export async function shareSessionPdf(session: Session, studentName: string) {
+  try {
   const html = `
 <!DOCTYPE html>
 <html dir="rtl">
@@ -181,10 +179,16 @@ hr{
 </body>
 </html>
 `;
+ 
+   const result = await Print.printToFileAsync({ html });
 
-  const { uri } = await Print.printToFileAsync({
-    html,
-  });
+    if (!result?.uri) {
+      console.error("printToFileAsync returned:", result);
+      throw new Error("Failed to generate PDF file");
+    }
 
-  await Sharing.shareAsync(uri);
+    await Sharing.shareAsync(result.uri);
+  } catch (error) {
+    console.error("shareSessionPdf error:", error);
+  }
 }
