@@ -4,7 +4,7 @@ export const sessionFields: FormFieldSchema[] = [
   {
     name: "studentId",
     label: "الطالب ",
-    type: "select",  
+    type: "select",
     source: "students",
   },
   {
@@ -22,12 +22,13 @@ export const sessionFields: FormFieldSchema[] = [
     label: "التقييم ",
     type: "select",
     data: [
-      { name: "accepted", label: "مقبول", value: "مقبول" },
+      { name: "excellent", label: "ممتاز", value: "ممتاز" },
+      ,
+      { name: "veryGood", label: "جيد جدا", value: "جيد جدا" },
       { name: "good", label: "جيد", value: "جيد" },
       { name: "average", label: "متوسط", value: "متوسط" },
+      { name: "accepted", label: "مقبول", value: "مقبول" },
       { name: "poor", label: "ضعيف", value: "ضعيف" },
-      { name: "veryGood", label: "جيد جدا", value: "جيد جدا" },
-      { name: "excellent", label: "ممتاز", value: "ممتاز" },
     ],
   },
   { name: "from", label: "من اية ", type: "number" },
