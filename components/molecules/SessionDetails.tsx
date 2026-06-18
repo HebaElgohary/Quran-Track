@@ -13,6 +13,8 @@ import { generatePdfAndShare } from "@/utils/generatePdfAndShare";
 import { captureRef } from "react-native-view-shot";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
+import { shareSessionPdf } from "@/utils/shareSessionPdf";
+import { useStudents } from "@/hooks/useStudent";
 
 type updateDataType = Session;
 export default function SessionDetails({
@@ -27,6 +29,7 @@ export default function SessionDetails({
   closeReport: () => void;
 }) {
   const { sessions,loadSessions } = useSession();
+  const {students} = useStudents();
   const [open, setOpen] = useState(false);
   const reportRef = useRef<View>(null);
 
@@ -39,6 +42,17 @@ export default function SessionDetails({
     reportId ? sessions.find((s) => s.id === Number(reportId)) ?? null : null,
     [sessions, reportId]
   );
+  const student=students.find(s=>s.id===session?.studentId);
+
+
+  const handleWhatsappShare = async () => {
+  if (!session) return;
+
+  await shareSessionPdf(
+    session,
+    student?.nameAr ?? ""
+  );
+};
 
   if (!session) {
     return <Text>الجلسة غير موجودة</Text>;
@@ -56,7 +70,7 @@ export default function SessionDetails({
           gap: 14,
         }}
       >
-        <Button size="md" variant="gray" textColor="black"   onClick={()=>generatePdfAndShare}
+        <Button size="md" variant="gray" textColor="black"   onClick={()=>handleWhatsappShare()}
 >
         
           <Text style={{ fontSize: 10, marginLeft: 8 }}>واتساب</Text>
