@@ -111,16 +111,6 @@ hr{
 
 <body>
 
-<div class="card">
-
-<div class="header">
-<div class="reportLabel">تقرير حصة</div>
-<div class="title">القرآن الكريم والتجويد</div>
-<div class="basmalah">بسم الله الرحمن الرحيم</div>
-</div>
-
-<hr />
-
 <div class="infoCard">
 
 <div class="infoItem">

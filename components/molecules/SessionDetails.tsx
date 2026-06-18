@@ -70,7 +70,7 @@ export default function SessionDetails({
           gap: 14,
         }}
       >
-        <Button size="md" variant="gray" textColor="black"   onClick={()=>handleWhatsappShare()}
+        <Button size="md" variant="gray" textColor="black"   onClick={handleWhatsappShare}
 >
         
           <Text style={{ fontSize: 10, marginLeft: 8 }}>واتساب</Text>
