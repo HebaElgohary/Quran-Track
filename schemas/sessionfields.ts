@@ -23,7 +23,7 @@ export const sessionFields: FormFieldSchema[] = [
     type: "select",
     data: [
       { name: "excellent", label: "ممتاز", value: "ممتاز" },
-      ,
+
       { name: "veryGood", label: "جيد جدا", value: "جيد جدا" },
       { name: "good", label: "جيد", value: "جيد" },
       { name: "average", label: "متوسط", value: "متوسط" },

@@ -4,11 +4,15 @@ import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { Session } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
+import { Share } from "react-native";
+
 
 export default function SessionReport({session}:{session:Session}) {
     const {students} = useStudents();
     const student=students.find(s=>s.id===session.studentId);
-  return (
+ 
+
+    return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
