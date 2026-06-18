@@ -27,7 +27,7 @@ export default function SessionDetails({
   useFocusEffect(
     useCallback(() => {
       loadSessions();
-    }, [])
+    }, [open])
   );
   const session: Session | null = useMemo<Session | null>(() =>
     reportId ? sessions.find((s) => s.id === Number(reportId)) ?? null : null,
