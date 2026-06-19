@@ -1,12 +1,9 @@
-export const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
+export function formatDate(date: string, lang: "ar" | "en" = "ar") {
+  const d = new Date(date);
 
-  if (isNaN(date.getTime())) return dateString;
-
-  return new Intl.DateTimeFormat("ar-EG", {
-    weekday: "long",
+  return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "ar-EG", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(date);
-};
+  }).format(d);
+}

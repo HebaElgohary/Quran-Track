@@ -24,7 +24,7 @@ export default function SessionReport({
     <View
       style={[
         styles.container,
-        { direction: isEn ? "ltr" : "rtl" } as any,
+        { direction: isEn ? "ltr" : "ltr" } as any,
       ]}
     >
       {/* Header */}
