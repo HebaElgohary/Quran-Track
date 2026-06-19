@@ -1,57 +1,45 @@
+import { Platform } from "react-native";
 import * as Print from "expo-print";
+import html2pdf from "html2pdf.js";
+import { buildSessionHtml } from "./sessionPdfTemplate";
 import { Session } from "@/types/appTypes";
 
-export async function printSessionPdf(session: Session, studentName: string) {
-  const html = `
-<!DOCTYPE html>
-<html dir="rtl">
-<head>
-<meta charset="UTF-8" />
-<title>تقرير الحصة</title>
+export async function printSessionPdf(
+  session: Session,
+  studentName: string
+) {
+  const html = buildSessionHtml(session, studentName);
 
-<style>
-body {
-  font-family: Arial;
-  padding: 24px;
-  background: white;
-}
-.infoCard {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-.row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-</style>
-</head>
+//   =========================
+//   🟢 MOBILE (Expo Print)
+//   =========================
+  if (Platform.OS !== "web") {
+    await Print.printAsync({ html });
+    return;
+  }
 
-<body>
+  // =========================
+  // 🟢 WEB (html2pdf)
+  // =========================
+//   const element = document.createElement("div");
+//   element.innerHTML = html;
 
-<div class="infoCard">
-  <div>المعلم: معاذ</div>
-  <div>الطالب: ${studentName}</div>
-  <div>التاريخ: ${session.date}</div>
-</div>
+//  const opt = {
+//   margin: 0,
+//   filename: "session-report.pdf",
+//   image: { type: "png" as const, quality: 1 },
+//   html2canvas: {
+//     scale: 3,
+//     useCORS: true,
+//     scrollY: 0,
+//   },
+//   jsPDF: {
+//     unit: "mm" as const,
+//     format: "a4",
+//     orientation: "portrait" as const,
+//   },
 
-<div>
-  <div class="row">التقييم: ${session.grade ?? ""}</div>
-  <div class="row">السورة: ${session.surah ?? ""}</div>
-  <div class="row">من: ${session.from ?? ""} - إلى: ${session.to ?? ""}</div>
-  <div class="row">الحفظ: ${session.new ?? ""}</div>
-  <div class="row">المراجعة: ${session.revision ?? ""}</div>
-  <div class="row">التجويد: ${session.tajweed ?? ""}</div>
-  <div class="row">ملاحظات: ${session.notes ?? ""}</div>
-</div>
+// };
 
-</body>
-</html>
-`;
-
-  await Print.printAsync({
-    html,
-  });
+//   await html2pdf().set(opt).from(element).save();
 }

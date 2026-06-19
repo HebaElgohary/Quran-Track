@@ -6,7 +6,7 @@ import { printSessionPdf } from "@/utils/printSessionPdf";
 import { shareSessionPdf } from "@/utils/shareSessionPdf";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import SessionReport from "./SessionReport";
@@ -26,7 +26,6 @@ export default function SessionDetails({
   const { sessions, loadSessions } = useSession();
   const { students } = useStudents();
   const [open, setOpen] = useState(false);
-  const reportRef = useRef<View>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -111,11 +110,11 @@ export default function SessionDetails({
           gap: 10,
         }}
       >
-        <Button size="lg">
+        <Button size="lg" onClick={() => printSessionPdf(session, student?.nameAr ?? "")} >
           <Feather
             name="printer"
             size={13}
-            onClick={() => printSessionPdf(session, student?.nameAr ?? "")}
+            
           />
           <Text style={{ fontSize: 10, marginLeft: 8 }}> طباعة/PDF</Text>
         </Button>
@@ -171,7 +170,7 @@ export default function SessionDetails({
       </View>
       {/* ------------------------------------- */}
       {/* -------------Session Report----------------  */}
-      <SessionReport session={session} ref={reportRef} />
+      <SessionReport session={session} />
       {/* -------------------------------------- */}
       <View>
         <FormModal<updateDataType>

@@ -7,14 +7,13 @@ import { useStudents } from "@/hooks/useStudent";
 import { Share } from "react-native";
 
 
-const SessionReport = forwardRef<View, { session: Session }>(
-({ session }, ref) => 
-    {    const {students} = useStudents();
+export default function SessionReport({session}:{session:Session}) {
+    const {students} = useStudents();
     const student=students.find(s=>s.id===session.studentId);
  
 
     return (
-    <View style={styles.container} ref={ref}>
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.reportLabel}>تقرير حصة</Text>
@@ -98,8 +97,6 @@ const SessionReport = forwardRef<View, { session: Session }>(
     </View>
   );
 }
-);
-export default SessionReport;
 
 const styles = StyleSheet.create({
   container: {

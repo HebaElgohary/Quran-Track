@@ -1,4 +1,6 @@
-export function buildSessionHtml(session, studentName) {
+import { Session } from "@/types/appTypes";
+
+export function buildSessionHtml(session: Session, studentName: string) {
   return `
 <html dir="rtl">
 <head>
