@@ -19,6 +19,10 @@ export type Group = {
 };
 export type GroupFormData = Omit<Group, "id">;
 
+export type TeacherProfile = {
+  name: string;
+  password: string;
+};
 export type Session = {
   id: number;
   studentId: number;
