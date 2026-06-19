@@ -4,7 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const KEY = "teacher_profile";
 
 type TeacherProfile = {
-  name: string;
+  nameAr: string;
+  nameEn: string;
   password: string;
 };
 

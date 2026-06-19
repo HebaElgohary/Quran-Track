@@ -20,7 +20,8 @@ export type Group = {
 export type GroupFormData = Omit<Group, "id">;
 
 export type TeacherProfile = {
-  name: string;
+  nameAr: string;
+  nameEn: string;
   password: string;
 };
 export type Session = {
