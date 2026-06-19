@@ -7,7 +7,7 @@ import { useStudents } from "@/hooks/useStudent";
 import { formatDate } from "@/utils/formatDate";
 
 
-export default function SessionReport({session}:{session:Session}) {
+export default function SessionReport({session,lang}:{session:Session,lang:'ar'|'en'}) {
     const {students} = useStudents();
     const student=students.find(s=>s.id===session.studentId);
  

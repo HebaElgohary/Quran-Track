@@ -182,7 +182,7 @@ export default function SessionDetails({
       </View>
       {/* ------------------------------------- */}
       {/* -------------Session Report----------------  */}
-      <SessionReport session={session} />
+      <SessionReport session={session} lang={language} />
       {/* -------------------------------------- */}
       <View>
         <FormModal<updateDataType>
