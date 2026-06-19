@@ -26,6 +26,7 @@ export default function SessionDetails({
   const { sessions, loadSessions } = useSession();
   const { students } = useStudents();
   const [open, setOpen] = useState(false);
+  const [language, setLanguage] = useState<"ar" | "en">("ar");
 
   useFocusEffect(
     useCallback(() => {
@@ -117,55 +118,67 @@ export default function SessionDetails({
           <Feather name="printer" size={13} />
           <Text style={{ fontSize: 10 }}>  PDF/طباعة </Text>
         </Button>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            width: 160,
-            height: 40,
-            backgroundColor: "#EEEEEE",
-            borderRadius: 15,
-          }}
-        >
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: 70,
-              height: 35,
-              backgroundColor: "#EEEEEE",
-              borderRadius: 20,
-            }}
-          >
-            <Text
-              style={{ fontSize: 13, marginLeft: 8, fontWeight: "semibold" }}
-            >
-              {" "}
-              English
-            </Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: 70,
-              height: 35,
-              backgroundColor: "#FFFFFFFf",
-              borderRadius: 20,
-            }}
-          >
-            <Text
-              style={{ fontSize: 13, marginLeft: 8, fontWeight: "semibold" }}
-            >
-              {" "}
-              العربية
-            </Text>
-          </View>
-        </View>
+      <View
+  style={{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 160,
+    height: 40,
+    backgroundColor: "#EEEEEE",
+    borderRadius: 15,
+  }}
+>
+  <View
+    onTouchEnd={() => setLanguage("en")}
+    style={{
+      justifyContent: "center",
+      alignItems: "center",
+      width: 70,
+      height: 35,
+      borderRadius: 20,
+
+      backgroundColor:
+        language === "en"
+          ? "#FFFFFF"
+          : "#EEEEEE",
+    }}
+  >
+    <Text
+      style={{
+        fontSize: 13,
+        fontWeight: "600",
+      }}
+    >
+      English
+    </Text>
+  </View>
+
+  <View
+    onTouchEnd={() => setLanguage("ar")}
+    style={{
+      justifyContent: "center",
+      alignItems: "center",
+      width: 70,
+      height: 35,
+      borderRadius: 20,
+
+      backgroundColor:
+        language === "ar"
+          ? "#FFFFFF"
+          : "#EEEEEE",
+    }}
+  >
+    <Text
+      style={{
+        fontSize: 13,
+        fontWeight: "600",
+      }}
+    >
+      العربية
+    </Text>
+  </View>
+</View>
       </View>
       {/* ------------------------------------- */}
       {/* -------------Session Report----------------  */}

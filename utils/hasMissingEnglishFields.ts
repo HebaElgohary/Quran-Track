@@ -1,3 +1,5 @@
+import { Session } from "@/types/appTypes";
+
 export function hasMissingEnglishFields(session: Session) {
   return (
     !session.newEn ||
