@@ -61,7 +61,7 @@ export default function SessionReport({
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.date}</Text>
-          <Text style={styles.value}>{formatDate(session.date)}</Text>
+          <Text style={styles.value}>{formatDate(session.date,lang)}</Text>
         </View>
       </View>
 
