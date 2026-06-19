@@ -1,4 +1,5 @@
 import { Session } from "@/types/appTypes";
+import { formatDate } from "./formatDate";
 
 export function buildSessionHtml(
   session: Session,
@@ -6,9 +7,10 @@ export function buildSessionHtml(
 ) {
   return `
 <!DOCTYPE html>
-<html dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>تقرير الحصة</title>
 
 <style>
@@ -22,12 +24,13 @@ body{
   padding:20px;
   background:#f5f5f5;
   font-family:Arial,sans-serif;
+  color:#111827;
 }
 
 .container{
   background:#FFFFFF;
   border-radius:16px;
-  padding:20px;
+  padding:24px;
   max-width:900px;
   margin:auto;
 }
@@ -62,8 +65,7 @@ body{
 
 .infoCard{
   display:flex;
-  justify-content:space-between;
-  gap:12px;
+  gap:16px;
 
   background:#F9FAFB;
   border-radius:12px;
@@ -72,43 +74,68 @@ body{
 
 .infoColumn{
   flex:1;
+  text-align:start;
 }
 
-.label{
-  font-size:15px;
+.infoLabel{
+  font-size:14px;
   font-weight:600;
-  color:#111827;
+  color:#6B7280;
   margin-bottom:6px;
 }
 
-.value{
+.infoValue{
   font-size:15px;
-  color:#4B5563;
+  color:#111827;
+  font-weight:500;
 }
 
 .detailsCard{
   margin-top:20px;
   border-radius:12px;
   overflow:hidden;
+  border:1px solid #E5E7EB;
 }
 
 .row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:16px;
+  align-items:start;
 
   padding:14px 16px;
-
   border-bottom:1px solid #E5E7EB;
+}
+
+.row:last-child{
+  border-bottom:none;
 }
 
 .gradeRow{
   background:#F1E7D0;
 }
 
+.label{
+  font-size:15px;
+  font-weight:600;
+  color:#111827;
+
+  text-align:start;
+}
+
+.value{
+  font-size:15px;
+  color:#4B5563;
+
+  text-align:start;
+  word-break:break-word;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+}
+
 .footer{
   text-align:center;
-  margin-top:20px;
+  margin-top:24px;
 }
 
 .footerText{
@@ -116,10 +143,17 @@ body{
   font-size:14px;
 }
 
-.longText{
-  max-width:70%;
-  text-align:left;
-  word-break:break-word;
+@media print{
+  body{
+    background:white;
+    padding:0;
+  }
+
+  .container{
+    max-width:100%;
+    margin:0;
+    box-shadow:none;
+  }
 }
 
 </style>
@@ -130,7 +164,9 @@ body{
 <div class="container">
 
   <div class="header">
-    <div class="reportLabel">تقرير حصة</div>
+    <div class="reportLabel">
+      تقرير حصة
+    </div>
 
     <div class="title">
       القرآن الكريم والتجويد
@@ -146,18 +182,18 @@ body{
   <div class="infoCard">
 
     <div class="infoColumn">
-      <div class="label">اسم المعلم</div>
-      <div class="value">الأستاذ معاذ</div>
+      <div class="infoLabel">اسم المعلم</div>
+      <div class="infoValue">الأستاذ معاذ</div>
     </div>
 
     <div class="infoColumn">
-      <div class="label">اسم الطالب</div>
-      <div class="value">${studentName}</div>
+      <div class="infoLabel">اسم الطالب</div>
+      <div class="infoValue">${studentName ?? ""}</div>
     </div>
 
     <div class="infoColumn">
-      <div class="label">التاريخ</div>
-      <div class="value">${session.date ?? ""}</div>
+      <div class="infoLabel">التاريخ</div>
+      <div class="infoValue">${formatDate(session.date) ?? ""}</div>
     </div>
 
   </div>
@@ -183,28 +219,28 @@ body{
 
     <div class="row">
       <div class="label">الحفظ الجديد</div>
-      <div class="value longText">
+      <div class="value">
         ${session.new ?? ""}
       </div>
     </div>
 
     <div class="row">
       <div class="label">المراجعة</div>
-      <div class="value longText">
+      <div class="value">
         ${session.revision ?? ""}
       </div>
     </div>
 
     <div class="row">
       <div class="label">أحكام التجويد</div>
-      <div class="value longText">
+      <div class="value">
         ${session.tajweed ?? ""}
       </div>
     </div>
 
-    <div class="row" style="border-bottom:none">
+    <div class="row">
       <div class="label">ملاحظة</div>
-      <div class="value longText">
+      <div class="value">
         ${session.notes ?? ""}
       </div>
     </div>
@@ -212,11 +248,13 @@ body{
   </div>
 
   <div class="footer">
+
     <div class="hr"></div>
 
     <div class="footerText">
       جزاكم الله خيرًا وجعلكم من أهل القرآن
     </div>
+
   </div>
 
 </div>

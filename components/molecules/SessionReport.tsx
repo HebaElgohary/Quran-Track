@@ -4,7 +4,7 @@ import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { Session } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
-import { Share } from "react-native";
+import { formatDate } from "@/utils/formatDate";
 
 
 export default function SessionReport({session}:{session:Session}) {
@@ -27,7 +27,7 @@ export default function SessionReport({session}:{session:Session}) {
       <View style={styles.infoCard}>
         <View style={styles.infoColumn}>
           <Text style={styles.label}>اسم المعلم</Text>
-          <Text style={styles.value}>الاستاذ معاذ</Text>
+          <Text style={styles.value}>الاستاذ : معاذ عبد الرحمن سلام </Text>
         </View>
 
         <View style={styles.infoColumn}>
@@ -37,7 +37,7 @@ export default function SessionReport({session}:{session:Session}) {
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>التاريخ</Text>
-          <Text style={styles.value}>{session.date}</Text>
+          <Text style={styles.value}>{ formatDate(session.date)  }</Text>
         </View>
       </View>
 
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
   infoColumn: {
     flex: 1,
     alignItems: "flex-start",
+    flexWrap: "wrap",
     gap: 6,
   },
 
@@ -175,7 +176,8 @@ const styles = StyleSheet.create({
 
   value: {
     // flex: 1,
-    textAlign: "right",
+    // textAlign: "right",
+    alignSelf: "flex-start",
     fontSize: 15,
     color: "#4B5563",
   },

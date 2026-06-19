@@ -110,13 +110,12 @@ export default function SessionDetails({
           gap: 10,
         }}
       >
-        <Button size="lg" onClick={() => printSessionPdf(session, student?.nameAr ?? "")} >
-          <Feather
-            name="printer"
-            size={13}
-            
-          />
-          <Text style={{ fontSize: 10, marginLeft: 8 }}> طباعة/PDF</Text>
+        <Button
+          size="lg"
+          onClick={() => printSessionPdf(session, student?.nameAr ?? "")}
+        >
+          <Feather name="printer" size={13} />
+          <Text style={{ fontSize: 10 }}>  PDF/طباعة </Text>
         </Button>
         <View
           style={{
