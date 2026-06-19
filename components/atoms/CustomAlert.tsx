@@ -16,6 +16,7 @@ interface CustomAlertProps {
   cancelText?: string;
   onConfirm: () => void;
   onCancel: () => void;
+  
   showCancelButton?: boolean;
 }
 
