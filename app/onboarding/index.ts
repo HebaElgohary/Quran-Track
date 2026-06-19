@@ -7,6 +7,10 @@ export default function Index() {
 const [name, setName] = useState("");
 const [password, setPassword] = useState("");
 
-  return 
-  
+  return (
+    <View>
+    <Form />
+    <View>
+  )
+
 }
