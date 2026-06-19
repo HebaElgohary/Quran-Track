@@ -1,83 +1,163 @@
-import React,{forwardRef} from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import { Session } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
 import { formatDate } from "@/utils/formatDate";
+import { translations } from "../../translations/sessionTranslation";
 
+export default function SessionReport({
+  session,
+  lang,
+}: {
+  session: Session;
+  lang: "ar" | "en";
+}) {
+  const { students } = useStudents();
+  const student = students.find((s) => s.id === session.studentId);
 
-export default function SessionReport({session,lang}:{session:Session,lang:'ar'|'en'}) {
-    const {students} = useStudents();
-    const student=students.find(s=>s.id===session.studentId);
- 
+  const t = translations[lang];
+  const isEn = lang === "en";
 
-    return (
-    <View style={styles.container}>
+  return (
+    <View
+      style={[
+        styles.container,
+        { direction: isEn ? "ltr" : "rtl" } as any,
+      ]}
+    >
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.reportLabel}>تقرير حصة</Text>
-        <Title size="xl">القرآن الكريم والتجويد</Title>
-        <Text style={styles.basmalah}>بسم الله الرحمن الرحيم</Text>
+        <Text style={styles.reportLabel}>{t.reportTitle}</Text>
+
+        <Title size="xl">{t.subject}</Title>
+
+        <Text style={styles.basmalah}>
+          {isEn ? "In the name of Allah" : "بسم الله الرحمن الرحيم"}
+        </Text>
       </View>
 
-      <Hr style={{width:'80%'}}  />
+      <Hr style={{ width: "80%" }} />
 
       {/* Teacher / Student / Date */}
-      <View style={styles.infoCard}>
+      <View
+        style={[
+          styles.infoCard,
+          { flexDirection: isEn ? "row" : "row-reverse" },
+        ]}
+      >
         <View style={styles.infoColumn}>
-          <Text style={styles.label}>اسم المعلم</Text>
-          <Text style={styles.value}>الاستاذ : معاذ عبد الرحمن سلام </Text>
+          <Text style={styles.label}>{t.teacher}</Text>
+          <Text style={styles.value}>
+            { lang === "en" ? "Moaz Abdulrahman Salam" : 'معاذ سلام'}
+          </Text>
         </View>
 
         <View style={styles.infoColumn}>
-          <Text style={styles.label}>اسم الطالب</Text>
+          <Text style={styles.label}>{t.student}</Text>
           <Text style={styles.value}>{student?.nameAr}</Text>
         </View>
 
         <View style={styles.infoColumn}>
-          <Text style={styles.label}>التاريخ</Text>
-          <Text style={styles.value}>{ formatDate(session.date)  }</Text>
+          <Text style={styles.label}>{t.date}</Text>
+          <Text style={styles.value}>{formatDate(session.date)}</Text>
         </View>
       </View>
 
-      {/* Report Details */}
+      {/* Details */}
       <View style={styles.detailsCard}>
-        <View style={{...styles.row,backgroundColor: "#F1E7D0", justifyContent: "space-between",display:'flex',flexDirection:'row'  }}>
-          <Text style={styles.label}>التقييم</Text>
+        {/* Grade */}
+        <View
+          style={[
+            styles.row,
+            {
+              backgroundColor: "#F1E7D0",
+              flexDirection: isEn ? "row" : "row-reverse",
+            },
+          ]}
+        >
+          <Text style={styles.label}>{t.grade}</Text>
           <Text style={styles.value}>{session.grade}</Text>
         </View>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>السورة</Text>
-          <Text style={{...styles.value,flex:1}}>{session.surah}</Text>
+        {/* Surah */}
+        <View
+          style={[
+            styles.row,
+            { flexDirection: isEn ? "row" : "row-reverse" },
+          ]}
+        >
+          <Text style={styles.label}>{t.surah}</Text>
+          <Text style={[styles.value, { flex: 1 }]}>
+            {session.surah}
+          </Text>
         </View>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>الآيات</Text>
-          <Text style={{...styles.value,flex:1}}>{session.from}-{session.to}</Text>
+        {/* Verses */}
+        <View
+          style={[
+            styles.row,
+            { flexDirection: isEn ? "row" : "row-reverse" },
+          ]}
+        >
+          <Text style={styles.label}>{t.verses}</Text>
+          <Text style={[styles.value, { flex: 1 }]}>
+            {session.from}-{session.to}
+          </Text>
         </View>
 
-        <View style={styles.row}>
-          <Text style={styles.label}> الحفظ الجديد </Text>
-          <Text style={{...styles.value,flex:1}}>
+        {/* New */}
+        <View
+          style={[
+            styles.row,
+            { flexDirection: isEn ? "row" : "row-reverse" },
+          ]}
+        >
+          <Text style={styles.label}>{t.new}</Text>
+          <Text style={[styles.value, { flex: 1 }]}>
             {session.new}
           </Text>
         </View>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>المراجعة</Text>
-          <Text style={{...styles.value,flex:1}}> {session.revision} </Text>
+        {/* Revision */}
+        <View
+          style={[
+            styles.row,
+            { flexDirection: isEn ? "row" : "row-reverse" },
+          ]}
+        >
+          <Text style={styles.label}>{t.revision}</Text>
+          <Text style={[styles.value, { flex: 1 }]}>
+            {session.revision}
+          </Text>
         </View>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>أحكام التجويد</Text>
-          <Text style={{...styles.value,flex:1}}>{session.tajweed}</Text>
+        {/* Tajweed */}
+        <View
+          style={[
+            styles.row,
+            { flexDirection: isEn ? "row" : "row-reverse" },
+          ]}
+        >
+          <Text style={styles.label}>{t.tajweed}</Text>
+          <Text style={[styles.value, { flex: 1 }]}>
+            {session.tajweed}
+          </Text>
         </View>
 
-        <View style={[styles.row, styles.lastRow]}>
-          <Text style={styles.label}>ملاحظة</Text>
-          <Text style={{...styles.value,flex:1}}>  {session.notes}</Text>
+        {/* Notes */}
+        <View
+          style={[
+            styles.row,
+            styles.lastRow,
+            { flexDirection: isEn ? "row" : "row-reverse" },
+          ]}
+        >
+          <Text style={styles.label}>{t.notes}</Text>
+          <Text style={[styles.value, { flex: 1 }]}>
+            {session.notes}
+          </Text>
         </View>
       </View>
 
@@ -90,14 +170,11 @@ export default function SessionReport({session,lang}:{session:Session,lang:'ar'|
             backgroundColor: "#D1D5DB",
           }}
         />
-        <Text style={styles.footerText}>
-          جزاكم الله خيرًا وجعلكم من أهل القرآن
-        </Text>
+        <Text style={styles.footerText}>{t.footer}</Text>
       </View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFFFFF",

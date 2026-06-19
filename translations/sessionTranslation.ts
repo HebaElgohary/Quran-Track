@@ -20,7 +20,7 @@ export const fieldLabelsEn = {
   notes: "Notes",
 };
 
-const translations = {
+export const translations = {
   ar: {
     reportTitle: "تقرير حصة",
     subject: "القرآن الكريم والتجويد",
