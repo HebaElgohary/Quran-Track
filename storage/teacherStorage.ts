@@ -13,3 +13,16 @@ export const saveTeacherProfile = async (profile: TeacherProfile) => {
 };
 
 //---------------------------//
+
+//check teacher password//
+//----------------------//
+export const checkTeacherPassword = async (password: string) => {
+  const data = await AsyncStorage.getItem("teacher_profile");
+
+  if (!data) return false;
+
+  const profile = JSON.parse(data);
+
+  return profile.password === password;
+};
+//----------------------//
