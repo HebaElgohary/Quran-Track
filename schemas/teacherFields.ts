@@ -8,7 +8,7 @@ export const teacherFields: FormFieldSchema[]=[
     },
       {
       name: 'nameEn',
-      label: 'EnglishName',
+      label: 'English Name',
       type: 'text',
     },
     {

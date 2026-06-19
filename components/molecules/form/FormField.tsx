@@ -9,7 +9,7 @@ export default function FormField(props: any) {
   const { type } = props;
   console.log("props is " + type);
 
-  if (type == "text") return <Input {...props} />;
+  if (type == "text"|| type == "password") return <Input {...props} />;
   if (type == "number") return <Input {...props} />;
 
   if (type == "textarea") return <Input {...props} multiline />;
