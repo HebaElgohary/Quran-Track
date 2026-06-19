@@ -31,6 +31,11 @@ export type Session = {
   new: string;
   revision: string;
   tajweed: string;
+  //enFields
+    newEn?: string;
+  revisionEn?: string;
+  tajweedEn?: string;
+  notesEn?: string;
 };
 
 export type SessionFormData = Omit<Session, "id" > 
