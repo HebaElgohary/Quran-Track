@@ -1,26 +1,12 @@
 import { Redirect } from "expo-router";
 import { useEffect, useState } from "react";
 import { getTeacherProfile } from "@/storage/teacherStorage";
+import { View } from "react-native";
 
 export default function Index() {
-  const [profile, setProfile] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+const [name, setName] = useState("");
+const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const load = async () => {
-      const data = await getTeacherProfile();
-      setProfile(data);
-      setLoading(false);
-    };
-
-    load();
-  }, []);
-
-  if (loading) return null;
-
-  if (!profile) {
-    return <Redirect href="/onboarding" />;
-  }
-
-  return <Redirect href="/(drawer)" />;
+  return 
+  
 }

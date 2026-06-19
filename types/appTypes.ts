@@ -99,7 +99,8 @@ export interface FormFieldSchema {
     | "checkbox"
     | "select"
     | "number"
-    | "date";
+    | "date"
+    |"password";
 
   source?: FieldSource;
 

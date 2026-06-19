@@ -1,3 +1,4 @@
+import { TeacherProfile } from "@/types/appTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
