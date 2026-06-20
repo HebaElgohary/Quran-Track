@@ -1,4 +1,5 @@
 import Loadign from '@/animations/Loading';
+import MonthlyReportsDetails from '@/components/molecules/MonthlyReportsDetails';
 import Header from '@/components/organisms/Header'
 import MonthlyReportForm from '@/components/organisms/MonthlyReportForm'
 import { useMonthlyReports } from '@/hooks/useMonthlyReports';
@@ -12,17 +13,20 @@ export default function MonthlyReports() {
 
 const {loading,createMonthlyReport } = useMonthlyReports();
 const { showSuccess } = useToast();
+const {monthlyReports,report} = useMonthlyReports();
   // ---------------- add handler --------------------//
   const addMonthlyReport = async(formData: AddType) => {
-    await createMonthlyReport(formData);  
+     await createMonthlyReport(formData);  
     showSuccess('تم اضافة التقرير الشهرى بنجاح');
     console.log('added',formData);
+
   }
   return (
     <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5}} >
     <Header title='التقرير الشهرى' subtitle='ملخص شامل لما ت انجازه فى الشهر '></Header>
     <MonthlyReportForm<AddType> handleSubmit={addMonthlyReport} />
       {loading && <Loadign />}
+      <MonthlyReportsDetails report={report}  />
       
  </View>
  )

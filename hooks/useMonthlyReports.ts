@@ -4,6 +4,8 @@ import { addMonthlyReport, getMonthlyReports } from "../storage/monthlyReportsSt
 export const useMonthlyReports=()=>{
   const [monthlyReports, setMonthlyReports] = useState<MonthlyReports[]>([]);
   const [loading, setLoading] = useState(false);
+  const [report, setReport] = useState<MonthlyReportsFormData>();
+
 
 
   // =========================
@@ -29,8 +31,10 @@ export const useMonthlyReports=()=>{
       const { studentId, ...rest } = formData;
       console.log('student id in createStudent',studentId)
       try {
-      await addMonthlyReport(formData);
+     const report = await addMonthlyReport(formData);
+     setReport(formData);
       await loadMonthlyReports();
+      return report;
       } catch (error) {
         console.log("Error creating group", error);
       }
@@ -39,5 +43,5 @@ export const useMonthlyReports=()=>{
         loadMonthlyReports();
       }, []);
 
-return {monthlyReports,loading,loadMonthlyReports,createMonthlyReport}
+return {monthlyReports,report,loading,loadMonthlyReports,createMonthlyReport}
 }
