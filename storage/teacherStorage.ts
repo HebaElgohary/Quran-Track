@@ -27,3 +27,7 @@ export const checkTeacherPassword = async (password: string) => {
   return profile.password === password;
 };
 //----------------------//
+
+export const updateTeacherProfile = async (newProfile: TeacherProfile) => {
+  await AsyncStorage.setItem(KEY, JSON.stringify(newProfile));
+};
