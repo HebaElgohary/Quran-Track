@@ -44,6 +44,11 @@ export function useProfile() {
     setProfile(null);
   };
 
+  const editProfile = async (newProfile: TeacherProfile) => {
+    await AsyncStorage.setItem(KEY, JSON.stringify(newProfile));
+    setProfile(newProfile);
+  };
+
   useEffect(() => {
     loadProfile();
   }, []);
@@ -55,5 +60,6 @@ export function useProfile() {
     checkPassword,
     clearProfile,
     reload: loadProfile,
+    editProfile
   };
 }
