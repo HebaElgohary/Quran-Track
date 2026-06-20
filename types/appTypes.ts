@@ -22,7 +22,6 @@ export type GroupFormData = Omit<Group, "id">;
 export type TeacherProfile = {
   nameAr: string;
   nameEn: string;
-  password: string;
 };
 export type Session = {
   id: number;

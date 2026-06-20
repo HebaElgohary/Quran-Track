@@ -3,17 +3,13 @@ import { FormFieldSchema } from "@/types/appTypes";
 export const teacherFields: FormFieldSchema[]=[
     {
       name: 'nameAr',
-      label: 'Arabic Name',
+      label: 'اسم المعلم بالعربية ',
       type: 'text',
     },
       {
       name: 'nameEn',
-      label: 'English Name',
+      label: 'اسم المعلم بالانجليزية ',
       type: 'text',
     },
-    {
-      name: 'password',
-      label: 'Password',
-      type: 'password',
-    },
+ 
 ]
