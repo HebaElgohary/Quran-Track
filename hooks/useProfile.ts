@@ -10,12 +10,13 @@ type TeacherProfile = {
 };
 
 
+
 export function useProfile() {
   const [profile, setProfile] = useState<TeacherProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   // LOAD
-  const loadProfile = async () => {
+   const loadProfile = async () => {
     try {
       const data = await AsyncStorage.getItem(KEY);
       setProfile(data ? JSON.parse(data) : null);
@@ -59,7 +60,8 @@ export function useProfile() {
     saveProfile,
     checkPassword,
     clearProfile,
-    reload: loadProfile,
+     loadProfile,
     editProfile
+
   };
 }
