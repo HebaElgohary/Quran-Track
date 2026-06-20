@@ -2,6 +2,7 @@ import FormField from "@/components/molecules/form/FormField";
 import { colors } from "@/constants/theme";
 import { useProfile } from "@/hooks/useProfile";
 import { teacherFields } from "@/schemas/teacherFields";
+import { validateProfile } from "@/utils/validateProfile";
 import { Feather } from "@expo/vector-icons";
 import { Redirect } from "expo-router";
 import { useState } from "react";
@@ -12,7 +13,7 @@ import {
   View,
 } from "react-native";
 
-export default function Index() {
+export default function index() {
   const { profile, saveProfile } = useProfile();
 
   const [teacherData, setTeacherData] = useState({
@@ -21,18 +22,28 @@ export default function Index() {
     password: "",
   });
 
+  const [errors, setErrors] = useState<{
+    nameAr?: string;
+    nameEn?: string;
+    password?: string;
+  }>({});
+
   const handleSave = async () => {
-    if (
-      !teacherData.nameAr ||
-      !teacherData.nameEn ||
-      !teacherData.password
-    ) {
+    console.log("CLICKED");
+
+    // validation
+    const validationErrors = validateProfile(teacherData);
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
     await saveProfile(teacherData);
   };
 
+  // redirect if profile exists
   if (profile) {
     return <Redirect href="/(drawer)" />;
   }
@@ -61,21 +72,34 @@ export default function Index() {
       {/* Form */}
       <View style={styles.formCard}>
         {teacherFields.map((field) => (
-          <FormField
-            key={field.name}
-            {...field}
-            value={
-              teacherData[
-                field.name as keyof typeof teacherData
-              ]
-            }
-            onChange={(value: string) =>
-              setTeacherData((prev) => ({
-                ...prev,
-                [field.name]: value,
-              }))
-            }
-          />
+          <View key={field.name}>
+            <FormField
+              {...field}
+              value={
+                teacherData[
+                  field.name as keyof typeof teacherData
+                ]
+              }
+              onChange={(value: string) =>
+                setTeacherData((prev) => ({
+                  ...prev,
+                  [field.name]: value,
+                }))
+              }
+            />
+
+            {errors[
+              field.name as keyof typeof errors
+            ] && (
+              <Text style={styles.errorText}>
+                {
+                  errors[
+                    field.name as keyof typeof errors
+                  ]
+                }
+              </Text>
+            )}
+          </View>
         ))}
 
         <TouchableOpacity
@@ -132,7 +156,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     padding: 20,
     borderRadius: 24,
-
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowRadius: 15,
@@ -140,7 +163,6 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-
     elevation: 5,
     gap: 12,
   },
@@ -157,5 +179,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     textAlign: "center",
+  },
+
+  errorText: {
+    color: "red",
+    marginTop: 4,
+    fontSize: 12,
   },
 });
