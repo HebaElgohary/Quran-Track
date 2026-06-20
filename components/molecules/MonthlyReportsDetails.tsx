@@ -11,6 +11,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Text, View, Pressable } from "react-native";
 import Button from "../atoms/Button";
 import FormModal from "./form/FormModal";
+import MonthlyReport from "./MonthlyReport";
 
 // type updateDataType = Session;
 
@@ -161,11 +162,11 @@ export default function MonthlyReportsDetails({
    
       </View>
 
-      {/* REPORT */}
-      {/* <SessionReport
+      {/* REPORT */} 
+     <MonthlyReport
         session={displaySession}
         lang={language}
-      /> */}
+      /> 
 
  
     </View>
