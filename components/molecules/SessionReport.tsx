@@ -6,6 +6,7 @@ import { Session } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
 import { formatDate } from "@/utils/formatDate";
 import { translations } from "../../translations/sessionTranslation";
+import { useProfile } from "@/hooks/useProfile";
 
 export default function SessionReport({
   session,
@@ -15,6 +16,8 @@ export default function SessionReport({
   lang: "ar" | "en";
 }) {
   const { students } = useStudents();
+  const {  profile} = useProfile();
+
   const student = students.find((s) => s.id === session.studentId);
 
   const t = translations[lang];
@@ -50,7 +53,7 @@ export default function SessionReport({
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.teacher}</Text>
           <Text style={styles.value}>
-            { lang === "en" ? "Moaz Abdulrahman Salam" : 'معاذ سلام'}
+            { lang === "en" ? profile?.nameEn : profile?.nameAr}
           </Text>
         </View>
 
