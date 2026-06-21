@@ -8,6 +8,7 @@ import { formatDate } from "@/utils/formatDate";
 import { translations } from "../../translations/monthlyReportTranslations";
 import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
+import { getMonthName } from "@/utils/getMonthName ";
 
 export default function MonthlyReport({
   report,
@@ -22,11 +23,11 @@ export default function MonthlyReport({
 
   const student = students.find((s) => s.id === report?.studentId);
 const studentSessions = sessions.map((s) =>{ s.studentId === report?.studentId; return s}) ;
-const session = studentSessions.map((s) =>{ s.date === report?.month; return s})[0];
+const monthSessions = studentSessions.map((s) =>{ getMonthName(s.date) === report?.month; return s});
   const t = translations[lang];
   const isEn = lang === "en";
 
-    if(!session) return null
+    if(!report) return null
   return (
     <View
       style={[
@@ -41,7 +42,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
         <Title size="xl">{t.subject}</Title>
 
         <Text style={styles.basmalah}>
-          {isEn ? "In the name of Allah" : "بسم الله الرحمن الرحيم"}
+          {isEn ? getMonthName(monthSessions[0].date, "en") : getMonthName(monthSessions[0].date,'ar')}
         </Text>
       </View>
 
@@ -82,7 +83,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
           ]}
         >
           <Text style={styles.label}>{t.grade}</Text>
-          <Text style={styles.value}>{session?.grade}</Text>
+          {/* <Text style={styles.value}>{session?.grade}</Text> */}
         </View>
 
         {/* Surah */}
@@ -94,7 +95,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
         >
           <Text style={styles.label}>{t.surah}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session?.surah}
+            {/* {session?.surah} */}
           </Text>
         </View>
 
@@ -107,7 +108,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
         >
           <Text style={styles.label}>{t.verses}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session?.from}-{session?.to}
+            {/* {session?.from}-{session?.to} */}
           </Text>
         </View>
 
@@ -120,7 +121,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
         >
           <Text style={styles.label}>{t.new}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session?.new}
+            {/* {session?.new} */}
           </Text>
         </View>
 
@@ -133,7 +134,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
         >
           <Text style={styles.label}>{t.revision}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session?.revision}
+            {/* {session?.revision} */}
           </Text>
         </View>
 
@@ -146,7 +147,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
         >
           <Text style={styles.label}>{t.tajweed}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session?.tajweed}
+            {/* {session?.tajweed} */}
           </Text>
         </View>
 
@@ -160,7 +161,7 @@ const session = studentSessions.map((s) =>{ s.date === report?.month; return s})
         >
           <Text style={styles.label}>{t.notes}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session?.notes}
+            {/* {session?.notes} */}
           </Text>
         </View>
       </View>
