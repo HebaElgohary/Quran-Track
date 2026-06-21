@@ -6,23 +6,22 @@ const KEY = "teacher_profile";
 type TeacherProfile = {
   nameAr: string;
   nameEn: string;
-  password: string;
 };
 
 
 
 export function useProfile() {
-  const [profile, setProfile] = useState<TeacherProfile | null>(null);
+  const [profile, setProfile] = useState<TeacherProfile >({ nameAr: "", nameEn: "" });
   const [loading, setLoading] = useState(true);
 
   // LOAD
    const loadProfile = async () => {
     try {
       const data = await AsyncStorage.getItem(KEY);
-      setProfile(data ? JSON.parse(data) : null);
+      setProfile(data ? JSON.parse(data) : { nameAr: "", nameEn: "" });
     } catch (e) {
       console.log(e);
-      setProfile(null);
+      setProfile({ nameAr: "", nameEn: "" });
     } finally {
       setLoading(false);
     }
@@ -35,14 +34,14 @@ export function useProfile() {
   };
 
   // CHECK PASSWORD
-  const checkPassword = (password: string) => {
-    return profile?.password === password;
-  };
+  // const checkPassword = (password: string) => {
+  //   return profile?.password === password;
+  // };
 
   // CLEAR (logout/reset)
   const clearProfile = async () => {
     await AsyncStorage.removeItem(KEY);
-    setProfile(null);
+    setProfile({ nameAr: "", nameEn: "" });
   };
 
   const editProfile = async (newProfile: TeacherProfile) => {
@@ -58,7 +57,7 @@ export function useProfile() {
     profile,
     loading,
     saveProfile,
-    checkPassword,
+    // checkPassword,
     clearProfile,
      loadProfile,
     editProfile

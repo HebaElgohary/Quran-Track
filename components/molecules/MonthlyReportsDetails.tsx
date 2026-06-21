@@ -1,7 +1,7 @@
 import Header from "@/components/organisms/Header";
 import { useSession } from "@/hooks/useSession";
 import { useStudents } from "@/hooks/useStudent";
-import { MonthlyReports, MonthlyReportsFormData, Session } from "@/types/appTypes";
+import { MonthlyReports, MonthlyReportsFormData, Session, Student, TeacherProfile } from "@/types/appTypes";
 import { printSessionPdf } from "@/utils/printSessionPdf";
 import { shareSessionPdf } from "@/utils/shareSessionPdf";
 import { buildEnglishSession } from "@/utils/buildEnglishSession";
@@ -13,6 +13,8 @@ import Button from "../atoms/Button";
 import FormModal from "./form/FormModal";
 import MonthlyReport from "./MonthlyReport";
 import { getMonthName } from "@/utils/getMonthName ";
+import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
+import { useProfile } from "@/hooks/useProfile";
 
 // type updateDataType = Session;
 
@@ -27,11 +29,14 @@ export default function MonthlyReportsDetails({
 }) {
   const { sessions, loadSessions } = useSession();
   const { students } = useStudents();
+  const { profile } = useProfile()  ;
+
+
 
   const [language, setLanguage] = useState<"ar" | "en">("ar");
 
 //data transformation//
-  const student = students.find((s) => s.id === report?.studentId);
+  const student = students.find((s) => s.id === report.studentId) as Student;
 
     const studentSessions = useMemo(
     () => sessions.filter((s) => s.studentId === report.studentId),
@@ -51,16 +56,15 @@ export default function MonthlyReportsDetails({
   // SHARE
   // -----------------------------
   const handleWhatsappShare = async () => {
-    if (!displaySession) return;
+    if (!report  ) return;
 
-    await shareSessionPdf(
-      displaySession,
-      student?.nameAr ?? ""
-    );
+    await shareMonthlyReportPdf(report, student, profile, monthSessions, language);
   };
+    
+    
 
-  if (!displaySession) {
-    return <Text>الجلسة غير موجودة</Text>;
+  if (!report||!student) {
+    return <Text>التقرير غير موجودة</Text>;
   }
 
   return (

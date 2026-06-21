@@ -1,10 +1,12 @@
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
-import { Session } from "@/types/appTypes";
-import { buildSessionHtml } from "./sessionPdfTemplate";
+import { MonthlyReportsFormData, Session, Student, TeacherProfile } from "@/types/appTypes";
+import { buildMonthlyReportHtml } from "./MonthlyReportPdfTemplate";
 
-export async function shareMonthlyReportPdf(session: Session, studentName: string) {
-    const html = buildSessionHtml(session, studentName);
+export async function shareMonthlyReportPdf(report: MonthlyReportsFormData, student: Student , teacher: TeacherProfile, sessions: Session[], lang: "ar" | "en") {
+    const studentName = lang == "ar" ? student.nameAr : student.nameEn;
+    const teacherName = lang == "ar" ? teacher.nameAr : teacher.nameEn;
+    const html = buildMonthlyReportHtml(report, studentName, teacherName, sessions, lang);
  const file = await Print.printToFileAsync({
     html,
     base64: false,
