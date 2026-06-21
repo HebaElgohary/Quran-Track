@@ -21,7 +21,7 @@ export default function MonthlyReportsDetails({
   report,
 }: {
 //   handleUpdate: (data: updateDataType) => Promise<void>;
-  report?: MonthlyReportsFormData | null;
+  report: MonthlyReportsFormData ;
   closeReport?: () => void;
 }) {
   const { sessions, loadSessions } = useSession();
@@ -164,7 +164,7 @@ export default function MonthlyReportsDetails({
 
       {/* REPORT */} 
      <MonthlyReport
-        session={displaySession}
+        report={report}
         lang={language}
       /> 
 

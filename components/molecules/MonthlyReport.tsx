@@ -2,27 +2,30 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
-import { Session } from "@/types/appTypes";
+import { MonthlyReportsFormData, Session } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
 import { formatDate } from "@/utils/formatDate";
 import { translations } from "../../translations/sessionTranslation";
 import { useProfile } from "@/hooks/useProfile";
+import { useSession } from "@/hooks/useSession";
 
 export default function MonthlyReport({
-  session,
+  report,
   lang,
 }: {
-  session: Session;
+  report: MonthlyReportsFormData ;
   lang: "ar" | "en";
 }) {
   const { students } = useStudents();
   const {  profile} = useProfile();
+  const {sessions} = useSession()
 
-  const student = students.find((s) => s.id === session.studentId);
-
+  const student = students.find((s) => s.id === report?.studentId);
+const session = sessions.find((s) => s.studentId === report?.studentId) ;
   const t = translations[lang];
   const isEn = lang === "en";
 
+    if(!session) return null
   return (
     <View
       style={[
@@ -64,7 +67,7 @@ export default function MonthlyReport({
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.date}</Text>
-          <Text style={styles.value}>{formatDate(session.date,lang)}</Text>
+          <Text style={styles.value}>session?.date && {formatDate(session.date,lang)}</Text>
         </View>
       </View>
 
@@ -81,7 +84,7 @@ export default function MonthlyReport({
           ]}
         >
           <Text style={styles.label}>{t.grade}</Text>
-          <Text style={styles.value}>{session.grade}</Text>
+          <Text style={styles.value}>{session?.grade}</Text>
         </View>
 
         {/* Surah */}
@@ -93,7 +96,7 @@ export default function MonthlyReport({
         >
           <Text style={styles.label}>{t.surah}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.surah}
+            {session?.surah}
           </Text>
         </View>
 
@@ -106,7 +109,7 @@ export default function MonthlyReport({
         >
           <Text style={styles.label}>{t.verses}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.from}-{session.to}
+            {session?.from}-{session?.to}
           </Text>
         </View>
 
@@ -119,7 +122,7 @@ export default function MonthlyReport({
         >
           <Text style={styles.label}>{t.new}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.new}
+            {session?.new}
           </Text>
         </View>
 
@@ -132,7 +135,7 @@ export default function MonthlyReport({
         >
           <Text style={styles.label}>{t.revision}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.revision}
+            {session?.revision}
           </Text>
         </View>
 
@@ -145,7 +148,7 @@ export default function MonthlyReport({
         >
           <Text style={styles.label}>{t.tajweed}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.tajweed}
+            {session?.tajweed}
           </Text>
         </View>
 
@@ -159,7 +162,7 @@ export default function MonthlyReport({
         >
           <Text style={styles.label}>{t.notes}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.notes}
+            {session?.notes}
           </Text>
         </View>
       </View>

@@ -40,7 +40,6 @@ export default function MonthlyReportForm<T>({
     await handleSubmit?.(formData as MonthlyReportsFormData);
     console.log("after handleSubmit");
 
-    reset();
   };
   return (
     <View>
@@ -52,7 +51,6 @@ export default function MonthlyReportForm<T>({
           backgroundColor: "white",
           padding: 12,
           overflow: "hidden",
-          // alignItems:'flex-start'
         }}
       >
         <View style={{ gap: 14 }}>
