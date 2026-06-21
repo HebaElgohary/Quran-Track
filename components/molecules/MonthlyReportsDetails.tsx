@@ -12,6 +12,7 @@ import { Text, View, Pressable } from "react-native";
 import Button from "../atoms/Button";
 import FormModal from "./form/FormModal";
 import MonthlyReport from "./MonthlyReport";
+import { getMonthName } from "@/utils/getMonthName ";
 
 // type updateDataType = Session;
 
@@ -27,35 +28,40 @@ export default function MonthlyReportsDetails({
   const { sessions, loadSessions } = useSession();
   const { students } = useStudents();
 
-  const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<"ar" | "en">("ar");
 
-//   useFocusEffect(
-//     useCallback(() => {
-//       loadSessions();
-//     }, [open])
-//   );
-
- 
+//data transformation//
   const student = students.find((s) => s.id === report?.studentId);
 
+    const studentSessions = useMemo(
+    () => sessions.filter((s) => s.studentId === report.studentId),
+    [sessions, report.studentId]
+  );
+
+  const monthSessions = useMemo(
+    () =>
+      studentSessions.filter(
+        (s) => getMonthName(s.date, "ar") === report.month
+      ),
+    [studentSessions, report.month]
+  );
   // -----------------------------
 
   // -----------------------------
   // SHARE
   // -----------------------------
-//   const handleWhatsappShare = async () => {
-//     if (!displaySession) return;
+  const handleWhatsappShare = async () => {
+    if (!displaySession) return;
 
-//     await shareSessionPdf(
-//       displaySession,
-//       student?.nameAr ?? ""
-//     );
-//   };
+    await shareSessionPdf(
+      displaySession,
+      student?.nameAr ?? ""
+    );
+  };
 
-//   if (!displaySession) {
-//     return <Text>الجلسة غير موجودة</Text>;
-//   }
+  if (!displaySession) {
+    return <Text>الجلسة غير موجودة</Text>;
+  }
 
   return (
     <View>
@@ -127,7 +133,7 @@ export default function MonthlyReportsDetails({
         //   onClick={handleWhatsappShare}
         >
           <Text style={{ fontSize: 10, marginLeft: 8 }}>
-            واتساب
+            مشاركة
           </Text>
           <Feather name="share-2" size={12} color="black" />
         </Button>
