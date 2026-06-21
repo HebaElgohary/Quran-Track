@@ -5,13 +5,28 @@ export const translations = {
     subject: "القرآن الكريم والتجويد",
     teacher: "اسم المعلم",
     student: "اسم الطالب",
+    cards:{
+session: "اجمالى الحصص",
+grade: "اجمالى التقييمات",
+surah: "عدد السور",
+
+    },
     date: "التاريخ",
-    grade: "التقييم",
-    surah: "السورة",
+    surah: "السور التى تم تناولها",
+    tajweed: " أحكام التجويد التى تم تدريسها",
+    grade: "توزيع التقييمات",
+    sessionsTable:{
+      title: " قائمة الحصص",
+      date: "التاريخ",
+      surah: "السورة",
+      grade: "التقييم",
+     
+      notes: "ملاحظات",
+    }
+,
     verses: "الآيات",
     new: "الحفظ الجديد",
     revision: "المراجعة",
-    tajweed: "أحكام التجويد",
     notes: "ملاحظة",
     footer: "جزاكم الله خيرًا وجعلكم من أهل القرآن",
   },
@@ -21,6 +36,12 @@ export const translations = {
     subject: "Quran & Tajweed",
     teacher: "Teacher",
     student: "Student",
+      cards:{
+session: "اجمالى الحصص",
+grade: "اجمالى التقييمات",
+surah: "عدد السور",
+
+    },
     date: "Date",
     grade: "Grade",
     surah: "Surah",

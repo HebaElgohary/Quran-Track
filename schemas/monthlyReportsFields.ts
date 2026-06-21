@@ -17,7 +17,7 @@ import { FormFieldSchema } from "@/types/appTypes";
         { name: "march", label: "مارس", value: "مارس" ,checked: false},
         { name: "april", label: "ابريل", value: "ابريل",checked: false },
         {name: "may", label: "مايو", value: "مايو",checked: false },
-        { name: "june", label: "يونيه", value: "يونيه",checked: false },
+        { name: "june", label: "يونيو", value: "يونيو",checked: false },
         {name: "july", label: "يوليو", value: "يوليو" ,checked: false},
         { name: "august", label: "اغسطس", value: "اغسطس",checked: false },
         { name: "september", label: "سبتمبر", value: "سبتمبر",checked: false },

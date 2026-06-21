@@ -1,140 +1,295 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
-import { MonthlyReportsFormData, Session } from "@/types/appTypes";
+import { MonthlyReportsFormData } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
-import { formatDate } from "@/utils/formatDate";
 import { translations } from "../../translations/monthlyReportTranslations";
 import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
 import { getMonthName } from "@/utils/getMonthName ";
+import { getMonthYear } from "@/utils/getMonthYear ";
+import { colors } from "@/constants/theme";
+import {surahMap} from '../../translations/surahMap'
 
 export default function MonthlyReport({
   report,
   lang,
 }: {
-  report: MonthlyReportsFormData ;
+  report: MonthlyReportsFormData;
   lang: "ar" | "en";
 }) {
-  const { students } = useStudents();
-  const {  profile} = useProfile();
-  const {sessions} = useSession()
+  if (!report) return null;
 
-  const student = students.find((s) => s.id === report?.studentId);
-const studentSessions = sessions.map((s) =>{ s.studentId === report?.studentId; return s}) ;
-const monthSessions = studentSessions.map((s) =>{ getMonthName(s.date) === report?.month; return s});
+  const { students } = useStudents();
+  const { profile } = useProfile();
+  const { sessions,loadSessions } = useSession();
+
+
   const t = translations[lang];
   const isEn = lang === "en";
 
-    if(!report) return null
+  const student = students.find(
+    (s) => s.id === report.studentId
+  );
+
+  const studentSessions =useMemo(() => sessions.filter(
+    (s) => s.studentId === report.studentId
+  ),[student,sessions]);
+
+  const monthSessions =useMemo(() => studentSessions.filter(
+    (s) => getMonthName(s.date,'ar') == report.month
+  ),  [studentSessions, report.month]
+);
+
+
+  const firstSession = monthSessions[0];
+
+  console.log('monthllllllly report',student,studentSessions,monthSessions,report.month);
   return (
     <View
       style={[
         styles.container,
-        { direction: isEn ? "ltr" : "ltr" } as any,
+        { direction: isEn ? "ltr" : "rtl" } as any,
       ]}
     >
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.reportLabel}>{t.reportTitle}</Text>
+        <Text style={styles.reportLabel}>
+          {t.reportTitle}
+        </Text>
 
         <Title size="xl">{t.subject}</Title>
 
         <Text style={styles.basmalah}>
-          {isEn ? getMonthName(monthSessions[0].date, "en") : getMonthName(monthSessions[0].date,'ar')}
+          {firstSession?.date
+            ? getMonthYear(
+                firstSession.date,
+                isEn ? "en" : "ar"
+              )
+            : ""}
         </Text>
       </View>
 
       <Hr style={{ width: "80%" }} />
 
-      {/* Teacher / Student / Date */}
+      {/* Teacher / Student */}
       <View
         style={[
           styles.infoCard,
-          { flexDirection: isEn ? "row" : "row-reverse" },
+          {
+            flexDirection: isEn
+              ? "row"
+              : "row-reverse",
+          },
         ]}
       >
         <View style={styles.infoColumn}>
-          <Text style={styles.label}>{t.teacher}</Text>
+          <Text style={styles.label}>
+            {t.teacher}
+          </Text>
           <Text style={styles.value}>
-            { lang === "en" ? profile?.nameEn : profile?.nameAr}
+            {isEn
+              ? profile?.nameEn
+              : profile?.nameAr}
           </Text>
         </View>
 
         <View style={styles.infoColumn}>
-          <Text style={styles.label}>{t.student}</Text>
-          <Text style={styles.value}>{student?.nameAr}</Text>
+          <Text style={styles.label}>
+            {t.student}
+          </Text>
+          <Text style={styles.value}>
+            {student?.nameAr}
+          </Text>
         </View>
-
-      
       </View>
 
       {/* Details */}
       <View style={styles.detailsCard}>
-        {/* Grade */}
         <View
           style={[
             styles.row,
             {
               backgroundColor: "#F1E7D0",
-              flexDirection: isEn ? "row" : "row-reverse",
+              flexDirection: isEn
+                ? "column"
+                : "column",
             },
           ]}
         >
-          <Text style={styles.label}>{t.grade}</Text>
-          {/* <Text style={styles.value}>{session?.grade}</Text> */}
+          {/* -------------cards--------------*/}
+          <View style={{flexDirection:'column',alignContent:'center',justifyContent:'center',gap:10}}>
+            {/* one */}
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "#ccc",
+              padding: 10,
+              borderRadius: 10,
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text> {t.cards.session}</Text>
+            <Text>{monthSessions.length}</Text>
+          </View>
+{/* --------------------two---------------------- */}
+            <View
+            style={{
+              borderWidth: 1,
+              borderColor: "#ccc",
+              padding: 10,
+              borderRadius: 10,
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text> {t.cards.grade}</Text>
+            <Text>{monthSessions.length}</Text>
+          </View>
+{/* -----------three---------------- */}
+            <View
+            style={{
+              borderWidth: 1,
+              borderColor: "#ccc",
+              padding: 10,
+              borderRadius: 10,
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text> {t.cards.surah}</Text>
+            <Text>{monthSessions.length}</Text>
+          </View>
+{/* ------------------four---------------- */}
+            <View
+            style={{
+              borderWidth: 1,
+              borderColor: "#ccc",
+              padding: 10,
+              borderRadius: 10,
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text> {t.cards.surah}</Text>
+            <Text>{monthSessions.length}</Text>
+          </View>
+          {/* ----------------------------------- */}
         </View>
 
+</View>
         {/* Surah */}
         <View
           style={[
             styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
+            {
+              justifyContent: "flex-start",
+              flexDirection: isEn
+                ? "row"
+                : "row",
+            },
           ]}
         >
-          <Text style={styles.label}>{t.surah}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>
-            {/* {session?.surah} */}
+          <Text style={styles.label}>
+            {t.surah}
           </Text>
+          {monthSessions.map((s) => (
+            
+         <View  style={{backgroundColor: colors.gray,padding:10,borderRadius:10}}> 
+          <Text
+            style={[
+              styles.value,
+              { flex: 1 },
+            ]}
+          >
+            {lang==='ar'?s.surah:surahMap[s.surah]}
+            {/* Content */}
+          </Text> 
+            </View>
+          ))}
         </View>
 
-        {/* Verses */}
+        {/* Tajweed */}
         <View
           style={[
             styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
+            {
+              flexDirection: isEn
+                ? "row"
+                : "row",
+            },
           ]}
         >
-          <Text style={styles.label}>{t.verses}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>
-            {/* {session?.from}-{session?.to} */}
+          <Text style={styles.label}>
+            {t.tajweed}
           </Text>
+          {monthSessions.map((s) => (
+            
+         <View  style={{backgroundColor: colors.gray,padding:10,borderRadius:10}}> 
+          <Text
+            style={[
+              styles.value,
+              { flex: 1 },
+            ]}
+          >
+            {lang==='ar'?s.tajweed:surahMap[s.surah]}
+            {/* Content */}
+          </Text> 
+            </View>
+          ))}
         </View>
 
-        {/* New */}
+        {/* grades */}
         <View
           style={[
             styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
+            {
+              flexDirection: isEn
+                ? "row"
+                : "row",
+            },
           ]}
         >
-          <Text style={styles.label}>{t.new}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>
-            {/* {session?.new} */}
+          <Text style={styles.label}>
+            {t.grade}
+          </Text>
+          <Text
+            style={[
+              styles.value,
+              { flex: 1 },
+            ]}
+          >
+            {/* Content */}
           </Text>
         </View>
 
-        {/* Revision */}
+        {/* sessions table */}
         <View
           style={[
             styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
+            {
+              flexDirection: isEn
+                ? "row"
+                : "row-reverse",
+            },
           ]}
         >
-          <Text style={styles.label}>{t.revision}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>
-            {/* {session?.revision} */}
+          <Text style={styles.label}>
+            {t.revision}
+          </Text>
+          <Text
+            style={[
+              styles.value,
+              { flex: 1 },
+            ]}
+          >
+            {/* Content */}
           </Text>
         </View>
 
@@ -142,12 +297,23 @@ const monthSessions = studentSessions.map((s) =>{ getMonthName(s.date) === repor
         <View
           style={[
             styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
+            {
+              flexDirection: isEn
+                ? "row"
+                : "row-reverse",
+            },
           ]}
         >
-          <Text style={styles.label}>{t.tajweed}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>
-            {/* {session?.tajweed} */}
+          <Text style={styles.label}>
+            {t.tajweed}
+          </Text>
+          <Text
+            style={[
+              styles.value,
+              { flex: 1 },
+            ]}
+          >
+            {/* Content */}
           </Text>
         </View>
 
@@ -156,12 +322,23 @@ const monthSessions = studentSessions.map((s) =>{ getMonthName(s.date) === repor
           style={[
             styles.row,
             styles.lastRow,
-            { flexDirection: isEn ? "row" : "row-reverse" },
+            {
+              flexDirection: isEn
+                ? "row"
+                : "row-reverse",
+            },
           ]}
         >
-          <Text style={styles.label}>{t.notes}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>
-            {/* {session?.notes} */}
+          <Text style={styles.label}>
+            {t.notes}
+          </Text>
+          <Text
+            style={[
+              styles.value,
+              { flex: 1 },
+            ]}
+          >
+            {/* Content */}
           </Text>
         </View>
       </View>
@@ -175,11 +352,14 @@ const monthSessions = studentSessions.map((s) =>{ getMonthName(s.date) === repor
             backgroundColor: "#D1D5DB",
           }}
         />
-        <Text style={styles.footerText}>{t.footer}</Text>
+        <Text style={styles.footerText}>
+          {t.footer}
+        </Text>
       </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFFFFF",
@@ -204,17 +384,17 @@ const styles = StyleSheet.create({
 
   reportLabel: {
     fontSize: 14,
-    color: "#6B7280",
-    fontWeight: "500",
+    color: colors.btnPrimary,
+    fontWeight: "700",
   },
 
   basmalah: {
     fontSize: 14,
-    color: "#4B5563",
+    color: colors.warning,
+    fontWeight: "600",
   },
 
   infoCard: {
-    flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#F9FAFB",
     borderRadius: 12,
@@ -230,13 +410,11 @@ const styles = StyleSheet.create({
   },
 
   detailsCard: {
-   
     borderRadius: 12,
     overflow: "hidden",
   },
 
   row: {
-    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 14,
@@ -257,8 +435,6 @@ const styles = StyleSheet.create({
   },
 
   value: {
-    // flex: 1,
-    // textAlign: "right",
     alignSelf: "flex-start",
     fontSize: 15,
     color: "#4B5563",
