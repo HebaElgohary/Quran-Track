@@ -20,6 +20,8 @@ surah: "عدد السور",
       date: "التاريخ",
       surah: "السورة",
       grade: "التقييم",
+     ayats: "الآيات",
+
      
       notes: "ملاحظات",
     }
@@ -41,6 +43,14 @@ session: "اجمالى الحصص",
 grade: "اجمالى التقييمات",
 surah: "عدد السور",
 
+    },
+      sessionsTable:{
+      title: " قائمة الحصص",
+      date: "التاريخ",
+      surah: "السورة",
+      grade: "التقييم",
+     ayats: "الآيات",
+      notes: "ملاحظات",
     },
     date: "Date",
     grade: "Grade",

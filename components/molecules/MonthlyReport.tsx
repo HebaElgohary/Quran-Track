@@ -11,6 +11,7 @@ import { getMonthName } from "@/utils/getMonthName ";
 import { getMonthYear } from "@/utils/getMonthYear ";
 import { colors } from "@/constants/theme";
 import {surahMap} from '../../translations/surahMap'
+import {gradeMap} from '../../translations/sessionTranslation'
 
 export default function MonthlyReport({
   report,
@@ -259,88 +260,63 @@ export default function MonthlyReport({
           <Text style={styles.label}>
             {t.grade}
           </Text>
+         {monthSessions.map((s) => (
+            
+         <View  style={{backgroundColor: colors.gray,padding:10,borderRadius:10}}> 
           <Text
             style={[
               styles.value,
               { flex: 1 },
             ]}
           >
+            {lang==='ar'?s.grade:gradeMap[s.grade]}
             {/* Content */}
-          </Text>
+          </Text> 
+            </View>
+          ))}
         </View>
 
         {/* sessions table */}
-        <View
-          style={[
-            styles.row,
-            {
-              flexDirection: isEn
-                ? "row"
-                : "row-reverse",
-            },
-          ]}
-        >
-          <Text style={styles.label}>
-            {t.revision}
-          </Text>
-          <Text
-            style={[
-              styles.value,
-              { flex: 1 },
-            ]}
-          >
-            {/* Content */}
-          </Text>
-        </View>
+     {/* Sessions Table */}
+<View style={styles.tableContainer}>
+  {/* Header */}
+  <View style={[styles.tableRow, styles.tableHeader]}>
+    <Text style={styles.tableHeaderCell}>{t.sessionsTable.date}</Text>
+    <Text style={styles.tableHeaderCell}>{t.sessionsTable.surah}</Text>
+    <Text style={styles.tableHeaderCell}>{t.sessionsTable.date}</Text>
+    <Text style={styles.tableHeaderCell}>{t.sessionsTable.ayats}</Text>
+    <Text style={styles.tableHeaderCell}>{t.sessionsTable.notes}</Text>
+  </View>
 
-        {/* Tajweed */}
-        <View
-          style={[
-            styles.row,
-            {
-              flexDirection: isEn
-                ? "row"
-                : "row-reverse",
-            },
-          ]}
-        >
-          <Text style={styles.label}>
-            {t.tajweed}
-          </Text>
-          <Text
-            style={[
-              styles.value,
-              { flex: 1 },
-            ]}
-          >
-            {/* Content */}
-          </Text>
-        </View>
+  {/* Rows */}
+  {monthSessions.map((session) => (
+    <View key={session.id} style={styles.tableRow}>
+      <Text style={styles.tableCell}>
+        {session.date}
+      </Text>
 
-        {/* Notes */}
-        <View
-          style={[
-            styles.row,
-            styles.lastRow,
-            {
-              flexDirection: isEn
-                ? "row"
-                : "row-reverse",
-            },
-          ]}
-        >
-          <Text style={styles.label}>
-            {t.notes}
-          </Text>
-          <Text
-            style={[
-              styles.value,
-              { flex: 1 },
-            ]}
-          >
-            {/* Content */}
-          </Text>
-        </View>
+      <Text style={styles.tableCell}>
+        {lang==="ar"?session.surah:surahMap[session.surah]??session.surah}
+      </Text>
+
+      <Text style={styles.tableCell}>
+        {session.from + " - " + session.to  }
+      </Text>
+
+      <Text style={styles.tableCell}>
+        {lang==="ar"?session.grade:gradeMap[session.grade]??session.surah}
+      </Text>
+
+      <Text style={styles.tableCell}>
+        {session.notes ?? "-"}
+      </Text>
+    </View>
+  ))}
+</View>
+
+
+
+    
       </View>
 
       {/* Footer */}
@@ -376,6 +352,40 @@ const styles = StyleSheet.create({
     },
     elevation: 2,
   },
+
+  tableContainer: {
+  marginTop: 20,
+  borderWidth: 1,
+  borderColor: "#E5E7EB",
+  borderRadius: 10,
+  overflow: "hidden",
+},
+
+tableHeader: {
+  backgroundColor: "#F3F4F6",
+},
+
+tableRow: {
+  flexDirection: "row",
+  borderBottomWidth: 1,
+  borderBottomColor: "#E5E7EB",
+},
+
+tableHeaderCell: {
+  flex: 1,
+  padding: 10,
+  textAlign: "center",
+  fontWeight: "700",
+  fontSize: 13,
+},
+
+tableCell: {
+  flex: 1,
+  padding: 10,
+  textAlign: "center",
+  fontSize: 12,
+  color: "#374151",
+},
 
   header: {
     alignItems: "center",
