@@ -5,7 +5,7 @@ import Title from "../atoms/Title";
 import { MonthlyReportsFormData, Session } from "@/types/appTypes";
 import { useStudents } from "@/hooks/useStudent";
 import { formatDate } from "@/utils/formatDate";
-import { translations } from "../../translations/sessionTranslation";
+import { translations } from "../../translations/monthlyReportTranslations";
 import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
 
@@ -21,7 +21,8 @@ export default function MonthlyReport({
   const {sessions} = useSession()
 
   const student = students.find((s) => s.id === report?.studentId);
-const session = sessions.find((s) => s.studentId === report?.studentId) ;
+const studentSessions = sessions.map((s) =>{ s.studentId === report?.studentId; return s}) ;
+const session = studentSessions.map((s) =>{ s.date === report?.month; return s})[0];
   const t = translations[lang];
   const isEn = lang === "en";
 
@@ -65,10 +66,7 @@ const session = sessions.find((s) => s.studentId === report?.studentId) ;
           <Text style={styles.value}>{student?.nameAr}</Text>
         </View>
 
-        <View style={styles.infoColumn}>
-          <Text style={styles.label}>{t.date}</Text>
-          <Text style={styles.value}>session?.date && {formatDate(session.date,lang)}</Text>
-        </View>
+      
       </View>
 
       {/* Details */}
