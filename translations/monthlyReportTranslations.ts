@@ -33,33 +33,38 @@ surah: "عدد السور",
     footer: "جزاكم الله خيرًا وجعلكم من أهل القرآن",
   },
 
-  en: {
-    reportTitle: "Monthly Report",
-    subject: "Quran & Tajweed",
-    teacher: "Teacher",
-    student: "Student",
-      cards:{
-session: "اجمالى الحصص",
-grade: "اجمالى التقييمات",
-surah: "عدد السور",
+en: {
+  reportTitle: "Monthly Report",
+  subject: "The Noble Quran & Tajweed",
+  teacher: "Teacher Name",
+  student: "Student Name",
 
-    },
-      sessionsTable:{
-      title: " قائمة الحصص",
-      date: "التاريخ",
-      surah: "السورة",
-      grade: "التقييم",
-     ayats: "الآيات",
-      notes: "ملاحظات",
-    },
-    date: "Date",
-    grade: "Grade",
-    surah: "Surah",
-    verses: "Verses",
-    new: "New Memorization",
-    revision: "Revision",
-    tajweed: "Tajweed",
-    notes: "Notes",
-    footer: "May Allah reward you and make you among the people of the Quran",
+  cards: {
+    session: "Total Sessions",
+    grade: "Total Grades",
+    surah: "Number of Surahs",
   },
+
+  date: "Date",
+  surah: "Surahs Covered",
+  tajweed: "Tajweed Rules Taught",
+  grade: "Grade Distribution",
+
+  sessionsTable: {
+    title: "Sessions List",
+    date: "Date",
+    surah: "Surah",
+    grade: "Grade",
+    ayats: "Verses",
+    notes: "Notes",
+  },
+
+  verses: "Verses",
+  new: "New Memorization",
+  revision: "Revision",
+  notes: "Note",
+
+  footer:
+    "May Allah reward you and make you among the people of the Quran",
+},
 };
