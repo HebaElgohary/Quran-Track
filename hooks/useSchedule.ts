@@ -78,23 +78,16 @@ export const useSchedule = () => {
           // =========================
           // DELETE Schedule
           // =========================
-     const removeSchedule = async (
-  schedule: Schedule
-) => {
-  try {
-    if (schedule.notificationId) {
-      await Notifications.cancelScheduledNotificationAsync(
-        schedule.notificationId
-      );
-    }
-
-    await deleteSchedule(schedule.id);
-
-    await loadSchedules();
-  } catch (error) {
-    console.log(error);
-  }
-};
+          const removeSchedule = async (scheduleId: number) => {
+            try {
+              await deleteSchedule(scheduleId);
+        
+              await loadSchedules();
+            } catch (error) {
+              console.log("Error deleting group", error);
+            }
+          };
+          
     useEffect(() => {
     loadSchedules();
   }, []);

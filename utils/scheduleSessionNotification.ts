@@ -1,11 +1,15 @@
 // utils/scheduleNotification.ts
 import * as Notifications from "expo-notifications";
+import { Platform } from "react-native";
 
 export async function scheduleSessionNotification(schedule: {
   date: string;
   time: string;
   AmPm: string;
 }) {
+      if (Platform.OS === "web") {
+    return null;
+  }
   const [hoursStr, minutesStr] = schedule.time.split(":");
 
   let hours = Number(hoursStr);
