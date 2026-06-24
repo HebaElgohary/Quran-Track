@@ -1,7 +1,8 @@
 import { addSchedule, deleteSchedule, getSchedules, updateSchedule } from "@/storage/scheduleStorage";
 import { Schedule, ScheduleFormData } from "@/types/appTypes";
+import { scheduleSessionNotification } from "@/utils/scheduleSessionNotification";
 import { use, useEffect, useState } from "react";
-
+import * as Notifications from "expo-notifications";
 export const useSchedule = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [loading, setLoading] = useState(false);
@@ -42,29 +43,58 @@ export const useSchedule = () => {
      // =========================
         // UPDATE Schedule
         // =========================
-        const editSchedule = async (updatedSchedule: Schedule) => {
-          try {
-            await updateSchedule(updatedSchedule);
-      
-            await loadSchedules();
-          } catch (error) {
-            console.log("Error updating group", error);
-          }
-        };
+    const editSchedule = async (
+  updatedSchedule: Schedule
+) => {
+  try {
+    // إلغاء الإشعار القديم
+    if (updatedSchedule.notificationId) {
+      await Notifications.cancelScheduledNotificationAsync(
+        updatedSchedule.notificationId
+      );
+    }
+
+    // إنشاء إشعار جديد
+    const newNotificationId =
+      await scheduleSessionNotification(
+        updatedSchedule
+      );
+
+    // تحديث البيانات
+    await updateSchedule({
+      ...updatedSchedule,
+      notificationId: newNotificationId,
+    });
+
+    await loadSchedules();
+  } catch (error) {
+    console.log(
+      "Error updating schedule",
+      error
+    );
+  }
+};
     
           // =========================
           // DELETE Schedule
           // =========================
-          const removeSchedule = async (scheduleId: number) => {
-            try {
-              await deleteSchedule(scheduleId);
-        
-              await loadSchedules();
-            } catch (error) {
-              console.log("Error deleting group", error);
-            }
-          };
-          
+     const removeSchedule = async (
+  schedule: Schedule
+) => {
+  try {
+    if (schedule.notificationId) {
+      await Notifications.cancelScheduledNotificationAsync(
+        schedule.notificationId
+      );
+    }
+
+    await deleteSchedule(schedule.id);
+
+    await loadSchedules();
+  } catch (error) {
+    console.log(error);
+  }
+};
     useEffect(() => {
     loadSchedules();
   }, []);
