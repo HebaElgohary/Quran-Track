@@ -19,11 +19,9 @@ import { useProfile } from "@/hooks/useProfile";
 // type updateDataType = Session;
 
 export default function MonthlyReportsDetails({
-//   handleUpdate,
   closeReport,
   report,
 }: {
-//   handleUpdate: (data: updateDataType) => Promise<void>;
   report: MonthlyReportsFormData ;
   closeReport?: () => void;
 }) {
@@ -51,13 +49,26 @@ export default function MonthlyReportsDetails({
     [studentSessions, report.month]
   );
   // -----------------------------
+  // get reprt language
+
+    const displayReport = useMemo(() => {
+      if (!report) return null;
+  
+      return language === "en"
+        ? buildEnglishSession(session)
+        : session;
+    }, [session, language]);
+  
 
   // -----------------------------
   // SHARE
   // -----------------------------
   const handleWhatsappShare = async () => {
-    if (!report  ) return;
+    console.log('share ------ Clicked')  
 
+    if (!report ) return;
+
+    console.log('shareClicked')
     await shareMonthlyReportPdf(report, student, profile, monthSessions, language);
   };
     
@@ -134,7 +145,7 @@ export default function MonthlyReportsDetails({
           size="md"
           variant="gray"
           textColor="black"
-        //   onClick={handleWhatsappShare}
+          onClick={handleWhatsappShare}
         >
           <Text style={{ fontSize: 10, marginLeft: 8 }}>
             مشاركة

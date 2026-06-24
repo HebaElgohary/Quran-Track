@@ -6,6 +6,7 @@ import { buildMonthlyReportHtml } from "./MonthlyReportPdfTemplate";
 export async function shareMonthlyReportPdf(report: MonthlyReportsFormData, student: Student , teacher: TeacherProfile, sessions: Session[], lang: "ar" | "en") {
     const studentName = lang == "ar" ? student.nameAr : student.nameEn;
     const teacherName = lang == "ar" ? teacher.nameAr : teacher.nameEn;
+     
     const html = buildMonthlyReportHtml(report, studentName, teacherName, sessions, lang);
  const file = await Print.printToFileAsync({
     html,
