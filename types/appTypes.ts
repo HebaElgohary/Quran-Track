@@ -51,7 +51,6 @@ export type Schedule = {
   duration: number;
   AmPm:string
   notes: string;
-
 };
 
 export type ScheduleFormData = Omit<Schedule, "id" > // Omit id from Schedule
