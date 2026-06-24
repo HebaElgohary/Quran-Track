@@ -21,10 +21,11 @@ export default function Schedules() {
   // --------------- add handler ------------//
   const addSchedule = async(formData: AddDataType) => {
     console.log('data inside addsession',formData)
-    await createSchedule(formData);
-      await scheduleSessionNotification(
-    formData
-  );
+    const notificationId = await scheduleSessionNotification(formData);
+await createSchedule({
+  ...formData,
+  notificationId,
+});
     showSuccess('تم اضافة الموعد بنجاح');
     
   };

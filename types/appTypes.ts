@@ -36,31 +36,32 @@ export type Session = {
   revision: string;
   tajweed: string;
   //enFields
-    newEn?: string;
+  newEn?: string;
   revisionEn?: string;
   tajweedEn?: string;
   notesEn?: string;
 };
 
-export type SessionFormData = Omit<Session, "id" > 
+export type SessionFormData = Omit<Session, "id">;
 export type Schedule = {
   id: number;
   studentId: number;
   date: string;
   time: string;
   duration: number;
-  AmPm:string
+  AmPm: string;
   notes: string;
+  notificationId?: string;
 };
 
-export type ScheduleFormData = Omit<Schedule, "id" > // Omit id from Schedule
+export type ScheduleFormData = Omit<Schedule, "id">; // Omit id from Schedule
 export type MonthlyReports = {
   id: number;
   studentId: number;
   month: string;
   year: string;
-}
-export type MonthlyReportsFormData = Omit<MonthlyReports, "id" > 
+};
+export type MonthlyReportsFormData = Omit<MonthlyReports, "id">;
 
 export type Report = {
   id: number;
@@ -99,7 +100,7 @@ export interface FormFieldSchema {
     | "select"
     | "number"
     | "date"
-    |"password";
+    | "password";
 
   source?: FieldSource;
 

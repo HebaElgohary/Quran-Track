@@ -26,13 +26,18 @@ export async function scheduleSessionNotification(schedule: {
 
   if (notificationDate <= new Date()) return;
 
+const notificationId =
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "موعد الحصة",
       body: "باقي 5 دقائق على الحصة",
       sound: true,
     },
-    // Expo Notifications expects a NotificationTriggerInput. Use an object with a date property.
-    trigger: { date: notificationDate },
+   trigger: {
+  type: Notifications.SchedulableTriggerInputTypes.DATE,
+  date: notificationDate,
+}
   });
+
+return notificationId;
 }
