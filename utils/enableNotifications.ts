@@ -1,6 +1,6 @@
 import * as Notifications from "expo-notifications";
 
-const enableNotifications = async () => {
+export const enableNotifications = async () => {
     
   const { status } =
     await Notifications.requestPermissionsAsync();
