@@ -7,6 +7,7 @@ import { useSchedule } from '@/hooks/useSchedule'
 import { useStudents } from '@/hooks/useStudent'
 import { useToast } from '@/hooks/useToast'
 import { Schedule, ScheduleFormData } from '@/types/appTypes'
+import { scheduleSessionNotification } from '@/utils/scheduleSessionNotification'
 import { Feather } from '@expo/vector-icons'
 import { useState } from 'react'
 import { View } from 'react-native'
@@ -21,6 +22,9 @@ export default function Schedules() {
   const addSchedule = async(formData: AddDataType) => {
     console.log('data inside addsession',formData)
     await createSchedule(formData);
+      await scheduleSessionNotification(
+    formData
+  );
     showSuccess('تم اضافة الموعد بنجاح');
     
   };
