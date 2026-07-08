@@ -1,29 +1,25 @@
-import { Schedule, ScheduleFormData, Student } from "@/types/appTypes";
+import { Schedule, ScheduleFormData } from "@/types/appTypes";
 import { validateSchedule } from "@/utils/validateSchedule";
 import { useState } from "react";
 
 export const useScheduleForm = (initial?: Schedule) => {
   const [formData, setFormData] = useState<ScheduleFormData>(
-    initial || {
-  studentId: 0,
-      date: "",
-      time: "",
+    initial ?? {
+      studentId: 0,
+      dateTime: new Date(),
       duration: 0,
       notes: "",
-      AmPm:"Am",
     },
   );
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const reset = () => {
-    setFormData( {
+    setFormData({
       studentId: 0,
-      date: "",
-      time: "",
+      dateTime: new Date(),
       duration: 0,
       notes: "",
-      AmPm:"Am",
     });
     setErrors({});
   };
