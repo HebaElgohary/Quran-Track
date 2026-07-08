@@ -8,11 +8,23 @@ export const useToast = () => {
           });
      
     };
+
     const showError=(message: string)=>{
         Toast.show({
             type: 'error',
             text1: message,
           });
     }
-    return {showSuccess,showError}; 
-}
+   const showInfo = (message: string) => {
+    Toast.show({
+      type: "info",
+      text1: message,
+    });
+  };
+
+  return {
+    showSuccess,
+    showError,
+    showInfo,
+  };
+};
