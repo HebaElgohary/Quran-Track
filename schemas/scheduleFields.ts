@@ -13,7 +13,7 @@ export const scheduleFields: FormFieldSchema[] = [
       type: "date",
     },
         {
-      name: "time",
+      name: "dateTime",
       label: "الوقت ",
       type: "time",
     },
@@ -23,7 +23,7 @@ export const scheduleFields: FormFieldSchema[] = [
       type: "number",
     },
     {
-      name: "note",
+      name: "notes",
       label: "ملاحظة ",
       type: "textarea",
     },

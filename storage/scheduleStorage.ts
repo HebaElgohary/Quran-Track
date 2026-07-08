@@ -6,32 +6,38 @@ const KEY = 'schedule';
 // =========================
 // GET Schedules
 // =========================
- export const getSchedules = async (): Promise<Schedule[]> => {
+export const getSchedules = async (): Promise<Schedule[]> => {
   try {
     const data = await AsyncStorage.getItem(KEY);
 
-    return data ? JSON.parse(data) : [];
+    if (!data) return [];
+
+    const schedules: Schedule[] = JSON.parse(data);
+
+    return schedules.map((schedule) => ({
+      ...schedule,
+      dateTime: new Date(schedule.dateTime),
+    }));
   } catch (error) {
-    console.log("Error getting groups", error);
+    console.log("Error getting schedules", error);
     return [];
   }
-
 };
-
  
 // =========================
 // ADD Scehedule
 // =========================
 export const addSchedule = async (
-  Schedule:ScheduleFormData,
-): Promise <Schedule> => {
-    console.log('formData inside addsession storage',Schedule)
+  scheduleData: ScheduleFormData,
+)
+: Promise <Schedule> => {
+    console.log('formData inside addsession storage',scheduleData)
   try {
     
     const oldSchedules = await getSchedules();
     const schedule:Schedule = {
       id: Date.now(),
-      ...Schedule,
+      ...scheduleData,
     };
     const updatedSchedules = [...oldSchedules, schedule];
 
