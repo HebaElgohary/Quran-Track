@@ -14,12 +14,9 @@ type updateDataType = Schedule;
 interface Props {
   student?: Student;
   schedule: Schedule;
-  date: string;
-  time: string;
   duration: number;
-  handelUpdate: (data: updateDataType) => Promise<void>;
+  handelUpdate: (data: Schedule) => Promise<void>;
   openDeleteAlert: () => void;
-  AmPm: string;
 }
 
 export default function ScheduleCard({
@@ -27,10 +24,8 @@ export default function ScheduleCard({
   handelUpdate,
   openDeleteAlert,
   student,
-  date,
-  time,
+
   duration,
-  AmPm,
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
@@ -113,12 +108,21 @@ export default function ScheduleCard({
               <Title>
                 {student?.nameAr || student?.nameEn || "طالب غير معروف"}
               </Title>
-              <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
+              <View
+                style={{
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  gap: 2,
+                }}
+              >
                 <Text style={{ color: "#6B7280", marginTop: 2 }}>
-                  {formatDate(date)}
+                  {formatDate(schedule.dateTime)}{" "}
                 </Text>
                 <Text style={{ color: "#6B7280", marginTop: 2 }}>
-                  {time} {AmPm}
+                {schedule.dateTime.toLocaleTimeString("ar-EG", {
+  hour: "2-digit",
+  minute: "2-digit",
+})}
                 </Text>
               </View>
             </View>

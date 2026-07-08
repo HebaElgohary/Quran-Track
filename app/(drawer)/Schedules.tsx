@@ -7,7 +7,6 @@ import { useSchedule } from '@/hooks/useSchedule'
 import { useStudents } from '@/hooks/useStudent'
 import { useToast } from '@/hooks/useToast'
 import { Schedule, ScheduleFormData } from '@/types/appTypes'
-import { scheduleSessionNotification } from '@/utils/scheduleSessionNotification'
 import { Feather } from '@expo/vector-icons'
 import { useState } from 'react'
 import { View } from 'react-native'
@@ -20,16 +19,11 @@ export default function Schedules() {
   const { showSuccess } = useToast()
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
   // --------------- add handler ------------//
-  const addSchedule = async(formData: AddDataType) => {
-    console.log('data inside addsession',formData)
-    const notificationId = await scheduleSessionNotification(formData);
-await createSchedule({
-  ...formData,
-  notificationId,
-});
-    showSuccess('تم اضافة الموعد بنجاح');
-    
-  };
+  const addSchedule = async (formData: ScheduleFormData) => {
+  await createSchedule(formData);
+
+  showSuccess("تم اضافة الموعد بنجاح");
+};
 
 // ----------------------------------//
 
@@ -68,11 +62,8 @@ if (schedule?.notificationId) {
 
 <View style={{display:'flex',flexDirection:'column',gap:10,marginTop:50}}>
   {schedules && schedules.map((schedule:Schedule) =><ScheduleCard 
-  AmPm={schedule.AmPm}
   schedule={schedule}
      student={students.find((student) => student.id == schedule.studentId) }
-  date={schedule.date}
-  time={schedule.time}
   duration={schedule.duration}
   key={schedule.id}
   handelUpdate={editSchedule}
