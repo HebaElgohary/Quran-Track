@@ -2,46 +2,30 @@
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
-export async function scheduleSessionNotification(schedule: {
-  date: string;
-  time: string;
-  AmPm: string;
-}) {
-      if (Platform.OS === "web") {
-    return null;
-  }
-  const [hoursStr, minutesStr] = schedule.time.split(":");
+export async function scheduleSessionNotification(
+    dateTime: Date
+) {
 
-  let hours = Number(hoursStr);
+if (Platform.OS==="web") return;
 
-  if (schedule.AmPm === "PM" && hours < 12) {
-    hours += 12;
-  }
+const notificationDate =
+    new Date(dateTime);
 
-  if (schedule.AmPm === "AM" && hours === 12) {
-    hours = 0;
-  }
+notificationDate.setMinutes(
+    notificationDate.getMinutes()-5
+);
 
-  const sessionDate = new Date(schedule.date);
+if(notificationDate<=new Date()) return;
 
-  sessionDate.setHours(hours, Number(minutesStr), 0, 0);
-
-  const notificationDate = new Date(sessionDate.getTime() - 5 * 60 * 1000);
-
-  if (notificationDate <= new Date()) return;
-
-const notificationId =
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "موعد الحصة",
-      body: "باقي 5 دقائق على الحصة",
-      sound: true,
+return await Notifications.scheduleNotificationAsync({
+    content:{
+        title:"موعد الحصة",
+        body:"باقي 5 دقائق على الحصة",
+        sound:true
     },
-   trigger: {
-  type: Notifications.SchedulableTriggerInputTypes.DATE,
-  date: notificationDate,
-}
-  });
-
-return notificationId;
+    trigger:{
+        type:Notifications.SchedulableTriggerInputTypes.DATE,
+        date:notificationDate
+    }
+});
 }

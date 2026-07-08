@@ -46,10 +46,8 @@ export type SessionFormData = Omit<Session, "id">;
 export type Schedule = {
   id: number;
   studentId: number;
-  date: string;
-  time: string;
+  dateTime: Date;
   duration: number;
-  AmPm: string;
   notes: string;
   notificationId?: string;
 };
@@ -100,6 +98,7 @@ export interface FormFieldSchema {
     | "select"
     | "number"
     | "date"
+    | "time"
     | "password";
 
   source?: FieldSource;

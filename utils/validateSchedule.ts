@@ -3,19 +3,15 @@ import { ScheduleFormData } from "@/types/appTypes";
 export const validateSchedule = (data: ScheduleFormData) => {
   const errors: Partial<Record<keyof ScheduleFormData, string>> = {};
 
-  if (!data.studentId || data.studentId === 0) {
+  if (!data.studentId) {
     errors.studentId = "اختر الطالب";
   }
 
-  if (!data.date?.trim()) {
-    errors.date = "ادخل تاريخ الموعد";
+  if (!data.dateTime) {
+    errors.dateTime = "اختر موعد الحصة";
   }
 
-  if (!data.time?.trim()) {
-    errors.time = "ادخل وقت الموعد";
-  }
-
-  if (!data.duration || Number(data.duration) <= 0) {
+  if (!data.duration || data.duration <= 0) {
     errors.duration = "ادخل مدة صحيحة";
   }
 

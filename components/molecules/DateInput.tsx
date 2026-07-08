@@ -9,8 +9,8 @@ export default function DateInput({
   onChange,
 }: {
   label?: string;
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: Date;
+  onChange?: (date: Date) => void;
 }) {
   const [show, setShow] = useState(false);
 
@@ -64,8 +64,9 @@ export default function DateInput({
       {Platform.OS === "web" ? (
         <input
           type="date"
-          value={value}
-          onChange={(e) => onChange?.(e.target.value)}
+          placeholder="Time"
+          value={value ? value.toISOString().split("T")[0] : ""}
+          onChange={(e) => onChange?.(new Date(e.target.value))}
           style={{
             marginTop: 8,
             padding: 10,
@@ -84,7 +85,7 @@ export default function DateInput({
               setShow(false);
 
               if (date) {
-                onChange?.(date.toISOString());
+                onChange?.(date);
               }
             }}
           />
