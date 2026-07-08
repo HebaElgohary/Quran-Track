@@ -1,7 +1,6 @@
 import { btnSize, colors } from "@/constants/theme";
 import { Pressable, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
-
 type Props = {
   variant?: "primary" | "danger" | "transparent"|'btnPrimary'|'gray';
   size?:'sm'|'md'|'lg'|'xl'|'xxl';
@@ -40,7 +39,7 @@ export default function Button({
         {children}
       </Text>
 
-      {name && <Feather name={name as any}  color="white" />}
+      {name && <Feather name={name as any}  color={colors[textColor]} size={14} />}
     </View>
   </Pressable>
 );

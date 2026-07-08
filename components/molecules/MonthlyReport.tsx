@@ -13,6 +13,7 @@ import { colors } from "@/constants/theme";
 import { surahMap } from "../../translations/surahMap";
 import { gradeMap } from "../../translations/sessionTranslation";
 import { useFocusEffect } from "expo-router";
+import { formatDate } from "@/utils/formatDate";
 
 export default function MonthlyReport({
   report,
@@ -168,32 +169,48 @@ export default function MonthlyReport({
 
       {/* Table */}
       <View style={styles.tableContainer}>
-        <View style={[styles.tableRow, styles.tableHeader]}>
-          <Text style={styles.tableHeaderCell}>{t.sessionsTable.date}</Text>
-          <Text style={styles.tableHeaderCell}>{t.sessionsTable.surah}</Text>
-          <Text style={styles.tableHeaderCell}>{t.sessionsTable.ayats}</Text>
-          <Text style={styles.tableHeaderCell}>{t.sessionsTable.notes}</Text>
-        </View>
+<View style={[styles.tableRow, styles.tableHeader]}>
+  <Text style={styles.tableHeaderCell}>
+    {t.sessionsTable.date}
+  </Text>
 
-        {monthSessions.map((session) => (
-          <View key={session.id} style={styles.tableRow}>
-            <Text style={styles.tableCell}>{session.date}</Text>
+  <Text style={styles.tableHeaderCell}>
+    {t.sessionsTable.surah}
+  </Text>
 
-            <Text style={styles.tableCell}>
-              {lang === "ar"
-                ? session.surah
-                : surahMap[session.surah] ?? session.surah}
-            </Text>
+  <Text style={styles.tableHeaderCell}>
+    {t.sessionsTable.ayats}
+  </Text>
 
-            <Text style={styles.tableCell}>
-              {session.from + " - " + session.to}
-            </Text>
+  <Text style={styles.tableHeaderCell}>
+    {t.sessionsTable.notes}
+  </Text>
+</View>
 
-            <Text style={styles.tableCell}>
-              {session.notes ?? "-"}
-            </Text>
-          </View>
-        ))}
+{monthSessions.map((session) => (
+  <View key={session.id} style={styles.tableRow}>
+    <Text style={styles.tableCell}>
+      {formatDate(session.date, lang)}
+    </Text>
+
+    <Text style={styles.tableCell}>
+      {lang === "ar"
+        ? session.surah
+        : surahMap[session.surah] ?? session.surah}
+    </Text>
+
+    <Text style={styles.tableCell}>
+      {session.from} - {session.to}
+    </Text>
+
+    <Text style={styles.tableCell}>
+      {session.notes || "-"}
+    </Text>
+  </View>
+))}
+
+
+       
       </View>
 
       {/* Footer */}

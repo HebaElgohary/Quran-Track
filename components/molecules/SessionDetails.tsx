@@ -125,11 +125,12 @@ export default function SessionDetails({
           flexDirection: "row",
           justifyContent: "flex-end",
           marginVertical: 13,
-          gap: 10,
+          gap: 11,
         }}
       >
         <Button
           size="lg"
+          name="printer"
           onClick={() =>
             printSessionPdf(
               displaySession,
@@ -137,10 +138,8 @@ export default function SessionDetails({
             )
           }
         >
-          <Feather name="printer" size={13} />
-          <Text style={{ fontSize: 10 }}>
-            PDF / طباعة
-          </Text>
+          
+          <Text style={{ fontSize: 10,textAlign: 'center' }}> {'PDF-طباعة'}</Text>
         </Button>
 
         {/* LANGUAGE SWITCH */}

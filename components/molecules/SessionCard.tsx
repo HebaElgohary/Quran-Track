@@ -109,7 +109,7 @@ export default function SessionCard({
         <Button
           variant="transparent"
           textColor="primary"
-          size="sm"
+          size="md"
           onClick={onReport}
         >
           تقرير <Feather name="file-text" />
@@ -118,7 +118,7 @@ export default function SessionCard({
         <Button
           variant="transparent"
           textColor="warning"
-          size="sm"
+          size="md"
           onClick={() => setOpen(true)}
         >
           تعديل <Feather name="edit-2" />
@@ -127,7 +127,7 @@ export default function SessionCard({
         <Button
           variant="transparent"
           textColor="danger"
-          size="sm"
+          size="md"
           onClick={handelDelete}
         >
           حذف <Feather name="trash-2" />

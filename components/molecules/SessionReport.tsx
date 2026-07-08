@@ -59,7 +59,9 @@ export default function SessionReport({
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.student}</Text>
-          <Text style={styles.value}>{student?.nameAr}</Text>
+          <Text style={styles.value}>
+            { lang === "en" ? student?.nameEn : student?.nameAr}
+          </Text>
         </View>
 
         <View style={styles.infoColumn}>

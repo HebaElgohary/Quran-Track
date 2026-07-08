@@ -1,46 +1,44 @@
 import Header from "@/components/organisms/Header";
 import { useSession } from "@/hooks/useSession";
 import { useStudents } from "@/hooks/useStudent";
-import { MonthlyReports, MonthlyReportsFormData, Session, Student, TeacherProfile } from "@/types/appTypes";
-import { printSessionPdf } from "@/utils/printSessionPdf";
-import { shareSessionPdf } from "@/utils/shareSessionPdf";
-import { buildEnglishSession } from "@/utils/buildEnglishSession";
+import {
+  MonthlyReportsFormData,
+  Student,
+} from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
-import { useFocusEffect } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
-import { Text, View, Pressable } from "react-native";
+import { useMemo, useState } from "react";
+import { Pressable, Text, View } from "react-native";
 import Button from "../atoms/Button";
-import FormModal from "./form/FormModal";
 import MonthlyReport from "./MonthlyReport";
 import { getMonthName } from "@/utils/getMonthName ";
 import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { useProfile } from "@/hooks/useProfile";
 
-// type updateDataType = Session;
-
 export default function MonthlyReportsDetails({
   closeReport,
   report,
 }: {
-  report: MonthlyReportsFormData ;
+  report: MonthlyReportsFormData;
   closeReport?: () => void;
 }) {
-  const { sessions, loadSessions } = useSession();
+  const { sessions } = useSession();
   const { students } = useStudents();
-  const { profile } = useProfile()  ;
-
-
+  const { profile } = useProfile();
 
   const [language, setLanguage] = useState<"ar" | "en">("ar");
 
-//data transformation//
-  const student = students.find((s) => s.id === report.studentId) as Student;
+  // Student
+  const student = students.find(
+    (s) => s.id === report.studentId
+  ) as Student;
 
-    const studentSessions = useMemo(
+  // Sessions for this student
+  const studentSessions = useMemo(
     () => sessions.filter((s) => s.studentId === report.studentId),
     [sessions, report.studentId]
   );
 
+  // Sessions for selected month
   const monthSessions = useMemo(
     () =>
       studentSessions.filter(
@@ -48,41 +46,29 @@ export default function MonthlyReportsDetails({
       ),
     [studentSessions, report.month]
   );
-  // -----------------------------
-  // get reprt language
 
-    const displayReport = useMemo(() => {
-      if (!report) return null;
-  
-      return language === "en"
-        ? buildEnglishSession(session)
-        : session;
-    }, [session, language]);
-  
-
-  // -----------------------------
-  // SHARE
-  // -----------------------------
+  // Share PDF
   const handleWhatsappShare = async () => {
-    console.log('share ------ Clicked')  
+    if (!report || !student) return;
 
-    if (!report ) return;
-
-    console.log('shareClicked')
-    await shareMonthlyReportPdf(report, student, profile, monthSessions, language);
+    await shareMonthlyReportPdf(
+      report,
+      student,
+      profile,
+      monthSessions,
+      language
+    );
   };
-    
-    
 
-  if (!report||!student) {
-    return <Text>التقرير غير موجودة</Text>;
+  if (!report || !student) {
+    return <Text>التقرير غير موجود</Text>;
   }
 
   return (
     <View>
       <Header title="تقرير الحصة" />
 
-      {/* ACTION BUTTONS */}
+      {/* Actions */}
       <View
         style={{
           flexDirection: "row",
@@ -90,8 +76,7 @@ export default function MonthlyReportsDetails({
           gap: 14,
         }}
       >
-
-            {/* LANGUAGE SWITCH */}
+        {/* Language Switch */}
         <View
           style={{
             flexDirection: "row",
@@ -103,7 +88,6 @@ export default function MonthlyReportsDetails({
             borderRadius: 15,
           }}
         >
-          {/* ENGLISH */}
           <Pressable
             onPress={() => setLanguage("en")}
             style={{
@@ -121,7 +105,6 @@ export default function MonthlyReportsDetails({
             </Text>
           </Pressable>
 
-          {/* ARABIC */}
           <Pressable
             onPress={() => setLanguage("ar")}
             style={{
@@ -138,9 +121,9 @@ export default function MonthlyReportsDetails({
               العربية
             </Text>
           </Pressable>
-        </View> 
+        </View>
 
-        {/* -------------------- */}
+        {/* Share */}
         <Button
           size="md"
           variant="gray"
@@ -150,46 +133,32 @@ export default function MonthlyReportsDetails({
           <Text style={{ fontSize: 10, marginLeft: 8 }}>
             مشاركة
           </Text>
-          <Feather name="share-2" size={12} color="black" />
+          <Feather
+            name="share-2"
+            size={12}
+            color="black"
+          />
         </Button>
-             <Button
+
+        {/* Print */}
+        <Button
           size="lg"
-        //   onClick={() =>
-        //     printSessionPdf(
-        //       displaySession,
-        //       student?.nameAr ?? ""
-        //     )
-        //   }
+          onClick={() => {
+            // TODO: Implement printMonthlyReportPdf(...)
+          }}
         >
           <Feather name="printer" size={13} />
           <Text style={{ fontSize: 10 }}>
             PDF / طباعة
           </Text>
         </Button>
-
-    
-
       </View>
 
-      {/* PRINT + LANGUAGE SWITCH */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          marginVertical: 13,
-          gap: 10,
-        }}
-      >
-   
-      </View>
-
-      {/* REPORT */} 
-     <MonthlyReport
+      {/* Report */}
+      <MonthlyReport
         report={report}
         lang={language}
-      /> 
-
- 
+      />
     </View>
   );
 }
