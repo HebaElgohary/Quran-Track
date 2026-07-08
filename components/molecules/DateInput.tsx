@@ -84,9 +84,20 @@ export default function DateInput({
             onChange={(_, date) => {
               setShow(false);
 
-              if (date) {
-                onChange?.(date);
-              }
+           if (date) {
+    const merged = new Date(date);
+
+    if (value) {
+        merged.setHours(
+            value.getHours(),
+            value.getMinutes(),
+            0,
+            0
+        );
+    }
+
+    onChange?.(merged);
+}
             }}
           />
         )
