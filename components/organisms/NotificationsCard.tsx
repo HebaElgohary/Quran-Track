@@ -1,69 +1,116 @@
-import React, { useEffect } from "react";
-import { Text, View } from "react-native";
-import Button from "../atoms/Button";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Switch, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
+
 import { colors } from "@/constants/theme";
-import {enableNotifications} from '@/utils/enableNotifications'
-import { getNotificationsEnabled, setNotificationsEnabled } from "@/storage/settingsStorage";
+import { useToast } from "@/hooks/useToast";
+import { enableNotifications } from "@/utils/enableNotifications";
+import {
+  getNotificationsEnabled,
+  setNotificationsEnabled,
+} from "@/storage/settingsStorage";
 
+export default function NotificationCard() {
+  const { showInfo } = useToast();
 
-export default function NotificationCard(
-  
-) {
+  const [notificationEnabled, setNotificationEnabled] = useState(false);
 
-  const [notificationEnabled, setNotificationEnabled] = React.useState(false);
-const handleNotification = async () => {
-  if (notificationEnabled) {
-    await setNotificationsEnabled(false);
-    setNotificationEnabled(false);
-    return;
-  }
+  useEffect(() => {
+    const loadNotificationsState = async () => {
+      const enabled = await getNotificationsEnabled();
+      setNotificationEnabled(enabled);
+    };
 
-  const granted = await enableNotifications();
+    loadNotificationsState();
+  }, []);
 
-  if (granted) {
+  const handleNotification = async () => {
+    // Disable notifications
+    if (notificationEnabled) {
+      await setNotificationsEnabled(false);
+      setNotificationEnabled(false);
+
+      showInfo("تم إلغاء تفعيل التنبيهات");
+      return;
+    }
+
+    // Enable notifications
+    const granted = await enableNotifications();
+
+    if (!granted) {
+      showInfo("لم يتم منح إذن الإشعارات");
+      return;
+    }
+
     await setNotificationsEnabled(true);
     setNotificationEnabled(true);
-  }
-};
-useEffect(() => {
 
-  const load = async () => {
-    const enabled = await getNotificationsEnabled();
-    setNotificationEnabled(enabled);
+    showInfo("تم تفعيل التنبيهات");
   };
 
-  load();
-}, []);
   return (
     <View style={styles.container}>
+      <View style={styles.leftSection}>
+        <Feather
+          name={notificationEnabled ? "bell" : "bell-off"}
+          size={22}
+          color={colors.warning}
+        />
 
-   <Feather name={notificationEnabled ? "bell" : "bell-off"} size={20} color="gray"  />
-<Text style={{fontSize:12}}> لتعمل التنبيهات الصوتية، يجب تفعيلها مرة واحدة (تتطلب المتصفحات ذلك). </Text>
-<Button size="xl" onClick={handleNotification}>
-  {notificationEnabled
-    ? "إلغاء تفعيل التنبيهات"
-    : "تفعيل التنبيهات"}
-</Button>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>التنبيهات</Text>
+
+          <Text style={styles.description}>
+            فعّل التنبيهات ليقوم التطبيق بتذكيرك قبل موعد الحصة بـ 5 دقائق.
+          </Text>
+        </View>
+      </View>
+
+      <Switch
+        value={notificationEnabled}
+        onValueChange={handleNotification}
+        trackColor={{
+          false: "#D1D5DB",
+          true: colors.btnPrimary,
+        }}
+        thumbColor="#FFFFFF"
+      />
     </View>
   );
 }
 
- const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    display: "flex",
     flexDirection: "row",
-    justifyContent:'space-between',
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: '#F1E7D0',
+
+    backgroundColor: "#F1E7D0",
+    borderColor: colors.warning,
+    borderWidth: 1,
+    borderRadius: 16,
+
     margin: 10,
     padding: 15,
-    borderWidth: 1,
-    borderColor: colors.warning,
-    borderRadius: 16,
     gap: 12,
   },
 
-  
+  leftSection: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+
+  title: {
+    fontSize: 15,
+    fontWeight: "700",
+    marginBottom: 2,
+  },
+
+  description: {
+    fontSize: 12,
+    color: "#555",
+    lineHeight: 18,
+  },
 });
