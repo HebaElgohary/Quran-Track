@@ -116,7 +116,7 @@ export default function ScheduleCard({
                 }}
               >
                 <Text style={{ color: "#6B7280", marginTop: 2 }}>
-                  {formatDate(schedule.dateTime)}{" "}
+                  {formatDate(schedule.dateTime)}
                 </Text>
                 <Text style={{ color: "#6B7280", marginTop: 2 }}>
                 {schedule.dateTime.toLocaleTimeString("ar-EG", {
