@@ -1,10 +1,17 @@
 // utils/scheduleNotification.ts
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
+import { getNotificationsEnabled } from "@/storage/settingsStorage";
+
 
 export async function scheduleSessionNotification(
     dateTime: Date
 ) {
+  const enabled = await getNotificationsEnabled();
+
+    if (!enabled) {
+  return null;
+}
 
 if (Platform.OS==="web") return;
 

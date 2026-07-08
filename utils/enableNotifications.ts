@@ -1,14 +1,12 @@
 import * as Notifications from "expo-notifications";
 
-export const enableNotifications = async () => {
-    
-  const { status } =
-    await Notifications.requestPermissionsAsync();
+export const enableNotifications = async (): Promise<boolean> => {
+  const { status } = await Notifications.requestPermissionsAsync();
 
   if (status !== "granted") {
     alert("يجب السماح بالإشعارات");
-    return;
+    return false;
   }
 
-  alert("تم تفعيل الإشعارات");
+  return true;
 };

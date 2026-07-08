@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { colors } from "@/constants/theme";
 import {enableNotifications} from '@/utils/enableNotifications'
+import { getNotificationsEnabled, setNotificationsEnabled } from "@/storage/settingsStorage";
 
 
 export default function NotificationCard(
- ) {
+  
+) {
+
+  const [notificationEnabled, setNotificationEnabled] = React.useState(false);
+const handleNotification = async () => {
+  if (notificationEnabled) {
+    await setNotificationsEnabled(false);
+    setNotificationEnabled(false);
+    return;
+  }
+
+  const granted = await enableNotifications();
+
+  if (granted) {
+    await setNotificationsEnabled(true);
+    setNotificationEnabled(true);
+  }
+};
+useEffect(() => {
+
+  const load = async () => {
+    const enabled = await getNotificationsEnabled();
+    setNotificationEnabled(enabled);
+  };
+
+  load();
+}, []);
   return (
     <View style={styles.container}>
 
-   <Feather name="bell" size={20} color="gray" />
+   <Feather name={notificationEnabled ? "bell" : "bell-off"} size={20} color="gray"  />
 <Text style={{fontSize:12}}> لتعمل التنبيهات الصوتية، يجب تفعيلها مرة واحدة (تتطلب المتصفحات ذلك). </Text>
-<Button size="xl" onClick={enableNotifications}>تفعيل وضع التنبيه</Button>
-    
+<Button size="xl" onClick={handleNotification}>
+  {notificationEnabled
+    ? "إلغاء تفعيل التنبيهات"
+    : "تفعيل التنبيهات"}
+</Button>
     </View>
   );
 }
