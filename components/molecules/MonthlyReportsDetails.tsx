@@ -13,6 +13,7 @@ import MonthlyReport from "./MonthlyReport";
 import { getMonthName } from "@/utils/getMonthName ";
 import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { useProfile } from "@/hooks/useProfile";
+import { buildMonthlyReportHtml } from "@/utils/MonthlyReportPdfTemplate";
 
 export default function MonthlyReportsDetails({
   closeReport,
@@ -144,7 +145,10 @@ export default function MonthlyReportsDetails({
         <Button
           size="lg"
           onClick={() => {
-            // TODO: Implement printMonthlyReportPdf(...)
+            language=='en'?
+           buildMonthlyReportHtml(report,student.nameEn,profile.nameEn,monthSessions,language):
+           buildMonthlyReportHtml(report,student.nameAr,profile.nameAr,monthSessions,language)
+
           }}
         >
           <Feather name="printer" size={13} />

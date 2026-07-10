@@ -194,7 +194,7 @@ body{
     </div>
 
     <div class="infoColumn">
-      <div class="infoLabel">التاريخ</div>
+      <div class="infoLabel">${language=='en'?`Date`:`التاريخ ${teacherName} `}</div>
       <div class="infoValue">${formatDate(session.date) ?? ""}</div>
     </div>
 
@@ -203,45 +203,45 @@ body{
   <div class="detailsCard">
 
     <div class="row gradeRow">
-      <div class="label">التقييم</div>
+      <div class="label">${language=='en'?"Grades":' التقييم '}</div>
       <div class="value">${session.grade ?? ""}</div>
     </div>
 
     <div class="row">
-      <div class="label">السورة</div>
+      <div class="label">${language=='en'?"Surah":' السورة  '}</div>
       <div class="value">${session.surah ?? ""}</div>
     </div>
 
     <div class="row">
-      <div class="label">الآيات</div>
+      <div class="label">${language=='en'?"Verses":' الآيات '}</div>
       <div class="value">
         ${session.from ?? ""} - ${session.to ?? ""}
       </div>
     </div>
 
     <div class="row">
-      <div class="label">الحفظ الجديد</div>
+      <div class="label"> ${language=='en'?"New":' الحفظ الجديد '}</div>
       <div class="value">
         ${session.new ?? ""}
       </div>
     </div>
 
     <div class="row">
-      <div class="label">المراجعة</div>
+      <div class="label">${language=='en'?"Revision":' المراجعة'}</div>
       <div class="value">
         ${session.revision ?? ""}
       </div>
     </div>
 
     <div class="row">
-      <div class="label">أحكام التجويد</div>
+      <div class="label"> </div>
       <div class="value">
         ${session.tajweed ?? ""}
       </div>
     </div>
 
     <div class="row">
-      <div class="label">ملاحظة</div>
+      <div class="label">${language=='en'?"Notes":'ملاحظات'}</div>
       <div class="value">
         ${session.notes ?? ""}
       </div>
@@ -254,7 +254,7 @@ body{
     <div class="hr"></div>
 
     <div class="footerText">
-      جزاكم الله خيرًا وجعلكم من أهل القرآن
+  ${language=='en'?"May Allah reward you with goodness and make you among the people of the Qur'an.":' جزاكم الله خيرا وجعلكم من اهل القرآن '}
     </div>
 
   </div>
