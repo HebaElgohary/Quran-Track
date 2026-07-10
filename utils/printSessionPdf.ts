@@ -2,12 +2,17 @@ import { Platform } from "react-native";
 import * as Print from "expo-print";
 import { buildSessionHtml } from "./sessionPdfTemplate";
 import { Session } from "@/types/appTypes";
+import { buildEnglishSession } from "./buildEnglishSession";
 
 export async function printSessionPdf(
   session: Session,
-  studentName: string
+  studentName: string,
+  teacherName:string,
+  language:'en'|'ar'
+
 ) {
-  const html = buildSessionHtml(session, studentName);
+  const displaySession=language=='ar'?session:buildEnglishSession(session)
+  const html = buildSessionHtml(displaySession, studentName,teacherName,language)
 
 //   =========================
 //   🟢 MOBILE (Expo Print)

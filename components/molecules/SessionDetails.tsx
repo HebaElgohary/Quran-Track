@@ -12,6 +12,7 @@ import { Text, View, Pressable } from "react-native";
 import Button from "../atoms/Button";
 import SessionReport from "./SessionReport";
 import FormModal from "./form/FormModal";
+import { useProfile } from "@/hooks/useProfile";
 
 type updateDataType = Session;
 
@@ -26,6 +27,7 @@ export default function SessionDetails({
 }) {
   const { sessions, loadSessions } = useSession();
   const { students } = useStudents();
+  const {profile}=useProfile()
 
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<"ar" | "en">("ar");
@@ -62,7 +64,9 @@ export default function SessionDetails({
 
     await shareSessionPdf(
       displaySession,
-      student?.nameAr ?? ""
+      student?.nameAr ?? "",
+      profile.nameAr,
+      language
     );
   };
 
@@ -132,9 +136,19 @@ export default function SessionDetails({
           size="lg"
           name="printer"
           onClick={() =>
+            language=='ar'?
             printSessionPdf(
               displaySession,
-              student?.nameAr ?? ""
+              student?.nameAr||'',
+              profile.nameAr
+               ,language)
+               :
+              printSessionPdf(
+              displaySession,
+              student?.nameEn ||'',
+              profile.nameEn
+
+              ,language
             )
           }
         >

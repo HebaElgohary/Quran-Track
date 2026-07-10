@@ -3,8 +3,8 @@ import * as Sharing from "expo-sharing";
 import { Session } from "@/types/appTypes";
 import { buildSessionHtml } from "./sessionPdfTemplate";
 
-export async function shareSessionPdf(session: Session, studentName: string) {
-    const html = buildSessionHtml(session, studentName);
+export async function shareSessionPdf(session: Session, studentName: string,teacherName:string,language:'en'|'ar') {
+    const html = buildSessionHtml(session, studentName,teacherName,language);
  const file = await Print.printToFileAsync({
     html,
     base64: false,

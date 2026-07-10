@@ -3,15 +3,17 @@ import { formatDate } from "./formatDate";
 
 export function buildSessionHtml(
   session: Session,
-  studentName: string
+  studentName: string,
+  teacherName:string,
+  language:'en'|'ar'
 ) {
   return `
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html dir="rtl" lang=${language}>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>تقرير الحصة</title>
+<title>${language=='en'?'Session Report':'تقرير الحصة '} </title>
 
 <style>
 
@@ -165,15 +167,15 @@ body{
 
   <div class="header">
     <div class="reportLabel">
-      تقرير حصة
+      ${language=='en'?'Session Report':'تقرير حصة '}
     </div>
 
     <div class="title">
-      القرآن الكريم والتجويد
+      ${language=='en'?'The Noble Quran ':' القران الكريم '}
     </div>
 
     <div class="basmalah">
-      بسم الله الرحمن الرحيم
+      ${language=='en'?' Report':' بسم الله الرحمن الرحيم '} 
     </div>
   </div>
 
@@ -182,12 +184,12 @@ body{
   <div class="infoCard">
 
     <div class="infoColumn">
-      <div class="infoLabel">اسم المعلم</div>
-      <div class="infoValue">الأستاذ معاذ</div>
+      <div class="infoLabel">${language=='en'?'Teacher Name':'اسم المعلم'} </div>
+      <div class="infoValue"> ${language=='en'?`Mr ${teacherName} `:`الاستاذ ${teacherName} `}</div>
     </div>
 
     <div class="infoColumn">
-      <div class="infoLabel">اسم الطالب</div>
+      <div class="infoLabel">${language=='en'?`Student Name`:`اسم الطالب`} </div>
       <div class="infoValue">${studentName ?? ""}</div>
     </div>
 

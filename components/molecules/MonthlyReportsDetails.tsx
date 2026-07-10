@@ -148,8 +148,8 @@ export default function MonthlyReportsDetails({
           }}
         >
           <Feather name="printer" size={13} />
-          <Text style={{ fontSize: 10 }}>
-            PDF / طباعة
+          <Text style={{ fontSize: 10,paddingHorizontal:4 }}>
+             PDF - طباعة
           </Text>
         </Button>
       </View>
