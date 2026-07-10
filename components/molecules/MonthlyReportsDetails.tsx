@@ -14,6 +14,7 @@ import { getMonthName } from "@/utils/getMonthName ";
 import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { useProfile } from "@/hooks/useProfile";
 import { buildMonthlyReportHtml } from "@/utils/MonthlyReportPdfTemplate";
+import { toEnglishDigits } from "@/utils/toEnglishDigits";
 
 export default function MonthlyReportsDetails({
   closeReport,
@@ -47,6 +48,28 @@ export default function MonthlyReportsDetails({
       ),
     [studentSessions, report.month]
   );
+  
+    const uniqueSurahs = [...new Set(monthSessions.map((s) => s.surah))];
+  
+    const uniqueGrades = [...new Set(monthSessions.map((s) => s.grade))];
+  
+    const uniqueTajweed = [
+      ...new Set(
+        monthSessions
+          .map((s) =>
+          language=='en' ? s.tajweedEn ?? s.tajweed : s.tajweed
+          )
+          .filter(Boolean)
+      ),
+    ];
+  
+  const versesCount = monthSessions.reduce((sum, s) => {
+    const from = Number(toEnglishDigits(s.from));
+    const to = Number(toEnglishDigits(s.to));
+  
+    return sum + (to - from + 1);
+  }, 0);
+  
 
   // Share PDF
   const handleWhatsappShare = async () => {

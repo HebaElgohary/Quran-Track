@@ -1,19 +1,20 @@
-import React, { useCallback, useEffect, useMemo } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
-import Hr from "../atoms/Hr";
-import Title from "../atoms/Title";
-import { MonthlyReportsFormData } from "@/types/appTypes";
-import { useStudents } from "@/hooks/useStudent";
-import { translations } from "../../translations/monthlyReportTranslations";
+import { colors } from "@/constants/theme";
 import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
+import { useStudents } from "@/hooks/useStudent";
+import { MonthlyReportsFormData } from "@/types/appTypes";
+import { formatDate } from "@/utils/formatDate";
 import { getMonthName } from "@/utils/getMonthName ";
 import { getMonthYear } from "@/utils/getMonthYear ";
-import { colors } from "@/constants/theme";
-import { surahMap } from "../../translations/surahMap";
-import { gradeMap } from "../../translations/sessionTranslation";
+import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { useFocusEffect } from "expo-router";
-import { formatDate } from "@/utils/formatDate";
+import React, { useCallback, useMemo } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { translations } from "../../translations/monthlyReportTranslations";
+import { gradeMap } from "../../translations/sessionTranslation";
+import { surahMap } from "../../translations/surahMap";
+import Hr from "../atoms/Hr";
+import Title from "../atoms/Title";
 
 export default function MonthlyReport({
   report,
@@ -26,14 +27,13 @@ export default function MonthlyReport({
 
   const { students } = useStudents();
   const { profile } = useProfile();
-  const { sessions,loadSessions} = useSession();
-
+  const { sessions, loadSessions } = useSession();
 
   useFocusEffect(
-  useCallback(() => {
-    loadSessions();
-  }, [])
-);
+    useCallback(() => {
+      loadSessions();
+    }, []),
+  );
 
   const t = translations[lang];
   const isEn = lang === "en";
@@ -42,15 +42,53 @@ export default function MonthlyReport({
 
   const studentSessions = useMemo(
     () => sessions.filter((s) => s.studentId === report.studentId),
-    [sessions, report.studentId]
+    [sessions, report.studentId],
   );
 
   const monthSessions = useMemo(
     () =>
       studentSessions.filter(
-        (s) => getMonthName(s.date, "ar") === report.month
+        (s) => getMonthName(s.date, "ar") === report.month,
       ),
-    [studentSessions, report.month]
+    [studentSessions, report.month],
+  );
+  const uniqueSurahs = useMemo(
+    () => [...new Set(monthSessions.map((s) => s.surah))],
+    [monthSessions],
+  );
+
+  const uniqueGrades = useMemo(
+    () => [...new Set(monthSessions.map((s) => s.grade))],
+    [monthSessions],
+  );
+
+  const uniqueTajweed = useMemo(
+    () => [
+      ...new Set(
+        monthSessions
+          .map((s) => (isEn ? (s.tajweedEn ?? s.tajweed) : s.tajweed))
+          .filter(Boolean),
+      ),
+    ],
+    [monthSessions, isEn],
+  );
+
+  const getVerseCount = (from: string | number, to: string | number) => {
+    const start = Number(toEnglishDigits(String(from)));
+    const end = Number(toEnglishDigits(String(to)));
+
+    if (Number.isNaN(start) || Number.isNaN(end)) return 0;
+
+    return Math.max(end - start + 1, 0);
+  };
+
+  const versesCount = useMemo(
+    () =>
+      monthSessions.reduce(
+        (sum, session) => sum + getVerseCount(session.from, session.to),
+        0,
+      ),
+    [monthSessions],
   );
 
   const firstSession = monthSessions[0];
@@ -109,17 +147,17 @@ export default function MonthlyReport({
 
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.grade}</Text>
-          <Text style={styles.statValue}>{monthSessions.length}</Text>
+          <Text style={styles.statValue}>{uniqueGrades.length}</Text>
         </View>
 
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.surah}</Text>
-          <Text style={styles.statValue}>{monthSessions.length}</Text>
+          <Text style={styles.statValue}>{uniqueSurahs.length}</Text>
         </View>
 
         <View style={styles.statCard}>
-          <Text style={styles.statLabel}>{t.cards.surah}</Text>
-          <Text style={styles.statValue}>{monthSessions.length}</Text>
+          <Text style={styles.statLabel}>{t.cards.verses}</Text>
+          <Text style={styles.statValue}>{versesCount}</Text>
         </View>
       </View>
 
@@ -127,10 +165,10 @@ export default function MonthlyReport({
       <View style={styles.section}>
         <Text style={styles.label}>{t.surah}</Text>
         <View style={styles.tagsRow}>
-          {monthSessions.map((s) => (
-            <View key={s.id} style={styles.tag}>
+          {uniqueSurahs.map((surah) => (
+            <View key={surah} style={styles.tag}>
               <Text style={styles.tagText}>
-                {lang === "ar" ? s.surah : surahMap[s.surah]}
+                {isEn ? (surahMap[surah] ?? surah) : surah}
               </Text>
             </View>
           ))}
@@ -141,11 +179,9 @@ export default function MonthlyReport({
       <View style={styles.section}>
         <Text style={styles.label}>{t.tajweed}</Text>
         <View style={styles.tagsRow}>
-          {monthSessions.map((s) => (
-            <View key={s.id + "t"} style={styles.tag}>
-              <Text style={styles.tagText}>
-                {lang === "ar" ? s.tajweed||"-" : s.tajweed || "-"}
-              </Text>
+          {uniqueTajweed.map((tajweed, index) => (
+            <View key={index} style={styles.tag}>
+              <Text style={styles.tagText}>{tajweed}</Text>
             </View>
           ))}
         </View>
@@ -155,12 +191,10 @@ export default function MonthlyReport({
       <View style={styles.section}>
         <Text style={styles.label}>{t.grade}</Text>
         <View style={styles.tagsRow}>
-          {monthSessions.map((s) => (
-            <View key={s.id + "g"} style={styles.tag}>
+          {uniqueGrades.map((grade) => (
+            <View key={grade} style={styles.tag}>
               <Text style={styles.tagText}>
-                {lang === "ar"
-                  ? s.grade
-                  : gradeMap[s.grade] ?? s.grade}
+                {isEn ? (gradeMap[grade] ?? grade) : grade}
               </Text>
             </View>
           ))}
@@ -169,48 +203,43 @@ export default function MonthlyReport({
 
       {/* Table */}
       <View style={styles.tableContainer}>
-<View style={[styles.tableRow, styles.tableHeader]}>
-  <Text style={styles.tableHeaderCell}>
-    {t.sessionsTable.date}
-  </Text>
+        <View style={[styles.tableRow, styles.tableHeader]}>
+          <Text style={styles.tableHeaderCell}>{t.sessionsTable.date}</Text>
 
-  <Text style={styles.tableHeaderCell}>
-    {t.sessionsTable.surah}
-  </Text>
+          <Text style={styles.tableHeaderCell}>{t.sessionsTable.surah}</Text>
 
-  <Text style={styles.tableHeaderCell}>
-    {t.sessionsTable.ayats}
-  </Text>
+          <Text style={styles.tableHeaderCell}>{t.sessionsTable.ayats}</Text>
 
-  <Text style={styles.tableHeaderCell}>
-    {t.sessionsTable.notes}
-  </Text>
-</View>
+          <Text style={styles.tableHeaderCell}>{t.sessionsTable.notes}</Text>
+        </View>
 
-{monthSessions.map((session) => (
-  <View key={session.id} style={styles.tableRow}>
-    <Text style={styles.tableCell}>
-      {formatDate(session.date, lang)}
-    </Text>
+        {monthSessions.map((session) => (
+          <View key={session.id} style={styles.tableRow}>
+            <Text style={styles.tableCell}>
+              {formatDate(session.date, lang)}
+            </Text>
 
-    <Text style={styles.tableCell}>
-      {lang === "ar"
-        ? session.surah
-        : surahMap[session.surah] ?? session.surah}
-    </Text>
+            <Text style={styles.tableCell}>
+              {lang === "ar"
+                ? session.surah
+                : (surahMap[session.surah] ?? session.surah)}
+            </Text>
 
-    <Text style={styles.tableCell}>
-      {session.from} - {session.to}
-    </Text>
+            <Text style={styles.tableCell}>
+              {isEn
+                ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
+                    String(session.to),
+                  )}`
+                : `${session.from} - ${session.to}`}{" "}
+            </Text>
 
-    <Text style={styles.tableCell}>
-      {session.notes || "-"}
-    </Text>
-  </View>
-))}
-
-
-       
+            <Text style={styles.tableCell}>
+              {isEn
+                ? (session.notesEn ?? session.notes ?? "-")
+                : (session.notes ?? "-")}{" "}
+            </Text>
+          </View>
+        ))}
       </View>
 
       {/* Footer */}

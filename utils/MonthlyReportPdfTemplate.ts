@@ -3,6 +3,7 @@ import { formatDate } from "./formatDate";
 import { getMonthYear } from "@/utils/getMonthYear ";
 import { surahMap } from "@/translations/surahMap";
 import { gradeMap } from "@/translations/sessionTranslation";
+import { toEnglishDigits } from "./toEnglishDigits";
 
 export function buildMonthlyReportHtml(
   report: MonthlyReportsFormData,
@@ -31,13 +32,9 @@ export function buildMonthlyReportHtml(
     ),
   ];
 
- const versesCount = sessions.reduce((sum, s) => {
-  const from = Number(s.from);
-  const to = Number(s.to);
-
-  if (isNaN(from) || isNaN(to)) {
-    return sum;
-  }
+const versesCount = sessions.reduce((sum, s) => {
+  const from = Number(toEnglishDigits(s.from));
+  const to = Number(toEnglishDigits(s.to));
 
   return sum + (to - from + 1);
 }, 0);

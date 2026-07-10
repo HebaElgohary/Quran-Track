@@ -9,6 +9,7 @@ export const translations = {
 session: "اجمالى الحصص",
 grade: "اجمالى التقييمات",
 surah: "عدد السور",
+verses:'عدد الآيات'
 
     },
     date: "التاريخ",
@@ -43,6 +44,7 @@ en: {
     session: "Total Sessions",
     grade: "Total Grades",
     surah: "Number of Surahs",
+    verses:'Number of Verses'
   },
 
   date: "Date",
