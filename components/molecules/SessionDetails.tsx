@@ -44,8 +44,10 @@ export default function SessionDetails({
   }, [sessions, reportId]);
 
   const student = students.find((s) => s.id === session?.studentId);
+const studentName=language=='ar'?student?.nameAr:student?.nameEn
+  const teacherName=language=='ar'?profile?.nameAr:profile?.nameEn
 
-  // -----------------------------
+// -----------------------------
   // DATA TRANSFORMATION
   // -----------------------------
   const displaySession = useMemo(() => {
@@ -64,8 +66,8 @@ export default function SessionDetails({
 
     await shareSessionPdf(
       displaySession,
-      student?.nameAr ?? "",
-      profile.nameAr,
+      studentName ?? "",
+      teacherName,
       language
     );
   };

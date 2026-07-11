@@ -195,7 +195,7 @@ body{
 
     <div class="infoColumn">
       <div class="infoLabel">${language=='en'?`Date`:`التاريخ ${teacherName} `}</div>
-      <div class="infoValue">${formatDate(session.date) ?? ""}</div>
+      <div class="infoValue">${formatDate(session.dateTime,language) ?? ""}</div>
     </div>
 
   </div>
