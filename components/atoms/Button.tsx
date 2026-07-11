@@ -2,6 +2,7 @@ import { btnSize, colors } from "@/constants/theme";
 import { Pressable, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 type Props = {
+  disabled?:boolean
   variant?: "primary" | "danger" | "transparent"|'btnPrimary'|'gray';
   size?:'sm'|'md'|'lg'|'xl'|'xxl';
   textColor?:'danger'|'warning'|'secondary'|'black'|'white'|'primary';
@@ -13,6 +14,7 @@ type Props = {
 
 export default function Button({
   children,
+  disabled,
   size='md',
   variant = "btnPrimary",
   textColor='secondary',
@@ -21,7 +23,7 @@ export default function Button({
   setOpen
 }: Props) {
  return (
-  <Pressable onPress={onClick}>
+  <Pressable onPress={onClick} disabled={disabled}  >
     <View
       style={{
         backgroundColor: colors[variant],

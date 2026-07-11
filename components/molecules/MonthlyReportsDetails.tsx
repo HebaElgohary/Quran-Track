@@ -85,6 +85,28 @@ export default function MonthlyReportsDetails({
     );
   };
 
+  // print PDF 
+  const [printing, setPrinting] = useState(false);
+
+const handlePrint = async () => {
+  if (printing) return;
+
+  try {
+    setPrinting(true);
+
+    await printMonthlyReport(
+      report,
+      language === "en" ? student.nameEn : student.nameAr,
+      language === "en" ? profile.nameEn : profile.nameAr,
+      monthSessions,
+      language
+    );
+  } finally {
+    setPrinting(false);
+  }
+};
+// ============================//
+
   if (!report || !student) {
     return <Text>التقرير غير موجود</Text>;
   }
@@ -168,12 +190,8 @@ export default function MonthlyReportsDetails({
         {/* Print */}
         <Button
           size="lg"
-          onClick={() => {
-            language=='en'?
-           printMonthlyReport(report,student.nameEn,profile.nameEn,monthSessions,language):
-           printMonthlyReport(report,student.nameAr,profile.nameAr,monthSessions,language)
-
-          }}
+          onClick={handlePrint}
+          disabled={printing}
         >
           <Feather name="printer" size={13} />
           <Text style={{ fontSize: 10,paddingHorizontal:4 }}>

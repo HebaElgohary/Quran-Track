@@ -2,6 +2,7 @@ import {  MonthlyReportsFormData, Session } from "@/types/appTypes";
 import { buildMonthlyReportHtml } from "./MonthlyReportPdfTemplate";
 import { Platform } from "react-native";
 import * as Print from "expo-print";
+let isPrinting = false;
 
 export const printMonthlyReport=async(
  report: MonthlyReportsFormData,
@@ -11,6 +12,10 @@ export const printMonthlyReport=async(
   language:'en'|'ar'
 
 )=> {
+      if (isPrinting) return;
+      try {
+    isPrinting = true;
+
   const html = buildMonthlyReportHtml(report, studentName,teacherName,sessions,language)
 
 //   =========================
@@ -24,6 +29,7 @@ export const printMonthlyReport=async(
   // =========================
   // 🟢 WEB (html2pdf)
 //   =========================
+ 
   const html2pdf = (await import("html2pdf.js")).default;
 
   const element = document.createElement("div");
@@ -47,4 +53,7 @@ export const printMonthlyReport=async(
 };
 
   await html2pdf().set(opt).from(element).save();
+ } finally {
+    isPrinting = false;
+  }
 }
