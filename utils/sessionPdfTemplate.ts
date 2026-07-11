@@ -9,7 +9,7 @@ export function buildSessionHtml(
 ) {
   return `
 <!DOCTYPE html>
-<html dir="rtl" lang=${language}>
+<html dir=${language=='en'?'ltr':'rtl'} lang=${language}>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
