@@ -11,7 +11,7 @@ import FormModal from "./form/FormModal";
 
 type updateDataType = Session;
 interface SessionCardProps {
-  time: string;
+  time: Date;
   surah: string;
   grade: string;
   student?: Student;
@@ -39,6 +39,7 @@ export default function SessionCard({
   handleUpdate,
   onReport,
 }: SessionCardProps) {
+  console.log("time =", time);
   const gradeColors: Record<string, string> = {
     ممتاز: colors.excellent,
     "جيد جدا": colors.veryGood,

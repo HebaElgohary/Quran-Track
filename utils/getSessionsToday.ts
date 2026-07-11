@@ -11,7 +11,7 @@ export const getSessionsToday = (sessions: Schedule[]) => {
     String(today.getDate()).padStart(2, "0");
 
   const todaySessions = sessions.filter((s) => {
-    const d = new Date(s.date);
+    const d = new Date(s.dateTime);
 
     const sessionStr =
       d.getFullYear() +

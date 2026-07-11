@@ -68,7 +68,13 @@ const confirmDelete = async () => {
     setReportId(id);
     setReport(true);
   };
-
+filteredSessions.forEach((s) => {
+  console.log({
+    id: s.id,
+    dateTime: s.dateTime,
+    session: s,
+  });
+});
   return (
 
   <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5}}>
@@ -86,7 +92,7 @@ const confirmDelete = async () => {
 <SessionCard
    key={session.id} 
    student={students.find((student) => student.id == session.studentId) as Student}
-    time={session.date} 
+  time={session.dateTime }
     surah={session.surah}
     from={session.from}
     next={session.new}

@@ -26,7 +26,7 @@ export type TeacherProfile = {
 export type Session = {
   id: number;
   studentId: number;
-  date: string;
+  dateTime: Date;
   surah: string;
   grade: string;
   notes: string;

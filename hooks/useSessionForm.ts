@@ -5,7 +5,7 @@ import { useState } from "react";
 export const useSessionForm = (initial?: Session) => {
 const [formData, setFormData] = useState<SessionFormData>(initial || {
     studentId: 0,
-    date: "",
+    dateTime: new Date(),
     surah: "",
     grade: "مقبول",
     notes: "",
@@ -14,6 +14,13 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
     new: "",
     revision: "",
     tajweed: "",
+ 
+ 
+  //enFields
+  newEn: '',
+  revisionEn: '',
+  tajweedEn: '',
+  notesEn: '',
 
 
 });
@@ -23,7 +30,7 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
   const reset = () => {
     setFormData({
        studentId: 0,
-    date: "",
+    dateTime: new Date(),
     surah: "",
     grade: "",
     notes: "",
@@ -32,6 +39,10 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
     new: "",
     revision: "",
     tajweed: "",
+     newEn: '',
+  revisionEn: '',
+  tajweedEn: '',
+  notesEn: '',
     });
     setErrors({});
   };

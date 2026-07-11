@@ -7,7 +7,7 @@ export const getSessionsThisMonth = (sessions: Schedule[]) => {
   const currentYear = today.getFullYear();
 
   const monthSessions = sessions.filter((s) => {
-    const sessionDate = new Date(s.date);
+    const sessionDate = new Date(s.dateTime);
 
     return (
       sessionDate.getMonth() === currentMonth &&

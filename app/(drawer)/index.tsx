@@ -13,11 +13,14 @@ import { getSessionsThisMonth } from "@/utils/getSessionsThisMonth ";
 export default function index() {
 const {students,loadStudents} = useStudents();
 const {schedules,loadSchedules} = useSchedule();
+const {sessions,loadSessions} = useSession();
+
 useFocusEffect(
   useCallback(() => {
     loadSchedules();
     loadStudents();
-  }, [])
+    loadSessions()
+  }, [sessions,schedules,students])
 );
 const sessionsToday = React.useMemo(() => {
   return getSessionsToday(schedules);
