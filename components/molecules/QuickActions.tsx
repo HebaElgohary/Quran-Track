@@ -1,9 +1,10 @@
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
-import { View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
-interface props {
+
+interface Props {
   title: string;
   btn1: string;
   btn2: string;
@@ -14,97 +15,126 @@ interface props {
   onPressBtn3: () => void;
   onPressBtn4: () => void;
 }
-export default function QuickActions({ onPressBtn1, onPressBtn2, onPressBtn3, onPressBtn4, title, btn1, btn2, btn3, btn4 }: props) {
+
+export default function QuickActions({
+  onPressBtn1,
+  onPressBtn2,
+  onPressBtn3,
+  onPressBtn4,
+  title,
+  btn1,
+  btn2,
+  btn3,
+  btn4,
+}: Props) {
   const [checked, setChecked] = useState("btn1");
+
+  const actions = [
+    {
+      id: "btn1",
+      text: btn1,
+      icon: "plus",
+      action: onPressBtn1,
+    },
+    {
+      id: "btn2",
+      text: btn2,
+      icon: "users",
+      action: onPressBtn2,
+    },
+    {
+      id: "btn3",
+      text: btn3,
+      icon: "calendar",
+      action: onPressBtn3,
+    },
+    {
+      id: "btn4",
+      text: btn4,
+      icon: "book-open",
+      action: onPressBtn4,
+    },
+  ];
+
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        marginHorizontal: 10,
-        marginVertical: 30,
-        padding: 15,
-        borderRadius: 35,
-        gap: 10,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      <View style={{ display: "flex", flexDirection: "column", gap: 30 }}>
-        <Title size="xl"> {title}</Title>
+    <View style={styles.container}>
+      {/* Title */}
+      <View style={styles.titleContainer}>
+        <Title size="xl">{title}</Title>
       </View>
-      {/* btns container */}
-      <View
-        style={{
-          gap: 30,
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "row",
-          flexWrap: "wrap",
-        }}
-      >
-        <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
-          <Button
-            variant={checked === "btn1" ? "btnPrimary" : "gray"}
-            textColor={checked === "btn1" ? "secondary" : "primary"}
-          
-            onClick={() => {
-              console.log("btn1 clicked");
 
-              setChecked("btn1");
-              onPressBtn1();
-            }}
-            size="xl"
-          >
-            {btn1}
-            <Feather name={"plus"} />
-          </Button>
-          <Button
-            variant={checked === "btn2" ? "btnPrimary" : "gray"}
-            textColor={checked === "btn2" ? "secondary" : "primary"}
-            onClick={() => {
-              setChecked("btn2");
-              onPressBtn2();
-
-            }}
-            
-            size="xl"
-          >
-            {btn2} <Feather name={"users"} />
-            
-          </Button>
-        </View>
-
-        <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
-          <Button
-            variant={checked === "btn3" ? "btnPrimary" : "gray"}
-            textColor={checked === "btn3" ? "secondary" : "primary"}
-            onClick={() => {
-              setChecked("btn3");
-              onPressBtn3();
-
-            }}
-           
-            size="xl"
-          >
-            {btn3} <Feather name={"calendar"} />{" "}
-          </Button>
-          <Button
-            size="xl"
-            textColor={checked === "btn4" ? "secondary" : "primary"}
-            onClick={() => {
-              setChecked("btn4");
-              onPressBtn4();
-
-            }}
-            
-            variant={checked === "btn4" ? "btnPrimary" : "gray"}
-          >
-            {btn4} <Feather name={"book-open"} />
-          </Button>
-        </View>
+      {/* Buttons */}
+      <View style={styles.actionsContainer}>
+        {actions.map((item) => (
+          <View key={item.id} style={styles.buttonWrapper}>
+            <Button
+              size="xl"
+              variant={
+                checked === item.id
+                  ? "btnPrimary"
+                  : "gray"
+              }
+              textColor={
+                checked === item.id
+                  ? "secondary"
+                  : "primary"
+              }
+              onClick={() => {
+                setChecked(item.id);
+                item.action();
+              }}
+            >
+              {item.text}
+              <Feather
+                name={item.icon as any}
+                size={16}
+              />
+            </Button>
+          </View>
+        ))}
       </View>
-      {/* btns container */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#FFFFFF",
+
+    borderRadius: 20,
+
+    padding: 16,
+
+    marginHorizontal: 4,
+    marginTop: 10,
+
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    elevation: 2,
+  },
+
+  titleContainer: {
+    marginBottom: 16,
+  },
+
+  actionsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+
+    justifyContent: "space-between",
+
+    gap: 10,
+  },
+
+  buttonWrapper: {
+    width: "48%",
+  },
+});

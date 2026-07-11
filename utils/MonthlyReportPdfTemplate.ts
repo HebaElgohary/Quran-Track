@@ -67,225 +67,195 @@ const versesCount = sessions.reduce((sum, s) => {
 <title>${t.report}</title>
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body{
-
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-padding:24px;
-color:#1f2937;
-line-height:1.7;
-
+  font-family:Arial,sans-serif;
+  background:#fff;
+  color:#111827;
+  padding:14px;
+  line-height:1.5;
 }
 
 .container{
-
-max-width:900px;
-margin:auto;
-background:#fff;
-border-radius:18px;
-padding:30px;
-
+  width:100%;
+  background:#fff;
 }
 
 .header{
-
-text-align:center;
-margin-bottom:18px;
-
+  text-align:center;
+  margin-bottom:12px;
 }
 
 .reportLabel{
-
-font-size:15px;
-font-weight:700;
-color:#4F46E5;
-
+  font-size:14px;
+  color:#4F46E5;
+  font-weight:700;
 }
 
 .title{
-
-font-size:30px;
-font-weight:700;
-margin-top:8px;
-
+  font-size:28px;
+  font-weight:700;
+  margin-top:4px;
 }
 
 .subtitle{
-
-margin-top:6px;
-font-size:14px;
-color:#6B7280;
-
+  font-size:13px;
+  color:#F59E0B;
+  font-weight:600;
+  margin-top:4px;
 }
 
 .hr{
-
-height:1px;
-background:#E5E7EB;
-margin:24px 0;
-
+  width:90%;
+  height:1px;
+  background:#E5E7EB;
+  margin:16px auto;
 }
 
 .infoCard{
-
-display:flex;
-justify-content:space-between;
-gap:20px;
-padding:18px;
-background:#F9FAFB;
-border-radius:12px;
-
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  background:#F9FAFB;
+  border-radius:12px;
+  padding:12px;
+  margin:10px 0;
 }
 
 .infoBox{
-
-flex:1;
-
+  flex:1;
 }
 
 .label{
-
-font-size:13px;
-font-weight:700;
-color:#6B7280;
-margin-bottom:5px;
-
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:4px;
+  color:#111827;
 }
 
 .value{
-
-font-size:15px;
-font-weight:600;
-color:#111827;
-
+  font-size:14px;
+  color:#4B5563;
 }
 
 .stats{
-
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
-margin-top:22px;
-
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:10px;
 }
 
 .statCard{
-
-border:1px solid #E5E7EB;
-border-radius:12px;
-padding:16px;
-text-align:center;
-
+  border:1px solid #E5E7EB;
+  border-radius:12px;
+  padding:12px;
+  text-align:center;
+  background:#fff;
 }
 
 .statValue{
-
-font-size:26px;
-font-weight:700;
-color:#4F46E5;
-
+  font-size:20px;
+  font-weight:700;
+  color:#4F46E5;
 }
 
 .statLabel{
-
-margin-top:4px;
-font-size:13px;
-color:#6B7280;
-
+  margin-top:4px;
+  font-size:12px;
+  color:#6B7280;
 }
 
 .section{
-
-margin-top:22px;
-
+  margin-top:14px;
 }
 
 .sectionTitle{
-
-font-size:15px;
-font-weight:700;
-margin-bottom:10px;
-
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:8px;
 }
 
 .tags{
-
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
 }
 
 .tag{
-
-background:#F3F4F6;
-padding:8px 12px;
-border-radius:8px;
-font-size:12px;
-
+  background:#F3F4F6;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:12px;
 }
 
 .table{
-
-margin-top:22px;
-border:1px solid #E5E7EB;
-border-radius:12px;
-overflow:hidden;
-
+  margin-top:16px;
+  border:1px solid #E5E7EB;
+  border-radius:10px;
+  overflow:hidden;
 }
 
 .row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid #E5E7EB;
+}
 
-display:grid;
-grid-template-columns:1.1fr 1.4fr 1fr 2fr;
-align-items:center;
-padding:12px;
-border-bottom:1px solid #E5E7EB;
-font-size:13px;
-
+.row:last-child{
+  border-bottom:none;
 }
 
 .headerRow{
+  background:#F3F4F6;
+  font-weight:700;
+}
 
-background:#F3F4F6;
-font-weight:700;
+.row > div{
+  padding:8px;
+  font-size:11px;
+  text-align:center;
+  color:#374151;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
+.headerRow > div{
+  color:#111827;
+  font-weight:700;
 }
 
 .footer{
+  margin-top:20px;
+  text-align:center;
+}
 
-margin-top:28px;
-text-align:center;
-color:#6B7280;
-font-size:13px;
+.footer .hr{
+  margin-bottom:6px;
+}
 
+.footer{
+  font-size:12px;
+  color:#6B7280;
 }
 
 @media print{
 
-body{
+  body{
+    padding:14px;
+    background:#fff;
+  }
 
-padding:0;
-background:white;
-
-}
-
-.container{
-
-box-shadow:none;
-border-radius:0;
+  .container{
+    width:100%;
+  }
 
 }
-
-}
-
 </style>
 
 </head>
