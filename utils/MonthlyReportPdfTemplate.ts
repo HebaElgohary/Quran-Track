@@ -305,7 +305,7 @@ ${t.subject}
 </div>
 
 <div class="subtitle">
-${firstSession?.date ? getMonthYear(firstSession.date, lang) : ""}
+${firstSession?.dateTime ? getMonthYear(firstSession.dateTime, lang) : ""}
 </div>
 
 </div>
@@ -489,7 +489,7 @@ ${firstSession?.date ? getMonthYear(firstSession.date, lang) : ""}
       <div class="row">
 
         <div>
-          ${formatDate(session.date, lang)}
+          ${formatDate(session.dateTime, lang)}
         </div>
 
         <div>

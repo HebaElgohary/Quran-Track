@@ -48,7 +48,7 @@ export default function MonthlyReport({
   const monthSessions = useMemo(
     () =>
       studentSessions.filter(
-        (s) => getMonthName(s.date, "ar") === report.month,
+        (s) => getMonthName(s.dateTime, "ar") === report.month,
       ),
     [studentSessions, report.month],
   );
@@ -106,8 +106,8 @@ export default function MonthlyReport({
         <Title size="xl">{t.subject}</Title>
 
         <Text style={styles.basmalah}>
-          {firstSession?.date
-            ? getMonthYear(firstSession.date, isEn ? "en" : "ar")
+          {firstSession?.dateTime
+            ? getMonthYear(firstSession.dateTime, isEn ? "en" : "ar")
             : ""}
         </Text>
       </View>
@@ -216,7 +216,7 @@ export default function MonthlyReport({
         {monthSessions.map((session) => (
           <View key={session.id} style={styles.tableRow}>
             <Text style={styles.tableCell}>
-              {formatDate(session.date, lang)}
+              {formatDate(session.dateTime, lang)}
             </Text>
 
             <Text style={styles.tableCell}>

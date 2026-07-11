@@ -15,6 +15,7 @@ import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { useProfile } from "@/hooks/useProfile";
 import { buildMonthlyReportHtml } from "@/utils/MonthlyReportPdfTemplate";
 import { toEnglishDigits } from "@/utils/toEnglishDigits";
+import { printMonthlyReport } from "@/utils/printMonthlyReport";
 
 export default function MonthlyReportsDetails({
   closeReport,
@@ -44,7 +45,7 @@ export default function MonthlyReportsDetails({
   const monthSessions = useMemo(
     () =>
       studentSessions.filter(
-        (s) => getMonthName(s.date, "ar") === report.month
+        (s) => getMonthName(s.dateTime, "ar") === report.month
       ),
     [studentSessions, report.month]
   );
@@ -169,8 +170,8 @@ export default function MonthlyReportsDetails({
           size="lg"
           onClick={() => {
             language=='en'?
-           buildMonthlyReportHtml(report,student.nameEn,profile.nameEn,monthSessions,language):
-           buildMonthlyReportHtml(report,student.nameAr,profile.nameAr,monthSessions,language)
+           printMonthlyReport(report,student.nameEn,profile.nameEn,monthSessions,language):
+           printMonthlyReport(report,student.nameAr,profile.nameAr,monthSessions,language)
 
           }}
         >
