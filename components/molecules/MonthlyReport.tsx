@@ -106,6 +106,7 @@ export default function MonthlyReport({
         <Title size="xl">{t.subject}</Title>
 
         <Text style={styles.basmalah}>
+
           {firstSession?.dateTime
             ? getMonthYear(firstSession.dateTime, isEn ? "en" : "ar")
             : ""}
@@ -157,7 +158,7 @@ export default function MonthlyReport({
 
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.verses}</Text>
-          <Text style={styles.statValue}>{versesCount}</Text>
+          <Text style={styles.statValue}>{versesCount +' '}</Text>
         </View>
       </View>
 
