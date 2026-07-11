@@ -234,7 +234,7 @@ body{
     </div>
 
     <div class="row">
-      <div class="label"> </div>
+      <div class="label">${language=='en'?" Tajweed":' احكام التجويد'} </div>
       <div class="value">
         ${session.tajweed ?? ""}
       </div>

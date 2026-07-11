@@ -1,5 +1,6 @@
 import Title from "@/components/atoms/Title";
 import { colors } from "@/constants/theme";
+import { useProfile } from "@/hooks/useProfile";
 import { Feather } from "@expo/vector-icons";
 import {
   DrawerContentScrollView,
@@ -10,6 +11,7 @@ import React from "react";
 import { Text, View } from "react-native";
 
 function CustomDrawerContent(props: any) {
+  const {profile}=useProfile()
   return (
     <DrawerContentScrollView {...props} style={{ flex: 1 }}>
       {/* HEADER (YOUR DESIGN PRESERVED) */}
@@ -53,7 +55,7 @@ function CustomDrawerContent(props: any) {
         </Title>
 
         <Title variant="white" size="xl">
-          معاذ
+          {profile.nameAr}
         </Title>
       </View>
 
