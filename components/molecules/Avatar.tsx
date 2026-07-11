@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import React from "react";
 import { View, Text, Image } from "react-native";
 
@@ -23,10 +24,10 @@ export default function Avatar({ name, image }: Props) {
   return (
     <View
       style={{
-        backgroundColor: "#eee",
+        backgroundColor: colors.gray,
         width: 60,
         height: 60,
-        borderRadius: 30,
+        borderRadius: 40,
         alignItems: "center",
         justifyContent: "center",
       }}

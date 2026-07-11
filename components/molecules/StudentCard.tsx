@@ -58,7 +58,7 @@ export default function StudentCard({
     </View>
   </View>
 
-  <Hr />
+  <Hr style={{width:'80%',marginHorizontal:'auto'}} />
 
   <View style={styles.actionsRow}>
     <View style={styles.actionBtn}>
@@ -93,33 +93,36 @@ export default function StudentCard({
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    marginHorizontal: 12,
-    marginVertical: 6,
+ container: {
+  backgroundColor: "#fff",
 
-    paddingVertical: 18,
-    paddingHorizontal: 16,
+  marginHorizontal: 12,
+  marginVertical: 8,
 
-    borderRadius: 24,
+  paddingVertical: 18,
+  paddingHorizontal: 16,
 
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
+  borderRadius: 14,
 
-    elevation: 3,
+  borderWidth: 1,
+  borderColor: "#F1F5F9",
 
-    gap: 16,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
   },
+  shadowOpacity: 0.08,
+  shadowRadius: 6,
+
+  elevation: 2,
+},
 
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom:30
   },
 
   leftSection: {
@@ -134,13 +137,12 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
 
-  badge: {
-    backgroundColor: "#F3F7F8",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 999,
-  },
-
+badge: {
+  backgroundColor: "#F3F7F8",
+  paddingHorizontal: 12,
+  paddingVertical: 6,
+  borderRadius: 30,
+},
   actionsRow: {
     flexDirection: "row",
     gap: 10,

@@ -1,83 +1,153 @@
-import CustomAlert from '@/components/atoms/CustomAlert';
-import StudentCard from '@/components/molecules/StudentCard'
-import Header from '@/components/organisms/Header'
-import NoDataFallback from '@/components/organisms/NoDataFallback';
-import { useStudents } from '@/hooks/useStudent';
-import { useToast } from '@/hooks/useToast';
-import { Student, StudentFormData } from '@/types/appTypes';
-import { Feather } from '@expo/vector-icons';
-import Loading from '../../animations/Loading';
-import React, { useState } from 'react'
-import { View } from 'react-native'
+import React, { useState } from "react";
+import {
+  
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Feather } from "@expo/vector-icons";
 
+import CustomAlert from "@/components/atoms/CustomAlert";
+import StudentCard from "@/components/molecules/StudentCard";
+import Header from "@/components/organisms/Header";
+import NoDataFallback from "@/components/organisms/NoDataFallback";
+import Loading from "../../animations/Loading";
 
-type AddDataType= StudentFormData
+import { useStudents } from "@/hooks/useStudent";
+import { useToast } from "@/hooks/useToast";
 
+import { StudentFormData } from "@/types/appTypes";
+import { colors } from "@/constants/theme";
+
+type AddDataType = StudentFormData;
 
 export default function Students() {
-    const { students, createStudent, editStudent, removeStudent ,loading} = useStudents();
-const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
-const {showSuccess,showError} = useToast();
-// alert in case of delte only to make sure he really wants to delete student 
-    const openDeleteAlert = (id: number) => {
-  setSelectedStudentId(id);
-};
-// delete student in case of confirm alert //
-const confirmDelete = async () => {
-  if (selectedStudentId===null) return;
-  await removeStudent(selectedStudentId);
-  showSuccess( 'تم حذف الطالب',
+  const {
+    students,
+    createStudent,
+    editStudent,
+    removeStudent,
+    loading,
+  } = useStudents();
+
+  const [selectedStudentId, setSelectedStudentId] = useState<number | null>(
+    null
   );
-  setSelectedStudentId(null);
-};
-// -----------------------------//
-  const handleAdd: (data: AddDataType)  => Promise<void> = async (data: AddDataType) => {
-    await createStudent(data);
-    showSuccess( 'تم إضافة الطالب بنجاح',
-  );
+
+  const { showSuccess } = useToast();
+
+  // Open delete alert
+  const openDeleteAlert = (id: number) => {
+    setSelectedStudentId(id);
   };
 
-    return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50,paddingHorizontal:5 }} >
-      <Header<AddDataType>
-       title='الطلاب '
-       subtitle='ادارة قائمةالطلاب' 
-       handleSubmit={handleAdd}
-       btn='اضافة طالب'
-      formName='Students'/>
-      {loading&& <Loading />}
-      {students.length === 0 && !loading && 
+  // Confirm delete
+  const confirmDelete = async () => {
+    if (selectedStudentId === null) return;
 
-       <View style={{marginTop:20}}>
-        <NoDataFallback 
-        formName='Students'
-        handleSubmit={handleAdd}
-        
-        text='لايوجد طلاب مسجلين' 
-        btn='اضافة اول طالب'
-         Icon={() => <Feather name="users" size={30} color="gray" />}  />
-        </View>}
-  <View style={{gap:10}}>
-   {students.map((student) =>
-    <StudentCard key={student.id}
-     updateStudent={editStudent}
-      handleDelete={openDeleteAlert} 
-      isStudent 
-      student={student} 
-      btn1='edit' btn2='delete'></StudentCard>
-   )}
-   </View>
-   {/* // will show alert in case of delete only */}
-   <CustomAlert
-  show={selectedStudentId !== null}
-  title="حذف الطالب"
-  message="هل أنت متأكد أنك تريد حذف هذا الطالب؟"
-  confirmText="حذف"
-  cancelText="الغاء"
-  onCancel={() => setSelectedStudentId(null)}
-  onConfirm={confirmDelete}
-/>
-{/* //-----------------------------// */}
-    </View>
-  )
+    await removeStudent(selectedStudentId);
+
+    showSuccess("تم حذف الطالب");
+
+    setSelectedStudentId(null);
+  };
+
+  // Add Student
+  const handleAdd = async (data: AddDataType) => {
+    await createStudent(data);
+
+    showSuccess("تم إضافة الطالب بنجاح");
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {loading && <Loading />}
+
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        <Header<AddDataType>
+          title="الطلاب"
+          subtitle="إدارة قائمة الطلاب"
+          handleSubmit={handleAdd}
+          btn="إضافة طالب"
+          formName="Students"
+        />
+
+        {students.length === 0 && !loading ? (
+          <View style={styles.emptyContainer}>
+            <NoDataFallback
+              formName="Students"
+              handleSubmit={handleAdd}
+              text="لا يوجد طلاب مسجلين"
+              btn="إضافة أول طالب"
+              Icon={() => (
+                <Feather
+                  name="users"
+                  size={34}
+                  color="#94A3B8"
+                />
+              )}
+            />
+          </View>
+        ) : (
+          <View style={styles.listContainer}>
+            {students.map((student) => (
+              <View key={student.id} style={styles.cardWrapper}>
+                <StudentCard
+                  student={student}
+                  updateStudent={editStudent}
+                  handleDelete={openDeleteAlert}
+                  isStudent
+                  btn1="edit"
+                  btn2="delete"
+                />
+              </View>
+            ))}
+          </View>
+        )}
+      </ScrollView>
+
+      <CustomAlert
+        show={selectedStudentId !== null}
+        title="حذف الطالب"
+        message="هل أنت متأكد أنك تريد حذف هذا الطالب؟"
+        confirmText="حذف"
+        cancelText="إلغاء"
+        onCancel={() => setSelectedStudentId(null)}
+        onConfirm={confirmDelete}
+      />
+    </SafeAreaView>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    direction: "rtl",
+  },
+
+  content: {
+    paddingHorizontal: 18,
+    paddingTop: 20,
+    paddingBottom: 40,
+  },
+
+  listContainer: {
+    marginTop: 24,
+    gap: 16,
+  },
+
+  cardWrapper: {
+    borderRadius: 18,
+    overflow: "hidden",
+  },
+
+  emptyContainer: {
+    marginTop: 60,
+    paddingHorizontal: 10,
+  },
+});
