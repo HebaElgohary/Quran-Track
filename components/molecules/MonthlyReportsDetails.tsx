@@ -13,7 +13,6 @@ import MonthlyReport from "./MonthlyReport";
 import { getMonthName } from "@/utils/getMonthName ";
 import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { useProfile } from "@/hooks/useProfile";
-import { buildMonthlyReportHtml } from "@/utils/MonthlyReportPdfTemplate";
 import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { printMonthlyReport } from "@/utils/printMonthlyReport";
 

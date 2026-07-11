@@ -14,6 +14,7 @@ import SessionReport from "./SessionReport";
 import FormModal from "./form/FormModal";
 import { useProfile } from "@/hooks/useProfile";
 import { hasEnglishData } from "@/utils/hasEnglishData ";
+import EnglishTranslationModal from "./EnglishTranslationModal";
 
 type updateDataType = Session;
 
@@ -32,23 +33,14 @@ export default function SessionDetails({
 
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<"ar" | "en">("ar");
-const [openEnglishForm, setOpenEnglishForm] = useState(false);  useState(false);
+const [openEnglishForm, setOpenEnglishForm] = useState(false); 
 
 
-const handleEnglish = () => {
-  if (!session) return;
 
-  if (hasEnglishData(session)) {
-    setLanguage("en");
-    return;
-  }
-
-  setOpenEnglishForm(true);
-};
   useFocusEffect(
     useCallback(() => {
       loadSessions();
-    }, [open])
+    }, [open,openEnglishForm])
   );
 
   const session: Session | null = useMemo(() => {
@@ -71,6 +63,16 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
       : session;
   }, [session, language]);
 
+  const handleEnglish = () => {
+  if (!session) return;
+
+  if (hasEnglishData(session)) {
+    setLanguage("en");
+    return;
+  }
+
+  setOpenEnglishForm(true);
+};
   // -----------------------------
   // SHARE
   // -----------------------------
@@ -185,7 +187,9 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
         >
           {/* ENGLISH */}
           <Pressable
-            onPress={handleEnglish}
+            onPress={()=>{
+              console.log("FORM MODAL OPEN:", open);
+              handleEnglish()}}
             style={{
               justifyContent: "center",
               alignItems: "center",
@@ -236,14 +240,18 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
         handleSubmit={handleUpdate}
       />
       {/* //English fields required  */}
-      <FormModal<Session>
+<EnglishTranslationModal
   open={openEnglishForm}
   setOpen={setOpenEnglishForm}
-  formData={{
-    ...session,
+  initialData={{
+    newEn: session?.newEn,
+    revisionEn: session?.revisionEn,
+    tajweedEn: session?.tajweedEn,
+    notesEn: session?.notesEn,
   }}
-  formName="EnglishTranslation"
-  handleSubmit={async (data) => {
+  onSave={async (data) => {
+    if (!session) return;
+
     await handleUpdate({
       ...session,
       newEn: data.newEn,
@@ -252,7 +260,6 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
       notesEn: data.notesEn,
     });
 
-    setOpenEnglishForm(false);
     setLanguage("en");
   }}
 />
