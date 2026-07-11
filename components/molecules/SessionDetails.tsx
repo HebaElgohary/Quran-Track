@@ -13,6 +13,7 @@ import Button from "../atoms/Button";
 import SessionReport from "./SessionReport";
 import FormModal from "./form/FormModal";
 import { useProfile } from "@/hooks/useProfile";
+import { hasEnglishData } from "@/utils/hasEnglishData ";
 
 type updateDataType = Session;
 
@@ -31,7 +32,19 @@ export default function SessionDetails({
 
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<"ar" | "en">("ar");
+const [openEnglishForm, setOpenEnglishForm] = useState(false);  useState(false);
 
+
+const handleEnglish = () => {
+  if (!session) return;
+
+  if (hasEnglishData(session)) {
+    setLanguage("en");
+    return;
+  }
+
+  setOpenEnglishForm(true);
+};
   useFocusEffect(
     useCallback(() => {
       loadSessions();
@@ -172,7 +185,7 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
         >
           {/* ENGLISH */}
           <Pressable
-            onPress={() => setLanguage("en")}
+            onPress={handleEnglish}
             style={{
               justifyContent: "center",
               alignItems: "center",
@@ -222,6 +235,28 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
         formName="Sessions"
         handleSubmit={handleUpdate}
       />
+      {/* //English fields required  */}
+      <FormModal<Session>
+  open={openEnglishForm}
+  setOpen={setOpenEnglishForm}
+  formData={{
+    ...session,
+  }}
+  formName="EnglishTranslation"
+  handleSubmit={async (data) => {
+    await handleUpdate({
+      ...session,
+      newEn: data.newEn,
+      revisionEn: data.revisionEn,
+      tajweedEn: data.tajweedEn,
+      notesEn: data.notesEn,
+    });
+
+    setOpenEnglishForm(false);
+    setLanguage("en");
+  }}
+/>
     </View>
+    
   );
 }

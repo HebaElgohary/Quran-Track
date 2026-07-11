@@ -121,6 +121,7 @@ const handlePrint = async () => {
           flexDirection: "row",
           justifyContent: "flex-end",
           gap: 14,
+          marginBottom:10
         }}
       >
         {/* Language Switch */}
