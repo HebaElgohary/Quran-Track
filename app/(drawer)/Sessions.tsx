@@ -22,9 +22,14 @@ export default function sessions() {
  const [reportId, setReportId] =  useState<number | null>(null);
  const [report, setReport] =  useState(false);
 
-  const filteredSessions = selectedStudentId
-  ? sessions.filter((s) => s.studentId === selectedStudentId)
-  : sessions;
+const filteredSessions = (
+  selectedStudentId
+    ? sessions.filter((s) => s.studentId === selectedStudentId)
+    : sessions
+).sort(
+  (a, b) =>
+    new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime()
+);
 useEffect(() => {
    
 console.log('studentsssss',students)
