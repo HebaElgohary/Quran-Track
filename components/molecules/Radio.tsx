@@ -4,7 +4,7 @@ import { Pressable, View } from "react-native";
 type ColorRadioProps = {
   selected: boolean;
   onPress: () => void;
-  color: string;
+  color?: string;
 };
 
 export default function ColorRadio({

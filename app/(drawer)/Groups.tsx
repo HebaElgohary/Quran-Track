@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -20,6 +20,7 @@ import { useToast } from "@/hooks/useToast";
 
 import { Group, GroupFormData } from "@/types/appTypes";
 import { colors } from "@/constants/theme";
+import { useFocusEffect } from "expo-router";
 
 type AddGroupType = GroupFormData;
 
@@ -99,6 +100,7 @@ export default function Groups() {
     }
   };
 
+  useFocusEffect(useCallback(()=>{loadStudents()},[]))
   // -------------------------
 
   return (

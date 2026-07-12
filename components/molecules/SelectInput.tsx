@@ -5,8 +5,8 @@ import { colors } from "@/constants/theme";
 
 interface SelectInputProps {
   label?: string;
-  value?: number;
-  onChange?: (value: number) => void;
+  value?: number|null;
+  onChange?: (value: number |null) => void;
   data: any[];
 }
 
@@ -40,7 +40,7 @@ export default function SelectInput({
 
       <Select
         data={data}
-        value={value ?? 0}
+        value={value ?? null}
         onChange={onChange ?? (() => {})}
       />
     </View>

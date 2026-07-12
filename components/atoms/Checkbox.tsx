@@ -9,7 +9,7 @@ interface props {
 export default function Checkbox({ label, checked, onChange }: props) {
   return (
 
-    <View style={{marginHorizontal:10 ,display:'flex',flexDirection:'row' ,gap:5,alignItems:'center',marginVertical:6}}>
+    <View style={{marginHorizontal:10 ,display:'flex',flexDirection:'row-reverse' ,gap:5,alignItems:'center',marginVertical:6}}>
       <View><Text style={{fontSize: 16}}>{label}</Text></View>
        
         <Pressable onPress={onChange}>  

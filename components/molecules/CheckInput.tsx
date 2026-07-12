@@ -1,7 +1,7 @@
 import { colors } from "@/constants/theme";
 import { Student } from "@/types/appTypes";
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import Checkbox from "../atoms/Checkbox";
 
 export default function CheckInput({
@@ -16,28 +16,36 @@ export default function CheckInput({
     setItems(data ?? []);
   }, [data]);
 
+
   const toggleItem = (item: any) => {
-      console.log("clicked item", item);
+    console.log("clicked item", item);
 
     const student = item.data;
 
-    const exists = value.some((s: Student) => s.id === student.id);
+    const exists = value.some(
+      (s: Student) => s.id === student.id
+    );
 
     const updated = exists
-      ? value.filter((s: Student) => s.id !== student.id)
+      ? value.filter(
+          (s: Student) => s.id !== student.id
+        )
       : [...value, student];
 
     onChange?.(updated);
   };
+
+
   return (
     <View
       style={{
         gap: 12,
         marginVertical: 10,
-        display: "flex",
-        alignItems: "flex-end",
+        width: "100%",
+        display:'flex',alignItems:'flex-start'
       }}
     >
+
       {label && (
         <Text
           style={{
@@ -52,38 +60,50 @@ export default function CheckInput({
         </Text>
       )}
 
-      <ScrollView
+
+      <View
         style={{
           width: "100%",
-          maxHeight: 150,
+          maxHeight: 100,
           borderRadius: 6,
           borderWidth: 1,
           borderColor: colors.gray,
-        }}
-        contentContainerStyle={{
-          paddingBottom: 20,
+          overflow:'scroll',
+          display:'flex',
+          // direction:'rtl',
+          alignItems:'flex-start'
+
         }}
       >
-        <View
-          style={{
-            backgroundColor: "#fff",
-            margin: 10,
-            display: "flex",
-            flexDirection: "column",
-            gap: 6,
-            alignItems: "flex-end",
-          }}
-        >
-          {(items ?? []).map((item) => (
+
+        <FlatList
+          data={items}
+          keyExtractor={(item) =>
+            String(item.id)
+          }
+
+          nestedScrollEnabled={true}
+
+          renderItem={({item}) => (
             <Checkbox
-              key={item.id}
               label={item.name}
-              checked={value.some((s: Student) => s.id === item.id)}
-              onChange={() => toggleItem(item)}
+              checked={
+                value.some(
+                  (s: Student) =>
+                    s.id === item.id
+                )
+              }
+              onChange={() =>
+                toggleItem(item)
+              }
             />
-          ))}
-        </View>
-      </ScrollView>
+          )}
+
+          showsVerticalScrollIndicator={true}
+        />
+
+      </View>
+
     </View>
   );
 }

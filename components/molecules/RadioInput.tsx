@@ -23,7 +23,7 @@ export default function RadioInput({ data = [], label, onChange }: Props) {
   };
 
   return (
-    <View style={{ gap: 10, marginVertical: 10 ,display:'flex',alignItems:'flex-end',}}>
+    <View style={{ gap: 10, marginVertical: 10 ,display:'flex',alignItems:'flex-start',}}>
       {label && (
         <Text
           style={{

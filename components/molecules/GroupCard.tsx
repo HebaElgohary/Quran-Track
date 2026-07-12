@@ -129,7 +129,7 @@ export default function GroupCard({
                     gap: 6,
                   }}
                 >
-                  {groupStudents.slice(0, 3).map((s) => (
+                  {groupStudents.map((s) => (
                     <View
                       key={s.id}
                       style={{
@@ -150,7 +150,7 @@ export default function GroupCard({
                     </View>
                   ))}
 
-                  {studentCount > 3 && (
+                  {/* {studentCount > 3 && (
                     <View
                       style={{
                         paddingHorizontal: 8,
@@ -168,7 +168,7 @@ export default function GroupCard({
                         +{studentCount - 3}
                       </Text>
                     </View>
-                  )}
+                  )} */}
                 </View>
 
                 {/* count */}

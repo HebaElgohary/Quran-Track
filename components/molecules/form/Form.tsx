@@ -1,10 +1,10 @@
 import Button from "@/components/atoms/Button";
+import { colors } from "@/constants/theme";
 import { FormFieldSchema, FormName, SourcesMap } from "@/types/appTypes";
 import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import FormField from "./FormField";
-import { colors } from "@/constants/theme";
 
 interface props<T> {
   page: FormName;
@@ -35,7 +35,8 @@ export default function Form<T>({
         maxHeight: 700,
         backgroundColor: "#fff",
         borderRadius: 22,
-        overflow: "hidden",
+        alignSelf:'flex-start',
+        // overflow: "visible",
         shadowColor: "#000",
         shadowOpacity: 0.08,
         shadowRadius: 20,
@@ -62,8 +63,8 @@ export default function Form<T>({
           {page === "Groups"
             ? "إدارة المجموعة"
             : page === "Students"
-            ? "إدارة الطالب"
-            : "Form"}
+              ? "إدارة الطالب"
+              : "Form"}
         </Text>
 
         <Text style={{ fontSize: 12, color: "#9CA3AF", marginTop: 4 }}>
@@ -74,6 +75,10 @@ export default function Form<T>({
       {/* BODY */}
       <ScrollView
         style={{ maxHeight: 520 }}
+        nestedScrollEnabled
+          removeClippedSubviews={false}
+
+        keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
           padding: 16,
           paddingBottom: 30,
@@ -81,8 +86,7 @@ export default function Form<T>({
         showsVerticalScrollIndicator={false}
       >
         <View style={{ gap: 14 }}>
-          {fields.map((field: FormFieldSchema, index: number) =>
-           {
+          {fields.map((field: FormFieldSchema, index: number) => {
             const fieldError = errors?.[field.name];
 
             const fieldProps = {
@@ -91,18 +95,20 @@ export default function Form<T>({
             };
 
             return (
-            <View key={`${field.name}-${index}`}>
+              <View key={`${field.name}-${index}`}>
                 {/* FIELD CONTAINER */}
                 <View
                   style={{
                     backgroundColor: "#FAFAFA",
                     borderRadius: 16,
                     padding: 12,
+                    
                     borderWidth: fieldError ? 1.5 : 1,
                     borderColor: fieldError ? "#EF4444" : "#E5E7EB",
                   }}
                 >
                   <FormField
+                  
                     {...fieldProps}
                     value={formData?.[field.name as keyof T]}
                     error={fieldError}
@@ -148,7 +154,7 @@ export default function Form<T>({
         }}
       >
         {/* Cancel */}
-        <View style={{  }}>
+        <View style={{}}>
           <Button
             size="sm"
             variant="gray"
@@ -160,7 +166,7 @@ export default function Form<T>({
         </View>
 
         {/* Submit */}
-        <View style={{  }}>
+        <View style={{}}>
           <Button
             size="sm"
             variant="btnPrimary"

@@ -18,10 +18,12 @@ import { FormFieldSchema } from "@/types/appTypes";
       type: "radio",
       data: [
         { color: colors.orange, id: 0, checked: false },
-        { color: colors.secondary, id: 1, checked: false },
+        { color: colors.yellow, id: 1, checked: false },
         { color: colors.pink, id: 2, checked: false },
-        { color: colors.danger, id: 3, checked: false },
+        { color: colors.blue, id: 3, checked: false },
         { color: colors.violet, id: 4, checked: false },
+        { color: colors.green, id: 5, checked: false },
+
 
       ],
     },
