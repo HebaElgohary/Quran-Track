@@ -11,7 +11,7 @@ import { SessionFormData, SourcesMap, Student } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { FlatList, View } from "react-native";
 
 type AddDataType = SessionFormData;
 export default function sessions() {
@@ -92,82 +92,84 @@ useFocusEffect(
       session: s,
     });
   });
+  if (reportId) {
   return (
-    <View
-      style={{
-        direction: "rtl",
-        overflowY: "scroll",
-        height: "100%",
-        paddingVertical: 50,
-        paddingHorizontal: 5,
-      }}
-    >
-      {!reportId ? (
-        <View>
-          <Header<AddDataType>
-            title="الحصص"
-            subtitle="كل تقارير الحصص"
-            btn="تقرير حصة جديدة"
-            formName="Sessions"
-            handleSubmit={addSession}
-          />
-          <Filter
-            data={sources.students}
-            value={selectedStudentId}
-            onChange={setSelectedStudentId}
-          />
-          {sessions.length === 0 && !loading && (
-            <NoDataFallback<AddDataType>
-              formName="Sessions"
-              handleSubmit={addSession}
-              Icon={() => <Feather name="book-open" size={30} color="gray" />}
-              text="لاتوجد حصص مسجلة "
-              btn="اضف اول حصة "
-            />
-          )}
-          {!reportId &&
-            filteredSessions.map((session) => (
-              <SessionCard
-                key={session.id}
-                student={
-                  students.find(
-                    (student) => student.id == session.studentId,
-                  ) as Student
-                }
-                time={session.dateTime}
-                surah={session.surah}
-                from={session.from}
-                next={session.new}
-                revision={session.revision}
-                to={session.to}
-                grade={session.grade}
-                session={session}
-                handelDelete={() => openDeleteAlert(session.id)}
-                handleUpdate={editSession}
-                onReport={() => openReport(session.id)}
-              />
-            ))}
+    <SessionDetails
+      key={reportId}
+      reportId={reportId}
+      handleUpdate={editSession}
+      closeReport={() => setReportId(null)}
+    />
+  );
+}
+  return (
+    <>
+    <FlatList
+  data={filteredSessions}
+  keyExtractor={(item) => item.id.toString()}
+  ListHeaderComponent={
+    <>
+      <Header<AddDataType>
+        title="الحصص"
+        subtitle="كل تقارير الحصص"
+        btn="تقرير حصة جديدة"
+        formName="Sessions"
+        handleSubmit={addSession}
+      />
 
-          {/* // will show alert in case of delete only */}
-          <CustomAlert
-            show={selectedSessionId !== null}
-            title="حذف الحصة"
-            message="هل أنت متأكد أنك تريد حذف هذه الحصة"
-            confirmText="حذف"
-            cancelText="الغاء"
-            onCancel={() => setSelectedSessionId(null)}
-            onConfirm={confirmDelete}
-          />
-          {/* //-----------------------------// */}
-        </View>
-      ) : (
-        <SessionDetails
-          key={reportId}
-          handleUpdate={editSession}
-          reportId={reportId}
-          closeReport={() => setReportId(null)}
+      <Filter
+        data={sources.students}
+        value={selectedStudentId}
+        onChange={setSelectedStudentId}
+      />
+
+      {sessions.length === 0 && !loading && (
+        <NoDataFallback<AddDataType>
+          formName="Sessions"
+          handleSubmit={addSession}
+          Icon={() => (
+            <Feather name="book-open" size={30} color="gray" />
+          )}
+          text="لاتوجد حصص مسجلة"
+          btn="اضف اول حصة"
         />
       )}
-    </View>
+    </>
+  }
+  renderItem={({ item }) => (
+    <SessionCard
+      student={
+        students.find((s) => s.id === item.studentId) as Student
+      }
+      time={item.dateTime}
+      surah={item.surah}
+      from={item.from}
+      next={item.new}
+      revision={item.revision}
+      to={item.to}
+      grade={item.grade}
+      session={item}
+      handelDelete={() => openDeleteAlert(item.id)}
+      handleUpdate={editSession}
+      onReport={() => openReport(item.id)}
+    />
+  )}
+  contentContainerStyle={{
+    paddingHorizontal: 5,
+    paddingTop: 50,
+    paddingBottom: 120,
+  }}
+  showsVerticalScrollIndicator={false}
+/>
+    <CustomAlert
+      show={selectedSessionId !== null}
+      title="حذف الحصة"
+      message="هل أنت متأكد أنك تريد حذف هذه الحصة؟"
+      confirmText="حذف"
+      cancelText="إلغاء"
+      onCancel={() => setSelectedSessionId(null)}
+      onConfirm={confirmDelete}
+    />
+  </>
   );
 }

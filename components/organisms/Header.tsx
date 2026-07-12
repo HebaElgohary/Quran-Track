@@ -28,6 +28,7 @@ export default function Header<T>({
         marginHorizontal: 15,
         marginVertical: 15,
         padding: 1,
+        direction:'rtl'
       }}
     >
       <Heading title={title} subtitle={subtitle} />

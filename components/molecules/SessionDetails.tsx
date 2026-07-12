@@ -1,20 +1,20 @@
 import Header from "@/components/organisms/Header";
-import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
 import { useStudents } from "@/hooks/useStudent";
 import { Session } from "@/types/appTypes";
-import { buildEnglishSession } from "@/utils/buildEnglishSession";
-import { hasEnglishData } from "@/utils/hasEnglishData ";
 import { printSessionPdf } from "@/utils/printSessionPdf";
 import { shareSessionPdf } from "@/utils/shareSessionPdf";
+import { buildEnglishSession } from "@/utils/buildEnglishSession";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import Button from "../atoms/Button";
-import EnglishTranslationModal from "./EnglishTranslationModal";
 import SessionReport from "./SessionReport";
 import FormModal from "./form/FormModal";
+import { useProfile } from "@/hooks/useProfile";
+import { hasEnglishData } from "@/utils/hasEnglishData ";
+import EnglishTranslationModal from "./EnglishTranslationModal";
 
 type updateDataType = Session;
 
@@ -29,21 +29,18 @@ export default function SessionDetails({
 }) {
   const { sessions, loadSessions } = useSession();
   const { students } = useStudents();
-  const { profile, loadProfile } = useProfile();
+  const {profile}=useProfile()
 
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<"ar" | "en">("ar");
-  const [openEnglishForm, setOpenEnglishForm] = useState(false);
+const [openEnglishForm, setOpenEnglishForm] = useState(false); 
+
+
 
   useFocusEffect(
     useCallback(() => {
       loadSessions();
-      loadProfile();
-
-      return () => {
-        setOpenEnglishForm(false);
-      };
-    }, [loadSessions, loadProfile]),
+    }, [open,openEnglishForm])
   );
 
   const session: Session | null = useMemo(() => {
@@ -52,28 +49,30 @@ export default function SessionDetails({
   }, [sessions, reportId]);
 
   const student = students.find((s) => s.id === session?.studentId);
-  const studentName = language == "ar" ? student?.nameAr : student?.nameEn;
-  const teacherName = language == "ar" ? profile?.nameAr : profile?.nameEn;
+const studentName=language=='ar'?student?.nameAr:student?.nameEn
+  const teacherName=language=='ar'?profile?.nameAr:profile?.nameEn
 
-  // -----------------------------
+// -----------------------------
   // DATA TRANSFORMATION
   // -----------------------------
   const displaySession = useMemo(() => {
     if (!session) return null;
 
-    return language === "en" ? buildEnglishSession(session) : session;
+    return language === "en"
+      ? buildEnglishSession(session)
+      : session;
   }, [session, language]);
 
   const handleEnglish = () => {
-    if (!session) return;
+  if (!session) return;
 
-    if (hasEnglishData(session)) {
-      setLanguage("en");
-      return;
-    }
+  if (hasEnglishData(session)) {
+    setLanguage("en");
+    return;
+  }
 
-    setOpenEnglishForm(true);
-  };
+  setOpenEnglishForm(true);
+};
   // -----------------------------
   // SHARE
   // -----------------------------
@@ -84,7 +83,7 @@ export default function SessionDetails({
       displaySession,
       studentName ?? "",
       teacherName,
-      language,
+      language
     );
   };
 
@@ -110,7 +109,9 @@ export default function SessionDetails({
           textColor="black"
           onClick={handleWhatsappShare}
         >
-          <Text style={{ fontSize: 10, marginLeft: 8 }}>واتساب</Text>
+          <Text style={{ fontSize: 10, marginLeft: 8 }}>
+            واتساب
+          </Text>
           <Feather name="share-2" size={12} color="black" />
         </Button>
 
@@ -121,7 +122,9 @@ export default function SessionDetails({
           onClick={closeReport}
         >
           <Feather name="arrow-left" size={12} color="black" />
-          <Text style={{ fontSize: 10, marginLeft: 8 }}>رجوع</Text>
+          <Text style={{ fontSize: 10, marginLeft: 8 }}>
+            رجوع
+          </Text>
         </Button>
 
         <Button
@@ -131,7 +134,9 @@ export default function SessionDetails({
           onClick={() => setOpen(true)}
         >
           <Feather name="edit-2" size={12} color="black" />
-          <Text style={{ fontSize: 10, marginLeft: 8 }}>تعديل</Text>
+          <Text style={{ fontSize: 10, marginLeft: 8 }}>
+            تعديل
+          </Text>
         </Button>
       </View>
 
@@ -148,26 +153,24 @@ export default function SessionDetails({
           size="lg"
           name="printer"
           onClick={() =>
-            language == "ar"
-              ? printSessionPdf(
-                  displaySession,
-                  student?.nameAr || "",
-                  profile.nameAr,
-                  language,
-                )
-              : printSessionPdf(
-                  displaySession,
-                  student?.nameEn || "",
-                  profile.nameEn,
+            language=='ar'?
+            printSessionPdf(
+              displaySession,
+              student?.nameAr||'',
+              profile.nameAr
+               ,language)
+               :
+              printSessionPdf(
+              displaySession,
+              student?.nameEn ||'',
+              profile.nameEn
 
-                  language,
-                )
+              ,language
+            )
           }
         >
-          <Text style={{ fontSize: 10, textAlign: "center" }}>
-            {" "}
-            {"PDF-طباعة"}
-          </Text>
+          
+          <Text style={{ fontSize: 10,textAlign: 'center' }}> {'PDF-طباعة'}</Text>
         </Button>
 
         {/* LANGUAGE SWITCH */}
@@ -184,20 +187,22 @@ export default function SessionDetails({
         >
           {/* ENGLISH */}
           <Pressable
-            onPress={() => {
+            onPress={()=>{
               console.log("FORM MODAL OPEN:", open);
-              handleEnglish();
-            }}
+              handleEnglish()}}
             style={{
               justifyContent: "center",
               alignItems: "center",
               width: 70,
               height: 35,
               borderRadius: 20,
-              backgroundColor: language === "en" ? "#FFFFFF" : "#EEEEEE",
+              backgroundColor:
+                language === "en" ? "#FFFFFF" : "#EEEEEE",
             }}
           >
-            <Text style={{ fontSize: 13, fontWeight: "600" }}>English</Text>
+            <Text style={{ fontSize: 13, fontWeight: "600" }}>
+              English
+            </Text>
           </Pressable>
 
           {/* ARABIC */}
@@ -209,17 +214,20 @@ export default function SessionDetails({
               width: 70,
               height: 35,
               borderRadius: 20,
-              backgroundColor: language === "ar" ? "#FFFFFF" : "#EEEEEE",
+              backgroundColor:
+                language === "ar" ? "#FFFFFF" : "#EEEEEE",
             }}
           >
-            <Text style={{ fontSize: 13, fontWeight: "600" }}>العربية</Text>
+            <Text style={{ fontSize: 13, fontWeight: "600" }}>
+              العربية
+            </Text>
           </Pressable>
         </View>
       </View>
 
       {/* REPORT */}
       <SessionReport
-        closeReport={closeReport}
+      closeReport={closeReport}
         session={displaySession}
         lang={language}
       />
@@ -228,34 +236,35 @@ export default function SessionDetails({
       <FormModal<updateDataType>
         open={open}
         setOpen={setOpen}
-        formData={session as updateDataType}
+        formData={session  as updateDataType}
         formName="Sessions"
         handleSubmit={handleUpdate}
       />
       {/* //English fields required  */}
-      <EnglishTranslationModal
-        open={openEnglishForm}
-        setOpen={setOpenEnglishForm}
-        initialData={{
-          newEn: session?.newEn,
-          revisionEn: session?.revisionEn,
-          tajweedEn: session?.tajweedEn,
-          notesEn: session?.notesEn,
-        }}
-        onSave={async (data) => {
-          if (!session) return;
+<EnglishTranslationModal
+  open={openEnglishForm}
+  setOpen={setOpenEnglishForm}
+  initialData={{
+    newEn: session?.newEn,
+    revisionEn: session?.revisionEn,
+    tajweedEn: session?.tajweedEn,
+    notesEn: session?.notesEn,
+  }}
+  onSave={async (data) => {
+    if (!session) return;
 
-          await handleUpdate({
-            ...session,
-            newEn: data.newEn,
-            revisionEn: data.revisionEn,
-            tajweedEn: data.tajweedEn,
-            notesEn: data.notesEn,
-          });
+    await handleUpdate({
+      ...session,
+      newEn: data.newEn,
+      revisionEn: data.revisionEn,
+      tajweedEn: data.tajweedEn,
+      notesEn: data.notesEn,
+    });
 
-          setLanguage("en");
-        }}
-      />
+    setLanguage("en");
+  }}
+/>
     </View>
+    
   );
 }
