@@ -1,87 +1,311 @@
-import CustomAlert from '@/components/atoms/CustomAlert'
-import ScheduleCard from '@/components/molecules/ScheduleCard'
-import Header from '@/components/organisms/Header'
-import NoDataFallback from '@/components/organisms/NoDataFallback'
-import NotificationCard from '@/components/organisms/NotificationsCard'
-import { useSchedule } from '@/hooks/useSchedule'
-import { useStudents } from '@/hooks/useStudent'
-import { useToast } from '@/hooks/useToast'
-import { Schedule, ScheduleFormData } from '@/types/appTypes'
-import { Feather } from '@expo/vector-icons'
-import { useState } from 'react'
-import { View } from 'react-native'
-import * as Notifications from 'expo-notifications'
+import CustomAlert from "@/components/atoms/CustomAlert";
+import ScheduleCard from "@/components/molecules/ScheduleCard";
+import Header from "@/components/organisms/Header";
+import NoDataFallback from "@/components/organisms/NoDataFallback";
+import NotificationCard from "@/components/organisms/NotificationsCard";
+import { useSchedule } from "@/hooks/useSchedule";
+import { useStudents } from "@/hooks/useStudent";
+import { useToast } from "@/hooks/useToast";
+import { Schedule, ScheduleFormData } from "@/types/appTypes";
+import { Feather } from "@expo/vector-icons";
+import { useState } from "react";
+import {
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
+import * as Notifications from "expo-notifications";
+import { colors } from "@/constants/theme";
 
-type AddDataType = ScheduleFormData
+
+type AddDataType = ScheduleFormData;
+
+
 export default function Schedules() {
-  const { schedules, createSchedule,loading, removeSchedule, editSchedule } = useSchedule();
+
+  const {
+    schedules,
+    createSchedule,
+    loading,
+    removeSchedule,
+    editSchedule,
+  } = useSchedule();
+
   const { students } = useStudents();
-  const { showSuccess } = useToast()
-  const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
-  // --------------- add handler ------------//
-  const addSchedule = async (formData: ScheduleFormData) => {
-  await createSchedule(formData);
+  const { showSuccess } = useToast();
 
-  showSuccess("تم اضافة الموعد بنجاح");
-};
 
-// ----------------------------------//
+  const [selectedScheduleId, setSelectedScheduleId] =
+    useState<number | null>(null);
 
-// alert in case of delte only to make sure he really wants to delete student 
-    const openDeleteAlert = (id: number) => {
-  setSelectedScheduleId(id);
-};
-// delete student in case of confirm alert //
-const confirmDelete = async () => {
-  if (selectedScheduleId===null) return;
 
-  const schedule = schedules.find(
-  s => s.id === selectedScheduleId
-);
 
-if (schedule?.notificationId) {
-  await Notifications.cancelScheduledNotificationAsync(
-    schedule.notificationId
-  );
-}
+  // ADD
+  const addSchedule = async (
+    formData: ScheduleFormData
+  ) => {
 
-  await removeSchedule(selectedScheduleId);
-  showSuccess( 'تم حذف الحصة',
-  );
-  setSelectedScheduleId(null);
-};
-// -----------------------------//
+    await createSchedule(formData);
+
+    showSuccess(
+      "تم اضافة الموعد بنجاح"
+    );
+  };
+
+
+
+  // DELETE ALERT
+  const openDeleteAlert = (
+    id: number
+  ) => {
+    setSelectedScheduleId(id);
+  };
+
+
+
+  // DELETE
+  const confirmDelete = async () => {
+
+    if (selectedScheduleId === null)
+      return;
+
+
+    const schedule = schedules.find(
+      s => s.id === selectedScheduleId
+    );
+
+
+    if (schedule?.notificationId) {
+
+      await Notifications
+        .cancelScheduledNotificationAsync(
+          schedule.notificationId
+        );
+
+    }
+
+
+    await removeSchedule(
+      selectedScheduleId
+    );
+
+
+    showSuccess(
+      "تم حذف الموعد"
+    );
+
+
+    setSelectedScheduleId(null);
+  };
+
+
 
   return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingHorizontal:5,paddingVertical:50}} >
 
-  <Header<AddDataType> handleSubmit={addSchedule}  title='المواعيد' subtitle='سينبهك التطبيق بصوت عالى قبل الحصة ب 5 دقائق' btn='اضف موعد جديد' formName='Schedule'/>
-      <NotificationCard />
-  
-  {schedules.length === 0 && !loading && <NoDataFallback handleSubmit={addSchedule} text='لايوجد مواعيد ' btn='اضف اول ميعاد' Icon={()=><Feather name="calendar" size={30} color="gray" /> } />}
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: colors.background,
+        direction:'rtl'
+      }}
 
-<View style={{display:'flex',flexDirection:'column',gap:10,marginTop:50}}>
-  {schedules && schedules.map((schedule:Schedule) =><ScheduleCard 
-  schedule={schedule}
-     student={students.find((student) => student.id == schedule.studentId) }
-  duration={schedule.duration}
-  key={schedule.id}
-  handelUpdate={editSchedule}
-  openDeleteAlert={() => openDeleteAlert(schedule.id)} 
-  />)}
-  </View>
+      contentContainerStyle={{
+        paddingTop: 45,
+        paddingHorizontal: 12,
+        paddingBottom: 40,
+      }}
 
-   <CustomAlert
-          show={selectedScheduleId !== null}
-          title="حذف المجموعة"
-          message="هل أنت متأكد أنك تريد حذف هذه المجموعة؟"
-          confirmText="حذف"
-          cancelText="الغاء"
-          onCancel={() => setSelectedScheduleId(null)}
-          onConfirm={confirmDelete}
+      showsVerticalScrollIndicator={false}
+
+    >
+
+      {/* HEADER */}
+      <View
+        style={{
+          marginBottom: 15,
+        }}
+      >
+
+        <Header<AddDataType>
+          handleSubmit={addSchedule}
+          title="المواعيد"
+          subtitle="سينبهك التطبيق بصوت عالى قبل الحصة بـ 5 دقائق"
+          btn="أضف موعد جديد"
+          formName="Schedule"
         />
-        {/* //-----------------------------// */}
-</View>
 
-)
+      </View>
+
+
+
+      {/* NOTIFICATION INFO */}
+      <View
+        style={{
+          marginBottom: 20,
+        }}
+      >
+
+        <NotificationCard />
+
+      </View>
+
+
+
+
+      {/* EMPTY STATE */}
+      {
+        schedules.length === 0 &&
+        !loading &&
+        (
+
+          <View
+            style={{
+              marginTop: 30,
+              alignItems:"center",
+            }}
+          >
+
+            <NoDataFallback
+              handleSubmit={addSchedule}
+              text="لا يوجد مواعيد"
+              btn="أضف أول موعد"
+              Icon={() => (
+                <Feather
+                  name="calendar"
+                  size={35}
+                  color="gray"
+                />
+              )}
+            />
+
+          </View>
+
+        )
+      }
+
+
+
+
+      {/* TITLE */}
+      {
+        schedules.length > 0 &&
+        (
+
+          <View
+            style={{
+              flexDirection:"row",
+              justifyContent:"flex-start",
+              marginVertical:15,
+              marginHorizontal:20
+            }}
+          >
+
+            <Text
+              style={{
+                fontSize:18,
+                fontWeight:"700",
+                color:colors.btnPrimary,
+            
+              }}
+            >
+              كل المواعيد
+            </Text>
+
+          </View>
+
+        )
+      }
+
+
+
+
+
+      {/* CARDS */}
+      <View
+        style={{
+          gap:14,
+        }}
+      >
+
+        {
+          schedules?.map(
+            (schedule: Schedule) => (
+
+              <View
+                key={schedule.id}
+                style={{
+                  width:"100%",
+                }}
+              >
+
+                <ScheduleCard
+
+                  schedule={schedule}
+
+                  student={
+                    students.find(
+                      student =>
+                        student.id ===
+                        schedule.studentId
+                    )
+                  }
+
+                  duration={
+                    schedule.duration
+                  }
+
+                  handelUpdate={
+                    editSchedule
+                  }
+
+                  openDeleteAlert={() =>
+                    openDeleteAlert(
+                      schedule.id
+                    )
+                  }
+
+                />
+
+              </View>
+
+            )
+          )
+        }
+
+
+      </View>
+
+
+
+
+
+      {/* DELETE CONFIRM */}
+      <CustomAlert
+
+        show={
+          selectedScheduleId !== null
+        }
+
+        title="حذف الموعد"
+
+        message="هل أنت متأكد أنك تريد حذف هذا الموعد؟"
+
+        confirmText="حذف"
+
+        cancelText="الغاء"
+
+        onCancel={() =>
+          setSelectedScheduleId(null)
+        }
+
+        onConfirm={
+          confirmDelete
+        }
+
+      />
+
+
+    </ScrollView>
+
+  );
 }
