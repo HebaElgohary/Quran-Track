@@ -8,14 +8,14 @@ import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
 } from "react-native";
 
-import Button from "../atoms/Button";
-import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
+import Title from "../atoms/Title";
+
 
 type UpdateDataType = Session;
+
 
 interface SessionCardProps {
   time: Date;
@@ -32,10 +32,12 @@ interface SessionCardProps {
   onReport: () => void;
 }
 
+
+
 export default function SessionCard({
   session,
-  surah,
   time,
+  surah,
   grade,
   student,
   from,
@@ -47,255 +49,308 @@ export default function SessionCard({
   onReport,
 }: SessionCardProps) {
 
-  const [open, setOpen] = useState(false);
 
-  const { width } = useWindowDimensions();
+  const [open,setOpen] = useState(false);
 
-  const isTablet = width >= 700;
 
 
-  const gradeColors: Record<string,string> = {
-    ممتاز: colors.excellent,
-    "جيد جدا": colors.veryGood,
-    جيد: colors.good,
-    متوسط: colors.average,
-    ضعيف: colors.bad,
-  };
+  const gradeColor =
+    grade === "ممتاز"
+      ? "#16A34A"
+      : grade === "جيد جدا"
+      ? "#22C55E"
+      : grade === "جيد"
+      ? "#2563EB"
+      : grade === "متوسط"
+      ? "#F59E0B"
+      : "#EF4444";
 
 
-  return (
 
-    <View
-      style={[
-        styles.container,
-        isTablet && styles.tabletContainer,
-      ]}
-    >
+return (
 
+<View style={styles.card}>
 
-      {/* Header */}
 
-      <View style={styles.header}>
+{/* HEADER */}
 
+<View style={styles.header}>
 
-        <View style={styles.studentSection}>
 
-          <Title size="xl">
-            {student?.nameAr ||
-              student?.nameEn ||
-              "طالب غير معروف"}
-          </Title>
+<View style={styles.studentInfo}>
 
 
-          <View style={styles.dateRow}>
+<Title size="xl">
+{student?.nameAr || "طالب غير معروف"}
+</Title>
 
-            <Feather
-              name="calendar"
-              size={14}
-              color="#64748B"
-            />
 
-            <Text style={styles.time}>
-              {formatDate(time)}
-            </Text>
 
-          </View>
+<View style={styles.dateRow}>
 
+<Feather
+name="calendar"
+size={13}
+color="#64748B"
+/>
 
-        </View>
+<Text style={styles.date}>
+{formatDate(time)}
+</Text>
 
+</View>
 
 
-        <View
-          style={[
-            styles.gradeBadge,
-            {
-              backgroundColor:
-                gradeColors[grade] ||
-                colors.btnPrimary,
-            },
-          ]}
-        >
+</View>
 
-          <Text style={styles.gradeText}>
-            {grade}
-          </Text>
 
-        </View>
 
+<View
+style={[
+styles.grade,
+{
+backgroundColor:gradeColor
+}
+]}
+>
 
-      </View>
+<Text style={styles.gradeText}>
+{grade}
+</Text>
 
 
+</View>
 
-      {/* Details */}
 
-      <View style={styles.content}>
+</View>
 
 
-        <SessionRow
-          icon="book-open"
-          label="السورة"
-          value={`${surah || "-"} (${from}-${to})`}
-        />
 
 
-        <SessionRow
-          icon="edit-3"
-          label="الحفظ الجديد"
-          value={next || "-"}
-        />
 
+{/* QURAN SECTION */}
 
-        <SessionRow
-          icon="rotate-cw"
-          label="المراجعة"
-          value={revision || "-"}
-        />
+<View style={styles.quran}>
 
 
-      </View>
+<View style={styles.quranIcon}>
 
+<Feather
+name="book-open"
+size={18}
+color="#fff"
+/>
 
+</View>
 
-      {/* Actions */}
 
-      <View style={styles.actionsRow}>
 
+<View style={{flex:1}}>
 
-        <Pressable
-          onPress={onReport}
-          style={[
-            styles.action,
-            styles.report,
-          ]}
-        >
 
-          <Feather
-            name="file-text"
-            size={16}
-            color="#2563EB"
-          />
+<Text style={styles.quranLabel}>
+السورة
+</Text>
 
-          <Text style={styles.reportText}>
-            تقرير
-          </Text>
 
-        </Pressable>
+<Text style={styles.quranText}>
+{surah || "-"}
+</Text>
 
 
+<Text style={styles.ayah}>
+الآيات {from} - {to}
+</Text>
 
-        <Pressable
-          onPress={()=>setOpen(true)}
-          style={[
-            styles.action,
-            styles.edit,
-          ]}
-        >
 
-          <Feather
-            name="edit-2"
-            size={16}
-            color="#EA580C"
-          />
+</View>
 
-          <Text style={styles.editText}>
-            تعديل
-          </Text>
 
-        </Pressable>
 
+</View>
 
 
-        <Pressable
-          onPress={handelDelete}
-          style={[
-            styles.action,
-            styles.delete,
-          ]}
-        >
 
-          <Feather
-            name="trash-2"
-            size={16}
-            color="#DC2626"
-          />
 
-          <Text style={styles.deleteText}>
-            حذف
-          </Text>
 
-        </Pressable>
+{/* DETAILS */}
 
+<View style={styles.details}>
 
-      </View>
 
+<DetailBox
+icon="edit-3"
+title="الحفظ"
+value={next}
+/>
 
 
 
-      <FormModal<UpdateDataType>
+<DetailBox
+icon="rotate-cw"
+title="المراجعة"
+value={revision}
+/>
 
-        open={open}
 
-        setOpen={setOpen}
 
-        formData={session}
+</View>
 
-        formName="Sessions"
 
-        handleSubmit={handleUpdate}
 
-      />
 
 
-    </View>
 
-  );
+
+{/* ACTIONS */}
+
+<View style={styles.actions}>
+
+
+<Action
+icon="file-text"
+color="#2563EB"
+bg="#EFF6FF"
+onPress={onReport}
+/>
+
+
+<Action
+icon="edit-2"
+color="#EA580C"
+bg="#FFF7ED"
+onPress={()=>setOpen(true)}
+/>
+
+
+<Action
+icon="trash-2"
+color="#DC2626"
+bg="#FEF2F2"
+onPress={handelDelete}
+/>
+
+
+</View>
+
+
+
+
+
+
+<FormModal<UpdateDataType>
+
+open={open}
+
+setOpen={setOpen}
+
+formData={session}
+
+formName="Sessions"
+
+handleSubmit={handleUpdate}
+
+/>
+
+
+
+</View>
+
+)
+
 }
 
 
 
 
-function SessionRow({
-  icon,
-  label,
-  value,
-}:{
-  icon:any;
-  label:string;
-  value:string;
-}){
-
-  return (
-
-    <View style={styles.row}>
-
-
-      <View style={styles.labelBox}>
-
-        <Feather
-          name={icon}
-          size={15}
-          color="#2563EB"
-        />
-
-        <Text style={styles.label}>
-          {label}
-        </Text>
-
-      </View>
 
 
 
-      <Text style={styles.value}>
-        {value}
-      </Text>
+function DetailBox({
+icon,
+title,
+value
+}:any){
 
 
-    </View>
+return (
 
-  );
+<View style={styles.detailBox}>
+
+
+<Feather
+name={icon}
+size={15}
+color="#2563EB"
+/>
+
+
+<Text style={styles.detailTitle}>
+{title}
+</Text>
+
+
+<Text
+style={styles.detailValue}
+numberOfLines={1}
+>
+
+{value || "-"}
+
+</Text>
+
+
+</View>
+
+
+)
+
 }
+
+
+
+
+
+
+
+
+function Action({
+icon,
+color,
+bg,
+onPress
+}:any){
+
+
+return (
+
+<Pressable
+onPress={onPress}
+style={[
+styles.action,
+{
+backgroundColor:bg
+}
+]}
+>
+
+
+<Feather
+name={icon}
+size={18}
+color={color}
+/>
+
+
+</Pressable>
+
+
+)
+
+}
+
+
+
 
 
 
@@ -304,275 +359,323 @@ function SessionRow({
 const styles = StyleSheet.create({
 
 
-container:{
 
-  direction:"rtl",
-
-  backgroundColor:"#FFFFFF",
-
-  marginHorizontal:16,
-
-  marginVertical:8,
-
-  padding:18,
-
-  borderRadius:18,
-
-  borderWidth:1,
-
-  borderColor:"#E2E8F0",
+card:{
 
 
-  shadowColor:"#000",
+direction:"rtl",
 
-  shadowOpacity:0.05,
+backgroundColor:"#fff",
 
-  shadowRadius:8,
+marginHorizontal:12,
 
-  shadowOffset:{
-    width:0,
-    height:3,
-  },
+marginVertical:6,
 
-  elevation:2,
+padding:14,
+
+borderRadius:20,
+
+
+borderWidth:1,
+
+borderColor:"#E5E7EB",
+
+
+shadowColor:"#000",
+
+shadowOpacity:.05,
+
+shadowRadius:8,
+
+shadowOffset:{
+width:0,
+height:3
+},
+
+elevation:2,
+
 
 },
 
 
-
-tabletContainer:{
-
-  width:"85%",
-
-  maxWidth:700,
-
-  alignSelf:"center",
-
-  padding:24,
-
-},
 
 
 
 header:{
 
-  direction:"rtl",
 
-  flexDirection:"row",
+flexDirection:"row",
 
-  justifyContent:"space-between",
+alignItems:"center",
 
-  alignItems:"center",
+justifyContent:"space-between",
+
 
 },
 
 
 
-studentSection:{
 
-  flex:1,
+studentInfo:{
 
-  gap:6,
+
+alignItems:"flex-start",
+
+flex:1,
+
 
 },
+
 
 
 
 dateRow:{
 
-  flexDirection:"row",
 
-  alignItems:"center",
+flexDirection:"row",
 
-  gap:6,
+alignItems:"center",
+
+gap:5,
+
+marginTop:4,
+
 
 },
 
 
 
-time:{
 
-  color:"#64748B",
+date:{
 
-  fontSize:13,
+
+fontSize:12,
+
+color:"#64748B"
+
+
+},
+
+
+
+
+grade:{
+
+
+paddingHorizontal:12,
+
+paddingVertical:6,
+
+borderRadius:20,
+
 
 },
 
-
-
-gradeBadge:{
-
-  paddingHorizontal:14,
-
-  paddingVertical:8,
-
-  borderRadius:14,
-
-},
 
 
 
 gradeText:{
 
-  color:"#fff",
 
-  fontWeight:"700",
+fontSize:12,
 
-  fontSize:13,
+fontWeight:"800",
+
+color:"#fff",
+
 
 },
 
 
 
-content:{
 
-  marginTop:18,
 
-  gap:12,
+
+quran:{
+
+
+marginTop:12,
+
+backgroundColor:"#065F46",
+
+borderRadius:16,
+
+padding:12,
+
+
+flexDirection:"row-reverse",
+
+alignItems:"center",
+
+gap:10,
+
 
 },
 
 
 
-row:{
+quranIcon:{
 
-  direction:"rtl",
 
-  flexDirection:"row",
+width:38,
 
-  alignItems:"center",
+height:38,
 
-  backgroundColor:"#F8FAFC",
+borderRadius:20,
 
-  padding:12,
+backgroundColor:"rgba(255,255,255,.2)",
 
-  borderRadius:12,
+alignItems:"center",
+
+justifyContent:"center",
+
 
 },
 
 
 
-labelBox:{
 
-  flexDirection:"row",
+quranLabel:{
 
-  alignItems:"center",
 
-  gap:6,
+fontSize:11,
 
-  width:110,
+color:"#D1FAE5",
+
 
 },
 
 
 
-label:{
 
-  color:"#2563EB",
+quranText:{
 
-  fontWeight:"700",
 
-  fontSize:14,
+fontSize:16,
+
+fontWeight:"800",
+
+color:"#fff",
+
 
 },
 
 
 
-value:{
 
-  flex:1,
+ayah:{
 
-  color:"#334155",
 
-  fontSize:14,
+fontSize:12,
 
-  textAlign:"right",
+color:"#D1FAE5",
+
 
 },
 
 
 
-actionsRow:{
 
-  direction:"rtl",
 
-  flexDirection:"row",
+details:{
 
-  gap:10,
 
-  marginTop:18,
+flexDirection:"row",
+
+gap:8,
+
+marginTop:10,
+
 
 },
+
+
+
+
+detailBox:{
+
+
+flex:1,
+
+backgroundColor:"#F8FAFC",
+
+borderRadius:12,
+
+padding:10,
+
+alignItems:"center",
+
+
+},
+
+
+
+
+detailTitle:{
+
+
+fontSize:11,
+
+color:"#64748B",
+
+marginTop:3,
+
+
+},
+
+
+
+detailValue:{
+
+
+fontSize:13,
+
+fontWeight:"700",
+
+color:"#1E293B",
+
+marginTop:3,
+
+
+},
+
+
+
+
+
+actions:{
+
+
+flexDirection:"row",
+
+justifyContent:"center",
+
+gap:14,
+
+marginTop:12,
+
+
+},
+
 
 
 
 action:{
 
-  flex:1,
 
-  height:42,
+width:42,
 
-  borderRadius:12,
+height:42,
 
-  flexDirection:"row",
+borderRadius:21,
 
-  justifyContent:"center",
+alignItems:"center",
 
-  alignItems:"center",
+justifyContent:"center",
 
-  gap:7,
 
 },
 
-
-
-report:{
-
-  backgroundColor:"#EFF6FF",
-
-},
-
-
-edit:{
-
-  backgroundColor:"#FFF7ED",
-
-},
-
-
-delete:{
-
-  backgroundColor:"#FEF2F2",
-
-},
-
-
-
-reportText:{
-
-  color:"#2563EB",
-
-  fontWeight:"600",
-
-},
-
-
-editText:{
-
-  color:"#EA580C",
-
-  fontWeight:"600",
-
-},
-
-
-deleteText:{
-
-  color:"#DC2626",
-
-  fontWeight:"600",
-
-},
 
 
 });

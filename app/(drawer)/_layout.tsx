@@ -128,7 +128,7 @@ export default function Layout() {
       <Drawer.Screen
         name="Sessions"
         options={{
-          title: "الحصص",
+          title: " تقارير الحصص",
           drawerIcon: ({ color, size }) => (
             <Feather name="book" size={size} color={color} />
           ),
