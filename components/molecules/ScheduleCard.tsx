@@ -2,7 +2,7 @@ import { Schedule, Student } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
@@ -71,115 +71,173 @@ export default function ScheduleCard({
   return (
     <SwipeCard onEdit={() => setOpen(true)} onDelete={openDeleteAlert}>
       {/* your schedule UI here */}
-      <View
-        style={{
-          width: "96%",
-          marginHorizontal: "2%",
-          backgroundColor: "#fff",
-          borderRadius: 18,
-          padding: 16,
-          borderWidth: 1,
-          borderColor: "#eee",
-          marginBottom: 12,
-        }}
-      >
-        {/* HEADER */}
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-            <View
-              style={{
-                width: 42,
-                height: 42,
-                borderRadius: 12,
-                backgroundColor: colors.gray,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Feather name="bell" size={20} color={colors.btnPrimary} />
-            </View>
+   <View style={styles.card}>
+  {/* Header */}
+  <View style={styles.header}>
 
-            <View>
-              <Title>
-                {student?.nameAr || student?.nameEn || "طالب غير معروف"}
-              </Title>
-              <View
-                style={{
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  gap: 2,
-                }}
-              >
-                <Text style={{ color: "#6B7280", marginTop: 2 }}>
-                  {formatDate(schedule.dateTime)}
-                </Text>
-                <Text style={{ color: "#6B7280", marginTop: 2 }}>
-                {schedule.dateTime.toLocaleTimeString("ar-EG", {
-  hour: "2-digit",
-  minute: "2-digit",
-})}
-                </Text>
-              </View>
-            </View>
-          </View>
+    <View style={styles.leftSide}>
 
-          <View
-            style={{
-              backgroundColor: "#EEF2FF",
-              paddingHorizontal: 10,
-              paddingVertical: 4,
-              borderRadius: 12,
-            }}
-          >
-            <Text style={{ fontSize: 12, color: "#4F46E5", fontWeight: "600" }}>
-              {duration} دقيقة
-            </Text>
-          </View>
-        </View>
-
-        {/* ACTION BUTTONS */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            marginTop: 14,
-            gap: 10,
-          }}
-        >
-          <Button
-            variant="transparent"
-            textColor="warning"
-            size="sm"
-            onClick={() => setOpen(true)}
-          >
-            <Feather name="edit-2" size={14} /> تعديل
-          </Button>
-
-          <Button
-            variant="transparent"
-            textColor="danger"
-            size="sm"
-            onClick={openDeleteAlert}
-          >
-            <Feather name="trash-2" size={14} /> حذف
-          </Button>
-        </View>
-
-        {/* MODAL */}
-        <FormModal<updateDataType>
-          open={open}
-          setOpen={setOpen}
-          formData={schedule}
-          formName="Schedule"
-          handleSubmit={handelUpdate}
+      <View style={styles.iconContainer}>
+        <Feather
+          name="bell"
+          size={22}
+          color={colors.btnPrimary}
         />
       </View>
+
+      <View style={{ flex: 1 }}>
+        <Text style={styles.name}>
+          {student?.nameAr ?? "طالب"}
+        </Text>
+
+        <View style={styles.row}>
+          <Feather
+            name="calendar"
+            size={14}
+            color="#64748B"
+          />
+
+          <Text style={styles.subText}>
+            {formatDate(schedule.dateTime)}
+          </Text>
+        </View>
+
+        <View style={styles.row}>
+          <Feather
+            name="clock"
+            size={14}
+            color="#64748B"
+          />
+
+          <Text style={styles.subText}>
+            {schedule.dateTime.toLocaleTimeString("ar-EG", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </Text>
+        </View>
+
+      </View>
+
+    </View>
+
+    <View style={styles.durationBadge}>
+      <Text style={styles.durationText}>
+        {duration} دقيقة
+      </Text>
+    </View>
+
+  </View>
+
+  <View style={styles.divider} />
+
+  <View style={styles.reminder}>
+    <Feather
+      name="volume-2"
+      size={16}
+      color="#2563EB"
+    />
+
+    <Text style={styles.reminderText}>
+      سيتم التذكير قبل الموعد بـ 5 دقائق
+    </Text>
+  </View>
+</View>
     </SwipeCard>
   );
 }
+
+const styles = StyleSheet.create({
+
+card: {
+  backgroundColor: "#fff",
+  marginHorizontal: 16,
+  marginVertical: 10,
+  padding: 20,
+  borderRadius: 24,
+
+  shadowColor: "#000",
+  shadowOpacity: 0.06,
+  shadowRadius: 10,
+  shadowOffset: {
+    width: 0,
+    height: 3,
+  },
+  elevation: 3,
+},
+
+header:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems:"flex-start",
+    gap:8
+},
+
+leftSide:{
+    flexDirection:"row",
+    flex:1,
+        gap:8
+
+},
+
+iconContainer:{
+    width:48,
+    height:48,
+    borderRadius:14,
+    backgroundColor:"#EEF2FF",
+    justifyContent:"center",
+    alignItems:"center",
+    marginHorizontal:12,
+},
+
+name:{
+    fontSize:17,
+    fontWeight:"700",
+    color:"#111827",
+    marginBottom:6,
+},
+
+row:{
+    flexDirection:"row",
+    alignItems:"center",
+    marginTop:4,
+},
+
+subText:{
+    marginLeft:6,
+    color:"#64748B",
+    fontSize:13,
+},
+
+durationBadge:{
+    backgroundColor:"#ECFDF5",
+    paddingHorizontal:12,
+    paddingVertical:7,
+    borderRadius:20,
+},
+
+durationText:{
+    color:"#059669",
+    fontWeight:"700",
+    fontSize:12,
+},
+
+divider:{
+    height:1,
+    backgroundColor:"#F1F5F9",
+    marginVertical:16,
+},
+
+reminder:{
+    flexDirection:"row",
+    alignItems:"center",
+        gap:8
+
+},
+
+reminderText:{
+    marginLeft:8,
+    color:"#475569",
+    fontSize:13,
+},
+});
