@@ -15,6 +15,9 @@ import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { useProfile } from "@/hooks/useProfile";
 import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { printMonthlyReport } from "@/utils/printMonthlyReport";
+import NoDataFallback from "../organisms/NoDataFallback";
+import Notfound from "@/animations/NotFound";
+import Title from "../atoms/Title";
 
 export default function MonthlyReportsDetails({
   closeReport,
@@ -106,8 +109,11 @@ const handlePrint = async () => {
 };
 // ============================//
 
-  if (!report || !student) {
-    return <Text>التقرير غير موجود</Text>;
+  if (!report || !student || studentSessions.length==0) {
+    return <View style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+<Notfound />
+     <Title>التقرير غير موجود</Title>;
+     </View>
   }
 
   return (

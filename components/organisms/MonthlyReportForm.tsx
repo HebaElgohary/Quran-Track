@@ -14,7 +14,7 @@ import FormField from "../molecules/form/FormField";
 export default function MonthlyReportForm<T>({
   handleSubmit,
 }: {
-  handleSubmit: (data: MonthlyReportsFormData) => Promise<void>;
+  handleSubmit: (data: MonthlyReportsFormData) => void;
 }) {
   const { formData, setFormData, errors, reset, validate } =
     useMonthlyReportsForm();
@@ -29,7 +29,7 @@ export default function MonthlyReportForm<T>({
       checked: false,
     })),
   };
-  const onSubmit = async () => {
+  const onSubmit =  () => {
     console.log("button clicked");
     console.log("formData before validate", formData);
 
@@ -37,7 +37,7 @@ export default function MonthlyReportForm<T>({
 
     console.log("isValid", isValid);
 
-    await handleSubmit?.(formData as MonthlyReportsFormData);
+     handleSubmit?.(formData as MonthlyReportsFormData);
     console.log("after handleSubmit");
 
   };

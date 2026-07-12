@@ -2,36 +2,33 @@ import Loadign from '@/animations/Loading';
 import MonthlyReportsDetails from '@/components/molecules/MonthlyReportsDetails';
 import Header from '@/components/organisms/Header'
 import MonthlyReportForm from '@/components/organisms/MonthlyReportForm'
+import { colors } from '@/constants/theme';
 import { useMonthlyReports } from '@/hooks/useMonthlyReports';
 import { useToast } from '@/hooks/useToast';
 import { MonthlyReportsFormData } from '@/types/appTypes';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView } from "react-native";
 
 export type AddType =MonthlyReportsFormData
 
 export default function MonthlyReports() {
   const { showSuccess } = useToast();
-  const {
-    monthlyReports,
-    report,
-    createMonthlyReport,
-    loading,
-  } = useMonthlyReports();
+  const [report,setReport]=useState<MonthlyReportsFormData|null>(null)
+  // const {
+  //   monthlyReports,
+  //   report,
+  //   createMonthlyReport,
+  //   loading,
+  // } = useMonthlyReports();
 
   const [show, setShow] = React.useState(false);
 
-  useEffect(() => {
-    if (report) {
-      setShow(true);
-    }
-  }, [report]);
 
-  const addMonthlyReport = async (formData: AddType) => {
+
+  const addMonthlyReport =  (formData: AddType) => {
     try {
-      await createMonthlyReport(formData);
+       setReport(formData);
 
-      showSuccess("تم اضافة التقرير الشهرى بنجاح");
       setShow(true);
     } catch (error) {}
 
@@ -46,6 +43,7 @@ export default function MonthlyReports() {
         paddingVertical: 50,
         paddingHorizontal: 5,
         paddingBottom: 100,
+        backgroundColor:colors.background
       }}
       showsVerticalScrollIndicator={false}
     >
@@ -58,7 +56,6 @@ export default function MonthlyReports() {
         handleSubmit={addMonthlyReport}
       />
 
-      {loading && <Loadign />}
 
       {report && show && (
         <MonthlyReportsDetails report={report} />

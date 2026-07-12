@@ -8,6 +8,7 @@ import Button from "../atoms/Button";
 import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
+import { colors } from "@/constants/theme";
 
 type updateDataType = Schedule;
 
@@ -96,12 +97,12 @@ export default function ScheduleCard({
                 width: 42,
                 height: 42,
                 borderRadius: 12,
-                backgroundColor: "#F3F4F6",
+                backgroundColor: colors.gray,
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <Feather name="bell" size={20} color="#6B7280" />
+              <Feather name="bell" size={20} color={colors.btnPrimary} />
             </View>
 
             <View>
