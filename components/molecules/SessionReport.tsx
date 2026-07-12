@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
@@ -7,22 +7,34 @@ import { useStudents } from "@/hooks/useStudent";
 import { formatDate } from "@/utils/formatDate";
 import { translations } from "../../translations/sessionTranslation";
 import { useProfile } from "@/hooks/useProfile";
+import { useFocusEffect } from "expo-router";
 
 export default function SessionReport({
   session,
   lang,
+ closeReport
+  
 }: {
   session: Session;
   lang: "ar" | "en";
+        closeReport:()=>void
 }) {
   const { students } = useStudents();
-  const {  profile} = useProfile();
+  const {  profile,loadProfile} = useProfile();
 
   const student = students.find((s) => s.id === session.studentId);
 
   const t = translations[lang];
   const isEn = lang === "en";
-
+useFocusEffect(
+  useCallback(() => {
+    loadProfile();
+     return () => {
+      closeReport();
+    };
+  
+  }, [])
+);
   return (
     <View
       style={[

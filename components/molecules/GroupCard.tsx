@@ -66,6 +66,7 @@ export default function GroupCard({
         width: "92%",
         alignSelf: "center",
         marginVertical: 10,
+        direction:'rtl'
       }}
     >
       <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
