@@ -20,20 +20,21 @@ export default function SwipeCard({
 }) {
   const translateX = useSharedValue(0);
 
-  const panGesture = Gesture.Pan()
-    .onUpdate((e) => {
-      translateX.value = e.translationX;
-    })
-    .onEnd(() => {
-      if (translateX.value > 120) {
-        runOnJS(onEdit)();
-      } else if (translateX.value < -120) {
-        runOnJS(onDelete)();
-      }
+const panGesture = Gesture.Pan()
+  .activeOffsetX([-20, 20]) // require at least 20px horizontal movement
+  .failOffsetY([-10, 10])   // fail if user moves vertically
+  .onUpdate((e) => {
+    translateX.value = e.translationX;
+  })
+  .onEnd(() => {
+    if (translateX.value > 120) {
+      runOnJS(onEdit)();
+    } else if (translateX.value < -120) {
+      runOnJS(onDelete)();
+    }
 
-      translateX.value = withSpring(0);
-    });
-
+    translateX.value = withSpring(0);
+  });
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }],
   }));
