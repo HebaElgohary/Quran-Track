@@ -142,6 +142,42 @@ export default function ScheduleCard({
       سيتم التذكير قبل الموعد بـ 5 دقائق
     </Text>
   </View>
+  <View style={styles.actions}>
+  <Button
+    variant="transparent"
+    textColor="warning"
+    size="lg"
+    onClick={() => setOpen(true)}
+  >
+    <Feather
+      name="edit-2"
+      size={14}
+      color={colors.warning}
+    />
+    <Text style={styles.actionText}>تعديل</Text>
+  </Button>
+
+  <Button
+    variant="transparent"
+    textColor="danger"
+    size="lg"
+    onClick={openDeleteAlert}
+  >
+    <Feather
+      name="trash-2"
+      size={14}
+      color={colors.danger}
+    />
+    <Text style={styles.actionText}>حذف</Text>
+  </Button>
+</View>
+<FormModal<updateDataType>
+  open={open}
+  setOpen={setOpen}
+  formData={schedule}
+  formName="Schedule"
+  handleSubmit={handelUpdate}
+/>
 </View>
     </SwipeCard>
   );
@@ -220,6 +256,19 @@ durationText:{
     color:"#059669",
     fontWeight:"700",
     fontSize:12,
+},
+actions: {
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  gap: 12,
+  marginTop: 18,
+},
+
+actionText: {
+  marginLeft: 5,
+  fontSize: 13,
+  fontWeight: "600",
+  width:'60%'
 },
 
 divider:{

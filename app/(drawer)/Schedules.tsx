@@ -64,40 +64,15 @@ export default function Schedules() {
 
 
   // DELETE
-  const confirmDelete = async () => {
+const confirmDelete = async () => {
+  if (selectedScheduleId === null) return;
 
-    if (selectedScheduleId === null)
-      return;
+  await removeSchedule(selectedScheduleId);
 
+  showSuccess("تم حذف الموعد");
 
-    const schedule = schedules.find(
-      s => s.id === selectedScheduleId
-    );
-
-
-    if (schedule?.notificationId) {
-
-      await Notifications
-        .cancelScheduledNotificationAsync(
-          schedule.notificationId
-        );
-
-    }
-
-
-    await removeSchedule(
-      selectedScheduleId
-    );
-
-
-    showSuccess(
-      "تم حذف الموعد"
-    );
-
-
-    setSelectedScheduleId(null);
-  };
-
+  setSelectedScheduleId(null);
+};
 
 
   return (

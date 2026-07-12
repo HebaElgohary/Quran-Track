@@ -49,7 +49,7 @@ export type Schedule = {
   dateTime: Date;
   duration: number;
   notes: string;
-  notificationId?: string;
+  notificationIds?: string[];
 };
 
 export type ScheduleFormData = Omit<Schedule, "id">; // Omit id from Schedule

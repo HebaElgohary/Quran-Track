@@ -34,13 +34,13 @@ export const useSchedule = () => {
   const createSchedule = async (formData: ScheduleFormData) => {
     console.log("formdata createSession", formData);
     try {
-      const notificationId = await scheduleSessionNotification(
+      const notificationIds = await scheduleSessionNotification(
         formData.dateTime,
       );
 
       await addSchedule({
         ...formData,
-        notificationId,
+        notificationIds,
       });
       await loadSchedules();
     } catch (error) {
@@ -54,22 +54,22 @@ export const useSchedule = () => {
   const editSchedule = async (updatedSchedule: Schedule) => {
     try {
       // إلغاء الإشعار القديم
-      if (updatedSchedule.notificationId) {
-        await Notifications.cancelScheduledNotificationAsync(
-          updatedSchedule.notificationId,
+      if (updatedSchedule.notificationIds?.length) {
+        await Promise.all(
+          updatedSchedule.notificationIds.map((id) =>
+            Notifications.cancelScheduledNotificationAsync(id),
+          ),
         );
       }
 
-      // إنشاء إشعار جديد
-      const newNotificationId =
-        await scheduleSessionNotification(updatedSchedule.dateTime);
+      const notificationIds = await scheduleSessionNotification(
+        updatedSchedule.dateTime,
+      );
 
-      // تحديث البيانات
       await updateSchedule({
         ...updatedSchedule,
-        notificationId: newNotificationId,
+        notificationIds,
       });
-
       await loadSchedules();
     } catch (error) {
       console.log("Error updating schedule", error);
@@ -79,25 +79,25 @@ export const useSchedule = () => {
   // =========================
   // DELETE Schedule
   // =========================
-const removeSchedule = async (scheduleId: number) => {
-  try {
-    const schedule = schedules.find(
-      (s) => s.id === scheduleId
-    );
+  const removeSchedule = async (scheduleId: number) => {
+    try {
+      const schedule = schedules.find((s) => s.id === scheduleId);
 
-    if (schedule?.notificationId) {
-      await Notifications.cancelScheduledNotificationAsync(
-        schedule.notificationId
-      );
+      if (schedule?.notificationIds?.length) {
+        await Promise.all(
+          schedule.notificationIds.map((id) =>
+            Notifications.cancelScheduledNotificationAsync(id),
+          ),
+        );
+      }
+
+      await deleteSchedule(scheduleId);
+
+      await loadSchedules();
+    } catch (error) {
+      console.log(error);
     }
-
-    await deleteSchedule(scheduleId);
-
-    await loadSchedules();
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
   useEffect(() => {
     loadSchedules();
   }, []);
