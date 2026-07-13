@@ -3,7 +3,7 @@ import LottieView from "lottie-react-native";
 
 export default function Notfound() {
   return (
-    <View style={{  marginVertical: 10 }}>
+    <View style={{  marginVertical: 1 }}>
       <LottieView
         source={require("@/assets/images/lottie/notFound.json")}
         autoPlay

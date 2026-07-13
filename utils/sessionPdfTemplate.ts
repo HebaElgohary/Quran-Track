@@ -1,5 +1,6 @@
 import { Session } from "@/types/appTypes";
 import { formatDate } from "./formatDate";
+import { toEnglishDigits } from "./toEnglishDigits";
 
 export function buildSessionHtml(
   session: Session,
@@ -215,8 +216,12 @@ body{
     <div class="row">
       <div class="label">${language=='en'?"Verses":' الآيات '}</div>
       <div class="value">
-        ${session.from ?? ""} - ${session.to ?? ""}
-      </div>
+  ${
+            language=='en'
+                        ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
+                            String(session.to),
+                          )}`
+                        : `${session.from} - ${session.to}`}      </div>
     </div>
 
     <div class="row">

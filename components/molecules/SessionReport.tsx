@@ -1,46 +1,44 @@
+import { useProfile } from "@/hooks/useProfile";
+import { useStudents } from "@/hooks/useStudent";
+import { Session } from "@/types/appTypes";
+import { buildEnglishSession } from "@/utils/buildEnglishSession";
+import { formatDate } from "@/utils/formatDate";
+import { toEnglishDigits } from "@/utils/toEnglishDigits";
+import { useFocusEffect } from "expo-router";
 import React, { useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { translations } from "../../translations/sessionTranslation";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
-import { Session } from "@/types/appTypes";
-import { useStudents } from "@/hooks/useStudent";
-import { formatDate } from "@/utils/formatDate";
-import { translations } from "../../translations/sessionTranslation";
-import { useProfile } from "@/hooks/useProfile";
-import { useFocusEffect } from "expo-router";
 
 export default function SessionReport({
   session,
   lang,
- closeReport
-  
+  closeReport,
 }: {
   session: Session;
   lang: "ar" | "en";
-        closeReport:()=>void
+  closeReport: () => void;
 }) {
   const { students } = useStudents();
-  const {  profile,loadProfile} = useProfile();
+  const { profile, loadProfile } = useProfile();
 
   const student = students.find((s) => s.id === session.studentId);
 
   const t = translations[lang];
   const isEn = lang === "en";
-useFocusEffect(
-  useCallback(() => {
-    loadProfile();
-     return () => {
-      closeReport();
-    };
-  
-  }, [])
-);
+  useFocusEffect(
+    useCallback(() => {
+      loadProfile();
+      return () => {
+        closeReport();
+      };
+    }, []),
+  );
+  const displaySession = isEn ? buildEnglishSession(session) : session;
   return (
     <View
-      style={[
-        styles.container,
-        { direction: isEn ? "ltr" : "ltr" } as any,
-      ]}
+      style={[styles.container, { direction: isEn ? "ltr" : "ltr" } as any]}
     >
       {/* Header */}
       <View style={styles.header}>
@@ -65,20 +63,20 @@ useFocusEffect(
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.teacher}</Text>
           <Text style={styles.value}>
-            { lang === "en" ? profile?.nameEn : profile?.nameAr}
+            {lang === "en" ? profile?.nameEn : profile?.nameAr}
           </Text>
         </View>
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.student}</Text>
           <Text style={styles.value}>
-            { lang === "en" ? student?.nameEn : student?.nameAr}
+            {lang === "en" ? student?.nameEn : student?.nameAr}
           </Text>
         </View>
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.date}</Text>
-          <Text style={styles.value}>{formatDate(session.dateTime,lang)}</Text>
+          <Text style={styles.value}>{formatDate(session.dateTime, lang)}</Text>
         </View>
       </View>
 
@@ -100,66 +98,54 @@ useFocusEffect(
 
         {/* Surah */}
         <View
-          style={[
-            styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
-          ]}
+          style={[styles.row, { flexDirection: isEn ? "row" : "row-reverse" }]}
         >
           <Text style={styles.label}>{t.surah}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>
-            {session.surah}
-          </Text>
+          <Text style={[styles.value, { flex: 1 }]}>{session.surah}</Text>
         </View>
 
         {/* Verses */}
         <View
-          style={[
-            styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
-          ]}
+          style={[styles.row, { flexDirection: isEn ? "row" : "row-reverse" }]}
         >
           <Text style={styles.label}>{t.verses}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.from}-{session.to}
+            
+            {isEn
+              ? `${toEnglishDigits(String(session.from))} -  ${toEnglishDigits(
+                  String(session.to),
+                )}`
+              : `${session.from} - ${session.to}`}{" "}
           </Text>
         </View>
 
         {/* New */}
         <View
-          style={[
-            styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
-          ]}
+          style={[styles.row, { flexDirection: isEn ? "row" : "row-reverse" }]}
         >
           <Text style={styles.label}>{t.new}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.new}
+            {isEn ? session.newEn : session.new}
           </Text>
         </View>
 
         {/* Revision */}
         <View
-          style={[
-            styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
-          ]}
+          style={[styles.row, { flexDirection: isEn ? "row" : "row-reverse" }]}
         >
           <Text style={styles.label}>{t.revision}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.revision}
+            {isEn ? session.revisionEn : session.revision}
           </Text>
         </View>
 
         {/* Tajweed */}
         <View
-          style={[
-            styles.row,
-            { flexDirection: isEn ? "row" : "row-reverse" },
-          ]}
+          style={[styles.row, { flexDirection: isEn ? "row" : "row-reverse" }]}
         >
           <Text style={styles.label}>{t.tajweed}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.tajweed}
+            {isEn ? session.tajweedEn : session.tajweed}
           </Text>
         </View>
 
@@ -173,7 +159,7 @@ useFocusEffect(
         >
           <Text style={styles.label}>{t.notes}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            {session.notes}
+            {isEn ? session.notesEn : session.notes}
           </Text>
         </View>
       </View>
@@ -242,7 +228,6 @@ const styles = StyleSheet.create({
   },
 
   detailsCard: {
-   
     borderRadius: 12,
     overflow: "hidden",
   },

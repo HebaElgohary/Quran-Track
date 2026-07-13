@@ -18,8 +18,8 @@ export function buildEnglishSession(session: Session) {
 
     surah: surahMap[normalizedSurah] ?? session.surah,
 
-    new: surahMap[normalizedNew] ?? session.new,
-    revision: surahMap[normalizedRevision] ?? session.revision,
+    new: surahMap[normalizedNew] ?? session.newEn??session.new,
+    revision: surahMap[normalizedRevision] ?? session.revisionEn??session.revision,
     tajweed: session.tajweedEn ?? session.tajweed,
     notes: session.notesEn ?? session.notes,
   };

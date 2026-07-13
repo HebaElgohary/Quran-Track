@@ -110,9 +110,9 @@ const handlePrint = async () => {
 // ============================//
 
   if (!report || !student || studentSessions.length==0) {
-    return <View style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+    return <View style={{display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff',width:'80%',padding:20 ,marginVertical:10,marginHorizontal:'auto'}}>
 <Notfound />
-     <Title>التقرير غير موجود</Title>;
+     <Title>التقرير غير موجود</Title>
      </View>
   }
 

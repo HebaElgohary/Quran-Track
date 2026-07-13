@@ -66,12 +66,12 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
   const handleEnglish = () => {
   if (!session) return;
 
-  if (hasEnglishData(session)) {
+  // if (hasEnglishData(session)) {
+  setOpenEnglishForm(true);
     setLanguage("en");
     return;
-  }
+  // }
 
-  setOpenEnglishForm(true);
 };
   // -----------------------------
   // SHARE

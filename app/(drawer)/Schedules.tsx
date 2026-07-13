@@ -136,7 +136,6 @@ const confirmDelete = async () => {
           <View
             style={{
               marginTop: 30,
-              alignItems:"center",
             }}
           >
 

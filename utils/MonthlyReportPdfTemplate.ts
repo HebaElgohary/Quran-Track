@@ -471,7 +471,13 @@ ${firstSession?.dateTime ? getMonthYear(firstSession.dateTime, lang) : ""}
         </div>
 
         <div>
-          ${session.from} - ${session.to}
+              ${
+            isEn
+                        ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
+                            String(session.to),
+                          )}`
+                        : `${session.from} - ${session.to}`}
+          
         </div>
 
         <div>
