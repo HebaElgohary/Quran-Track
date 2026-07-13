@@ -26,12 +26,13 @@ export default function MonthlyReport({
   if (!report) return null;
 
   const { students } = useStudents();
-  const { profile } = useProfile();
+  const { profile,loadProfile } = useProfile();
   const { sessions, loadSessions } = useSession();
 
   useFocusEffect(
     useCallback(() => {
       loadSessions();
+      loadProfile()
     }, []),
   );
 

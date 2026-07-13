@@ -6,7 +6,7 @@ import {
   Student,
 } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Button from "../atoms/Button";
 import MonthlyReport from "./MonthlyReport";
@@ -28,7 +28,9 @@ export default function MonthlyReportsDetails({
 }) {
   const { sessions } = useSession();
   const { students } = useStudents();
-  const { profile } = useProfile();
+  const { profile,loadProfile } = useProfile();
+
+  useEffect(()=>{loadProfile()})
 
   const [language, setLanguage] = useState<"ar" | "en">("ar");
 

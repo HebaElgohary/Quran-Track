@@ -104,14 +104,14 @@ export default function EnglishTranslationModal({
               textColor="black"
               onClick={() => setOpen(false)}
             >
-              Cancel
+              الغاء
             </Button>
 
 
             <Button
               onClick={handleSave}
             >
-              Save
+              حفظ
             </Button>
 
           </View>
