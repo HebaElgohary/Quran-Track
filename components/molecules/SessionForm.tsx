@@ -4,7 +4,6 @@ import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
 import { useSessionForm } from "@/hooks/useSessionForm";
 import { Session, SessionFormData, SourcesMap } from "@/types/appTypes";
-import { useSession } from "@/hooks/useSession";
 import { useStudents } from "@/hooks/useStudent";
 
 export default function SessionForm<T>({

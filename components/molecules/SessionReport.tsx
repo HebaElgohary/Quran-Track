@@ -35,7 +35,6 @@ export default function SessionReport({
       };
     }, []),
   );
-  const displaySession = isEn ? buildEnglishSession(session) : session;
   return (
     <View
       style={[styles.container, { direction: isEn ? "ltr" : "ltr" } as any]}

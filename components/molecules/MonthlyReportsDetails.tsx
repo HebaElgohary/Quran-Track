@@ -13,9 +13,7 @@ import MonthlyReport from "./MonthlyReport";
 import { getMonthName } from "@/utils/getMonthName ";
 import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { useProfile } from "@/hooks/useProfile";
-import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { printMonthlyReport } from "@/utils/printMonthlyReport";
-import NoDataFallback from "../organisms/NoDataFallback";
 import Notfound from "@/animations/NotFound";
 import Title from "../atoms/Title";
 
@@ -54,26 +52,26 @@ export default function MonthlyReportsDetails({
     [studentSessions, report.month]
   );
   
-    const uniqueSurahs = [...new Set(monthSessions.map((s) => s.surah))];
+    // const uniqueSurahs = [...new Set(monthSessions.map((s) => s.surah))];
   
-    const uniqueGrades = [...new Set(monthSessions.map((s) => s.grade))];
+    // const uniqueGrades = [...new Set(monthSessions.map((s) => s.grade))];
   
-    const uniqueTajweed = [
-      ...new Set(
-        monthSessions
-          .map((s) =>
-          language=='en' ? s.tajweedEn ?? s.tajweed : s.tajweed
-          )
-          .filter(Boolean)
-      ),
-    ];
+    // const uniqueTajweed = [
+    //   ...new Set(
+    //     monthSessions
+    //       .map((s) =>
+    //       language=='en' ? s.tajweedEn ?? s.tajweed : s.tajweed
+    //       )
+    //       .filter(Boolean)
+    //   ),
+    // ];
   
-  const versesCount = monthSessions.reduce((sum, s) => {
-    const from = Number(toEnglishDigits(s.from));
-    const to = Number(toEnglishDigits(s.to));
+  // const versesCount = monthSessions.reduce((sum, s) => {
+  //   const from = Number(toEnglishDigits(s.from));
+  //   const to = Number(toEnglishDigits(s.to));
   
-    return sum + (to - from + 1);
-  }, 0);
+  //   return sum + (to - from + 1);
+  // }, 0);
   
 
   // Share PDF
@@ -111,7 +109,7 @@ const handlePrint = async () => {
 };
 // ============================//
 
-  if (!report || !student || studentSessions.length==0) {
+  if (!report || !student || studentSessions.length===0) {
     return <View style={{display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff',width:'80%',padding:20 ,marginVertical:10,marginHorizontal:'auto'}}>
 <Notfound />
      <Title>التقرير غير موجود</Title>

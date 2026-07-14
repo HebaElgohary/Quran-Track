@@ -13,7 +13,6 @@ import Button from "../atoms/Button";
 import SessionReport from "./SessionReport";
 import FormModal from "./form/FormModal";
 import { useProfile } from "@/hooks/useProfile";
-import { hasEnglishData } from "@/utils/hasEnglishData ";
 import EnglishTranslationModal from "./EnglishTranslationModal";
 
 type updateDataType = Session;
@@ -40,7 +39,7 @@ const [openEnglishForm, setOpenEnglishForm] = useState(false);
   useFocusEffect(
     useCallback(() => {
       loadSessions();
-    }, [open,openEnglishForm])
+    }, [open,openEnglishForm,loadSessions])
   );
 
   const session: Session | null = useMemo(() => {
@@ -49,8 +48,8 @@ const [openEnglishForm, setOpenEnglishForm] = useState(false);
   }, [sessions, reportId]);
 
   const student = students.find((s) => s.id === session?.studentId);
-const studentName=language=='ar'?student?.nameAr:student?.nameEn
-  const teacherName=language=='ar'?profile?.nameAr:profile?.nameEn
+const studentName=language==='ar'?student?.nameAr:student?.nameEn
+  const teacherName=language==='ar'?profile?.nameAr:profile?.nameEn
 
 // -----------------------------
   // DATA TRANSFORMATION
@@ -153,7 +152,7 @@ const studentName=language=='ar'?student?.nameAr:student?.nameEn
           size="lg"
           name="printer"
           onClick={() =>
-            language=='ar'?
+            language==='ar'?
             printSessionPdf(
               displaySession,
               student?.nameAr||'',

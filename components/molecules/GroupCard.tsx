@@ -5,7 +5,6 @@ import { Animated, Pressable, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { groupColors } from "@/constants/theme";
 import FormModal from "./form/FormModal";
-import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 

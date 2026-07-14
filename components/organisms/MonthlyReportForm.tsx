@@ -11,12 +11,12 @@ import { Text, View } from "react-native";
 import Button from "../atoms/Button";
 import FormField from "../molecules/form/FormField";
 
-export default function MonthlyReportForm<T>({
+export default function MonthlyReportForm({
   handleSubmit,
 }: {
   handleSubmit: (data: MonthlyReportsFormData) => void;
 }) {
-  const { formData, setFormData, errors, reset, validate } =
+  const { formData, setFormData, errors, validate } =
     useMonthlyReportsForm();
   const { students } = useStudents();
   //------- source resolver-------//

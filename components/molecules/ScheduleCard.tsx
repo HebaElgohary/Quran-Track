@@ -203,14 +203,14 @@ card: {
 },
 
 header:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     justifyContent:"space-between",
     alignItems:"flex-start",
     gap:8
 },
 
 leftSide:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     flex:1,
         gap:8
 
@@ -220,7 +220,7 @@ iconContainer:{
     width:48,
     height:48,
     borderRadius:14,
-    backgroundColor:"#EEF2FF",
+    backgroundColor:colors.gray,
     justifyContent:"center",
     alignItems:"center",
     marginHorizontal:12,
@@ -234,7 +234,7 @@ name:{
 },
 
 row:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     alignItems:"center",
     marginTop:4,
 },
@@ -246,7 +246,7 @@ subText:{
 },
 
 durationBadge:{
-    backgroundColor:"#ECFDF5",
+    backgroundColor:colors.secondary,
     paddingHorizontal:12,
     paddingVertical:7,
     borderRadius:20,
@@ -258,7 +258,7 @@ durationText:{
     fontSize:12,
 },
 actions: {
-  flexDirection: "row",
+  flexDirection: "row-reverse",
   justifyContent: "flex-end",
   gap: 12,
   marginTop: 18,
@@ -273,14 +273,14 @@ actionText: {
 
 divider:{
     height:1,
-    backgroundColor:"#F1F5F9",
+    backgroundColor:colors.gray,
     marginVertical:16,
 },
 
 reminder:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     alignItems:"center",
-        gap:8
+        gap:10
 
 },
 

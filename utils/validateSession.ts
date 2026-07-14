@@ -10,7 +10,7 @@ export const validateSession = (
     errors.studentId = "الطالب مطلوب";
   }
 
-  if (!data.date) {
+  if (!data.dateTime) {
     errors.date = "تاريخ الجلسة مطلوب";
   }
 

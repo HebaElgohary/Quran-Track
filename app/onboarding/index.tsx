@@ -5,7 +5,7 @@ import { teacherFields } from "@/schemas/teacherFields";
 import { validateProfile } from "@/utils/validateProfile";
 import { Feather } from "@expo/vector-icons";
 import { Redirect } from "expo-router";
-import { useState } from "react";
+import React, { useState } from "react"; // Added missing React import
 import {
   StyleSheet,
   Text,
@@ -13,7 +13,8 @@ import {
   View,
 } from "react-native";
 
-export default function index() {
+// 1. FIXED: Changed function name to start with an uppercase letter "Onboarding"
+export default function Onboarding() {
   const { profile, saveProfile } = useProfile();
 
   const [teacherData, setTeacherData] = useState({
@@ -43,7 +44,7 @@ export default function index() {
     await saveProfile(teacherData);
   };
 
-  // redirect if profile exists
+  // 2. SAFE HOOKS EXECUTION: Redirect is called after all hooks have run
   if (profile) {
     return <Redirect href="/(drawer)" />;
   }

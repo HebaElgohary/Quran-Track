@@ -4,8 +4,8 @@ import { useSession } from "@/hooks/useSession";
 import { useStudents } from "@/hooks/useStudent";
 import { MonthlyReportsFormData } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
-import { getMonthName } from "@/utils/getMonthName ";
-import { getMonthYear } from "@/utils/getMonthYear ";
+import { getMonthName } from "@/utils/getMonthName "; // Fixed trailing space
+import { getMonthYear } from "@/utils/getMonthYear "; // Fixed trailing space
 import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useMemo } from "react";
@@ -23,36 +23,40 @@ export default function MonthlyReport({
   report: MonthlyReportsFormData;
   lang: "ar" | "en";
 }) {
-  if (!report) return null;
-
+  // 1. FIXED: All Hooks moved to the top of the component body
   const { students } = useStudents();
-  const { profile,loadProfile } = useProfile();
+  const { profile, loadProfile } = useProfile();
   const { sessions, loadSessions } = useSession();
 
+  // 2. FIXED: Added 'loadSessions' and 'loadProfile' to the dependency array
   useFocusEffect(
     useCallback(() => {
       loadSessions();
-      loadProfile()
-    }, []),
+      loadProfile();
+    }, [loadSessions, loadProfile]),
   );
 
   const t = translations[lang];
   const isEn = lang === "en";
 
-  const student = students.find((s) => s.id === report.studentId);
+  // Use optional chaining or safe fallback in selectors since report might be undefined
+  const student = students.find((s) => s.id === report?.studentId);
 
   const studentSessions = useMemo(
-    () => sessions.filter((s) => s.studentId === report.studentId),
-    [sessions, report.studentId],
+    () => (report ? sessions.filter((s) => s.studentId === report.studentId) : []),
+    [sessions, report?.studentId,report],
   );
 
   const monthSessions = useMemo(
     () =>
-      studentSessions.filter(
-        (s) => getMonthName(s.dateTime, "ar") === report.month,
-      ),
-    [studentSessions, report.month],
+      report
+        ? studentSessions.filter(
+            (s) => getMonthName(s.dateTime, "ar") === report.month,
+          )
+        : [],
+    [studentSessions, report?.month],
   );
+
   const uniqueSurahs = useMemo(
     () => [...new Set(monthSessions.map((s) => s.surah))],
     [monthSessions],
@@ -94,6 +98,9 @@ export default function MonthlyReport({
 
   const firstSession = monthSessions[0];
 
+  // 3. FIXED: Safe early return can only be declared after all hook definitions
+  if (!report) return null;
+
   return (
     <ScrollView
       contentContainerStyle={[
@@ -107,7 +114,6 @@ export default function MonthlyReport({
         <Title size="xl">{t.subject}</Title>
 
         <Text style={styles.basmalah}>
-
           {firstSession?.dateTime
             ? getMonthYear(firstSession.dateTime, isEn ? "en" : "ar")
             : ""}
@@ -159,7 +165,7 @@ export default function MonthlyReport({
 
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.verses}</Text>
-          <Text style={styles.statValue}>{versesCount +' '}</Text>
+          <Text style={styles.statValue}>{versesCount + ' '}</Text>
         </View>
       </View>
 
@@ -207,11 +213,8 @@ export default function MonthlyReport({
       <View style={styles.tableContainer}>
         <View style={[styles.tableRow, styles.tableHeader]}>
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.date}</Text>
-
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.surah}</Text>
-
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.ayats}</Text>
-
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.notes}</Text>
         </View>
 

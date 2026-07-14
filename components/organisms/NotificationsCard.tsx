@@ -61,7 +61,7 @@ export default function NotificationCard() {
           <Text style={styles.title}>التنبيهات</Text>
 
           <Text style={styles.description}>
-            فعّل التنبيهات ليقوم التطبيق بتذكيرك قبل موعد الحصة بـ 5 دقائق.
+            فعّل التنبيهات ليقوم التطبيق بتذكيرك قبل موعد الحصة بـ 15 دقائق.
           </Text>
         </View>
       </View>
@@ -81,7 +81,7 @@ export default function NotificationCard() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     justifyContent: "space-between",
     alignItems: "center",
 
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
   leftSection: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     alignItems: "center",
     gap: 12,
   },

@@ -52,7 +52,7 @@ export default function MonthlyReports() {
         subtitle="ملخص شامل لما تم إنجازه فى الشهر"
       />
 
-      <MonthlyReportForm<AddType>
+      <MonthlyReportForm
         handleSubmit={addMonthlyReport}
       />
 

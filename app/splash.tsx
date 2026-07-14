@@ -1,9 +1,9 @@
 import { useProfile } from "@/hooks/useProfile";
 import { router } from "expo-router";
 import { useEffect, useRef } from "react";
-import { Animated, Image, StyleSheet, View } from "react-native";
+import { Animated, Image, StyleSheet, View , useWindowDimensions } from "react-native";
 
-import { useWindowDimensions } from "react-native";
+
 
 export default function Splash() {
   const { width, height } = useWindowDimensions();
