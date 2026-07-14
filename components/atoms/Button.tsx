@@ -31,7 +31,7 @@ export default function Button({
         padding: 9,
         width: btnSize[size],
         borderRadius: 6,
-        flexDirection: "row",
+        flexDirection: "row-reverse",
         justifyContent: "space-between",
         alignItems: "center",
       }}

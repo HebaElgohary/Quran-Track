@@ -39,7 +39,7 @@ export default function MonthlyReports() {
     <ScrollView
       style={{ flex: 1 }}
       contentContainerStyle={{
-        direction: "rtl",
+        // direction: "rtl",
         paddingVertical: 50,
         paddingHorizontal: 5,
         paddingBottom: 100,

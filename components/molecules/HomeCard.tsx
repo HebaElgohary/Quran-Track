@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 18,
 
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     alignItems: "center",
     justifyContent: "space-between",
 
@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
+    alignItems:'flex-end',
+marginHorizontal:14,
     justifyContent: "center",
     gap: 8,
   },

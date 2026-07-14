@@ -66,7 +66,7 @@ export default function GroupCard({
         width: "92%",
         alignSelf: "center",
         marginVertical: 10,
-        direction:'rtl'
+        
       }}
     >
       <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
@@ -102,12 +102,12 @@ export default function GroupCard({
             {/* HEADER */}
             <View
               style={{
-                flexDirection: "row",
+                flexDirection: "row-reverse",
                 justifyContent: "space-between",
               }}
             >
-              <View style={{ flex: 1 }}>
-                <Title>{group.nameAr}</Title>
+              <View style={{ margin:8, display:'flex' }}>
+                <Title >{group.nameAr}</Title>
 
                 <Text
                   style={{
@@ -115,6 +115,9 @@ export default function GroupCard({
                     marginTop: 2,
                     fontSize: 13,
                     fontStyle: "italic",
+                    alignSelf:'center',
+                    marginBottom:11
+
                   }}
                 >
                   {group.nameEn}
@@ -123,7 +126,7 @@ export default function GroupCard({
                 {/* Students chips */}
                 <View
                   style={{
-                    flexDirection: "row",
+                    flexDirection: "row-reverse",
                     flexWrap: "wrap",
                     marginTop: 10,
                     gap: 6,
@@ -174,7 +177,7 @@ export default function GroupCard({
                 {/* count */}
                 <View
                   style={{
-                    flexDirection: "row",
+                    flexDirection: "row-reverse",
                     alignItems: "center",
                     marginTop: 10,
                     gap: 6,
@@ -203,7 +206,7 @@ export default function GroupCard({
             {/* ACTIONS (modern icons) */}
             <View
               style={{
-                flexDirection: "row",
+                flexDirection: "row-reverse",
                 justifyContent: "flex-end",
                 gap: 14,
               }}

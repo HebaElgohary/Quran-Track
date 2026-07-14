@@ -23,12 +23,13 @@ export default function Header<T>({
     <View
       style={{
         display: "flex",
-        flexDirection: "row",
         justifyContent: "space-between",
         marginHorizontal: 15,
         marginVertical: 15,
         padding: 1,
-        direction:'rtl'
+           flexDirection: "row-reverse",
+
+
       }}
     >
       <Heading title={title} subtitle={subtitle} />

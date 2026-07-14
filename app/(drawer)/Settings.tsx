@@ -17,14 +17,12 @@ export default function Settings() {
   const [teacherData, setTeacherData] = useState({
     nameAr:  "",
     nameEn:  "",
-    password:  "" ,
   });
   useEffect(() => {
   if (profile) {
     setTeacherData({
       nameAr: profile.nameAr ?? "",
       nameEn: profile.nameEn ?? "",
-      password: profile.password ?? "",
     });
   }
 }, [profile]);
@@ -58,7 +56,9 @@ export default function Settings() {
   };
   
   return (
-    <View style={{direction:'rtl',overflowY:'scroll',height:'100%',paddingVertical:50}} >
+    <View style={{
+      // direction:'rtl' ,
+      overflowY:'scroll',height:'100%',paddingVertical:50}} >
       <Header title='الاعدادات' subtitle='تعديل بياناتك الشخصية'/>
   
   

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Text, View, StyleSheet } from "react-native";
+import { Modal, StyleSheet, Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Input from "../atoms/Input";
 
@@ -35,10 +35,7 @@ export default function EnglishTranslationModal({
     notesEn: initialData.notesEn ?? "",
   });
 
-  const handleChange = (
-    key: keyof typeof form,
-    value: string
-  ) => {
+  const handleChange = (key: keyof typeof form, value: string) => {
     setForm((prev) => ({
       ...prev,
       [key]: value,
@@ -51,54 +48,37 @@ export default function EnglishTranslationModal({
   };
 
   return (
-    <Modal
-      visible={open}
-      transparent
-      animationType="slide"
-    >
+    <Modal visible={open} transparent animationType="slide">
       <View style={styles.overlay}>
         <View style={styles.container}>
-
-          <Text style={styles.title}>
-            English Translation
-          </Text>
+          <Text style={styles.title}>English Translation</Text>
 
           <Input
             label="New Memorization"
             value={form.newEn}
-            onChangeText={(v) =>
-              handleChange("newEn", v)
-            }
+            onChangeText={(v) => handleChange("newEn", v)}
           />
 
           <Input
             label="Revision"
             value={form.revisionEn}
-            onChangeText={(v) =>
-              handleChange("revisionEn", v)
-            }
+            onChangeText={(v) => handleChange("revisionEn", v)}
           />
 
           <Input
             label="Tajweed"
             value={form.tajweedEn}
-            onChangeText={(v) =>
-              handleChange("tajweedEn", v)
-            }
+            onChangeText={(v) => handleChange("tajweedEn", v)}
           />
 
           <Input
             label="Notes"
             value={form.notesEn}
             multiline
-            onChangeText={(v) =>
-              handleChange("notesEn", v)
-            }
+            onChangeText={(v) => handleChange("notesEn", v)}
           />
 
-
           <View style={styles.actions}>
-
             <Button
               variant="gray"
               textColor="black"
@@ -107,50 +87,40 @@ export default function EnglishTranslationModal({
               الغاء
             </Button>
 
-
-            <Button
-              onClick={handleSave}
-            >
-              حفظ
-            </Button>
-
+            <Button onClick={handleSave}>حفظ</Button>
           </View>
-
         </View>
       </View>
     </Modal>
   );
 }
 
-
 const styles = StyleSheet.create({
-
-  overlay:{
-    flex:1,
-    backgroundColor:"rgba(0,0,0,0.4)",
-    justifyContent:"center",
-    padding:20,
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+    padding: 20,
   },
 
-  container:{
-    backgroundColor:"#fff",
-    borderRadius:20,
-    padding:20,
-    gap:12,
+  container: {
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 20,
+    gap: 12,
   },
 
-  title:{
-    fontSize:18,
-    fontWeight:"700",
-    textAlign:"center",
-    marginBottom:10,
+  title: {
+    fontSize: 18,
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: 10,
   },
 
-  actions:{
-    flexDirection:"row",
-    justifyContent:"flex-end",
-    gap:10,
-    marginTop:10,
-  }
-
+  actions: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 10,
+    marginTop: 10,
+  },
 });

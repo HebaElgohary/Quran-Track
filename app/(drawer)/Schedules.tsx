@@ -81,7 +81,7 @@ const confirmDelete = async () => {
       style={{
         flex: 1,
         backgroundColor: colors.background,
-        direction:'rtl'
+        // direction:'rtl'
       }}
 
       contentContainerStyle={{
