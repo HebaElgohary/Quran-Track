@@ -139,8 +139,9 @@ const confirmDelete = async () => {
             }}
           >
 
-            <NoDataFallback
+            <NoDataFallback<AddDataType>
               handleSubmit={addSchedule}
+              formName="Schedule"
               text="لا يوجد مواعيد"
               btn="أضف أول موعد"
               Icon={() => (
