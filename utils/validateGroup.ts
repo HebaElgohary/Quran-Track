@@ -7,7 +7,7 @@ export function validateGroup(data: GroupFormData) {
 
   // -----------------------
   // الاسم بالعربي
-  // -----------------------
+  // -----------------------vali
   if (!data.nameAr || data.nameAr.trim().length === 0) {
     errors.nameAr = "الاسم بالعربية مطلوب";
   } else if (data.nameAr.trim().length < 3) {

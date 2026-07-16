@@ -18,7 +18,7 @@ export default function HomeCard({ title, num, icon }: Props) {
     <View style={styles.card}>
       {/* Text */}
       <View style={styles.content}>
-        <Subtitle>{title}</Subtitle>
+        <Subtitle size="md">{title}</Subtitle>
         <Title size="xl">{num}</Title>
       </View>
 
@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    alignItems:'flex-end',
+    alignItems:'flex-start',
+
 marginHorizontal:14,
     justifyContent: "center",
     gap: 8,
