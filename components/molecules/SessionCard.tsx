@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
 
     alignItems: "center",
 
@@ -211,13 +211,13 @@ const styles = StyleSheet.create({
   },
 
   studentInfo: {
-    alignItems: "flex-end",
+    alignItems: "flex-start",
 
     flex: 1,
   },
 
   dateRow: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
 
     alignItems: "center",
 
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
 
     padding: 12,
 
-    flexDirection: "row",
+    flexDirection: "row-reverse",
 
     alignItems: "center",
 
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
   },
 
   details: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
 
     gap: 8,
 
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
   },
 
   actions: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
 
     justifyContent: "center",
 

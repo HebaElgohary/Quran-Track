@@ -114,7 +114,7 @@ export default function MonthlyReportForm({
             marginVertical: 15,
           }}
         >
-          <Button size="lg" name="file-text" onClick={onSubmit}>
+          <Button size="xl" name="file-text" onClick={onSubmit}>
             {"عرض التقرير  "}
           </Button>
         </View>
