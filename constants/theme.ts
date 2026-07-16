@@ -45,7 +45,7 @@ export const spacing = {
 export const sizeClass = {
   sm: 12 ,
   md: 16 ,
-  lg: 20,
+  lg: 18,
   xl: 24,
   xxl: 30,
 };

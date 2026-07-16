@@ -8,9 +8,8 @@ export default function  Heading
 ( {title, subtitle} : {title: string, subtitle?: string} ) {
   return (
     <View style={{maxWidth:'60%',display:'flex',flexDirection:'column',alignItems:'flex-end'}}>
-        <Title  size="lg" variant="btnPrimary"> {title} </Title>
+        <Title  size="xl" variant="btnPrimary"> {title} </Title>
         <Subtitle size="sm" variant="primary"> {subtitle} </Subtitle>
-        <Hr></Hr>      
     </View>
   )
 }

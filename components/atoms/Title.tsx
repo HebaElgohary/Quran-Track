@@ -11,7 +11,7 @@ interface   TitleProps {
 export default function Title({ children, size = "xl", variant = "btnPrimary"}: TitleProps) {
   return (
     <View >
-    <Text style={{color:colors[variant] ,fontSize: sizeClass[size],fontWeight: 'semibold',maxWidth:200,textAlign:'center',padding:4}}> {children}</Text> 
+    <Text style={{color:colors[variant] ,fontSize: sizeClass[size],fontWeight: 'bold',maxWidth:200,textAlign:'center',paddingVerticalmont:4}}> {children}</Text> 
     </View>
   );
 }
