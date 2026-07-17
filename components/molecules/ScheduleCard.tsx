@@ -2,7 +2,7 @@ import { Schedule, Student } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
@@ -30,43 +30,6 @@ export default function ScheduleCard({
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
-  // ---------- SWIPE RIGHT (EDIT) ----------
-  const renderRightActions = () => {
-    return (
-      <RectButton
-        style={{
-          backgroundColor: "#F59E0B",
-          justifyContent: "center",
-          alignItems: "center",
-          width: 80,
-          marginVertical: 6,
-          borderRadius: 16,
-        }}
-        onPress={() => setOpen(true)}
-      >
-        <Feather name="edit-2" size={20} color="white" />
-      </RectButton>
-    );
-  };
-
-  // ---------- SWIPE LEFT (DELETE) ----------
-  const renderLeftActions = () => {
-    return (
-      <RectButton
-        style={{
-          backgroundColor: "#EF4444",
-          justifyContent: "center",
-          alignItems: "center",
-          width: 80,
-          marginVertical: 6,
-          borderRadius: 16,
-        }}
-        onPress={openDeleteAlert}
-      >
-        <Feather name="trash-2" size={20} color="white" />
-      </RectButton>
-    );
-  };
 
   return (
     <SwipeCard onEdit={() => setOpen(true)} onDelete={openDeleteAlert}>
@@ -142,34 +105,28 @@ export default function ScheduleCard({
       سيتم التذكير قبل الموعد بـ 15 دقائق
     </Text>
   </View>
-  <View style={styles.actions}>
-  <Button
-    variant="gray"
-    textColor="warning"
-    size="lg"
-    onClick={() => setOpen(true)}
+<View style={styles.actions}>
+  <Pressable
+    onPress={() => setOpen(true)}
+    style={[styles.iconButton, styles.editButton]}
   >
     <Feather
       name="edit-2"
-      size={15}
+      size={18}
       color={colors.warning}
     />
-    <Text style={styles.actionText}>تعديل</Text>
-  </Button>
+  </Pressable>
 
-  <Button
-    variant="danger"
-    textColor="white"
-    size="lg"
-    onClick={openDeleteAlert}
+  <Pressable
+    onPress={openDeleteAlert}
+    style={[styles.iconButton, styles.deleteButton]}
   >
     <Feather
       name="trash-2"
-      size={15}
-      color={colors.white}
+      size={18}
+      color="#DC2626"
     />
-    <Text style={styles.actionText}>حذف</Text>
-  </Button>
+  </Pressable>
 </View>
 <FormModal<updateDataType>
   open={open}
@@ -211,7 +168,8 @@ header:{
 
 leftSide:{
     flexDirection:"row",
-    flex:1,
+    width:'70%',
+    // flex:1,
         gap:8
 
 },
@@ -227,9 +185,9 @@ iconContainer:{
 },
 
 name:{
-    fontSize:17,
+    fontSize:20,
     fontWeight:"700",
-    color:"#111827",
+    color:colors.btnPrimary,
     marginBottom:6,
 },
 
@@ -260,8 +218,42 @@ durationText:{
 actions: {
   flexDirection: "row",
   justifyContent: "flex-end",
+  alignItems: "center",
   gap: 12,
-  marginTop: 18,
+
+  marginTop: 12,
+},
+
+iconButton: {
+  width: 44,
+  height: 44,
+
+  borderRadius: 22,
+
+  justifyContent: "center",
+  alignItems: "center",
+
+  borderWidth: 1,
+
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.08,
+  shadowRadius: 5,
+
+  elevation: 3,
+},
+
+editButton: {
+  backgroundColor: "#FFF7ED",
+  borderColor: "#FCD34D",
+},
+
+deleteButton: {
+  backgroundColor: "#FEF2F2",
+  borderColor: "#FECACA",
 },
 
 actionText: {

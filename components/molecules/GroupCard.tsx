@@ -168,6 +168,7 @@ export default function GroupCard({
                   style={{
                     flex: 1,
                     marginRight: 10,
+                    alignItems:'flex-start'
                   }}
                 >
                   <Title>{group.nameAr}</Title>

@@ -6,17 +6,18 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { useFocusEffect } from "expo-router";
 import { Drawer } from "expo-router/drawer";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 
- function CustomDrawerContent(props: any) {
-  const {profile,loadProfile}=useProfile()
+function CustomDrawerContent(props: any) {
+  const { profile, loadProfile } = useProfile();
 
-  useEffect(()=>{loadProfile()},[profile])
+  useEffect(() => {
+    loadProfile();
+  }, [profile]);
 
-return (
+  return (
     <DrawerContentScrollView {...props} style={{ flex: 1 }}>
       {/* HEADER (YOUR DESIGN PRESERVED) */}
       <View
@@ -46,7 +47,13 @@ return (
             متابعة القران
           </Title>
 
-          <Text style={{ color: colors.secondary, textAlign: "right",alignSelf:'flex-start' }}>
+          <Text
+            style={{
+              color: colors.secondary,
+              textAlign: "right",
+              alignSelf: "flex-start",
+            }}
+          >
             القران والتجويد
           </Text>
         </View>
@@ -75,6 +82,7 @@ export default function Layout() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: true,
+        swipeEnabled: true,
 
         // IMPORTANT FIX (this is what was breaking your app)
         drawerPosition: "right",
@@ -99,9 +107,10 @@ export default function Layout() {
       <Drawer.Screen
         name="index"
         options={{
+
           title: "الرئيسية",
           drawerIcon: ({ color, size }) => (
-            <Feather name="home" size={size} color={color}  />
+            <Feather name="home" size={size} color={color} />
           ),
         }}
       />
@@ -133,19 +142,34 @@ export default function Layout() {
           ),
         }}
       />
-      <Drawer.Screen name="Schedules" options={{ title: "المواعيد"   ,  drawerIcon: ({ color, size }) => (
-            <Feather name="calendar" size={size} color={color} />) 
-            }} />
+      <Drawer.Screen
+        name="Schedules"
+        options={{
+          title: "المواعيد",
+          drawerIcon: ({ color, size }) => (
+            <Feather name="calendar" size={size} color={color} />
+          ),
+        }}
+      />
       <Drawer.Screen
         name="MonthlyReports"
-        options={{ title: "التقارير الشهرية" 
+        options={{
+          title: "التقارير الشهرية",
 
-       ,  drawerIcon: ({ color, size }) => (
-            <Feather name="file-text" size={size} color={color} />) 
-            }} />
-      <Drawer.Screen name="Settings" options={{ title: "الإعدادات"    ,  drawerIcon: ({ color, size }) => (
-            <Feather name="settings" size={size} color={color} />) 
-            }} />
+          drawerIcon: ({ color, size }) => (
+            <Feather name="file-text" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        options={{
+          title: "الإعدادات",
+          drawerIcon: ({ color, size }) => (
+            <Feather name="settings" size={size} color={color} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }

@@ -3,6 +3,7 @@ import { Feather } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import {
   Animated,
+  Pressable,
   StyleSheet,
   View,
 } from "react-native";
@@ -58,7 +59,10 @@ export default function StudentCard({
     }).start();
   };
 
+  
+
   return (
+    
     <SwipeCard
       onEdit={() => setOpen(true)}
       onDelete={() => handleDelete(student.id)}
@@ -71,6 +75,18 @@ export default function StudentCard({
           },
         ]}
       >
+        <View
+  style={{
+    position: "absolute",
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 5,
+    backgroundColor: colors.gray,
+    borderTopLeftRadius: 22,
+    borderBottomLeftRadius: 22,
+  }}
+/>
         <View style={styles.header}>
   <View style={styles.leftSection}>
     {isStudent && (
@@ -81,18 +97,32 @@ export default function StudentCard({
     )}
 
     <View style={styles.textColumn}>
-      <Title variant="btnPrimary" size="md">
+      <Title variant="btnPrimary" size="lg">
         {student.nameAr}
       </Title>
 
-      <Title size="sm">
+   <View
+    style={{
+        marginTop:8,
+        alignSelf:"flex-start",
+
+        backgroundColor:"#EEF6FF",
+
+        paddingHorizontal:10,
+        paddingVertical:5,
+
+        borderRadius:20,
+    }}
+>
+    <Title size="sm">
         {student.level}
-      </Title>
+    </Title>
+</View>
     </View>
   </View>
 
   <View style={styles.badge}>
-    <Title size="sm">
+    <Title size="md" variant="primary">
       {student.nameEn}
     </Title>
   </View>
@@ -105,37 +135,34 @@ export default function StudentCard({
     marginBottom: 18,
   }}
 />
-
 <View style={styles.actionsRow}>
-  <View style={styles.actionBtn}>
-    <Button
-      variant="gray"
-      textColor="warning"
-      size="lg"
-      onClick={() => setOpen(true)}
-    >
-      {'تعديل'}
-      <Feather
-        name="edit-2"
-        size={15}
-      />
-    </Button>
-  </View>
+  <Pressable
+    onPress={() => setOpen(true)}
+    style={[
+      styles.iconButton,
+      styles.editButton,
+    ]}
+  >
+    <Feather
+      name="edit-2"
+      size={18}
+      color={colors.warning}
+    />
+  </Pressable>
 
-  <View style={styles.actionBtn}>
-    <Button
-      variant="danger"
-      textColor="white"
-      size="lg"
-      onClick={() => handleDelete(student.id)}
-    >
-      {'حذف'}
-      <Feather
-        name="trash-2"
-        size={15}
-      />
-    </Button>
-  </View>
+  <Pressable
+    onPress={() => handleDelete(student.id)}
+    style={[
+      styles.iconButton,
+      styles.deleteButton,
+    ]}
+  >
+    <Feather
+      name="trash-2"
+      size={18}
+      color="#DC2626"
+    />
+  </Pressable>
 </View>
 
 <FormModal<UpdateDataType>
@@ -150,70 +177,92 @@ export default function StudentCard({
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFFFFF",
+ container: {
+  backgroundColor: "#FFFFFF",
 
-    marginHorizontal: 12,
-    marginVertical: 8,
+  marginHorizontal: 16,
+  marginVertical: 10,
 
-    paddingHorizontal: 18,
-    paddingVertical: 18,
+  paddingHorizontal: 18,
+  paddingVertical: 18,
 
-    borderRadius: 18,
+  borderRadius: 22,
 
-    borderWidth: 1,
-    borderColor: "#EEF2F7",
+  borderWidth: 1,
+  borderColor: "#EDF2F7",
 
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.12,
-    shadowRadius: 18,
-
-    elevation: 8,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 10,
   },
+  shadowOpacity: 0.08,
+  shadowRadius: 18,
 
-  header: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
+  elevation: 8,
 
+  overflow: "hidden",
+},
 
-    marginBottom: 22,
-  },
+header: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
 
-  leftSection: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent:"flex-start",
+  marginBottom: 20,
+},
 
-    flex: 1,
-    gap: 14,
-  },
+ leftSection: {
+  flexDirection: "row",
+  alignItems: "center",
+
+  flex: 1,
+
+  gap: 14,
+},
 
   textColumn: {
     gap: 3,
+    width:'60%',
+    alignItems:'flex-start',
+    flexWrap:'wrap'
   },
 
-  badge: {
+badge: {
+  // backgroundColor: colors.secondary,
+  paddingHorizontal: 12,
+  paddingVertical: 7,
+  borderRadius: 15,
+},
 
-backgroundColor:colors.secondary,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
+actionsRow: {
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  alignItems: "center",
+  gap: 12,
 
-    borderRadius: 15,
-  },
+  marginTop: 6,
+},
 
-  actionsRow: {
-    flexDirection: "row",
-    gap: 12,
-justifyContent:'flex-end',
-    marginTop: 4,
-  },
+iconButton: {
+  width: 42,
+  height: 42,
 
-  actionBtn: {
-    // flex: 1,
-  },
+  borderRadius: 21,
+
+  justifyContent: "center",
+  alignItems: "center",
+
+  borderWidth: 1,
+},
+
+editButton: {
+  backgroundColor: "#FFF7ED",
+  borderColor: "#FCD34D",
+},
+
+deleteButton: {
+  backgroundColor: "#FEF2F2",
+  borderColor: "#FECACA",
+},
 });

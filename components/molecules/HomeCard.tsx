@@ -19,7 +19,7 @@ export default function HomeCard({ title, num, icon }: Props) {
       {/* Text */}
       <View style={styles.content}>
         <Subtitle size="md">{title}</Subtitle>
-        <Title size="xl">{num}</Title>
+        <Title size="xl" variant="btnPrimary">{num}</Title>
       </View>
 
       {/* Icon */}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    alignItems:'flex-start',
+    alignItems:'center',
 
 marginHorizontal:14,
     justifyContent: "center",

@@ -212,8 +212,8 @@ const styles = StyleSheet.create({
 
   studentInfo: {
     alignItems: "flex-start",
+    width:'70%',
 
-    flex: 1,
   },
 
   dateRow: {

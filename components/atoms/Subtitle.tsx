@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 
 interface   SubtitleProps {
   size?: 'sm' | 'md' | 'lg'
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary'|'btnPrimary'
   children: React.ReactNode
 }
 export default function Subtitle({ children, size = "md", variant = "primary" }: SubtitleProps) {

@@ -34,7 +34,7 @@ export default function Avatar({ name, image }: Props) {
     >
       <Text
         style={{
-          fontSize: 22,
+          fontSize: 26,
           fontWeight: "600",
         }}
       >
