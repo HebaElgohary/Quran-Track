@@ -14,6 +14,7 @@ import SessionReport from "./SessionReport";
 import FormModal from "./form/FormModal";
 import { useProfile } from "@/hooks/useProfile";
 import EnglishTranslationModal from "./EnglishTranslationModal";
+import { ScrollView } from "react-native-gesture-handler";
 
 type updateDataType = Session;
 
@@ -91,15 +92,18 @@ const studentName=language==='ar'?student?.nameAr:student?.nameEn
   }
 
   return (
-    <View>
+    <ScrollView >
       <Header title="تقرير الحصة" />
 
+{/*------------- content -------------------- */}
+<View style={{marginHorizontal:15}}>
       {/* ACTION BUTTONS */}
       <View
         style={{
           flexDirection: "row",
           justifyContent: "flex-end",
           gap: 14,
+          marginTop:20
         }}
       >
         <Button
@@ -145,7 +149,7 @@ const studentName=language==='ar'?student?.nameAr:student?.nameEn
           flexDirection: "row",
           justifyContent: "flex-end",
           marginVertical: 13,
-          gap: 11,
+          gap: 10,
         }}
       >
         <Button
@@ -263,7 +267,8 @@ const studentName=language==='ar'?student?.nameAr:student?.nameEn
     setLanguage("en");
   }}
 />
-    </View>
+</View>
+    </ScrollView>
     
   );
 }

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
+import { colors } from "@/constants/theme";
+
 import Button from "../atoms/Button";
 import Heading from "../molecules/Heading";
 import FormModal from "../molecules/form/FormModal";
-import { colors } from "@/constants/theme";
+import Hr from "../atoms/Hr";
 
 export default function Header<T>({
   title,
@@ -24,21 +26,29 @@ export default function Header<T>({
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.heading}>
-          <Heading title={title} subtitle={subtitle} />
-        </View>
+        <View style={styles.leftSection}>
+          <View style={styles.accent} />
 
+          <View style={styles.heading}>
+            <Heading
+              title={title}
+              subtitle={subtitle}
+            />
+          </View>
+        </View>
         {btn && (
           <Button
             size="xl"
-            name="plus"
             variant="btnPrimary"
+            name="plus"
             onClick={() => setOpen(true)}
           >
             {btn}
           </Button>
         )}
+
       </View>
+<Hr style={{marginHorizontal:60,marginBottom:20,width:220,height:1,borderRadius:30}}></Hr>
 
       {formName && (
         <FormModal<T>
@@ -56,32 +66,31 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
 
-    marginHorizontal: 18,
-    marginTop: 18,
-    marginBottom: 12,
+    marginHorizontal: 20,
+    marginTop: 24,
+    marginBottom: 1,
+  },
 
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+  leftSection: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginRight: 16,
+  },
 
-    backgroundColor: colors.background,
-
+  accent: {
+    width: 5,
+    height: 56,
     borderRadius: 18,
-
-    elevation: 3,
-
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
+    backgroundColor: colors.primary,
+    marginRight: 12,
+    marginTop: 2,
   },
 
   heading: {
     flex: 1,
-    marginLeft: 16,
+    justifyContent: "center",
   },
 });
