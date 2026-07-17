@@ -71,7 +71,7 @@ export type FormName = "Students" | "Groups" | "Sessions" | "Schedule";
 
 export type FormData = Student[] | Group[];
 
-export type FieldSource = "students" | "groups";
+export type FieldSource = "students" | "surahs";
 // | "sessions"
 // | "reports"
 // | "schedule";
@@ -85,6 +85,7 @@ export type SourceOption<T = unknown> = {
 export type SourcesMap = {
   students: SourceOption[];
   groups: SourceOption[];
+  surahs: string[];
 };
 
 export interface FormFieldSchema {
@@ -99,7 +100,8 @@ export interface FormFieldSchema {
     | "number"
     | "date"
     | "time"
-    | "password";
+    | "password"
+    |'autocomplete';
 
   source?: FieldSource;
 

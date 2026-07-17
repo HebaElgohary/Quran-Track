@@ -5,7 +5,7 @@ import RadioInput from "../RadioInput";
 import SelectInput from "../SelectInput";
 import DateInput from "../DateInput";
 import TimeInput from "../TimeInput";
-
+import  AutocompleteInput from './AutocompleteInput'
 export default function FormField(props: any) {
   const { type } = props;
   console.log("props is " + type);
@@ -14,6 +14,7 @@ export default function FormField(props: any) {
   if (type === "number") return <Input   keyboardType="numeric"
  {...props} />;
 if (type === "time") return <TimeInput {...props} />;
+if (type === "autocomplete") return <AutocompleteInput {...props} />;
   if (type === "textarea") return <Input {...props} multiline />;
   if (type === "radio") return <RadioInput {...props} />;
   if (type === "select") return <SelectInput {...props} />;

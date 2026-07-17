@@ -1,3 +1,4 @@
+import { surahMap } from "@/translations/surahMap";
 import { FormFieldSchema } from "@/types/appTypes";
 
 export const sessionFields: FormFieldSchema[] = [
@@ -15,7 +16,9 @@ export const sessionFields: FormFieldSchema[] = [
   {
     name: "surah",
     label: "السورة ",
-    type: "text",
+    type: "autocomplete",
+  source: "surahs",
+
   },
   {
     name: "grade",

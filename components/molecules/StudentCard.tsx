@@ -5,6 +5,7 @@ import {
   Animated,
   Pressable,
   StyleSheet,
+  Text,
   View,
 } from "react-native";
 
@@ -15,6 +16,7 @@ import Avatar from "./Avatar";
 import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
 import { colors } from "@/constants/theme";
+import { getLevelColor } from "@/utils/getLevelColor ";
 
 type UpdateDataType = Student;
 
@@ -59,8 +61,8 @@ export default function StudentCard({
     }).start();
   };
 
+const levelStyle = getLevelColor(student.level);
   
-
   return (
     
     <SwipeCard
@@ -101,22 +103,21 @@ export default function StudentCard({
         {student.nameAr}
       </Title>
 
-   <View
-    style={{
-        marginTop:8,
-        alignSelf:"flex-start",
-
-        backgroundColor:"#EEF6FF",
-
-        paddingHorizontal:10,
-        paddingVertical:5,
-
-        borderRadius:20,
-    }}
+  <View
+  style={[
+    styles.levelBadge,
+    {
+      backgroundColor: levelStyle.backgroundColor,
+      borderColor: levelStyle.borderColor,
+      borderWidth: 1,
+    },
+  ]}
 >
-    <Title size="sm">
-        {student.level}
-    </Title>
+  <Text
+    style={{ color: levelStyle.color }}
+  >
+    {student.level}
+  </Text>
 </View>
     </View>
   </View>
@@ -210,6 +211,15 @@ header: {
   justifyContent: "space-between",
 
   marginBottom: 20,
+},
+levelBadge: {
+  marginTop: 8,
+  alignSelf: "flex-start",
+
+  paddingHorizontal: 10,
+  paddingVertical: 5,
+
+  borderRadius: 20,
 },
 
  leftSection: {

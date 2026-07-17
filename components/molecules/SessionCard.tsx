@@ -110,6 +110,7 @@ export default function SessionCard({
         <Action
           icon="file-text"
           color="#2563EB"
+          border
           bg="#EFF6FF"
           onPress={onReport}
         />
@@ -161,6 +162,8 @@ function Action({ icon, color, bg, onPress }: any) {
       style={[
         styles.action,
         {
+          borderWidth:1,
+          borderColor:color,
           backgroundColor: bg,
         },
       ]}
@@ -347,9 +350,9 @@ const styles = StyleSheet.create({
   },
 
   action: {
-    width: 42,
+    width: 45,
 
-    height: 42,
+    height: 45,
 
     borderRadius: 21,
 

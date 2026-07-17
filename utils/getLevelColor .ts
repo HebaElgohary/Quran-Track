@@ -1,40 +1,30 @@
-// utils/getLevelColor.ts
-
 export const getLevelColor = (level: string) => {
   switch (level) {
     case "مبتدئ":
       return {
-        bg: "#FEF2F2",
-        color: "#DC2626",
+        backgroundColor: "#DBEAFE",
+        borderColor: "#93C5FD",
+        color: "#1D4ED8",
       };
 
     case "متوسط":
       return {
-        bg: "#FFFBEB",
-        color: "#D97706",
+        backgroundColor: "#FEF3C7",
+        borderColor: "#FCD34D",
+        color: "#92400E",
       };
 
     case "متقدم":
       return {
-        bg: "#EFF6FF",
-        color: "#2563EB",
-      };
-
-    case "حافظ":
-      return {
-        bg: "#ECFDF5",
-        color: "#059669",
-      };
-
-    case "مجاز":
-      return {
-        bg: "#EEF2FF",
-        color: "#4F46E5",
+        backgroundColor: "#DCFCE7",
+        borderColor: "#86EFAC",
+        color: "#166534",
       };
 
     default:
       return {
-        bg: "#F1F5F9",
+        backgroundColor: "#F1F5F9",
+        borderColor: "#CBD5E1",
         color: "#475569",
       };
   }

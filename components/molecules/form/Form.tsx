@@ -5,6 +5,7 @@ import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
 import { ScrollView, Text, View } from "react-native";
 import FormField from "./FormField";
+import { surahMap } from "@/translations/surahMap";
 
 interface props<T> {
   page: FormName;
@@ -35,7 +36,7 @@ export default function Form<T>({
         maxHeight: 700,
         backgroundColor: "#fff",
         borderRadius: 22,
-        alignSelf:'flex-start',
+        alignSelf: "flex-start",
         // overflow: "visible",
         shadowColor: "#000",
         shadowOpacity: 0.08,
@@ -76,8 +77,7 @@ export default function Form<T>({
       <ScrollView
         style={{ maxHeight: 520 }}
         nestedScrollEnabled
-          removeClippedSubviews={false}
-
+        removeClippedSubviews={false}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
           padding: 16,
@@ -91,7 +91,12 @@ export default function Form<T>({
 
             const fieldProps = {
               ...field,
-              data: field.source ? sources?.[field.source] : field.data,
+              data:
+                field.source === "surahs"
+                  ? Object.keys(surahMap)
+                  : field.source
+                    ? sources?.[field.source]
+                    : field.data,
             };
 
             return (
@@ -102,13 +107,12 @@ export default function Form<T>({
                     backgroundColor: "#FAFAFA",
                     borderRadius: 16,
                     padding: 12,
-                    
+
                     borderWidth: fieldError ? 1.5 : 1,
                     borderColor: fieldError ? "#EF4444" : "#E5E7EB",
                   }}
                 >
                   <FormField
-                  
                     {...fieldProps}
                     value={formData?.[field.name as keyof T]}
                     error={fieldError}
