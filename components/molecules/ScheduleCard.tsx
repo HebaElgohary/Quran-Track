@@ -139,34 +139,34 @@ export default function ScheduleCard({
     />
 
     <Text style={styles.reminderText}>
-      سيتم التذكير قبل الموعد بـ 5 دقائق
+      سيتم التذكير قبل الموعد بـ 15 دقائق
     </Text>
   </View>
   <View style={styles.actions}>
   <Button
-    variant="transparent"
+    variant="gray"
     textColor="warning"
     size="lg"
     onClick={() => setOpen(true)}
   >
     <Feather
       name="edit-2"
-      size={14}
+      size={15}
       color={colors.warning}
     />
     <Text style={styles.actionText}>تعديل</Text>
   </Button>
 
   <Button
-    variant="transparent"
-    textColor="danger"
+    variant="danger"
+    textColor="white"
     size="lg"
     onClick={openDeleteAlert}
   >
     <Feather
       name="trash-2"
-      size={14}
-      color={colors.danger}
+      size={15}
+      color={colors.white}
     />
     <Text style={styles.actionText}>حذف</Text>
   </Button>
@@ -203,14 +203,14 @@ card: {
 },
 
 header:{
-    flexDirection:"row-reverse",
+    flexDirection:"row",
     justifyContent:"space-between",
     alignItems:"flex-start",
     gap:8
 },
 
 leftSide:{
-    flexDirection:"row-reverse",
+    flexDirection:"row",
     flex:1,
         gap:8
 
@@ -234,7 +234,7 @@ name:{
 },
 
 row:{
-    flexDirection:"row-reverse",
+    flexDirection:"row",
     alignItems:"center",
     marginTop:4,
 },
@@ -258,7 +258,7 @@ durationText:{
     fontSize:12,
 },
 actions: {
-  flexDirection: "row-reverse",
+  flexDirection: "row",
   justifyContent: "flex-end",
   gap: 12,
   marginTop: 18,
@@ -278,7 +278,7 @@ divider:{
 },
 
 reminder:{
-    flexDirection:"row-reverse",
+    flexDirection:"row",
     alignItems:"center",
         gap:10
 

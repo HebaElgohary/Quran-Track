@@ -104,7 +104,7 @@ const confirmDelete = async () => {
         <Header<AddDataType>
           handleSubmit={addSchedule}
           title="المواعيد"
-          subtitle="سينبهك التطبيق بصوت عالى قبل الحصة بـ 5 دقائق"
+          subtitle="سينبهك التطبيق بصوت عالى قبل الحصة بـ 15 دقائق"
           btn="أضف موعد جديد"
           formName="Schedule"
         />

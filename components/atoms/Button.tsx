@@ -52,11 +52,10 @@ export default function Button({
           paddingVertical: 12,
 
           borderRadius: 12,
-
           flexDirection: "row-reverse",
           alignItems: "center",
           justifyContent: "center",
-          gap: 8,
+          gap: 4,
 
           elevation: 4,
 
@@ -72,6 +71,7 @@ export default function Button({
         {name && (
           <Feather
             name={name as any}
+          
             size={18}
             color={colors[textColor]}
           />
