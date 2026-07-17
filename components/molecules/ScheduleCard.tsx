@@ -87,7 +87,7 @@ export default function ScheduleCard({
 
       <View style={{ flex: 1 }}>
         <Text style={styles.name}>
-          {student?.nameAr ?? "طالب"}
+          {student?.nameAr??' '}
         </Text>
 
         <View style={styles.row}>

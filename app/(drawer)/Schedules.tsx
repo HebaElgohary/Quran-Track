@@ -8,7 +8,7 @@ import { useStudents } from "@/hooks/useStudent";
 import { useToast } from "@/hooks/useToast";
 import { Schedule, ScheduleFormData } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   ScrollView,
   Text,
@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import { colors } from "@/constants/theme";
+import { useFocusEffect } from "expo-router";
 
 
 type AddDataType = ScheduleFormData;
@@ -27,12 +28,14 @@ export default function Schedules() {
     schedules,
     createSchedule,
     loading,
+    loadSchedules,
     removeSchedule,
     editSchedule,
   } = useSchedule();
 
-  const { students } = useStudents();
+  const { students,loadStudents } = useStudents();
   const { showSuccess } = useToast();
+  useFocusEffect(useCallback(()=>{loadSchedules},[schedules]))
 
 
   const [selectedScheduleId, setSelectedScheduleId] =
@@ -93,7 +96,6 @@ const confirmDelete = async () => {
       showsVerticalScrollIndicator={false}
 
     >
-
       {/* HEADER */}
       <View
         style={{
@@ -123,9 +125,6 @@ const confirmDelete = async () => {
         <NotificationCard />
 
       </View>
-
-
-
 
       {/* EMPTY STATE */}
       {
@@ -199,6 +198,8 @@ const confirmDelete = async () => {
       <View
         style={{
           gap:14,
+          display:'flex',
+          flexDirection:'column-reverse'
         }}
       >
 
@@ -216,14 +217,13 @@ const confirmDelete = async () => {
                 <ScheduleCard
 
                   schedule={schedule}
-
                   student={
                     students.find(
                       student =>
                         student.id ===
                         schedule.studentId
                     )
-                  }
+                  } 
 
                   duration={
                     schedule.duration

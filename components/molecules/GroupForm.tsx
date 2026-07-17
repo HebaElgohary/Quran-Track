@@ -66,8 +66,7 @@ export default function GroupForm<T>({
         backgroundColor: "white",
         padding: 16,
         borderRadius: 10,
-        width: "100%",
-        maxHeight: "90%",
+       
       }}
     >
 
