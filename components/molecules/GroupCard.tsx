@@ -3,10 +3,14 @@ import { Feather } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Animated, Pressable, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { RectButton } from "react-native-gesture-handler";
+
 import { groupColors } from "@/constants/theme";
-import FormModal from "./form/FormModal";
+
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
+import FormModal from "./form/FormModal";
+import SwipeCard from "./SwipeCard";
 
 type editGroupType = Group;
 
@@ -24,6 +28,7 @@ export default function GroupCard({
   updateGroup,
 }: GroupCardProps) {
   const [open, setOpen] = useState(false);
+
   const scaleAnim = useState(new Animated.Value(1))[0];
 
   const accentColor =
@@ -32,16 +37,14 @@ export default function GroupCard({
   const gradient = [`${accentColor}15`, "#fff", "#fff"] as const;
 
   const groupStudents = students.filter(
-    (s) => s.groupId === group.id
+    s => s.groupId === group.id
   );
 
   const studentCount = groupStudents.length;
-   const groupWithStudents = {
 
+  const groupWithStudents = {
     ...group,
-
     students: groupStudents,
-
   };
 
   const onPressIn = () => {
@@ -58,187 +61,327 @@ export default function GroupCard({
     }).start();
   };
 
-  return (
-    <Animated.View
+  // ---------------- Swipe Actions ----------------
+
+  const renderRightActions = () => (
+    <RectButton
       style={{
-        transform: [{ scale: scaleAnim }],
-        width: "92%",
-        alignSelf: "center",
-        marginVertical: 10,
-        
+        width: 82,
+        marginVertical: 8,
+        borderRadius: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: `${accentColor}`,
       }}
+      onPress={() => setOpen(true)}
     >
-      <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
-  <View
-  style={{
-    flexDirection: "row",
-    borderRadius: 24,
-    overflow: "hidden",
+      <Feather
+        name="edit-2"
+        size={22}
+        color="#fff"
+      />
+    </RectButton>
+  );
 
-    backgroundColor: "#FFF",
+  const renderLeftActions = () => (
+    <RectButton
+      style={{
+        width: 82,
+        marginVertical: 8,
+        borderRadius: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#EF4444",
+      }}
+      onPress={() => setSelectedGroupId(group.id)}
+    >
+      <Feather
+        name="trash-2"
+        size={22}
+        color="#fff"
+      />
+    </RectButton>
+  );
 
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.14,
-    shadowRadius: 18,
-
-    elevation: 8,
-  }}
->
-          {/* Accent bar */}
+  return (
+    <SwipeCard
+      onEdit={() => setOpen(true)}
+      onDelete={() => setSelectedGroupId(group.id)}
+    >
+      <Animated.View
+        style={{
+          transform: [{ scale: scaleAnim }],
+          width: "92%",
+          alignSelf: "center",
+          marginVertical: 10,
+        }}
+      >
+        <Pressable
+          onPressIn={onPressIn}
+          onPressOut={onPressOut}
+        >
           <View
             style={{
-              width: 6,
-              backgroundColor: accentColor,
-            }}
-          />
+              flexDirection: "row",
+              borderRadius: 24,
+              overflow: "hidden",
 
-          <LinearGradient
-            colors={gradient}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={{
-              flex: 1,
-              padding: 16,
-              minHeight: 140,
+              backgroundColor: "#FFF",
+
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 8,
+              },
+              shadowOpacity: 0.14,
+              shadowRadius: 18,
+
+              elevation: 8,
             }}
           >
-            {/* HEADER */}
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
+                width: 6,
+                backgroundColor: accentColor,
+              }}
+            />
+
+            <LinearGradient
+              colors={gradient}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{
+                flex: 1,
+                padding: 16,
+                minHeight: 140,
               }}
             >
-              <View style={{ margin:8, display:'flex' }}>
-                <Title >{group.nameAr}</Title>
+                            {/* ---------------- HEADER ---------------- */}
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 1,
+                    marginRight: 10,
+                  }}
+                >
+                  <Title>{group.nameAr}</Title>
+
+                  <Text
+                    style={{
+                      color: "#94A3B8",
+                      marginTop: 4,
+                      fontSize: 13,
+                      fontStyle: "italic",
+                    }}
+                  >
+                    {group.nameEn}
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: 8,
+                    backgroundColor: accentColor,
+
+                    borderWidth: 2,
+                    borderColor: "#fff",
+                  }}
+                />
+              </View>
+
+              {/* ---------------- STUDENTS ---------------- */}
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  gap: 8,
+                  marginTop: 18,
+                }}
+              >
+                {groupStudents.length === 0 ? (
+                  <Text
+                    style={{
+                      color: "#94A3B8",
+                      fontSize: 12,
+                    }}
+                  >
+                    لا يوجد طلاب بالمجموعة
+                  </Text>
+                ) : (
+                  <>
+                    {groupStudents.slice(0, 4).map(student => (
+                      <View
+                        key={student.id}
+                        style={{
+                          paddingHorizontal: 10,
+                          paddingVertical: 5,
+
+                          borderRadius: 20,
+
+                          backgroundColor: "#F8FAFC",
+
+                          borderWidth: 1,
+                          borderColor: "#E2E8F0",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#334155",
+                            fontSize: 12,
+                            fontWeight: "600",
+                          }}
+                        >
+                          {student.nameAr}
+                        </Text>
+                      </View>
+                    ))}
+
+                    {studentCount > 4 && (
+                      <View
+                        style={{
+                          paddingHorizontal: 10,
+                          paddingVertical: 5,
+
+                          borderRadius: 20,
+
+                          backgroundColor: `${accentColor}18`,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: accentColor,
+                            fontWeight: "700",
+                            fontSize: 12,
+                          }}
+                        >
+                          +{studentCount - 4}
+                        </Text>
+                      </View>
+                    )}
+                  </>
+                )}
+              </View>
+
+              {/* ---------------- COUNT ---------------- */}
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 18,
+                  gap: 8,
+                }}
+              >
+                <View
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: 14,
+                    backgroundColor: `${accentColor}18`,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Feather
+                    name="users"
+                    size={15}
+                    color={accentColor}
+                  />
+                </View>
 
                 <Text
                   style={{
-                    color: "#9CA3AF",
-                    marginTop: 2,
+                    color: "#64748B",
                     fontSize: 13,
-                    fontStyle: "italic",
-                    alignSelf:'center',
-                    marginBottom:11
-
+                    fontWeight: "600",
                   }}
                 >
-                  {group.nameEn}
+                  {studentCount} طالب
                 </Text>
-
-                {/* Students chips */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    marginTop: 10,
-                    gap: 6,
-                  }}
-                >
-                  {groupStudents.map((s) => (
-                    <View
-                      key={s.id}
-                      style={{
-                        paddingHorizontal: 8,
-                        paddingVertical: 4,
-                        borderRadius: 12,
-                        backgroundColor: "#F3F4F6",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: "#374151",
-                        }}
-                      >
-                        {s.nameAr}
-                      </Text>
-                    </View>
-                  ))}
-
-                </View>
-
-                {/* count */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: 10,
-                    gap: 6,
-                  }}
-                >
-                  <Feather name="users" size={14} color="#6B7280" />
-                  <Text style={{ color: "#6B7280", fontSize: 13 }}>
-                    {studentCount} طلاب
-                  </Text>
-                </View>
               </View>
 
-              {/* color badge */}
+              <Hr />
+
+                            {/* ---------- ACTIONS ---------- */}
+
               <View
                 style={{
-                  width: 14,
-                  height: 14,
-                  borderRadius: 7,
-                  backgroundColor: accentColor,
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  gap: 12,
+                  marginTop: 18,
                 }}
+              >
+                <Pressable
+                  onPress={() => setOpen(true)}
+                  style={{
+                    width: 42,
+                    height: 42,
+                    borderRadius: 21,
+
+                    backgroundColor: `${accentColor}15`,
+
+                    justifyContent: "center",
+                    alignItems: "center",
+
+                    borderWidth: 1,
+                    borderColor: `${accentColor}30`,
+                  }}
+                >
+                  <Feather
+                    name="edit-2"
+                    size={18}
+                    color={accentColor}
+                  />
+                </Pressable>
+
+                <Pressable
+                  onPress={() =>
+                    setSelectedGroupId(group.id)
+                  }
+                  style={{
+                    width: 42,
+                    height: 42,
+                    borderRadius: 21,
+
+                    backgroundColor: "#FEF2F2",
+
+                    justifyContent: "center",
+                    alignItems: "center",
+
+                    borderWidth: 1,
+                    borderColor: "#FECACA",
+                  }}
+                >
+                  <Feather
+                    name="trash-2"
+                    size={18}
+                    color="#DC2626"
+                  />
+                </Pressable>
+              </View>
+
+              <FormModal<editGroupType>
+                open={open}
+                setOpen={setOpen}
+                formData={groupWithStudents}
+                data={groupStudents}
+                formName="Groups"
+                handleSubmit={updateGroup}
               />
-            </View>
-
-            <Hr />
-
-            {/* ACTIONS (modern icons) */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                gap: 14,
-              }}
-            >
-              <Pressable
-                onPress={() => setOpen(true)}
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: 19,
-                  backgroundColor: `${accentColor}15`,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Feather name="edit-2" size={16} color={accentColor} />
-              </Pressable>
-
-              <Pressable
-                onPress={() => setSelectedGroupId(group.id)}
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: 19,
-                  backgroundColor: "#FEE2E2",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Feather name="trash-2" size={16} color="#DC2626" />
-              </Pressable>
-            </View>
-
-            <FormModal<editGroupType>
-              open={open}
-              setOpen={setOpen}
-              formData={groupWithStudents}
-              data={groupStudents}
-              formName="Groups"
-              handleSubmit={updateGroup}
-            />
-          </LinearGradient>
-        </View>
-      </Pressable>
-    </Animated.View>
+            </LinearGradient>
+          </View>
+        </Pressable>
+      </Animated.View>
+    </SwipeCard>
   );
 }

@@ -42,15 +42,8 @@ const { students } = useStudents();
   
   }
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        padding: 20,
-        overflow: "scroll",
-        maxHeight: "85%",
-        borderRadius: 10,
-      }}
-    >
+      <View style={{backgroundColor:'white',padding:12,borderRadius:10}}>
+
       {/* form heading */}
       <FormHeading title="تقرير حصة جديدة " name={"x"} setOpen={setOpen} />
       {/* /////////////////// */}
