@@ -11,7 +11,8 @@ export default function FormField(props: any) {
   console.log("props is " + type);
 
   if (type === "text"|| type === "password") return <Input {...props} />;
-  if (type === "number") return <Input {...props} />;
+  if (type === "number") return <Input   keyboardType="numeric"
+ {...props} />;
 if (type === "time") return <TimeInput {...props} />;
   if (type === "textarea") return <Input {...props} multiline />;
   if (type === "radio") return <RadioInput {...props} />;

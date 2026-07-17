@@ -13,11 +13,10 @@ import { Text, View } from "react-native";
 
  function CustomDrawerContent(props: any) {
   const {profile,loadProfile}=useProfile()
-useFocusEffect(
-  useCallback(() => {
-    loadProfile();
-  }, [])
-);  return (
+
+  useEffect(()=>{loadProfile()},[profile])
+
+return (
     <DrawerContentScrollView {...props} style={{ flex: 1 }}>
       {/* HEADER (YOUR DESIGN PRESERVED) */}
       <View
