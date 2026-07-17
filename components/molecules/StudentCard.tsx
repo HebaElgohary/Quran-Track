@@ -58,26 +58,28 @@ export default function StudentCard({
     </View>
   </View>
 
-  <Hr style={{width:'80%',marginHorizontal:'auto'}} />
+  <Hr style={{width:'80%',marginHorizontal:'auto' ,marginBottom:15}} />
 
   <View style={styles.actionsRow}>
     <View style={styles.actionBtn}>
       <Button
-        variant="transparent"
+        variant="gray"
         textColor="warning"
+        size="lg"
         onClick={() => setOpen(true)}
       >
-        {btn1} <Feather name="edit-2" />
+        {btn1} <Feather name="edit-2" size={15} />
       </Button>
     </View>
 
     <View style={styles.actionBtn}>
       <Button
-        variant="transparent"
-        textColor="danger"
+        variant="danger"
+        size="lg"
+        textColor="white"
         onClick={() => handleDelete(student.id)}
       >
-        {btn2} <Feather name="trash-2" />
+        {btn2} <Feather name="trash-2" size={15} />
       </Button>
     </View>
   </View>

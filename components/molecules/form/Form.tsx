@@ -156,7 +156,7 @@ export default function Form<T>({
         {/* Cancel */}
         <View style={{}}>
           <Button
-            size="sm"
+            size="md"
             variant="gray"
             textColor="black"
             onClick={() => setOpen(false)}
@@ -168,7 +168,7 @@ export default function Form<T>({
         {/* Submit */}
         <View style={{}}>
           <Button
-            size="sm"
+            size="md"
             variant="btnPrimary"
             textColor="white"
             onClick={() => {

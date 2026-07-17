@@ -22,8 +22,8 @@ useFocusEffect(
       {/* HEADER (YOUR DESIGN PRESERVED) */}
       <View
         style={{
-          flexDirection: "row-reverse",
-          alignItems: "center",
+          flexDirection: "row",
+          alignItems: "flex-start",
           gap: 5,
           marginVertical: 15,
           paddingHorizontal: 15,
@@ -47,7 +47,7 @@ useFocusEffect(
             متابعة القران
           </Title>
 
-          <Text style={{ color: colors.secondary, textAlign: "right" }}>
+          <Text style={{ color: colors.secondary, textAlign: "right",alignSelf:'flex-start' }}>
             القران والتجويد
           </Text>
         </View>

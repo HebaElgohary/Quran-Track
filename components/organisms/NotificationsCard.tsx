@@ -71,7 +71,7 @@ export default function NotificationCard() {
         onValueChange={handleNotification}
         trackColor={{
           false: "#D1D5DB",
-          true: colors.btnPrimary,
+          true: colors.primary,
         }}
         thumbColor="#FFFFFF"
       />
@@ -81,7 +81,7 @@ export default function NotificationCard() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
 
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
   leftSection: {
     flex: 1,
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
     gap: 12,
   },

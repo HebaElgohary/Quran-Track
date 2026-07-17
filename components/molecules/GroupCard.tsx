@@ -69,17 +69,25 @@ export default function GroupCard({
       }}
     >
       <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
-        <View
-          style={{
-            flexDirection: "row",
-            borderRadius: 24,
-            overflow: "hidden",
-            shadowColor: "#000",
-            shadowOpacity: 0.08,
-            shadowRadius: 10,
-            elevation: 3,
-          }}
-        >
+  <View
+  style={{
+    flexDirection: "row",
+    borderRadius: 24,
+    overflow: "hidden",
+
+    backgroundColor: "#FFF",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.14,
+    shadowRadius: 18,
+
+    elevation: 8,
+  }}
+>
           {/* Accent bar */}
           <View
             style={{
@@ -101,7 +109,7 @@ export default function GroupCard({
             {/* HEADER */}
             <View
               style={{
-                flexDirection: "row-reverse",
+                flexDirection: "row",
                 justifyContent: "space-between",
               }}
             >
@@ -125,7 +133,7 @@ export default function GroupCard({
                 {/* Students chips */}
                 <View
                   style={{
-                    flexDirection: "row-reverse",
+                    flexDirection: "row",
                     flexWrap: "wrap",
                     marginTop: 10,
                     gap: 6,
@@ -152,31 +160,12 @@ export default function GroupCard({
                     </View>
                   ))}
 
-                  {/* {studentCount > 3 && (
-                    <View
-                      style={{
-                        paddingHorizontal: 8,
-                        paddingVertical: 4,
-                        borderRadius: 12,
-                        backgroundColor: `${accentColor}20`,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: "#374151",
-                        }}
-                      >
-                        +{studentCount - 3}
-                      </Text>
-                    </View>
-                  )} */}
                 </View>
 
                 {/* count */}
                 <View
                   style={{
-                    flexDirection: "row-reverse",
+                    flexDirection: "row",
                     alignItems: "center",
                     marginTop: 10,
                     gap: 6,
@@ -205,7 +194,7 @@ export default function GroupCard({
             {/* ACTIONS (modern icons) */}
             <View
               style={{
-                flexDirection: "row-reverse",
+                flexDirection: "row",
                 justifyContent: "flex-end",
                 gap: 14,
               }}
