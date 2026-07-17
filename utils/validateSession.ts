@@ -1,3 +1,4 @@
+import { surahMap } from "@/translations/surahMap";
 import { Session, SessionFormData } from "@/types/appTypes";
 
 export const validateSession = (
@@ -17,8 +18,16 @@ export const validateSession = (
     errors.date = "تاريخ الجلسة مطلوب";
   }
 
-  if (!data.surah?.trim()) {
+  // -------------------------
+  // Surah validation
+  // -------------------------
+
+  const surah = data.surah?.trim().replace(/\s+/g, " ");
+
+  if (!surah) {
     errors.surah = "السورة مطلوبة";
+  } else if (!(surah in surahMap)) {
+    errors.surah = "يرجى اختيار اسم سورة صحيح";
   }
 
   if (!data.grade?.trim()) {
