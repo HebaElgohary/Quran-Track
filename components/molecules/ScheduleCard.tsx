@@ -9,6 +9,7 @@ import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
 import { colors } from "@/constants/theme";
+import Action from "./Action";
 
 type updateDataType = Schedule;
 
@@ -33,24 +34,6 @@ export default function ScheduleCard({
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
-const scale = useRef(new Animated.Value(1)).current;
-// -------------------animation -----------------------//
-
-const pressIn = () => {
-  Animated.spring(scale, {
-    toValue: 0.9,
-    useNativeDriver: true,
-  }).start();
-};
-
-const pressOut = () => {
-  Animated.spring(scale, {
-    toValue: 1,
-    friction: 4,
-    useNativeDriver: true,
-  }).start();
-};
-//--------------------------------//
   return (
     <SwipeCard onEdit={() => setOpen(true)} onDelete={openDeleteAlert}>
       {/* your schedule UI here */}
@@ -126,39 +109,24 @@ const pressOut = () => {
     </Text>
   </View>
 <View style={styles.actions}>
-  <Animated.View
-  style={{
-    transform: [{ scale }],
-  }}
->
-  <Pressable
+  <Action
+    icon="edit-2"
+    color={colors.warning}
+    bg="#FFF7ED"
+    pressedBg="#FDE7C7"
     onPress={() => setOpen(true)}
-    style={[styles.iconButton, styles.editButton]}
-  >
-    <Feather
-      name="edit-2"
-      size={18}
-      color={colors.warning}
-    />
-  </Pressable>
-  </Animated.View>
-  {/* //-------------------------// */}
-<Animated.View
-  style={{
-    transform: [{ scale }],
-  }}
->
-  <Pressable
+  />
+
+  <Action
+    icon="trash-2"
+    color="#DC2626"
+    bg="#FEF2F2"
+    pressedBg="#FEE2E2"
     onPress={openDeleteAlert}
-    style={[styles.iconButton, styles.deleteButton]}
-  >
-    <Feather
-      name="trash-2"
-      size={18}
-      color="#DC2626"
-    />
-  </Pressable>
-  </Animated.View>
+  />
+{/* </View> */}
+  {/* //-------------------------// */}
+
 </View>
 <FormModal<updateDataType>
   open={open}
