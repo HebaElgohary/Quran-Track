@@ -3,7 +3,7 @@ import { colors } from "@/constants/theme";
 import { FormFieldSchema, FormName, SourcesMap } from "@/types/appTypes";
 import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { FlatList, ScrollView, Text, View } from "react-native";
 import FormField from "./FormField";
 import { surahMap } from "@/translations/surahMap";
 
@@ -74,75 +74,73 @@ export default function Form<T>({
       </View>
 
       {/* BODY */}
-      <ScrollView
-        style={{ maxHeight: 520 }}
-        nestedScrollEnabled
-        removeClippedSubviews={false}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          padding: 16,
-          paddingBottom: 30,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{ gap: 14 }}>
-          {fields.map((field: FormFieldSchema, index: number) => {
-            const fieldError = errors?.[field.name];
+{/* BODY */}
+<FlatList
+  data={fields}
+  keyExtractor={(field, index) => `${field.name}-${index}`}
+  keyboardShouldPersistTaps="handled"
+  nestedScrollEnabled
+  removeClippedSubviews={false}
+  showsVerticalScrollIndicator={false}
+  style={{ maxHeight: 520 }}
+  contentContainerStyle={{
+    padding: 16,
+    paddingBottom: 30,
+    gap: 14,
+  }}
+  renderItem={({ item: field }) => {
+    const fieldError = errors?.[field.name];
 
-            const fieldProps = {
-              ...field,
-              data:
-                field.source === "surahs"
-                  ? Object.keys(surahMap)
-                  : field.source
-                    ? sources?.[field.source]
-                    : field.data,
-            };
+    const fieldProps = {
+      ...field,
+      data:
+        field.source === "surahs"
+          ? Object.keys(surahMap)
+          : field.source
+          ? sources?.[field.source]
+          : field.data,
+    };
 
-            return (
-              <View key={`${field.name}-${index}`}>
-                {/* FIELD CONTAINER */}
-                <View
-                  style={{
-                    backgroundColor: "#FAFAFA",
-                    borderRadius: 16,
-                    padding: 12,
-
-                    borderWidth: fieldError ? 1.5 : 1,
-                    borderColor: fieldError ? "#EF4444" : "#E5E7EB",
-                  }}
-                >
-                  <FormField
-                    {...fieldProps}
-                    value={formData?.[field.name as keyof T]}
-                    error={fieldError}
-                    onChange={(value: unknown) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        [field.name]: value,
-                      }))
-                    }
-                  />
-                </View>
-
-                {/* ERROR TEXT */}
-                {fieldError && (
-                  <Text
-                    style={{
-                      color: "#EF4444",
-                      fontSize: 12,
-                      marginTop: 4,
-                      marginLeft: 6,
-                    }}
-                  >
-                    {fieldError}
-                  </Text>
-                )}
-              </View>
-            );
-          })}
+    return (
+      <View>
+        <View
+          style={{
+            backgroundColor: "#FAFAFA",
+            borderRadius: 16,
+            padding: 12,
+            borderWidth: fieldError ? 1.5 : 1,
+            borderColor: fieldError ? "#EF4444" : "#E5E7EB",
+          }}
+        >
+          <FormField
+            {...fieldProps}
+            value={formData?.[field.name as keyof T]}
+            error={fieldError}
+            onChange={(value: unknown) =>
+              setFormData(prev => ({
+                ...prev,
+                [field.name]: value,
+              }))
+            }
+          />
         </View>
-      </ScrollView>
+
+        {fieldError && (
+          <Text
+            style={{
+              color: "#EF4444",
+              fontSize: 12,
+              marginTop: 4,
+              marginLeft: 6,
+            }}
+          >
+            {fieldError}
+          </Text>
+        )}
+      </View>
+    );
+  }}
+/>
 
       {/* FOOTER */}
       <View
