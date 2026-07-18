@@ -11,6 +11,7 @@ import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
+import Action from "./Action";
 
 type editGroupType = Group;
 
@@ -322,53 +323,21 @@ export default function GroupCard({
                   marginTop: 18,
                 }}
               >
-                <Pressable
-                  onPress={() => setOpen(true)}
-                  style={{
-                    width: 42,
-                    height: 42,
-                    borderRadius: 21,
+       <Action
+  icon="edit-2"
+  color={accentColor}
+  bg={`${accentColor}20`}
+  pressedBg={`${accentColor}45`}
+  onPress={() => setOpen(true)}
+/>
 
-                    backgroundColor: `${accentColor}15`,
-
-                    justifyContent: "center",
-                    alignItems: "center",
-
-                    borderWidth: 1,
-                    borderColor: `${accentColor}30`,
-                  }}
-                >
-                  <Feather
-                    name="edit-2"
-                    size={18}
-                    color={accentColor}
-                  />
-                </Pressable>
-
-                <Pressable
-                  onPress={() =>
-                    setSelectedGroupId(group.id)
-                  }
-                  style={{
-                    width: 42,
-                    height: 42,
-                    borderRadius: 21,
-
-                    backgroundColor: "#FEF2F2",
-
-                    justifyContent: "center",
-                    alignItems: "center",
-
-                    borderWidth: 1,
-                    borderColor: "#FECACA",
-                  }}
-                >
-                  <Feather
-                    name="trash-2"
-                    size={18}
-                    color="#DC2626"
-                  />
-                </Pressable>
+<Action
+  icon="trash-2"
+  color="#DC2626"
+  bg="#FEF2F2"
+  pressedBg="#FEE2E2"
+  onPress={() => setSelectedGroupId(group.id)}
+/>
               </View>
 
               <FormModal<editGroupType>

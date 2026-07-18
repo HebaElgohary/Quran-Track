@@ -17,6 +17,7 @@ import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
 import { colors } from "@/constants/theme";
 import { getLevelColor } from "@/utils/getLevelColor ";
+import Action from "./Action";
 
 type UpdateDataType = Student;
 
@@ -39,48 +40,13 @@ export default function StudentCard({
   handleDelete,
   updateStudent,
 }: StudentCardProps) {
-  const [open, setOpen] = useState(false);
-
-  const scaleAnim = useRef(new Animated.Value(1)).current;
-
-  const onPressIn = () => {
-    Animated.spring(scaleAnim, {
-      toValue: 0.985,
-      friction: 8,
-      tension: 120,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const onPressOut = () => {
-    Animated.spring(scaleAnim, {
-      toValue: 1,
-      friction: 8,
-      tension: 120,
-      useNativeDriver: true,
-    }).start();
-  };
-
-const levelStyle = getLevelColor(student.level);
   
 
-// -----------------animation --------------------//
-const scale = useRef(new Animated.Value(1)).current;
+  const [open, setOpen] = useState(false);
 
-const pressIn = () => {
-  Animated.spring(scale, {
-    toValue: 0.9,
-    useNativeDriver: true,
-  }).start();
-};
+const levelStyle = getLevelColor(student.level);
 
-const pressOut = () => {
-  Animated.spring(scale, {
-    toValue: 1,
-    friction: 4,
-    useNativeDriver: true,
-  }).start();
-};
+
 //-------------------------------------------//
   return (
     
@@ -91,9 +57,9 @@ const pressOut = () => {
       <Animated.View
         style={[
           styles.container,
-          {
-            transform: [{ scale: scaleAnim }],
-          },
+          // {
+          //   transform: [{ scale: scaleAnim }],
+          // },
         ]}
       >
         <View
@@ -156,45 +122,21 @@ const pressOut = () => {
   }}
 />
 <View style={styles.actionsRow}>
-  <Animated.View
-  style={{
-    transform: [{ scale }],
-  }}
->
-  <Pressable
+  <Action
+    icon="edit-2"
+    color={colors.warning}
+    bg="#FFF7ED"
+    pressedBg="#FDE7C7"
     onPress={() => setOpen(true)}
-    style={[
-      styles.iconButton,
-      styles.editButton,
-    ]}
-  >
-    <Feather
-      name="edit-2"
-      size={18}
-      color={colors.warning}
-    />
-  </Pressable>
-  </Animated.View>
-{/* //------------------------------------// */}
-  <Animated.View
-  style={{
-    transform: [{ scale }],
-  }}
->
-  <Pressable
+  />
+
+  <Action
+    icon="trash-2"
+    color="#DC2626"
+    bg="#FEF2F2"
+    pressedBg="#FEE2E2"
     onPress={() => handleDelete(student.id)}
-    style={[
-      styles.iconButton,
-      styles.deleteButton,
-    ]}
-  >
-    <Feather
-      name="trash-2"
-      size={18}
-      color="#DC2626"
-    />
-  </Pressable>
-  </Animated.View>
+  />
 </View>
 
 <FormModal<UpdateDataType>
@@ -291,18 +233,5 @@ iconButton: {
   borderRadius: 21,
 
   justifyContent: "center",
-  alignItems: "center",
-
-  borderWidth: 1,
-},
-
-editButton: {
-  backgroundColor: "#FFF7ED",
-  borderColor: "#FCD34D",
-},
-
-deleteButton: {
-  backgroundColor: "#FEF2F2",
-  borderColor: "#FECACA",
-},
+  alignItems: "center",}
 });
