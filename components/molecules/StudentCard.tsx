@@ -63,6 +63,25 @@ export default function StudentCard({
 
 const levelStyle = getLevelColor(student.level);
   
+
+// -----------------animation --------------------//
+const scale = useRef(new Animated.Value(1)).current;
+
+const pressIn = () => {
+  Animated.spring(scale, {
+    toValue: 0.9,
+    useNativeDriver: true,
+  }).start();
+};
+
+const pressOut = () => {
+  Animated.spring(scale, {
+    toValue: 1,
+    friction: 4,
+    useNativeDriver: true,
+  }).start();
+};
+//-------------------------------------------//
   return (
     
     <SwipeCard
@@ -137,6 +156,11 @@ const levelStyle = getLevelColor(student.level);
   }}
 />
 <View style={styles.actionsRow}>
+  <Animated.View
+  style={{
+    transform: [{ scale }],
+  }}
+>
   <Pressable
     onPress={() => setOpen(true)}
     style={[
@@ -150,7 +174,13 @@ const levelStyle = getLevelColor(student.level);
       color={colors.warning}
     />
   </Pressable>
-
+  </Animated.View>
+{/* //------------------------------------// */}
+  <Animated.View
+  style={{
+    transform: [{ scale }],
+  }}
+>
   <Pressable
     onPress={() => handleDelete(student.id)}
     style={[
@@ -164,6 +194,7 @@ const levelStyle = getLevelColor(student.level);
       color="#DC2626"
     />
   </Pressable>
+  </Animated.View>
 </View>
 
 <FormModal<UpdateDataType>
@@ -213,8 +244,7 @@ header: {
   marginBottom: 20,
 },
 levelBadge: {
-  marginTop: 8,
-  alignSelf: "flex-start",
+  marginTop: 2,
 
   paddingHorizontal: 10,
   paddingVertical: 5,
@@ -224,7 +254,7 @@ levelBadge: {
 
  leftSection: {
   flexDirection: "row",
-  alignItems: "center",
+  alignItems: "flex-start",
 
   flex: 1,
 
@@ -232,7 +262,7 @@ levelBadge: {
 },
 
   textColumn: {
-    gap: 3,
+    gap: 1,
     width:'60%',
     alignItems:'flex-start',
     flexWrap:'wrap'
@@ -240,7 +270,7 @@ levelBadge: {
 
 badge: {
   // backgroundColor: colors.secondary,
-  paddingHorizontal: 12,
+  paddingHorizontal: 1,
   paddingVertical: 7,
   borderRadius: 15,
 },

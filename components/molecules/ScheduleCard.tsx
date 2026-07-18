@@ -1,8 +1,8 @@
 import { Schedule, Student } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
 import { Feather } from "@expo/vector-icons";
-import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useRef } from "react";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
@@ -20,6 +20,9 @@ interface Props {
   openDeleteAlert: () => void;
 }
 
+
+
+
 export default function ScheduleCard({
   schedule,
   handelUpdate,
@@ -30,7 +33,24 @@ export default function ScheduleCard({
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
+const scale = useRef(new Animated.Value(1)).current;
+// -------------------animation -----------------------//
 
+const pressIn = () => {
+  Animated.spring(scale, {
+    toValue: 0.9,
+    useNativeDriver: true,
+  }).start();
+};
+
+const pressOut = () => {
+  Animated.spring(scale, {
+    toValue: 1,
+    friction: 4,
+    useNativeDriver: true,
+  }).start();
+};
+//--------------------------------//
   return (
     <SwipeCard onEdit={() => setOpen(true)} onDelete={openDeleteAlert}>
       {/* your schedule UI here */}
@@ -106,6 +126,11 @@ export default function ScheduleCard({
     </Text>
   </View>
 <View style={styles.actions}>
+  <Animated.View
+  style={{
+    transform: [{ scale }],
+  }}
+>
   <Pressable
     onPress={() => setOpen(true)}
     style={[styles.iconButton, styles.editButton]}
@@ -116,7 +141,13 @@ export default function ScheduleCard({
       color={colors.warning}
     />
   </Pressable>
-
+  </Animated.View>
+  {/* //-------------------------// */}
+<Animated.View
+  style={{
+    transform: [{ scale }],
+  }}
+>
   <Pressable
     onPress={openDeleteAlert}
     style={[styles.iconButton, styles.deleteButton]}
@@ -127,6 +158,7 @@ export default function ScheduleCard({
       color="#DC2626"
     />
   </Pressable>
+  </Animated.View>
 </View>
 <FormModal<updateDataType>
   open={open}

@@ -33,7 +33,7 @@ export default function SelectInput({
             marginBottom: 4,
             marginHorizontal: 8,
             color: colors.btnPrimary,
-            fontWeight: "500",
+            fontWeight: "700",
           }}
         >
           {label}

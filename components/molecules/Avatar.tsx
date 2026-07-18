@@ -1,6 +1,6 @@
 import { colors } from "@/constants/theme";
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { Image, Text, View } from "react-native";
 
 type Props = {
   name: string;
@@ -25,9 +25,9 @@ export default function Avatar({ name, image }: Props) {
     <View
       style={{
         backgroundColor: colors.gray,
-        width: 60,
-        height: 60,
-        borderRadius: 40,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -36,6 +36,7 @@ export default function Avatar({ name, image }: Props) {
         style={{
           fontSize: 26,
           fontWeight: "600",
+          color: colors.btnPrimary,
         }}
       >
         {name?.charAt(0)}

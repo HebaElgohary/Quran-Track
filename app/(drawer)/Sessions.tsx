@@ -10,8 +10,8 @@ import { useToast } from "@/hooks/useToast";
 import { SessionFormData, SourcesMap, Student } from "@/types/appTypes";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
-import React, { useCallback, useEffect, useState } from "react";
-import { FlatList } from "react-native"; // Removed unused 'View'
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Animated, FlatList } from "react-native"; // Removed unused 'View'
 
 type AddDataType = SessionFormData;
 
@@ -54,6 +54,9 @@ export default function Sessions() {
     console.log("sessionsssss", sessions);
   });
 
+
+
+// -----------------------------------//
   //----------- Add handler --------------//
   const addSession = async (formData: AddDataType) => {
     console.log("data inside addsession", formData);

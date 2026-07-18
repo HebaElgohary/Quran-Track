@@ -1,8 +1,8 @@
 import { Session, Student } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
 import { Feather } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 
 import Title from "../atoms/Title";
 import FormModal from "./form/FormModal";
@@ -24,6 +24,8 @@ interface SessionCardProps {
   onReport: () => void;
 }
 
+
+
 export default function SessionCard({
   session,
   time,
@@ -38,6 +40,8 @@ export default function SessionCard({
   handleUpdate,
   onReport,
 }: SessionCardProps) {
+
+
   const [open, setOpen] = useState(false);
 
   const gradeColor =
@@ -156,20 +160,64 @@ function DetailBox({ icon, title, value }: any) {
 }
 
 function Action({ icon, color, bg, onPress }: any) {
+
+      //---------------- animation------------------ //
+
+  const scale = useRef(new Animated.Value(1)).current;
+
+const opacity = useRef(new Animated.Value(1)).current;
+
+const pressIn = () => {
+  Animated.parallel([
+    Animated.spring(scale, {
+      toValue: 0.92,
+      useNativeDriver: true,
+    }),
+    Animated.timing(opacity, {
+      toValue: 0.7,
+      duration: 100,
+      useNativeDriver: true,
+    }),
+  ]).start();
+};
+
+const pressOut = () => {
+  Animated.parallel([
+    Animated.spring(scale, {
+      toValue: 1,
+      useNativeDriver: true,
+    }),
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true,
+    }),
+  ]).start();
+};
+// ----------------------------------------// 
   return (
-    <Pressable
-      onPress={onPress}
-      style={[
-        styles.action,
-        {
-          borderWidth:1,
-          borderColor:color,
-          backgroundColor: bg,
-        },
-      ]}
-    >
+<Animated.View
+  style={{
+    transform: [{ scale }],
+    opacity,
+  }}
+>
+ <Pressable
+  onPress={onPress}
+  onPressIn={pressIn}
+  onPressOut={pressOut}
+  style={[
+    styles.action,
+    {
+      borderWidth: 1,
+      borderColor: color,
+      backgroundColor: bg,
+    },
+  ]}
+>
       <Feather name={icon} size={18} color={color} />
     </Pressable>
+    </Animated.View>
   );
 }
 
