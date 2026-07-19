@@ -28,7 +28,7 @@ export const colors = {
   blue: "#89D4FF",
   bluePressed: "#63C2FF",
 
-  pink: "#F5788B",
+  pink: "#f7a8b4",
   pinkPressed: "#EC5D74",
 
   orange: "#F25912",
@@ -55,10 +55,9 @@ export const groupColors = {
   '0': colors.orange,
   '1': colors.yellow,
   '2': colors.pink,
-  '3': colors.danger, 
+  '3': colors.blue, 
   '4': colors.violet,
   '5': colors.green,
-  '6': colors.blue,
 }
 
 export const spacing = {
