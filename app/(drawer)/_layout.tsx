@@ -6,6 +6,7 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import { useFocusEffect } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
@@ -13,10 +14,11 @@ import { Text, View } from "react-native";
 function CustomDrawerContent(props: any) {
   const { profile, loadProfile } = useProfile();
 
-  useEffect(() => {
-    loadProfile();
-  }, [profile]);
-
+useFocusEffect(
+  React.useCallback(() => {
+    void loadProfile();
+  }, [loadProfile])
+);
   return (
     <DrawerContentScrollView {...props} style={{ flex: 1 }}>
       {/* HEADER (YOUR DESIGN PRESERVED) */}
