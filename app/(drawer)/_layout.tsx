@@ -24,8 +24,8 @@ useFocusEffect(
       {/* HEADER (YOUR DESIGN PRESERVED) */}
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "flex-start",
+          flexDirection: "row-reverse",
+          alignItems: "flex-end",
           gap: 5,
           marginVertical: 15,
           paddingHorizontal: 15,
