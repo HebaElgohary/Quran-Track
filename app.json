@@ -3,14 +3,14 @@
     "name": "Quran Track",
     "slug": "quran-track",
     "version": "1.0.0",
-
+    "scheme": "quran-track",
     "newArchEnabled": true,
 
     "icon": "./assets/images/quran-track.png",
 
     "android": {
       "package": "com.hebaelgohary.qurantrack",
-        "versionCode": 1,
+      "versionCode": 1,
 
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",

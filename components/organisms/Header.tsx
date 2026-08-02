@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/theme";
-
 import Button from "../atoms/Button";
 import Heading from "../molecules/Heading";
 import FormModal from "../molecules/form/FormModal";
@@ -24,7 +23,7 @@ export default function Header<T>({
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    < View style={{display:'flex', alignItems:'flex-end',marginHorizontal:30}}>
       <View style={styles.container}>
         <View style={styles.leftSection}>
           <View style={styles.accent} />
@@ -48,7 +47,7 @@ export default function Header<T>({
         )}
 
       </View>
-<Hr style={{marginHorizontal:60,marginBottom:20,width:220,height:1,borderRadius:30}}></Hr>
+<Hr style={{marginHorizontal:10,marginTop:10,marginBottom:20,width:220,height:1,borderRadius:30}}></Hr>
 
       {formName && (
         <FormModal<T>
@@ -58,39 +57,42 @@ export default function Header<T>({
           handleSubmit={handleSubmit}
         />
       )}
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+     width: "100%",
+    flexDirection: "row-reverse",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "center",
 
-    marginHorizontal: 20,
+    // marginHorizontal: 10,
     marginTop: 24,
     marginBottom: 1,
   },
 
   leftSection: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    marginRight: 16,
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    gap:10,
+    marginRight: 1,
   },
 
   accent: {
     width: 5,
-    height: 56,
+    height: 66,
     borderRadius: 18,
     backgroundColor: colors.primary,
-    marginRight: 12,
     marginTop: 2,
   },
 
   heading: {
-    flex: 1,
     justifyContent: "center",
+     alignItems: "flex-end",
+     width: 200,
+    //  backgroundColor:'#eeee',
+  flexShrink: 1,
   },
 });
