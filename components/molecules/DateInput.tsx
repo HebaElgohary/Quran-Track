@@ -42,6 +42,7 @@ export default function DateInput({
           padding: 12,
           borderRadius: 8,
           flexDirection: "row",
+          width:'100%',
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",

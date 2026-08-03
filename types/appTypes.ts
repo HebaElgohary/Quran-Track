@@ -27,7 +27,7 @@ export type Session = {
   id: number;
   studentId: number;
   dateTime: Date;
-  surah: string;
+  surahs: string[];
   grade: string;
   notes: string;
   from: number;

@@ -34,7 +34,7 @@ export default function TimeInput({ value, onChange, label }: Props) {
   }
   return (
     <View>
-      {label && <Text style={{ marginBottom: 6 }}>{label}</Text>}
+      {label && <Text style={{ marginBottom: 6,alignSelf:'flex-end' }}>{label}</Text>}
 
       <Pressable
         onPress={() => setShow(true)}
@@ -44,6 +44,7 @@ export default function TimeInput({ value, onChange, label }: Props) {
           padding: 12,
           borderRadius: 8,
           flexDirection: "row",
+          width:'100%',
           justifyContent: "space-between",
         }}
       >

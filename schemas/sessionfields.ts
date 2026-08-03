@@ -14,7 +14,7 @@ export const sessionFields: FormFieldSchema[] = [
     type: "date",
   },
   {
-    name: "surah",
+    name: "surahs",
     label: "السورة ",
     type: "autocomplete",
   source: "surahs",

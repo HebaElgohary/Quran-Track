@@ -1,15 +1,12 @@
 import { Student } from "@/types/appTypes";
-import { Feather } from "@expo/vector-icons";
-import { useRef, useState } from "react";
+import {  useState } from "react";
 import {
   Animated,
-  Pressable,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 
-import Button from "../atoms/Button";
 import Hr from "../atoms/Hr";
 import Title from "../atoms/Title";
 import Avatar from "./Avatar";
@@ -24,8 +21,7 @@ type UpdateDataType = Student;
 interface StudentCardProps {
   isStudent: boolean;
   student: Student;
-  btn1: string;
-  btn2: string;
+  
   image?: string;
   handleDelete: (id: number) => void;
   updateStudent: (newData: UpdateDataType) => Promise<void>;
@@ -33,8 +29,7 @@ interface StudentCardProps {
 
 export default function StudentCard({
   student,
-  btn1,
-  btn2,
+
   isStudent,
   image,
   handleDelete,
@@ -57,9 +52,7 @@ const levelStyle = getLevelColor(student.level);
       <Animated.View
         style={[
           styles.container,
-          // {
-          //   transform: [{ scale: scaleAnim }],
-          // },
+        
         ]}
       >
         <View
@@ -118,7 +111,7 @@ const levelStyle = getLevelColor(student.level);
   style={{
     width: "85%",
     alignSelf: "center",
-    marginBottom: 18,
+    marginBottom: 22,
   }}
 />
 <View style={styles.actionsRow}>
@@ -179,7 +172,7 @@ const styles = StyleSheet.create({
 },
 
 header: {
-  flexDirection: "row",
+  flexDirection: "row-reverse",
   alignItems: "center",
   justifyContent: "space-between",
 
@@ -195,7 +188,7 @@ levelBadge: {
 },
 
  leftSection: {
-  flexDirection: "row",
+  flexDirection: "row-reverse",
   alignItems: "flex-start",
 
   flex: 1,
@@ -206,7 +199,8 @@ levelBadge: {
   textColumn: {
     gap: 1,
     width:'60%',
-    alignItems:'flex-start',
+    alignItems:'flex-end',
+    alignContent:'flex-end',
     flexWrap:'wrap'
   },
 
@@ -218,7 +212,7 @@ badge: {
 },
 
 actionsRow: {
-  flexDirection: "row",
+  flexDirection: "row-reverse",
   justifyContent: "flex-end",
   alignItems: "center",
   gap: 12,

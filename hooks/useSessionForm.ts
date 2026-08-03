@@ -6,7 +6,7 @@ export const useSessionForm = (initial?: Session) => {
 const [formData, setFormData] = useState<SessionFormData>(initial || {
     studentId: 0,
     dateTime: new Date(),
-    surah: "",
+  surahs: [],
     grade: "مقبول",
     notes: "",
     from: 0,
@@ -31,7 +31,7 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
     setFormData({
        studentId: 0,
     dateTime: new Date(),
-    surah: "",
+  surahs: [],
     grade: "",
     notes: "",
     from:0 ,
