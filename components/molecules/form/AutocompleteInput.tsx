@@ -55,6 +55,9 @@ export default function AutocompleteInput({
 
   return (
     <View style={styles.container}>
+      <Text style={{alignSelf:'flex-end',marginBottom:5,fontWeight:700,fontSize:18,color:colors.btnPrimary,marginHorizontal:10}}>
+        السورة
+      </Text>
       {/* Selected Surahs */}
       {value.length > 0 && (
         <View style={styles.selectedContainer}>
@@ -80,8 +83,8 @@ export default function AutocompleteInput({
       >
         <Feather
           name="search"
-          size={18}time
-          color="#94A3B8"
+          size={18}
+          color={colors.primary}
           style={styles.icon}
         />
 
@@ -91,12 +94,13 @@ export default function AutocompleteInput({
           placeholderTextColor="#94A3B8"
           style={styles.input}
           onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onBlur={() =>  { setTimeout(() => setFocused(false), 150);
+}}
           onChangeText={setQuery}
         />
       </View>
 
-      {!!error && <Text style={styles.error}>{error}</Text>}
+      {/* {!!error && <Text style={styles.error}>{error}</Text>} */}
 
       {focused && filteredData.length > 0 && (
         <View style={styles.dropdown}>
@@ -139,10 +143,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    backgroundColor: colors.btnPrimary,
+    backgroundColor: colors.primary,
     borderRadius: 20,
     paddingHorizontal: 12,
-    paddingVertical: 6,
+  
+    paddingVertical: 8,
   },
 
   chipText: {
@@ -154,8 +159,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
+    borderWidth: 2,
+    borderColor: colors.gray,
     borderRadius: 14,
     paddingHorizontal: 12,
     height: 50,

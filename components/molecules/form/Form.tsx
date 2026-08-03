@@ -120,7 +120,8 @@ export default function Form<T>({
         >
           <FormField
             {...fieldProps}
-            value={formData?.[field.name as keyof T]}
+
+            value={fieldProps.type==="autocomplete"?(formData?.[field.name as keyof T] as string[]) ?? []:formData?.[field.name as keyof T]}
             error={fieldError}
             onChange={(value: unknown) =>
               setFormData(prev => ({

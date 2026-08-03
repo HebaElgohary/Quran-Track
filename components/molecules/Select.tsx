@@ -34,7 +34,7 @@ export default function Select({
         onPress={() => setOpen(true)}
         style={{
           height: 56,
-          borderWidth: 1,
+          borderWidth: 2,
           borderColor: colors.gray,
           borderRadius: 14,
           backgroundColor: "#fff",

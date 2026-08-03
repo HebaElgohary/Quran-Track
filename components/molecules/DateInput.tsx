@@ -1,7 +1,8 @@
+import { colors } from "@/constants/theme";
+import { Feather } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Feather } from "@expo/vector-icons";
 
 export default function DateInput({
   label,
@@ -23,8 +24,10 @@ export default function DateInput({
           style={{
             marginBottom: 6,
             textAlign: "right",
-            fontSize: 16,
-            fontWeight: "500",
+            marginHorizontal: 8,
+            fontSize: 18,
+            fontWeight: 800,
+            color: colors.btnPrimary,
           }}
         >
           {label}
@@ -37,12 +40,12 @@ export default function DateInput({
           setShow(true);
         }}
         style={{
-          borderWidth: 1,
-          borderColor: "#ccc",
+          borderWidth: 2,
+          borderColor: colors.gray,
           padding: 12,
-          borderRadius: 8,
+          borderRadius: 15,
           flexDirection: "row",
-          width:'100%',
+          width: "100%",
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
@@ -50,13 +53,13 @@ export default function DateInput({
       >
         <Text
           style={{
-            color: value ? "#000" : "#888",
-            fontSize: 16,
+            // color: value ? "#000" : "#888",
+            fontSize: 18,
+            fontWeight: 600,
+            color: colors.btnPrimary,
           }}
         >
-          {value
-            ? new Date(value).toLocaleDateString("ar-EG")
-            : "اختر التاريخ"}
+          {value ? new Date(value).toLocaleDateString("ar-EG") : "اختر التاريخ"}
         </Text>
 
         <Feather name="calendar" size={20} color="#666" />
@@ -76,8 +79,7 @@ export default function DateInput({
             width: "100%",
           }}
         />
-      ) :
-       (
+      ) : (
         show && (
           <DateTimePicker
             value={selectedDate}
@@ -85,25 +87,19 @@ export default function DateInput({
             onChange={(_, date) => {
               setShow(false);
 
-           if (date) {
-    const merged = new Date(date);
+              if (date) {
+                const merged = new Date(date);
 
-    if (value) {
-        merged.setHours(
-            value.getHours(),
-            value.getMinutes(),
-            0,
-            0
-        );
-    }
+                if (value) {
+                  merged.setHours(value.getHours(), value.getMinutes(), 0, 0);
+                }
 
-    onChange?.(merged);
-}
+                onChange?.(merged);
+              }
             }}
           />
         )
-      )
-      }
+      )}
     </View>
   );
 }

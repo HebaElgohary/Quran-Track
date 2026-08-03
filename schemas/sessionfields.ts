@@ -9,7 +9,7 @@ export const sessionFields: FormFieldSchema[] = [
     source: "students",
   },
   {
-    name: "date",
+    name: "dateTime",
     label: "تاريخ الجلسة",
     type: "date",
   },

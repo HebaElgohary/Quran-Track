@@ -22,7 +22,7 @@ export default function SelectInput({
         gap: 7,
         margin: 5,
         marginHorizontal:'auto',
-        width: "90%",
+        width: "100%",
         display:'flex',
         
       }}

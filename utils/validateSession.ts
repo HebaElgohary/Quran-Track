@@ -22,13 +22,21 @@ export const validateSession = (
   // Surah validation
   // -------------------------
 
-  const surah = data.surah?.trim().replace(/\s+/g, " ");
+// -------------------------
+// Surahs validation
+// -------------------------
 
-  if (!surah) {
-    errors.surah = "السورة مطلوبة";
-  } else if (!(surah in surahMap)) {
-    errors.surah = "يرجى اختيار اسم سورة صحيح";
+if (!data.surahs || data.surahs.length === 0) {
+  errors.surahs = "يجب اختيار سورة واحدة على الأقل";
+} else {
+  const invalidSurahs = data.surahs.filter(
+    (surah) => !(surah in surahMap)
+  );
+
+  if (invalidSurahs.length > 0) {
+    errors.surahs = "يوجد اسم سورة غير صحيح";
   }
+}
 
   if (!data.grade?.trim()) {
     errors.grade = "التقييم مطلوب";
@@ -58,13 +66,7 @@ export const validateSession = (
   // Value validation
   // -------------------------
 
-  if (typeof data.from === "number" && data.from < 1) {
-    errors.from = "رقم الآية يجب أن يكون أكبر من صفر";
-  }
 
-  if (typeof data.to === "number" && data.to < 1) {
-    errors.to = "رقم الآية يجب أن يكون أكبر من صفر";
-  }
 
   if (
     typeof data.from === "number" &&
