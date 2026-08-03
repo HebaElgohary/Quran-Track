@@ -53,6 +53,7 @@ export default function CheckInput({
             marginBottom: 4,
             marginHorizontal: 8,
             color: colors.btnPrimary,
+            alignSelf:'flex-end',
             fontWeight: "500",
           }}
         >

@@ -30,6 +30,7 @@ export default function RadioInput({ data = [], label, onChange }: Props) {
             fontSize: 15,
             color: colors.btnPrimary,
             marginVertical: 6,
+            alignSelf:'flex-end'
           }}
         >
           {label}

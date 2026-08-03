@@ -1,9 +1,9 @@
 import Button from "@/components/atoms/Button";
 import { colors } from "@/constants/theme";
-import { FormFieldSchema, FormName, SourcesMap } from "@/types/appTypes";
+import {  FormName, SourcesMap } from "@/types/appTypes";
 import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import FormField from "./FormField";
 import { surahMap } from "@/translations/surahMap";
 
@@ -52,6 +52,9 @@ export default function Form<T>({
           borderBottomWidth: 1,
           borderBottomColor: "#F1F1F1",
           backgroundColor: "#fff",
+          display:'flex',
+          alignItems:'flex-end'
+          
         }}
       >
         <Text
@@ -106,6 +109,9 @@ export default function Form<T>({
         <View
           style={{
             backgroundColor: "#FAFAFA",
+            display:'flex',
+            alignItems:'flex-end',
+            width:'100%',
             borderRadius: 16,
             padding: 12,
             borderWidth: fieldError ? 1.5 : 1,
@@ -145,10 +151,10 @@ export default function Form<T>({
       {/* FOOTER */}
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "row-reverse",
           gap: 10,
           alignItems: "center",
-          justifyContent: "flex-start",
+          justifyContent: "flex-end",
           padding: 14,
           borderTopWidth: 1,
           borderTopColor: "#F1F1F1",

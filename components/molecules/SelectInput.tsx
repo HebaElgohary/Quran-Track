@@ -23,6 +23,7 @@ export default function SelectInput({
         margin: 5,
         marginHorizontal:'auto',
         width: "90%",
+        display:'flex',
         
       }}
     >
@@ -34,6 +35,7 @@ export default function SelectInput({
             marginHorizontal: 8,
             color: colors.btnPrimary,
             fontWeight: "700",
+            alignSelf:'flex-end'
           }}
         >
           {label}

@@ -41,11 +41,15 @@ const styles = StyleSheet.create({
   container: {
     gap: 6,
     marginVertical: 8,
+    width:'100%',
+    display:'flex',
+    alignItems:'stretch'
   },
   label: {
     fontSize: 18,
     marginBottom: 4,
     marginHorizontal: 8,
+    alignSelf:'flex-end',
     color: colors.btnPrimary,
     fontWeight: "500",
 
