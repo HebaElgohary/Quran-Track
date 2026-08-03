@@ -146,7 +146,7 @@ export default function Sessions() {
               students.find((s) => s.id === item.studentId) as Student
             }
             time={item.dateTime}
-            surah={item.surah}
+            surahs={item.surahs}
             from={item.from}
             next={item.new}
             revision={item.revision}

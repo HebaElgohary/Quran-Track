@@ -1,18 +1,19 @@
 import { Session, Student } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
 import { Feather } from "@expo/vector-icons";
-import React, { useRef, useState } from "react";
-import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 import Title from "../atoms/Title";
-import FormModal from "./form/FormModal";
 import Action from "./Action";
+import FormModal from "./form/FormModal";
+import { colors } from "@/constants/theme";
 
 type UpdateDataType = Session;
 
 interface SessionCardProps {
   time: Date;
-  surah: string;
+  surahs: string[];
   grade: string;
   student?: Student;
   from: number;
@@ -25,12 +26,10 @@ interface SessionCardProps {
   onReport: () => void;
 }
 
-
-
 export default function SessionCard({
   session,
   time,
-  surah,
+  surahs,
   grade,
   student,
   from,
@@ -41,8 +40,6 @@ export default function SessionCard({
   handleUpdate,
   onReport,
 }: SessionCardProps) {
-
-
   const [open, setOpen] = useState(false);
 
   const gradeColor =
@@ -90,11 +87,24 @@ export default function SessionCard({
           <Feather name="book-open" size={18} color="#fff" />
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, alignItems: "flex-end" }}>
           <Text style={styles.quranLabel}>السورة</Text>
 
-          <Text style={styles.quranText}>{surah || "-"}</Text>
-
+          <View style={{ alignItems: "flex-end",display:'flex',flexDirection:'row' ,gap:3 }}>
+            {surahs.length > 0 ? (
+              surahs.map((surah) => (
+        <View key={surah} style={{backgroundColor:colors.secondary,borderRadius:10,padding:5}} >
+                <Text style={styles.quranText}>
+                  {surah}
+                </Text>
+                </View>
+            
+            
+              ))
+            ) : (
+              <Text style={styles.quranText}>-</Text>
+            )}
+          </View>
           <Text style={styles.ayah}>
             الآيات {from} - {to}
           </Text>
@@ -112,27 +122,27 @@ export default function SessionCard({
       {/* ACTIONS */}
 
       <View style={styles.actions}>
-       <Action
-  icon="file-text"
-  color="#2563EB"
-  bg="#EFF6FF"
-  pressedBg="#DBEAFE"
-  onPress={onReport}
-/>
-<Action
-  icon="edit-2"
-  color="#EA580C"
-  bg="#FFF7ED"
-  pressedBg="#FED7AA"
-  onPress={() => setOpen(true)}
-/>
-    <Action
-  icon="trash-2"
-  color="#DC2626"
-  bg="#FEF2F2"
-  pressedBg="#FECACA"
-  onPress={handelDelete}
-/>
+        <Action
+          icon="file-text"
+          color="#2563EB"
+          bg="#EFF6FF"
+          pressedBg="#DBEAFE"
+          onPress={onReport}
+        />
+        <Action
+          icon="edit-2"
+          color="#EA580C"
+          bg="#FFF7ED"
+          pressedBg="#FED7AA"
+          onPress={() => setOpen(true)}
+        />
+        <Action
+          icon="trash-2"
+          color="#DC2626"
+          bg="#FEF2F2"
+          pressedBg="#FECACA"
+          onPress={handelDelete}
+        />
       </View>
 
       <FormModal<UpdateDataType>
@@ -159,7 +169,6 @@ function DetailBox({ icon, title, value }: any) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   card: {
@@ -194,7 +203,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
 
     alignItems: "center",
 
@@ -202,13 +211,12 @@ const styles = StyleSheet.create({
   },
 
   studentInfo: {
-    alignItems: "flex-start",
-    width:'70%',
-
+    alignItems: "flex-end",
+    width: "70%",
   },
 
   dateRow: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
 
     alignItems: "center",
 
@@ -243,16 +251,15 @@ const styles = StyleSheet.create({
     marginTop: 12,
 
     backgroundColor: "#065F46",
-
+    width: "100%",
     borderRadius: 16,
 
-    padding: 12,
+    padding: 15,
 
-    flexDirection: "row-reverse",
+    flexDirection: "row",
+    justifyContent: "space-between",
 
     alignItems: "center",
-
-    gap: 10,
   },
 
   quranIcon: {
@@ -270,7 +277,7 @@ const styles = StyleSheet.create({
   },
 
   quranLabel: {
-    fontSize: 11,
+    fontSize: 18,
 
     color: "#D1FAE5",
   },
@@ -280,7 +287,7 @@ const styles = StyleSheet.create({
 
     fontWeight: "800",
 
-    color: "#fff",
+    color: colors.primary,
   },
 
   ayah: {
@@ -290,7 +297,7 @@ const styles = StyleSheet.create({
   },
 
   details: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
 
     gap: 8,
 
@@ -328,7 +335,7 @@ const styles = StyleSheet.create({
   },
 
   actions: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
 
     justifyContent: "center",
 

@@ -94,8 +94,6 @@ export default function AutocompleteInput({
           placeholderTextColor="#94A3B8"
           style={styles.input}
           onFocus={() => setFocused(true)}
-          onBlur={() =>  { setTimeout(() => setFocused(false), 150);
-}}
           onChangeText={setQuery}
         />
       </View>
