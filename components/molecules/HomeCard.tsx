@@ -18,7 +18,7 @@ export default function HomeCard({ title, num, icon }: Props) {
     <View style={styles.card}>
       {/* Text */}
       <View style={styles.content}>
-        <Subtitle size="md">{title}</Subtitle>
+        <Subtitle size="sm">{title}</Subtitle>
         <Title size="xl" variant="btnPrimary">{num}</Title>
       </View>
 
@@ -26,7 +26,7 @@ export default function HomeCard({ title, num, icon }: Props) {
       <View style={styles.iconContainer}>
         <Feather
           name={icon as NameType}
-          size={24}
+          size={22}
           color={colors.btnPrimary}
         />
       </View>
@@ -69,8 +69,8 @@ marginHorizontal:14,
   },
 
   iconContainer: {
-    width: 56,
-    height: 56,
+    width: 53,
+    height: 53,
     borderRadius: 28,
     backgroundColor: "#F8F2E4",
 

@@ -128,5 +128,6 @@ const styles = StyleSheet.create({
   quickActionsContainer: {
     marginTop: 8,
     marginBottom: 20,
+
   },
 });

@@ -123,18 +123,21 @@ const styles = StyleSheet.create({
 
   titleContainer: {
     marginBottom: 16,
+    alignItems:'flex-end',
   },
 
   actionsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    
 
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
 
-    gap: 10,
+    gap: 12,
   },
 
   buttonWrapper: {
-    width: "48%",
+    width: "40%",
+    alignItems:'flex-end'
   },
 });
