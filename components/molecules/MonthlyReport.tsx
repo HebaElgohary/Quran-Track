@@ -57,10 +57,10 @@ export default function MonthlyReport({
     [studentSessions, report?.month],
   );
 
-  const uniqueSurahs = useMemo(
-    () => [...new Set(monthSessions.map((s) => s.surah))],
-    [monthSessions],
-  );
+const uniqueSurahs = useMemo(
+  () => [...new Set(monthSessions.flatMap((s) => s.surahs))],
+  [monthSessions],
+);
 
   const uniqueGrades = useMemo(
     () => [...new Set(monthSessions.map((s) => s.grade))],
@@ -224,11 +224,30 @@ export default function MonthlyReport({
               {formatDate(session.dateTime, lang)}
             </Text>
 
-            <Text style={styles.tableCell}>
-              {lang === "ar"
-                ? session.surah
-                : (surahMap[session.surah] ?? session.surah)}
-            </Text>
+     <View style={styles.tableCell}>
+  {session.surahs.length > 0 ? (
+    session.surahs.map((surah) => (
+      <View
+        key={surah}
+        style={{
+          backgroundColor: colors.secondary,
+          borderRadius: 10,
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+          marginBottom: 4,
+        }}
+      >
+        <Text style={styles.quranText}>
+          {lang === "ar"
+            ? surah
+            : (surahMap[surah] ?? surah)}
+        </Text>
+      </View>
+    ))
+  ) : (
+    <Text style={styles.quranText}>-</Text>
+  )}
+</View>
 
             <Text style={styles.tableCell}>
               {isEn
@@ -297,6 +316,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     marginBottom: 4,
+  },
+    quranText: {
+    fontSize: 12,
+    fontWeight: "800",
+
+    color: colors.black,
   },
 
   value: {
