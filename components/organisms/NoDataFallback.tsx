@@ -4,6 +4,7 @@ import Button from "../atoms/Button";
 import Subtitle from "../atoms/Subtitle";
 import FormModal from "../molecules/form/FormModal";
 import LottieAnimation from "../../animations/NotFound";
+import Title from "../atoms/Title";
 
 export default function NoDataFallback<T>({
   formName,
@@ -42,8 +43,8 @@ export default function NoDataFallback<T>({
       {/* ////////////// */}
 
       {/* Text */}
-      <View style={{ display: "flex", alignItems: "center" }}>
-        <Subtitle>{text}</Subtitle>
+      <View style={{ display: "flex", alignItems: "center",gap:10 }}>
+        <Title size="md">{text}</Title>
         <Button
           variant="btnPrimary"
           size="xl"
