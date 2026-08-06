@@ -10,15 +10,15 @@ export default function Checkbox({ label, checked, onChange }: props) {
   return (
     <View
       style={{
-        marginHorizontal: 5,
+        marginHorizontal: 0,
         display: "flex",
-        flexDirection: "row-reverse",
+        flexDirection: "row",
         gap: 5,
         alignItems: "center",
         marginVertical: 6,
       }}
     >
-      <View style={{width:'90%'}}>
+      <View style={{width:'90%',alignItems:'flex-end'}}>
         <Text style={{ fontSize: 16 }}>{label}</Text>
       </View>
 

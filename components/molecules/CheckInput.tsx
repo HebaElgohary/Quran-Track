@@ -54,7 +54,7 @@ export default function CheckInput({
             marginHorizontal: 8,
             color: colors.btnPrimary,
             alignSelf:'flex-end',
-            fontWeight: "500",
+            fontWeight: 800,
           }}
         >
           {label}
@@ -69,7 +69,7 @@ export default function CheckInput({
           borderRadius: 6,
           borderWidth: 1,
           borderColor: colors.gray,
-          overflow:'scroll',
+          // overflow:'scroll',
           display:'flex',
           // direction:'rtl',
           alignItems:'flex-start'
@@ -78,12 +78,15 @@ export default function CheckInput({
       >
 
         <FlatList
+  nestedScrollEnabled
+  scrollEnabled
+  keyboardShouldPersistTaps="handled"
           data={items}
+            style={{ maxHeight: 100 }}
           keyExtractor={(item) =>
             String(item.id)
           }
 
-          nestedScrollEnabled={true}
 
           renderItem={({item}) => (
             <Checkbox

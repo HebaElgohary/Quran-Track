@@ -79,10 +79,11 @@ export default function Form<T>({
       {/* BODY */}
 {/* BODY */}
 <FlatList
+ nestedScrollEnabled
+  scrollEnabled
+  keyboardShouldPersistTaps="handled"
   data={fields}
   keyExtractor={(field, index) => `${field.name}-${index}`}
-  keyboardShouldPersistTaps="handled"
-  nestedScrollEnabled
   removeClippedSubviews={false}
   showsVerticalScrollIndicator={false}
   style={{ maxHeight: 520 }}

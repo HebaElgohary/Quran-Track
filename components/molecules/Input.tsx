@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     alignItems:'stretch'
   },
   label: {
-    fontSize: 18,
+    fontSize: 16,
     marginBottom: 4,
     marginHorizontal: 8,
     alignSelf:'flex-end',
     color: colors.btnPrimary,
-    fontWeight: "500",
+    fontWeight: 800,
 
   },
   input: {
