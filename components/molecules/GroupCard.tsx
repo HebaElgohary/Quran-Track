@@ -112,7 +112,7 @@ export default function GroupCard({
       <Animated.View
         style={{
           transform: [{ scale: scaleAnim }],
-          width: "92%",
+          width: "95%",
           alignSelf: "center",
           marginVertical: 10,
         }}
@@ -123,7 +123,7 @@ export default function GroupCard({
         >
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: "row-reverse",
               borderRadius: 24,
               overflow: "hidden",
 
@@ -160,7 +160,7 @@ export default function GroupCard({
                             {/* ---------------- HEADER ---------------- */}
               <View
                 style={{
-                  flexDirection: "row",
+                  flexDirection: "row-reverse",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
                 }}
@@ -169,7 +169,7 @@ export default function GroupCard({
                   style={{
                     flex: 1,
                     marginRight: 10,
-                    alignItems:'flex-start'
+                    alignItems:'flex-end'
                   }}
                 >
                   <Title>{group.nameAr}</Title>
@@ -180,6 +180,7 @@ export default function GroupCard({
                       marginTop: 4,
                       fontSize: 13,
                       fontStyle: "italic",
+                      alignItems:'flex-start'
                     }}
                   >
                     {group.nameEn}
@@ -204,6 +205,7 @@ export default function GroupCard({
               <View
                 style={{
                   flexDirection: "row",
+                  justifyContent:'flex-end',
                   flexWrap: "wrap",
                   gap: 8,
                   marginTop: 18,
@@ -277,7 +279,7 @@ export default function GroupCard({
 
               <View
                 style={{
-                  flexDirection: "row",
+                  flexDirection: "row-reverse",
                   alignItems: "center",
                   marginTop: 18,
                   gap: 8,
@@ -311,13 +313,13 @@ export default function GroupCard({
                 </Text>
               </View>
 
-              <Hr />
+              <Hr style={{alignSelf:'flex-end',marginTop:13,width:'80%',marginHorizontal:'auto'}}/>
 
                             {/* ---------- ACTIONS ---------- */}
 
               <View
                 style={{
-                  flexDirection: "row",
+                  flexDirection: "row-reverse",
                   justifyContent: "flex-end",
                   gap: 12,
                   marginTop: 18,
