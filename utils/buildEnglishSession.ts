@@ -4,23 +4,28 @@ import { surahMap } from "../translations/surahMap";
 import { normalizeArabic } from "./normalizeArabic";
 
 export function buildEnglishSession(session: Session) {
-    const normalizedSurah = normalizeArabic(session.surah);
-        const normalizedRevision = normalizeArabic(session.revision);
-        const normalizedTajweed = normalizeArabic(session.tajweed);
-        const normalizedNotes = normalizeArabic(session.notes);
-
-    const normalizedNew = normalizeArabic(session.new);
+  const normalizedSurahs = session.surahs.map(normalizeArabic);
+  const normalizedNew = normalizeArabic(session.new);
+  const normalizedRevision = normalizeArabic(session.revision);
 
   return {
     ...session,
 
     grade: gradeMap[session.grade] ?? session.grade,
 
-    surah: surahMap[normalizedSurah] ?? session.surah,
+    surahs: normalizedSurahs.map(
+      (surah, index) => surahMap[surah] ?? session.surahs[index]
+    ),
 
-    new: surahMap[normalizedNew] ?? session.newEn??session.new,
-    revision: surahMap[normalizedRevision] ?? session.revisionEn??session.revision,
+    new: surahMap[normalizedNew] ?? session.newEn ?? session.new,
+
+    revision:
+      surahMap[normalizedRevision] ??
+      session.revisionEn ??
+      session.revision,
+
     tajweed: session.tajweedEn ?? session.tajweed,
+
     notes: session.notesEn ?? session.notes,
   };
 }

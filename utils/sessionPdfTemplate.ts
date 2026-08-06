@@ -1,20 +1,21 @@
 import { Session } from "@/types/appTypes";
 import { formatDate } from "./formatDate";
 import { toEnglishDigits } from "./toEnglishDigits";
+import { colors } from "@/constants/theme";
 
 export function buildSessionHtml(
   session: Session,
   studentName: string,
-  teacherName:string,
-  language:'en'|'ar'
+  teacherName: string,
+  language: "en" | "ar",
 ) {
   return `
 <!DOCTYPE html>
-<html dir=${language=='en'?'ltr':'rtl'} lang=${language}>
+<html dir=${language == "en" ? "ltr" : "rtl"} lang=${language}>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>${language=='en'?'Session Report':'تقرير الحصة '} </title>
+<title>${language == "en" ? "Session Report" : "تقرير الحصة "} </title>
 
 <style>
 
@@ -145,7 +146,26 @@ body{
   color:#6B7280;
   font-size:14px;
 }
+  .surahsContainer{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  justify-content:flex-start;
+}
 
+html[dir="ltr"] .surahsContainer{
+  justify-content:flex-start;
+}
+
+.surahChip{
+  display:inline-block;
+  background:${colors.gray};
+  color:${colors.black};
+  border-radius:10px;
+  padding:4px 8px;
+  font-size:12px;
+  font-weight:800;
+}
 @media print{
   body{
     background:white;
@@ -157,6 +177,13 @@ body{
     margin:0;
     box-shadow:none;
   }
+    
+      quranText: {
+        fontSize: 12,
+        fontWeight: "600",
+    
+        color: ${colors.black},
+      },
 }
 
 </style>
@@ -168,15 +195,15 @@ body{
 
   <div class="header">
     <div class="reportLabel">
-      ${language=='en'?'Session Report':'تقرير حصة '}
+      ${language == "en" ? "Session Report" : "تقرير حصة "}
     </div>
 
     <div class="title">
-      ${language=='en'?'The Noble Quran ':' القران الكريم '}
+      ${language == "en" ? "The Noble Quran " : " القران الكريم "}
     </div>
 
     <div class="basmalah">
-      ${language=='en'?' Report':' بسم الله الرحمن الرحيم '} 
+      ${language == "en" ? " Report" : " بسم الله الرحمن الرحيم "} 
     </div>
   </div>
 
@@ -185,18 +212,18 @@ body{
   <div class="infoCard">
 
     <div class="infoColumn">
-      <div class="infoLabel">${language=='en'?'Teacher Name':'اسم المعلم'} </div>
-      <div class="infoValue"> ${language=='en'?`Mr ${teacherName} `:`الاستاذ ${teacherName} `}</div>
+      <div class="infoLabel">${language == "en" ? "Teacher Name" : "اسم المعلم"} </div>
+      <div class="infoValue"> ${language == "en" ? `Mr ${teacherName} ` : `الاستاذ ${teacherName} `}</div>
     </div>
 
     <div class="infoColumn">
-      <div class="infoLabel">${language=='en'?`Student Name`:`اسم الطالب`} </div>
+      <div class="infoLabel">${language == "en" ? `Student Name` : `اسم الطالب`} </div>
       <div class="infoValue">${studentName ?? ""}</div>
     </div>
 
     <div class="infoColumn">
-      <div class="infoLabel">${language=='en'?`Date`:`التاريخ ${teacherName} `}</div>
-      <div class="infoValue">${formatDate(session.dateTime,language) ?? ""}</div>
+      <div class="infoLabel">${language == "en" ? `Date` : `التاريخ ${teacherName} `}</div>
+      <div class="infoValue">${formatDate(session.dateTime, language) ?? ""}</div>
     </div>
 
   </div>
@@ -204,49 +231,69 @@ body{
   <div class="detailsCard">
 
     <div class="row gradeRow">
-      <div class="label">${language=='en'?"Grades":' التقييم '}</div>
+      <div class="label">${language == "en" ? "Grades" : " التقييم "}</div>
       <div class="value">${session.grade ?? ""}</div>
     </div>
 
-    <div class="row">
-      <div class="label">${language=='en'?"Surah":' السورة  '}</div>
-      <div class="value">${session.surah ?? ""}</div>
-    </div>
+  <div class="row">
+  <div class="label">
+    ${language == "en" ? "Surahs" : "السور"}
+  </div>
+
+  <div class="value">
+    ${
+      session.surahs.length > 0
+        ? `
+        <div class="surahsContainer">
+          ${session.surahs
+            .map(
+              (surah) => `
+                <span class="surahChip">${surah}</span>
+              `,
+            )
+            .join("")}
+        </div>
+      `
+        : "-"
+    }
+  </div>
+</div>
 
     <div class="row">
-      <div class="label">${language=='en'?"Verses":' الآيات '}</div>
+      <div class="label">${language == "en" ? "Verses" : " الآيات "}</div>
       <div class="value">
   ${
-            language=='en'
-                        ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
-                            String(session.to),
-                          )}`
-                        : `${session.from} - ${session.to}`}      </div>
+    language == "en"
+      ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
+          String(session.to),
+        )}`
+      : `${session.from} - ${session.to}`
+  }      </div>
     </div>
 
     <div class="row">
-      <div class="label"> ${language=='en'?"New":' الحفظ الجديد '}</div>
+      <div class="label"> ${language == "en" ? "New" : " الحفظ الجديد "}</div>
       <div class="value">
         ${session.new ?? ""}
       </div>
     </div>
 
     <div class="row">
-      <div class="label">${language=='en'?"Revision":' المراجعة'}</div>
+      <div class="label">${language == "en" ? "Revision" : " المراجعة"}</div>
       <div class="value">
         ${session.revision ?? ""}
       </div>
     </div>
 
     <div class="row">
-      <div class="label">${language=='en'?" Tajweed":' احكام التجويد'} </div>
+      <div class="label">${language == "en" ? " Tajweed" : " احكام التجويد"} </div>
       <div class="value">
         ${session.tajweed ?? " "}
       </div>
     </div>
 
     <div class="row">
-      <div class="label">${language=='en'?"Notes":'ملاحظات'}</div>
+      <div class="label">${language == "en" ? "Notes" : "ملاحظات"}</div>
       <div class="value">
         ${session.notes ?? ""}
       </div>
@@ -259,7 +306,7 @@ body{
     <div class="hr"></div>
 
     <div class="footerText">
-  ${language=='en'?"May Allah reward you with goodness and make you among the people of the Qur'an.":' جزاكم الله خيرا وجعلكم من اهل القرآن '}
+  ${language == "en" ? "May Allah reward you with goodness and make you among the people of the Qur'an." : " جزاكم الله خيرا وجعلكم من اهل القرآن "}
     </div>
 
   </div>

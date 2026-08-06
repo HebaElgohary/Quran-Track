@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   heading: {
     justifyContent: "center",
      alignItems: "flex-end",
-     width: 200,
+     width: 240,
     //  backgroundColor:'#eeee',
   flexShrink: 1,
   },

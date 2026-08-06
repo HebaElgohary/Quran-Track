@@ -87,13 +87,18 @@ export default function SessionCard({
           <Feather name="book-open" size={18} color="#fff" />
         </View>
 
-        <View style={{ flex: 1, alignItems: "flex-end" }}>
+        <View style={{  alignItems: "flex-end",gap:5,width:'70%', }}>
           <Text style={styles.quranLabel}>السورة</Text>
 
-          <View style={{ alignItems: "flex-end",display:'flex',flexDirection:'row' ,gap:3 }}>
+          <View style={{ alignItems: "flex-end"
+            ,display:'flex'
+            ,flexDirection:'row'
+            ,flexWrap:'wrap' 
+            ,justifyContent:'flex-end'
+            ,gap:5 }}>
             {surahs.length > 0 ? (
               surahs.map((surah) => (
-        <View key={surah} style={{backgroundColor:colors.secondary,borderRadius:10,padding:5}} >
+        <View key={surah} style={{backgroundColor:colors.secondary,borderRadius:10,paddingHorizontal:8,paddingVertical:4}} >
                 <Text style={styles.quranText}>
                   {surah}
                 </Text>
@@ -206,7 +211,6 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
 
     alignItems: "center",
-
     justifyContent: "space-between",
   },
 
@@ -249,11 +253,9 @@ const styles = StyleSheet.create({
 
   quran: {
     marginTop: 12,
-
     backgroundColor: "#065F46",
     width: "100%",
     borderRadius: 16,
-
     padding: 15,
 
     flexDirection: "row",
@@ -283,7 +285,7 @@ const styles = StyleSheet.create({
   },
 
   quranText: {
-    fontSize: 16,
+    fontSize: 12,
 
     fontWeight: "800",
 

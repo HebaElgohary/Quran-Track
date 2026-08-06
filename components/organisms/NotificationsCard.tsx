@@ -57,7 +57,7 @@ export default function NotificationCard() {
           color={colors.warning}
         />
 
-        <View style={{ flex: 1 }}>
+        <View style={{ alignItems:'flex-end' }}>
           <Text style={styles.title}>التنبيهات</Text>
 
           <Text style={styles.description}>
@@ -81,8 +81,8 @@ export default function NotificationCard() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "row-reverse",
+    justifyContent:'flex-start',
     alignItems: "center",
 
     backgroundColor: "#F1E7D0",
@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
 
   leftSection: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row-reverse",
+    justifyContent:'flex-start',
     alignItems: "center",
     gap: 12,
   },

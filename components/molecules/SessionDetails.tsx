@@ -230,7 +230,7 @@ const studentName=language==='ar'?student?.nameAr:student?.nameEn
 
       {/* REPORT */}
       <SessionReport
-      closeReport={closeReport}
+        closeReport={closeReport}
         session={displaySession}
         lang={language}
       />

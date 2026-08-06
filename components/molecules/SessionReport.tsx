@@ -1,7 +1,7 @@
+import { colors } from "@/constants/theme";
 import { useProfile } from "@/hooks/useProfile";
 import { useStudents } from "@/hooks/useStudent";
 import { Session } from "@/types/appTypes";
-import { buildEnglishSession } from "@/utils/buildEnglishSession";
 import { formatDate } from "@/utils/formatDate";
 import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { useFocusEffect } from "expo-router";
@@ -100,7 +100,35 @@ export default function SessionReport({
           style={[styles.row, { flexDirection: isEn ? "row" : "row-reverse" }]}
         >
           <Text style={styles.label}>{t.surah}</Text>
-          <Text style={[styles.value, { flex: 1 }]}>{session.surah}</Text>
+
+        <View
+  style={{
+    flex: 1,
+    flexDirection: isEn ? "row" : "row-reverse",
+    flexWrap: "wrap",
+    justifyContent: isEn ? "flex-start" : "flex-start",
+    alignItems: "center",
+    gap: 5,
+  }}
+>
+  {session.surahs.length > 0 ? (
+    session.surahs.map((surah) => (
+      <View
+        key={surah}
+        style={{
+          backgroundColor: colors.gray,
+          borderRadius: 10,
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+        }}
+      >
+        <Text style={styles.quranText}>{surah}</Text>
+      </View>
+    ))
+  ) : (
+    <Text style={styles.quranText}>-</Text>
+  )}
+</View>
         </View>
 
         {/* Verses */}
@@ -109,7 +137,6 @@ export default function SessionReport({
         >
           <Text style={styles.label}>{t.verses}</Text>
           <Text style={[styles.value, { flex: 1 }]}>
-            
             {isEn
               ? `${toEnglishDigits(String(session.from))} -  ${toEnglishDigits(
                   String(session.to),
@@ -231,6 +258,13 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 
+  quranText: {
+    fontSize: 12,
+    fontWeight: "800",
+
+    color: colors.black,
+  },
+
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -255,7 +289,7 @@ const styles = StyleSheet.create({
   value: {
     // flex: 1,
     // textAlign: "right",
-    alignSelf: "flex-start",
+    alignSelf: "flex-end",
     fontSize: 15,
     color: "#4B5563",
   },
