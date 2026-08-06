@@ -1,11 +1,8 @@
 import { Schedule, Student } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
 import { Feather } from "@expo/vector-icons";
-import React, { useRef } from "react";
-import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
-import Button from "../atoms/Button";
-import Title from "../atoms/Title";
+import React from "react";
+import {  StyleSheet, Text, View } from "react-native";
 import FormModal from "./form/FormModal";
 import SwipeCard from "./SwipeCard";
 import { colors } from "@/constants/theme";
@@ -51,7 +48,7 @@ export default function ScheduleCard({
         />
       </View>
 
-      <View style={{ flex: 1 }}>
+      <View style={{ alignItems:'flex-end'}}>
         <Text style={styles.name}>
           {student?.nameAr??' '}
         </Text>
@@ -160,14 +157,14 @@ card: {
 },
 
 header:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     justifyContent:"space-between",
     alignItems:"flex-start",
     gap:8
 },
 
 leftSide:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     width:'70%',
     // flex:1,
         gap:8
@@ -192,7 +189,7 @@ name:{
 },
 
 row:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     alignItems:"center",
     marginTop:4,
 },
@@ -216,7 +213,7 @@ durationText:{
     fontSize:12,
 },
 actions: {
-  flexDirection: "row",
+  flexDirection: "row-reverse",
   justifyContent: "flex-end",
   alignItems: "center",
   gap: 12,
@@ -270,7 +267,7 @@ divider:{
 },
 
 reminder:{
-    flexDirection:"row",
+    flexDirection:"row-reverse",
     alignItems:"center",
         gap:10
 

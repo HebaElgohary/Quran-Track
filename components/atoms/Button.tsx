@@ -55,7 +55,7 @@ export default function Button({
         paddingVertical: 12,
         borderRadius: 12,
 
-        flexDirection: "row-reverse",
+        flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
         gap: 4,
