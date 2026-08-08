@@ -1,10 +1,8 @@
 import { colors } from "@/constants/theme";
 import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
-import { useStudents } from "@/hooks/useStudent";
 import { MonthlyReportsFormData, Session, Student, TeacherProfile } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
-import { getMonthName } from "@/utils/getMonthName "; // Fixed trailing space
 import { getMonthYear } from "@/utils/getMonthYear "; // Fixed trailing space
 import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { useFocusEffect } from "expo-router";

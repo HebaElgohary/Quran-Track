@@ -8,11 +8,12 @@ import { getMonthName } from "@/utils/getMonthName ";
 import { printMonthlyReport } from "@/utils/printMonthlyReport";
 import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { Feather } from "@expo/vector-icons";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Button from "../atoms/Button";
 import Title from "../atoms/Title";
 import MonthlyReport from "./MonthlyReport";
+import { useFocusEffect } from "expo-router";
 
 export default function MonthlyReportsDetails({
   closeReport,
@@ -21,13 +22,11 @@ export default function MonthlyReportsDetails({
   report: MonthlyReportsFormData;
   closeReport?: () => void;
 }) {
-  const { sessions } = useSession();
+  const { sessions,loadSessions } = useSession();
   const { students } = useStudents();
   const { profile, loadProfile } = useProfile();
 
-  // useEffect(() => {
-  //   loadProfile();
-  // }, []);
+  useFocusEffect( useCallback(() => {loadProfile();loadSessions()}, [loadProfile,loadSessions]));
   const [language, setLanguage] = useState<"ar" | "en">("ar");
 
   // Student
