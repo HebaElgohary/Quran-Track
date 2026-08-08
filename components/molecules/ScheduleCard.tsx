@@ -191,6 +191,7 @@ name:{
 row:{
     flexDirection:"row-reverse",
     alignItems:"center",
+    gap:3,
     marginTop:4,
 },
 

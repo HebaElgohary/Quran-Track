@@ -64,45 +64,45 @@ export default function GroupCard({
 
   // ---------------- Swipe Actions ----------------
 
-  const renderRightActions = () => (
-    <RectButton
-      style={{
-        width: 82,
-        marginVertical: 8,
-        borderRadius: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: `${accentColor}`,
-      }}
-      onPress={() => setOpen(true)}
-    >
-      <Feather
-        name="edit-2"
-        size={22}
-        color="#fff"
-      />
-    </RectButton>
-  );
+  // const renderRightActions = () => (
+  //   <RectButton
+  //     style={{
+  //       width: 82,
+  //       marginVertical: 8,
+  //       borderRadius: 20,
+  //       justifyContent: "center",
+  //       alignItems: "center",
+  //       backgroundColor: `${accentColor}`,
+  //     }}
+  //     onPress={() => setOpen(true)}
+  //   >
+  //     <Feather
+  //       name="edit-2"
+  //       size={22}
+  //       color="#fff"
+  //     />
+  //   </RectButton>
+  // );
 
-  const renderLeftActions = () => (
-    <RectButton
-      style={{
-        width: 82,
-        marginVertical: 8,
-        borderRadius: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#EF4444",
-      }}
-      onPress={() => setSelectedGroupId(group.id)}
-    >
-      <Feather
-        name="trash-2"
-        size={22}
-        color="#fff"
-      />
-    </RectButton>
-  );
+  // const renderLeftActions = () => (
+  //   <RectButton
+  //     style={{
+  //       width: 82,
+  //       marginVertical: 8,
+  //       borderRadius: 20,
+  //       justifyContent: "center",
+  //       alignItems: "center",
+  //       backgroundColor: "#EF4444",
+  //     }}
+  //     onPress={() => setSelectedGroupId(group.id)}
+  //   >
+  //     <Feather
+  //       name="trash-2"
+  //       size={22}
+  //       color="#fff"
+  //     />
+  //   </RectButton>
+  // );
 
   return (
     <SwipeCard

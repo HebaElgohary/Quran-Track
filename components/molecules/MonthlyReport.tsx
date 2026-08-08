@@ -2,7 +2,7 @@ import { colors } from "@/constants/theme";
 import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
 import { useStudents } from "@/hooks/useStudent";
-import { MonthlyReportsFormData } from "@/types/appTypes";
+import { MonthlyReportsFormData, Session, Student, TeacherProfile } from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
 import { getMonthName } from "@/utils/getMonthName "; // Fixed trailing space
 import { getMonthYear } from "@/utils/getMonthYear "; // Fixed trailing space
@@ -19,14 +19,20 @@ import Title from "../atoms/Title";
 export default function MonthlyReport({
   report,
   lang,
+  student,
+  monthSessions,
+  profile,
 }: {
   report: MonthlyReportsFormData;
   lang: "ar" | "en";
+  student: Student;
+  monthSessions: Session[];
+  profile: TeacherProfile;
 }) {
   // 1. FIXED: All Hooks moved to the top of the component body
-  const { students } = useStudents();
-  const { profile, loadProfile } = useProfile();
-  const { sessions, loadSessions } = useSession();
+  console.log(student)
+  const { loadProfile } = useProfile();
+  const {  loadSessions } = useSession();
 
   // 2. FIXED: Added 'loadSessions' and 'loadProfile' to the dependency array
   useFocusEffect(
@@ -40,43 +46,28 @@ export default function MonthlyReport({
   const isEn = lang === "en";
 
   // Use optional chaining or safe fallback in selectors since report might be undefined
-  const student = students.find((s) => s.id === report?.studentId);
 
-  const studentSessions = useMemo(
-    () => (report ? sessions.filter((s) => s.studentId === report.studentId) : []),
-    [sessions, report?.studentId,report],
-  );
-
-  const monthSessions = useMemo(
-    () =>
-      report
-        ? studentSessions.filter(
-            (s) => getMonthName(s.dateTime, "ar") === report.month,
-          )
-        : [],
-    [studentSessions, report?.month],
-  );
-
+    console.log('monthSessions',monthSessions)
 const uniqueSurahs = useMemo(
   () => [...new Set(monthSessions.flatMap((s) => s.surahs))],
   [monthSessions],
-);
+);  
 
-  const uniqueGrades = useMemo(
-    () => [...new Set(monthSessions.map((s) => s.grade))],
-    [monthSessions],
-  );
+  console.log('uniqueSurahs',uniqueSurahs)
 
-  const uniqueTajweed = useMemo(
-    () => [
+    const uniqueGrades = monthSessions.filter((s) => s.grade);
+  console.log('grades',uniqueGrades)
+    const uniqueTajweed = [
       ...new Set(
         monthSessions
-          .map((s) => (isEn ? (s.tajweedEn ?? s.tajweed) : s.tajweed))
-          .filter(Boolean),
+          .map((s) =>
+          lang=='en' ? s.tajweedEn ?? s.tajweed : s.tajweed
+          )
+          .filter(Boolean)
       ),
-    ],
-    [monthSessions, isEn],
-  );
+    ];
+  
+
 
   const getVerseCount = (from: string | number, to: string | number) => {
     const start = Number(toEnglishDigits(String(from)));
@@ -172,15 +163,15 @@ const uniqueSurahs = useMemo(
       {/* Surah */}
       <View style={styles.section}>
         <Text style={styles.label}>{t.surah}</Text>
-        <View style={styles.tagsRow}>
-          {uniqueSurahs.map((surah) => (
+        {/* <View style={styles.tagsRow}>
+          {uniqueSurahs.map((surahs) => (
             <View key={surah} style={styles.tag}>
               <Text style={styles.tagText}>
                 {isEn ? (surahMap[surah] ?? surah) : surah}
               </Text>
             </View>
           ))}
-        </View>
+        </View> */}
       </View>
 
       {/* Tajweed */}
@@ -199,10 +190,10 @@ const uniqueSurahs = useMemo(
       <View style={styles.section}>
         <Text style={styles.label}>{t.grade}</Text>
         <View style={styles.tagsRow}>
-          {uniqueGrades.map((grade) => (
-            <View key={grade} style={styles.tag}>
+          {uniqueGrades.map((s) => (
+            <View key={s.grade} style={styles.tag}>
               <Text style={styles.tagText}>
-                {isEn ? (gradeMap[grade] ?? grade) : grade}
+                {isEn ? (gradeMap[s.grade] ?? s.grade) : s.grade}
               </Text>
             </View>
           ))}
@@ -225,8 +216,8 @@ const uniqueSurahs = useMemo(
             </Text>
 
      <View style={styles.tableCell}>
-  {session.surahs.length > 0 ? (
-    session.surahs.map((surah) => (
+  {uniqueSurahs.length > 0 ? (
+    uniqueSurahs.map((surah) => (
       <View
         key={surah}
         style={{

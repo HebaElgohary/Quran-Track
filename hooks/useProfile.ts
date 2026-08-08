@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const KEY = "teacher_profile";
@@ -15,7 +15,7 @@ export function useProfile() {
   const [loading, setLoading] = useState(true);
 
   // LOAD
-   const loadProfile = async () => {
+   const loadProfile = useCallback(async () => {
     try {
       const data = await AsyncStorage.getItem(KEY);
       setProfile(data ? JSON.parse(data) : { nameAr: "", nameEn: "" });
@@ -25,7 +25,7 @@ export function useProfile() {
     } finally {
       setLoading(false);
     }
-  };
+  },[])
 
   // SAVE
   const saveProfile = async (newProfile: TeacherProfile) => {

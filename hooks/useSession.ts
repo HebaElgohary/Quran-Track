@@ -5,7 +5,7 @@ import {
   updateSession,
 } from "@/storage/sessionStorage";
 import { Session, SessionFormData } from "@/types/appTypes";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useSession = () => {
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -14,7 +14,7 @@ export const useSession = () => {
   // =========================
   // LOAD
   // =========================
-  const loadSessions = async () => {
+  const loadSessions = useCallback(async () => {
     try {
       setLoading(true);
       const data = await getSessions();
@@ -25,7 +25,7 @@ export const useSession = () => {
     } finally {
       setLoading(false);
     }
-  };
+  },[])
 
   // =========================
   // CREATE

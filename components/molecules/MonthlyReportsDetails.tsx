@@ -1,21 +1,18 @@
+import Notfound from "@/animations/NotFound";
 import Header from "@/components/organisms/Header";
+import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
 import { useStudents } from "@/hooks/useStudent";
-import {
-  MonthlyReportsFormData,
-  Student,
-} from "@/types/appTypes";
+import { MonthlyReportsFormData, Student } from "@/types/appTypes";
+import { getMonthName } from "@/utils/getMonthName ";
+import { printMonthlyReport } from "@/utils/printMonthlyReport";
+import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
 import { Feather } from "@expo/vector-icons";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Button from "../atoms/Button";
-import MonthlyReport from "./MonthlyReport";
-import { getMonthName } from "@/utils/getMonthName ";
-import { shareMonthlyReportPdf } from "@/utils/shareMonthlyReportPdf";
-import { useProfile } from "@/hooks/useProfile";
-import { printMonthlyReport } from "@/utils/printMonthlyReport";
-import Notfound from "@/animations/NotFound";
 import Title from "../atoms/Title";
+import MonthlyReport from "./MonthlyReport";
 
 export default function MonthlyReportsDetails({
   closeReport,
@@ -26,53 +23,52 @@ export default function MonthlyReportsDetails({
 }) {
   const { sessions } = useSession();
   const { students } = useStudents();
-  const { profile,loadProfile } = useProfile();
+  const { profile, loadProfile } = useProfile();
 
-  useEffect(()=>{loadProfile()})
-
+  // useEffect(() => {
+  //   loadProfile();
+  // }, []);
   const [language, setLanguage] = useState<"ar" | "en">("ar");
 
   // Student
-  const student = students.find(
-    (s) => s.id === report.studentId
-  ) as Student;
-
+  const student = students.find((s) => s.id === report.studentId) as Student;
+  console.log("studentttt", student);
   // Sessions for this student
   const studentSessions = useMemo(
     () => sessions.filter((s) => s.studentId === report.studentId),
-    [sessions, report.studentId]
+    [sessions, report.studentId],
   );
 
   // Sessions for selected month
   const monthSessions = useMemo(
     () =>
       studentSessions.filter(
-        (s) => getMonthName(s.dateTime, "ar") === report.month
+        (s) => getMonthName(s.dateTime, "ar") === report.month,
       ),
-    [studentSessions, report.month]
+    [studentSessions, report.month],
   );
-  
-    // const uniqueSurahs = [...new Set(monthSessions.map((s) => s.surah))];
-  
-    // const uniqueGrades = [...new Set(monthSessions.map((s) => s.grade))];
-  
-    // const uniqueTajweed = [
-    //   ...new Set(
-    //     monthSessions
-    //       .map((s) =>
-    //       language=='en' ? s.tajweedEn ?? s.tajweed : s.tajweed
-    //       )
-    //       .filter(Boolean)
-    //   ),
-    // ];
-  
+  console.log('monthSessions',monthSessions)
+
+  // const uniqueSurahs = [...new Set(monthSessions.map((s) => s.surah))];
+
+  // const uniqueGrades = [...new Set(monthSessions.map((s) => s.grade))];
+
+  // const uniqueTajweed = [
+  //   ...new Set(
+  //     monthSessions
+  //       .map((s) =>
+  //       language=='en' ? s.tajweedEn ?? s.tajweed : s.tajweed
+  //       )
+  //       .filter(Boolean)
+  //   ),
+  // ];
+
   // const versesCount = monthSessions.reduce((sum, s) => {
   //   const from = Number(toEnglishDigits(s.from));
   //   const to = Number(toEnglishDigits(s.to));
-  
+
   //   return sum + (to - from + 1);
   // }, 0);
-  
 
   // Share PDF
   const handleWhatsappShare = async () => {
@@ -83,37 +79,50 @@ export default function MonthlyReportsDetails({
       student,
       profile,
       monthSessions,
-      language
+      language,
     );
   };
 
-  // print PDF 
+  // print PDF
   const [printing, setPrinting] = useState(false);
 
-const handlePrint = async () => {
-  if (printing) return;
+  const handlePrint = async () => {
+    if (printing) return;
 
-  try {
-    setPrinting(true);
+    try {
+      setPrinting(true);
 
-    await printMonthlyReport(
-      report,
-      language === "en" ? student.nameEn : student.nameAr,
-      language === "en" ? profile.nameEn : profile.nameAr,
-      monthSessions,
-      language
+      await printMonthlyReport(
+        report,
+        language === "en" ? student.nameEn : student.nameAr,
+        language === "en" ? profile.nameEn : profile.nameAr,
+        monthSessions,
+        language,
+      );
+    } finally {
+      setPrinting(false);
+    }
+  };
+  // ============================//
+
+  if (!report || !student || studentSessions.length === 0) {
+    return (
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#ffffff",
+          width: "80%",
+          padding: 20,
+          marginVertical: 10,
+          marginHorizontal: "auto",
+        }}
+      >
+        <Notfound />
+        <Title>التقرير غير موجود</Title>
+      </View>
     );
-  } finally {
-    setPrinting(false);
-  }
-};
-// ============================//
-
-  if (!report || !student || studentSessions.length===0) {
-    return <View style={{display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff',width:'80%',padding:20 ,marginVertical:10,marginHorizontal:'auto'}}>
-<Notfound />
-     <Title>التقرير غير موجود</Title>
-     </View>
   }
 
   return (
@@ -126,7 +135,7 @@ const handlePrint = async () => {
           flexDirection: "row",
           justifyContent: "flex-end",
           gap: 14,
-          marginBottom:10
+          marginBottom: 10,
         }}
       >
         {/* Language Switch */}
@@ -149,13 +158,10 @@ const handlePrint = async () => {
               width: 70,
               height: 35,
               borderRadius: 20,
-              backgroundColor:
-                language === "en" ? "#FFFFFF" : "#EEEEEE",
+              backgroundColor: language === "en" ? "#FFFFFF" : "#EEEEEE",
             }}
           >
-            <Text style={{ fontSize: 13, fontWeight: "600" }}>
-              English
-            </Text>
+            <Text style={{ fontSize: 13, fontWeight: "600" }}>English</Text>
           </Pressable>
 
           <Pressable
@@ -166,13 +172,10 @@ const handlePrint = async () => {
               width: 70,
               height: 35,
               borderRadius: 20,
-              backgroundColor:
-                language === "ar" ? "#FFFFFF" : "#EEEEEE",
+              backgroundColor: language === "ar" ? "#FFFFFF" : "#EEEEEE",
             }}
           >
-            <Text style={{ fontSize: 13, fontWeight: "600" }}>
-              العربية
-            </Text>
+            <Text style={{ fontSize: 13, fontWeight: "600" }}>العربية</Text>
           </Pressable>
         </View>
 
@@ -183,34 +186,26 @@ const handlePrint = async () => {
           textColor="black"
           onClick={handleWhatsappShare}
         >
-          <Text style={{ fontSize: 10, marginLeft: 8 }}>
-            مشاركة
-          </Text>
-          <Feather
-            name="share-2"
-            size={12}
-            color="black"
-          />
+          <Text style={{ fontSize: 10, marginLeft: 8 }}>مشاركة</Text>
+          <Feather name="share-2" size={12} color="black" />
         </Button>
 
         {/* Print */}
-        <Button
-          size="lg"
-          onClick={handlePrint}
-          disabled={printing}
-        >
+        <Button size="lg" onClick={handlePrint} disabled={printing}>
           <Feather name="printer" size={13} />
-          <Text style={{ fontSize: 10,paddingHorizontal:4 }}>
-             PDF - طباعة
+          <Text style={{ fontSize: 10, paddingHorizontal: 4 }}>
+            PDF - طباعة
           </Text>
         </Button>
       </View>
 
       {/* Report */}
-      <MonthlyReport
-        report={report}
-        lang={language}
-      />
-    </View>
+<MonthlyReport
+  report={report}
+  lang={language}
+  student={student}
+  monthSessions={monthSessions}
+  profile={profile}
+/>    </View>
   );
 }
