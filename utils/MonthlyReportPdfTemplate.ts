@@ -1,10 +1,10 @@
+import { colors } from "@/constants/theme";
 import { gradeMap } from "@/translations/sessionTranslation";
 import { surahMap } from "@/translations/surahMap";
 import { MonthlyReportsFormData, Session } from "@/types/appTypes";
-import { formatDate } from "./formatDate";
 import { getMonthYear } from "@/utils/getMonthYear ";
+import { formatDate } from "./formatDate";
 import { toEnglishDigits } from "./toEnglishDigits";
-import { colors } from "@/constants/theme";
 
 export function buildMonthlyReportHtml(
   report: MonthlyReportsFormData,
@@ -20,16 +20,12 @@ export function buildMonthlyReportHtml(
   // =========================
   // Unique Surahs
   // =========================
-  const uniqueSurahs = [
-    ...new Set(monthSessions.flatMap((s) => s.surahs)),
-  ];
+  const uniqueSurahs = [...new Set(monthSessions.flatMap((s) => s.surahs))];
 
   // =========================
   // Unique Grades
   // =========================
-  const uniqueGrades = [
-    ...new Set(monthSessions.map((s) => s.grade)),
-  ];
+  const uniqueGrades = [...new Set(monthSessions.map((s) => s.grade))];
 
   // =========================
   // Unique Tajweed
@@ -37,9 +33,7 @@ export function buildMonthlyReportHtml(
   const uniqueTajweed = [
     ...new Set(
       monthSessions
-        .map((s) =>
-          isEn ? (s.tajweedEn ?? s.tajweed) : s.tajweed,
-        )
+        .map((s) => (isEn ? (s.tajweedEn ?? s.tajweed) : s.tajweed))
         .filter(Boolean),
     ),
   ];
@@ -51,6 +45,13 @@ export function buildMonthlyReportHtml(
     const from = Number(toEnglishDigits(String(s.from)));
     const to = Number(toEnglishDigits(String(s.to)));
 
+  if (
+    Number.isNaN(from) ||
+    Number.isNaN(to) ||
+    (from === 0 && to === 0)
+  ) {
+    return sum;
+  }
     if (Number.isNaN(from) || Number.isNaN(to)) {
       return sum;
     }
@@ -147,11 +148,7 @@ export function buildMonthlyReportHtml(
                     .map(
                       (surah) => `
                         <span class="surah-tag">
-                          ${
-                            isEn
-                              ? (surahMap[surah] ?? surah)
-                              : surah
-                          }
+                          ${isEn ? (surahMap[surah] ?? surah) : surah}
                         </span>
                       `,
                     )
@@ -286,19 +283,19 @@ export function buildMonthlyReportHtml(
            Stats
         ========================= */
 
-        .stats-grid {
-          display: flex;
-          gap: 10px;
-          margin-bottom: 25px;
-        }
+ .stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 25px;
+}
 
-        .stat-card {
-          flex: 1;
-          padding: 12px;
-          text-align: center;
-          border: 1px solid #d1d5db;
-          border-radius: 8px;
-        }
+.stat-card {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
 
         .stat-label {
           font-size: 12px;
@@ -451,10 +448,7 @@ export function buildMonthlyReportHtml(
           <div class="month">
             ${
               firstSession?.dateTime
-                ? getMonthYear(
-                    firstSession.dateTime,
-                    isEn ? "en" : "ar",
-                  )
+                ? getMonthYear(firstSession.dateTime, isEn ? "en" : "ar")
                 : ""
             }
           </div>

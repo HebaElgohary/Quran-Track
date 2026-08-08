@@ -76,14 +76,23 @@ const uniqueSurahs = useMemo(
     return Math.max(end - start + 1, 0);
   };
 
-  const versesCount = useMemo(
-    () =>
-      monthSessions.reduce(
-        (sum, session) => sum + getVerseCount(session.from, session.to),
-        0,
-      ),
-    [monthSessions],
-  );
+  const versesCount =monthSessions.reduce((sum, s) => {
+    const from = Number(toEnglishDigits(String(s.from)));
+    const to = Number(toEnglishDigits(String(s.to)));
+
+  if (
+    Number.isNaN(from) ||
+    Number.isNaN(to) ||
+    (from === 0 && to === 0)
+  ) {
+    return sum;
+  }
+    if (Number.isNaN(from) || Number.isNaN(to)) {
+      return sum;
+    }
+
+    return sum + Math.max(to - from + 1, 0);
+  }, 0);
 
   const firstSession = monthSessions[0];
 
