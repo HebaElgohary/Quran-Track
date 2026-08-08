@@ -161,15 +161,15 @@ const uniqueSurahs = useMemo(
       {/* Surah */}
       <View style={styles.section}>
         <Text style={styles.label}>{t.surah}</Text>
-        {/* <View style={styles.tagsRow}>
-          {uniqueSurahs.map((surahs) => (
+        <View style={styles.tagsRow}>
+          {uniqueSurahs.map((surah) => (
             <View key={surah} style={styles.tag}>
               <Text style={styles.tagText}>
                 {isEn ? (surahMap[surah] ?? surah) : surah}
               </Text>
             </View>
           ))}
-        </View> */}
+        </View>
       </View>
 
       {/* Tajweed */}
@@ -219,10 +219,13 @@ const uniqueSurahs = useMemo(
       <View
         key={surah}
         style={{
-          backgroundColor: colors.secondary,
+          backgroundColor: colors.gray,
           borderRadius: 10,
           paddingHorizontal: 8,
           paddingVertical: 4,
+          display:'flex',
+          justifyContent:'center',
+          alignItems:'center',
           marginBottom: 4,
         }}
       >
@@ -384,14 +387,22 @@ const styles = StyleSheet.create({
 
   tableRow: {
     flexDirection: "row",
+    justifyContent:'center',
+    alignItems:'center',
     borderBottomWidth: 1,
+    borderWidth:1,
+    borderColor:colors.gray,
+    fontWeight:800,
     borderBottomColor: "#E5E7EB",
   },
+
 
   tableHeaderCell: {
     flex: 1,
     padding: 8,
     fontSize: 11,
+      borderWidth: 1,
+    borderColor: colors.gray,
     fontWeight: "700",
     textAlign: "center",
   },
@@ -402,6 +413,8 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: "center",
     color: "#374151",
+   borderLeftWidth: 1,
+    borderLeftColor: colors.gray,
   },
 
   footer: {

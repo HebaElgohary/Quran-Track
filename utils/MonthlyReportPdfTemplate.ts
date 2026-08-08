@@ -1,49 +1,73 @@
+import { gradeMap } from "@/translations/sessionTranslation";
+import { surahMap } from "@/translations/surahMap";
 import { MonthlyReportsFormData, Session } from "@/types/appTypes";
 import { formatDate } from "./formatDate";
 import { getMonthYear } from "@/utils/getMonthYear ";
-import { surahMap } from "@/translations/surahMap";
-import { gradeMap } from "@/translations/sessionTranslation";
 import { toEnglishDigits } from "./toEnglishDigits";
+import { colors } from "@/constants/theme";
 
 export function buildMonthlyReportHtml(
   report: MonthlyReportsFormData,
   studentName: string,
   teacherName: string,
-  sessions: Session[],
-  lang: "ar" | "en"
+  monthSessions: Session[],
+  lang: "ar" | "en",
 ) {
   const isEn = lang === "en";
 
+  const firstSession = monthSessions[0];
 
+  // =========================
+  // Unique Surahs
+  // =========================
+  const uniqueSurahs = [
+    ...new Set(monthSessions.flatMap((s) => s.surahs)),
+  ];
 
-  const firstSession = sessions[0];
+  // =========================
+  // Unique Grades
+  // =========================
+  const uniqueGrades = [
+    ...new Set(monthSessions.map((s) => s.grade)),
+  ];
 
-  const uniqueSurahs = [...new Set(sessions.map((s) => s.surah))];
-
-  const uniqueGrades = [...new Set(sessions.map((s) => s.grade))];
-
+  // =========================
+  // Unique Tajweed
+  // =========================
   const uniqueTajweed = [
     ...new Set(
-      sessions
+      monthSessions
         .map((s) =>
-          isEn ? s.tajweedEn ?? s.tajweed : s.tajweed
+          isEn ? (s.tajweedEn ?? s.tajweed) : s.tajweed,
         )
-        .filter(Boolean)
+        .filter(Boolean),
     ),
   ];
 
-const versesCount = sessions.reduce((sum, s) => {
-  const from = Number(toEnglishDigits(s.from));
-  const to = Number(toEnglishDigits(s.to));
+  // =========================
+  // Verses Count
+  // =========================
+  const versesCount = monthSessions.reduce((sum, s) => {
+    const from = Number(toEnglishDigits(String(s.from)));
+    const to = Number(toEnglishDigits(String(s.to)));
 
-  return sum + (to - from + 1);
-}, 0);
+    if (Number.isNaN(from) || Number.isNaN(to)) {
+      return sum;
+    }
 
+    return sum + Math.max(to - from + 1, 0);
+  }, 0);
+
+  // =========================
+  // Translations
+  // =========================
   const t = {
     report: isEn ? "Monthly Quran Report" : "التقرير الشهري",
     subject: isEn ? "The Holy Quran" : "القرآن الكريم",
+
     teacher: isEn ? "Teacher" : "المعلم",
     student: isEn ? "Student" : "الطالب",
+
     sessions: isEn ? "Sessions" : "الحصص",
     surahs: isEn ? "Surahs" : "السور",
     verses: isEn ? "Verses" : "الآيات",
@@ -51,466 +75,564 @@ const versesCount = sessions.reduce((sum, s) => {
     tajweed: isEn ? "Tajweed" : "التجويد",
     notes: isEn ? "Notes" : "الملاحظات",
     date: isEn ? "Date" : "التاريخ",
+
     footer: isEn
       ? "May Allah reward you abundantly and make you among the people of the Qur'an."
       : "جزاكم الله خيرًا وجعلكم من أهل القرآن",
   };
 
-  return `
-<!DOCTYPE html>
-<html lang="${lang}" dir="${isEn ? "ltr" : "rtl"}">
-
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-<title>${t.report}</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family:Arial,sans-serif;
-  background:#fff;
-  color:#111827;
-  padding:14px;
-  line-height:1.5;
-}
-
-.container{
-  width:100%;
-  background:#fff;
-}
-
-.header{
-  text-align:center;
-  margin-bottom:12px;
-}
-
-.reportLabel{
-  font-size:14px;
-  color:#4F46E5;
-  font-weight:700;
-}
-
-.title{
-  font-size:28px;
-  font-weight:700;
-  margin-top:4px;
-}
-
-.subtitle{
-  font-size:13px;
-  color:#F59E0B;
-  font-weight:600;
-  margin-top:4px;
-}
-
-.hr{
-  width:90%;
-  height:1px;
-  background:#E5E7EB;
-  margin:16px auto;
-}
-
-.infoCard{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  background:#F9FAFB;
-  border-radius:12px;
-  padding:12px;
-  margin:10px 0;
-}
-
-.infoBox{
-  flex:1;
-}
-
-.label{
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:4px;
-  color:#111827;
-}
-
-.value{
-  font-size:14px;
-  color:#4B5563;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:10px;
-}
-
-.statCard{
-  border:1px solid #E5E7EB;
-  border-radius:12px;
-  padding:12px;
-  text-align:center;
-  background:#fff;
-}
-
-.statValue{
-  font-size:20px;
-  font-weight:700;
-  color:#4F46E5;
-}
-
-.statLabel{
-  margin-top:4px;
-  font-size:12px;
-  color:#6B7280;
-}
-
-.section{
-  margin-top:14px;
-}
-
-.sectionTitle{
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:8px;
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-}
-
-.tag{
-  background:#F3F4F6;
-  padding:6px 10px;
-  border-radius:8px;
-  font-size:12px;
-}
-
-.table{
-  margin-top:16px;
-  border:1px solid #E5E7EB;
-  border-radius:10px;
-  overflow:hidden;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  border-bottom:1px solid #E5E7EB;
-}
-
-.row:last-child{
-  border-bottom:none;
-}
-
-.headerRow{
-  background:#F3F4F6;
-  font-weight:700;
-}
-
-.row > div{
-  padding:8px;
-  font-size:11px;
-  text-align:center;
-  color:#374151;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.headerRow > div{
-  color:#111827;
-  font-weight:700;
-}
-
-.footer{
-  margin-top:20px;
-  text-align:center;
-}
-
-.footer .hr{
-  margin-bottom:6px;
-}
-
-.footer{
-  font-size:12px;
-  color:#6B7280;
-}
-
-@media print{
-
-  body{
-    padding:14px;
-    background:#fff;
-  }
-
-  .container{
-    width:100%;
-  }
-
-}
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="header">
-
-<div class="reportLabel">
-${t.report}
-</div>
-
-<div class="title">
-${t.subject}
-</div>
-
-<div class="subtitle">
-${firstSession?.dateTime ? getMonthYear(firstSession.dateTime, lang) : ""}
-</div>
-
-</div>
-
-<div class="hr"></div>
-<!-- INFO CARD -->
-<div class="infoCard">
-
-  <div class="infoBox">
-    <div class="label">${t.teacher}</div>
-    <div class="value">
-      ${teacherName ?? ""}
-    </div>
-  </div>
-
-  <div class="infoBox">
-    <div class="label">${t.student}</div>
-    <div class="value">
-      ${studentName ?? ""}
-    </div>
-  </div>
-
-</div>
-
-<!-- STATS -->
-
-<div class="stats">
-
-  <div class="statCard">
-    <div class="statValue">
-      ${sessions.length}
-    </div>
-    <div class="statLabel">
-      ${t.sessions}
-    </div>
-  </div>
-
-  <div class="statCard">
-    <div class="statValue">
-      ${uniqueSurahs.length}
-    </div>
-    <div class="statLabel">
-      ${t.surahs}
-    </div>
-  </div>
-
-  <div class="statCard">
-    <div class="statValue">
-      ${versesCount}
-    </div>
-    <div class="statLabel">
-      ${t.verses}
-    </div>
-  </div>
-
-  <div class="statCard">
-    <div class="statValue">
-      ${uniqueGrades.length}
-    </div>
-    <div class="statLabel">
-      ${t.grades}
-    </div>
-  </div>
-
-</div>
-
-<!-- SURAHS -->
-
-<div class="section">
-
-  <div class="sectionTitle">
-    ${t.surahs}
-  </div>
-
-  <div class="tags">
-
-    ${uniqueSurahs
-      .map(
-        (surah) => `
-        <div class="tag">
-          ${
-            isEn
-              ? surahMap[surah] ?? surah
-              : surah
-          }
-        </div>
-      `
-      )
-      .join("")}
-
-  </div>
-
-</div>
-
-<!-- TAJWEED -->
-
-<div class="section">
-
-  <div class="sectionTitle">
-    ${t.tajweed}
-  </div>
-
-  <div class="tags">
-
-    ${
-      uniqueTajweed.length
-        ? uniqueTajweed
-            .map(
-              (tajweed) => `
-              <div class="tag">
-                ${tajweed}
-              </div>
-            `
-            )
-            .join("")
-        : `<div class="tag">-</div>`
-    }
-
-  </div>
-
-</div>
-
-<!-- GRADES -->
-
-<div class="section">
-
-  <div class="sectionTitle">
-    ${t.grades}
-  </div>
-
-  <div class="tags">
-
-    ${
-      uniqueGrades.length
-        ? uniqueGrades
-            .map(
-              (grade) => `
-              <div class="tag">
-                ${
-                  isEn
-                    ? gradeMap[grade] ?? grade
-                    : grade
-                }
-              </div>
-            `
-            )
-            .join("")
-        : `<div class="tag">-</div>`
-    }
-
-  </div>
-
-</div>
-
-<!-- SESSIONS TABLE -->
-
-<div class="table">
-
-  <div class="row headerRow">
-
-    <div>
-      ${t.date}
-    </div>
-
-    <div>
-      ${t.surahs}
-    </div>
-
-    <div>
-      ${t.verses}
-    </div>
-
-    <div>
-      ${t.notes}
-    </div>
-
-  </div>
-    ${sessions
+  // =========================
+  // Surahs HTML
+  // =========================
+  const uniqueSurahsHtml = uniqueSurahs.length
+    ? uniqueSurahs
+        .map(
+          (surah) => `
+            <span class="tag">
+              ${isEn ? (surahMap[surah] ?? surah) : surah}
+            </span>
+          `,
+        )
+        .join("")
+    : `<span class="tag">-</span>`;
+
+  // =========================
+  // Tajweed HTML
+  // =========================
+  const uniqueTajweedHtml = uniqueTajweed.length
+    ? uniqueTajweed
+        .map(
+          (tajweed) => `
+            <span class="tag">
+              ${tajweed}
+            </span>
+          `,
+        )
+        .join("")
+    : `<span class="tag">-</span>`;
+
+  // =========================
+  // Grades HTML
+  // =========================
+  const uniqueGradesHtml = uniqueGrades.length
+    ? uniqueGrades
+        .map(
+          (grade) => `
+            <span class="tag">
+              ${isEn ? (gradeMap[grade] ?? grade) : grade}
+            </span>
+          `,
+        )
+        .join("")
+    : `<span class="tag">-</span>`;
+
+  // =========================
+  // Sessions Table
+  // =========================
+  const sessionsHtml = monthSessions
     .map(
       (session) => `
-      <div class="row">
+        <div class="table-row">
 
-        <div>
-          ${formatDate(session.dateTime, lang)}
+          <!-- Date -->
+          <div class="table-cell">
+            ${formatDate(session.dateTime, lang)}
+          </div>
+
+          <!-- Surahs -->
+          <div class="table-cell surah-cell">
+            ${
+              session.surahs?.length
+                ? session.surahs
+                    .map(
+                      (surah) => `
+                        <span class="surah-tag">
+                          ${
+                            isEn
+                              ? (surahMap[surah] ?? surah)
+                              : surah
+                          }
+                        </span>
+                      `,
+                    )
+                    .join("")
+                : "-"
+            }
+          </div>
+
+          <!-- Verses -->
+          <div class="table-cell">
+            ${
+              isEn
+                ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
+                    String(session.to),
+                  )}`
+                : `${session.from} - ${session.to}`
+            }
+          </div>
+
+          <!-- Notes -->
+          <div class="table-cell">
+            ${
+              isEn
+                ? (session.notesEn ?? session.notes ?? "-")
+                : (session.notes ?? "-")
+            }
+          </div>
+
         </div>
+      `,
+    )
+    .join("");
 
-        <div>
-          ${
-            isEn
-              ? surahMap[session.surah] ?? session.surah
-              : session.surah
+  // =========================
+  // HTML
+  // =========================
+  return `
+    <!DOCTYPE html>
+    <html lang="${lang}" dir="${isEn ? "ltr" : "rtl"}">
+
+    <head>
+      <meta charset="UTF-8" />
+
+      <style>
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 20px;
+          font-family: Arial, sans-serif;
+          background: #ffffff;
+          color: #111827;
+        }
+
+        .container {
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+        }
+
+        /* =========================
+           Header
+        ========================= */
+
+        .header {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        .report-title {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+
+        .subject {
+          font-size: 16px;
+          color: #6b7280;
+        }
+
+        .month {
+          margin-top: 8px;
+          font-size: 14px;
+          color: #6b7280;
+        }
+
+        /* =========================
+           Horizontal Line
+        ========================= */
+
+        .hr {
+          width: 90%;
+          height: 1px;
+          background-color: #d1d5db;
+          margin: 15px auto;
+        }
+
+        /* =========================
+           Teacher / Student
+        ========================= */
+
+        .info-card {
+          display: flex;
+          flex-direction: ${isEn ? "row" : "row-reverse"};
+          justify-content: space-between;
+          gap: 20px;
+          padding: 15px;
+          margin-bottom: 20px;
+        }
+
+        .info-column {
+          flex: 1;
+          text-align: center;
+        }
+
+        .label {
+          font-size: 13px;
+          font-weight: bold;
+          color: #6b7280;
+          margin-bottom: 5px;
+        }
+
+        .value {
+          font-size: 15px;
+          font-weight: 600;
+        }
+
+        /* =========================
+           Stats
+        ========================= */
+
+        .stats-grid {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 25px;
+        }
+
+        .stat-card {
+          flex: 1;
+          padding: 12px;
+          text-align: center;
+          border: 1px solid #d1d5db;
+          border-radius: 8px;
+        }
+
+        .stat-label {
+          font-size: 12px;
+          color: #6b7280;
+          margin-bottom: 5px;
+        }
+
+        .stat-value {
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        /* =========================
+           Sections
+        ========================= */
+
+        .section {
+          margin-bottom: 20px;
+        }
+
+        .section-title {
+          font-size: 14px;
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+
+        .tag {
+          display: inline-block;
+          background-color: ${colors.gray};
+          border-radius: 10px;
+          padding: 5px 10px;
+          font-size: 12px;
+          margin: 2px;
+        }
+
+        /* =========================
+           Table
+        ========================= */
+
+        .table-container {
+          width: 100%;
+          margin-top: 25px;
+          border: 1px solid #d1d5db;
+        }
+
+        .table-row {
+          display: flex;
+          width: 100%;
+        }
+
+        .table-cell {
+          flex: 1;
+          min-height: 45px;
+          padding: 8px;
+          border-right: 1px solid #d1d5db;
+          border-bottom: 1px solid #d1d5db;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          text-align: center;
+          font-size: 12px;
+        }
+
+        .table-row:last-child .table-cell {
+          border-bottom: none;
+        }
+
+        .table-cell:last-child {
+          border-right: none;
+        }
+
+        .table-header {
+          font-weight: bold;
+          background-color: #f3f4f6;
+        }
+
+        .surah-cell {
+          flex-wrap: wrap;
+          gap: 3px;
+        }
+
+        .surah-tag {
+          display: inline-block;
+          background-color: ${colors.gray};
+          border-radius: 10px;
+          padding: 4px 8px;
+          margin: 2px;
+          font-size: 11px;
+        }
+
+        /* =========================
+           Footer
+        ========================= */
+
+        .footer {
+          margin-top: 25px;
+          text-align: center;
+          font-size: 12px;
+          color: #6b7280;
+        }
+
+        .footer .hr {
+          margin-bottom: 8px;
+        }
+
+        /* =========================
+           Print
+        ========================= */
+
+        @media print {
+          body {
+            padding: 14px;
+            background: #ffffff;
           }
-        </div>
 
-        <div>
-              ${
-            isEn
-                        ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
-                            String(session.to),
-                          )}`
-                        : `${session.from} - ${session.to}`}
-          
-        </div>
-
-        <div>
-          ${
-            isEn
-              ? session.notesEn ?? session.notes ?? "-"
-              : session.notes ?? "-"
+          .container {
+            width: 100%;
           }
+        }
+
+      </style>
+    </head>
+
+    <body>
+
+      <div class="container">
+
+        <!-- =========================
+             Header
+        ========================= -->
+
+        <div class="header">
+
+          <div class="report-title">
+            ${t.report}
+          </div>
+
+          <div class="subject">
+            ${t.subject}
+          </div>
+
+          <div class="month">
+            ${
+              firstSession?.dateTime
+                ? getMonthYear(
+                    firstSession.dateTime,
+                    isEn ? "en" : "ar",
+                  )
+                : ""
+            }
+          </div>
+
+        </div>
+
+        <div class="hr"></div>
+
+        <!-- =========================
+             Teacher / Student
+        ========================= -->
+
+        <div class="info-card">
+
+          <div class="info-column">
+            <div class="label">
+              ${t.teacher}
+            </div>
+
+            <div class="value">
+              ${teacherName}
+            </div>
+          </div>
+
+          <div class="info-column">
+            <div class="label">
+              ${t.student}
+            </div>
+
+            <div class="value">
+              ${studentName}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- =========================
+             Stats
+        ========================= -->
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-label">
+              ${t.sessions}
+            </div>
+
+            <div class="stat-value">
+              ${monthSessions.length}
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">
+              ${t.grades}
+            </div>
+
+            <div class="stat-value">
+              ${uniqueGrades.length}
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">
+              ${t.surahs}
+            </div>
+
+            <div class="stat-value">
+              ${uniqueSurahs.length}
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">
+              ${t.verses}
+            </div>
+
+            <div class="stat-value">
+              ${versesCount}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- =========================
+             Surahs
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+            ${t.surahs}
+          </div>
+
+          <div class="tags">
+            ${uniqueSurahsHtml}
+          </div>
+
+        </div>
+
+        <!-- =========================
+             Tajweed
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+            ${t.tajweed}
+          </div>
+
+          <div class="tags">
+            ${uniqueTajweedHtml}
+          </div>
+
+        </div>
+
+        <!-- =========================
+             Grades
+        ========================= -->
+
+        <div class="section">
+
+          <div class="section-title">
+            ${t.grades}
+          </div>
+
+          <div class="tags">
+            ${uniqueGradesHtml}
+          </div>
+
+        </div>
+
+        <!-- =========================
+             Sessions Table
+        ========================= -->
+
+        <div class="table-container">
+
+          <div class="table-row table-header">
+
+            <div class="table-cell">
+              ${t.date}
+            </div>
+
+            <div class="table-cell">
+              ${t.surahs}
+            </div>
+
+            <div class="table-cell">
+              ${t.verses}
+            </div>
+
+            <div class="table-cell">
+              ${t.notes}
+            </div>
+
+          </div>
+
+          ${sessionsHtml}
+
+        </div>
+
+        <!-- =========================
+             Footer
+        ========================= -->
+
+        <div class="footer">
+
+          <div class="hr"></div>
+
+          ${t.footer}
+
         </div>
 
       </div>
-    `
-    )
-    .join("")}
 
-</div>
+    </body>
 
-<!-- FOOTER -->
-
-<div class="footer">
-
-  <div class="hr"></div>
-
-  <div>
-    ${t.footer}
-  </div>
-
-</div>
-
-</div>
-
-</body>
-
-</html>
-`;
+    </html>
+  `;
 }
