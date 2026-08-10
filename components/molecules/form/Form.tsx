@@ -1,11 +1,11 @@
 import Button from "@/components/atoms/Button";
 import { colors } from "@/constants/theme";
-import {  FormName, SourcesMap } from "@/types/appTypes";
+import { surahMap } from "@/translations/surahMap";
+import { FormName, SourcesMap } from "@/types/appTypes";
 import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
 import { FlatList, Text, View } from "react-native";
 import FormField from "./FormField";
-import { surahMap } from "@/translations/surahMap";
 
 interface props<T> {
   page: FormName;
@@ -52,9 +52,8 @@ export default function Form<T>({
           borderBottomWidth: 1,
           borderBottomColor: "#F1F1F1",
           backgroundColor: "#fff",
-          display:'flex',
-          alignItems:'flex-end'
-          
+          display: "flex",
+          alignItems: "flex-end",
         }}
       >
         <Text
@@ -77,78 +76,83 @@ export default function Form<T>({
       </View>
 
       {/* BODY */}
-{/* BODY */}
-<FlatList
- nestedScrollEnabled
-  scrollEnabled
-  keyboardShouldPersistTaps="handled"
-  data={fields}
-  keyExtractor={(field, index) => `${field.name}-${index}`}
-  removeClippedSubviews={false}
-  showsVerticalScrollIndicator={false}
-  style={{ maxHeight: 520 }}
-  contentContainerStyle={{
-    padding: 16,
-    paddingBottom: 30,
-    gap: 14,
-  }}
-  renderItem={({ item: field }) => {
-    const fieldError = errors?.[field.name];
+      {/* BODY */}
+      <FlatList
+        nestedScrollEnabled
+        scrollEnabled
+        keyboardShouldPersistTaps="handled"
+        data={fields}
+        keyExtractor={(field, index) => `${field.name}-${index}`}
+        removeClippedSubviews={false}
+        showsVerticalScrollIndicator={false}
+        style={{ maxHeight: 520 }}
+        contentContainerStyle={{
+          padding: 16,
+          paddingBottom: 30,
+          gap: 14,
+        }}
+        renderItem={({ item: field }) => {
+          const fieldError = errors?.[field.name];
 
-    const fieldProps = {
-      ...field,
-      data:
-        field.source === "surahs"
-          ? Object.keys(surahMap)
-          : field.source
-          ? sources?.[field.source]
-          : field.data,
-    };
+          const fieldProps = {
+            ...field,
+            data:
+              field.source === "surahs"
+                ? Object.keys(surahMap)
+                : field.source
+                  ? sources?.[field.source]
+                  : field.data,
+          };
 
-    return (
-      <View>
-        <View
-          style={{
-            backgroundColor: "#FAFAFA",
-            display:'flex',
-            alignItems:'flex-end',
-            width:'100%',
-            borderRadius: 16,
-            padding: 12,
-            borderWidth: fieldError ? 1.5 : 1,
-            borderColor: fieldError ? "#EF4444" : "#E5E7EB",
-          }}
-        >
-          <FormField
-            {...fieldProps}
+          return (
+            <View>
+              <View
+                style={{
+                  backgroundColor: "#FAFAFA",
+                  display: "flex",
+                  alignItems: "flex-end",
+                  width: "100%",
+                  borderRadius: 16,
+                  padding: 12,
+                  borderWidth: fieldError ? 1.5 : 1,
+                  borderColor: fieldError ? "#EF4444" : "#E5E7EB",
+                }}
+              >
+                <FormField
+                  {...fieldProps}
+                  value={
+                    fieldProps.type === "autocomplete"
+                      ? ((formData?.[field.name as keyof T] as string[]) ?? [])
+                      : formData?.[field.name as keyof T]
+                  }
+                  error={fieldError}
+                  onChange={(value: unknown) => {
+                    console.log("FIELD CHANGED:", field.name, value);
 
-            value={fieldProps.type==="autocomplete"?(formData?.[field.name as keyof T] as string[]) ?? []:formData?.[field.name as keyof T]}
-            error={fieldError}
-            onChange={(value: unknown) =>
-              setFormData(prev => ({
-                ...prev,
-                [field.name]: value,
-              }))
-            }
-          />
-        </View>
+                    setFormData((prev) => ({
+                      ...prev,
+                      [field.name]: value,
+                    }));
+                  }}
+                />
+              </View>
 
-        {fieldError && (
-          <Text
-            style={{
-              color: "#EF4444",
-              fontSize: 12,
-              marginTop: 4,
-              marginLeft: 6,
-            }}
-          >
-            {fieldError}
-          </Text>
-        )}
-      </View>
-    );
-  }}
-/>
+              {fieldError && (
+                <Text
+                  style={{
+                    color: "#EF4444",
+                    fontSize: 12,
+                    marginTop: 4,
+                    marginLeft: 6,
+                  }}
+                >
+                  {fieldError}
+                </Text>
+              )}
+            </View>
+          );
+        }}
+      />
 
       {/* FOOTER */}
       <View

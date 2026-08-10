@@ -4,10 +4,10 @@ import { Feather } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import { colors } from "@/constants/theme";
 import Title from "../atoms/Title";
 import Action from "./Action";
 import FormModal from "./form/FormModal";
-import { colors } from "@/constants/theme";
 
 type UpdateDataType = Session;
 
@@ -64,7 +64,7 @@ export default function SessionCard({
           <View style={styles.dateRow}>
             <Feather name="calendar" size={13} color="#64748B" />
 
-            <Text style={styles.date}>{formatDate(time)}</Text>
+            <Text style={styles.date}>{formatDate(session.dateTime)}</Text>
           </View>
         </View>
 
@@ -87,24 +87,32 @@ export default function SessionCard({
           <Feather name="book-open" size={18} color="#fff" />
         </View>
 
-        <View style={{  alignItems: "flex-end",gap:5,width:'70%', }}>
+        <View style={{ alignItems: "flex-end", gap: 5, width: "70%" }}>
           <Text style={styles.quranLabel}>السورة</Text>
 
-          <View style={{ alignItems: "flex-end"
-            ,display:'flex'
-            ,flexDirection:'row'
-            ,flexWrap:'wrap' 
-            ,justifyContent:'flex-end'
-            ,gap:5 }}>
+          <View
+            style={{
+              alignItems: "flex-end",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "flex-end",
+              gap: 5,
+            }}
+          >
             {surahs.length > 0 ? (
               surahs.map((surah) => (
-        <View key={surah} style={{backgroundColor:colors.secondary,borderRadius:10,paddingHorizontal:8,paddingVertical:4}} >
-                <Text style={styles.quranText}>
-                  {surah}
-                </Text>
+                <View
+                  key={surah}
+                  style={{
+                    backgroundColor: colors.secondary,
+                    borderRadius: 10,
+                    paddingHorizontal: 8,
+                    paddingVertical: 4,
+                  }}
+                >
+                  <Text style={styles.quranText}>{surah}</Text>
                 </View>
-            
-            
               ))
             ) : (
               <Text style={styles.quranText}>-</Text>

@@ -3,8 +3,8 @@ import { validateSession } from "@/utils/validateSession";
 import { useState } from "react";
 
 export const useSessionForm = (initial?: Session) => {
-const [formData, setFormData] = useState<SessionFormData>(initial || {
-    studentId: 0,
+const [formData, setFormData] = useState<SessionFormData>(
+      initial ?? {studentId: 0,
     dateTime: new Date(),
   surahs: [],
     grade: "مقبول",
@@ -23,9 +23,9 @@ const [formData, setFormData] = useState<SessionFormData>(initial || {
   notesEn: '',
 
 
-});
+},);
 
-  const [errors, setErrors] = useState< Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const reset = () => {
     setFormData({

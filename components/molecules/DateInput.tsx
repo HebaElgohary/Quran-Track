@@ -10,15 +10,17 @@ export default function DateInput({
   onChange,
 }: {
   label?: string;
-  value?: Date;
+  value?: Date | string;
   onChange?: (date: Date) => void;
 }) {
   const [show, setShow] = useState(false);
 
-  const selectedDate = value ? new Date(value) : new Date();
+  const selectedDate = value
+    ? new Date(value)
+    : new Date();
 
   return (
-    <View>
+    <View style={{ width: "100%" }}>
       {label && (
         <Text
           style={{
@@ -26,7 +28,7 @@ export default function DateInput({
             textAlign: "right",
             marginHorizontal: 8,
             fontSize: 18,
-            fontWeight: 800,
+            fontWeight: "800",
             color: colors.btnPrimary,
           }}
         >
@@ -36,7 +38,6 @@ export default function DateInput({
 
       <Pressable
         onPress={() => {
-          console.log("pressed");
           setShow(true);
         }}
         style={{
@@ -53,24 +54,58 @@ export default function DateInput({
       >
         <Text
           style={{
-            // color: value ? "#000" : "#888",
             fontSize: 18,
-            fontWeight: 600,
+            fontWeight: "600",
             color: colors.btnPrimary,
           }}
         >
-          {value ? new Date(value).toLocaleDateString("ar-EG") : "اختر التاريخ"}
+          {value
+            ? new Date(value).toLocaleDateString("ar-EG")
+            : "اختر التاريخ"}
         </Text>
 
-        <Feather name="calendar" size={20} color="#666" />
+        <Feather
+          name="calendar"
+          size={20}
+          color="#666"
+        />
       </Pressable>
 
       {Platform.OS === "web" ? (
         <input
           type="date"
-          placeholder="Time"
-          value={value ? value.toISOString().split("T")[0] : ""}
-          onChange={(e) => onChange?.(new Date(e.target.value))}
+          value={
+            value
+              ? new Date(value).toISOString().split("T")[0]
+              : ""
+          }
+          onChange={(e) => {
+            if (!e.target.value) return;
+
+            const [year, month, day] = e.target.value
+              .split("-")
+              .map(Number);
+
+            const newDate = new Date(
+              year,
+              month - 1,
+              day
+            );
+
+            // Preserve existing time
+            if (value) {
+              const oldDate = new Date(value);
+
+              newDate.setHours(
+                oldDate.getHours(),
+                oldDate.getMinutes(),
+                oldDate.getSeconds(),
+                oldDate.getMilliseconds()
+              );
+            }
+
+            onChange?.(newDate);
+          }}
           style={{
             marginTop: 8,
             padding: 10,
@@ -87,15 +122,33 @@ export default function DateInput({
             onChange={(_, date) => {
               setShow(false);
 
-              if (date) {
-                const merged = new Date(date);
+              if (!date) return;
 
-                if (value) {
-                  merged.setHours(value.getHours(), value.getMinutes(), 0, 0);
-                }
+              const newDate = new Date(date);
 
-                onChange?.(merged);
+              // Preserve the existing time
+              if (value) {
+                const oldDate = new Date(value);
+
+                newDate.setHours(
+                  oldDate.getHours(),
+                  oldDate.getMinutes(),
+                  oldDate.getSeconds(),
+                  oldDate.getMilliseconds()
+                );
               }
+
+              console.log(
+                "OLD DATE:",
+                value
+              );
+
+              console.log(
+                "NEW DATE:",
+                newDate
+              );
+
+              onChange?.(newDate);
             }}
           />
         )

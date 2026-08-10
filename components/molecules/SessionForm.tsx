@@ -32,9 +32,10 @@ const { students } = useStudents();
   };
 
   //---------------------------//
-  const onSubmit = async () => {
+    const onSubmit = async () => {
      const isValid = validate();
     if (!isValid) return;
+  console.log('formData before submit', formData);
 
     await handleSubmit?.(formData as T);
     reset();

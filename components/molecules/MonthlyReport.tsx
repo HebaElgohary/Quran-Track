@@ -1,18 +1,24 @@
 import { colors } from "@/constants/theme";
 import { useProfile } from "@/hooks/useProfile";
 import { useSession } from "@/hooks/useSession";
-import { MonthlyReportsFormData, Session, Student, TeacherProfile } from "@/types/appTypes";
+import {
+  MonthlyReportsFormData,
+  Session,
+  Student,
+  TeacherProfile,
+} from "@/types/appTypes";
 import { formatDate } from "@/utils/formatDate";
-import { getMonthYear } from "@/utils/getMonthYear "; // Fixed trailing space
+import { getMonthYear } from "@/utils/getMonthYear ";
 import { toEnglishDigits } from "@/utils/toEnglishDigits";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useMemo } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+
 import { translations } from "../../translations/monthlyReportTranslations";
 import { gradeMap } from "../../translations/sessionTranslation";
 import { surahMap } from "../../translations/surahMap";
+
 import Hr from "../atoms/Hr";
-import Title from "../atoms/Title";
 
 export default function MonthlyReport({
   report,
@@ -27,12 +33,11 @@ export default function MonthlyReport({
   monthSessions: Session[];
   profile: TeacherProfile;
 }) {
-  // 1. FIXED: All Hooks moved to the top of the component body
-  console.log(student)
-  const { loadProfile } = useProfile();
-  const {  loadSessions } = useSession();
+  console.log("student", student);
 
-  // 2. FIXED: Added 'loadSessions' and 'loadProfile' to the dependency array
+  const { loadProfile } = useProfile();
+  const { loadSessions } = useSession();
+
   useFocusEffect(
     useCallback(() => {
       loadSessions();
@@ -43,73 +48,106 @@ export default function MonthlyReport({
   const t = translations[lang];
   const isEn = lang === "en";
 
-  // Use optional chaining or safe fallback in selectors since report might be undefined
+  console.log("monthSessions", monthSessions);
 
-    console.log('monthSessions',monthSessions)
-const uniqueSurahs = useMemo(
-  () => [...new Set(monthSessions.flatMap((s) => s.surahs))],
-  [monthSessions],
-);  
+  // Unique Surahs
+  const uniqueSurahs = useMemo(
+    () => [...new Set(monthSessions.flatMap((s) => s.surahs ?? []))],
+    [monthSessions],
+  );
 
-  console.log('uniqueSurahs',uniqueSurahs)
+  console.log("uniqueSurahs", uniqueSurahs);
 
-    const uniqueGrades = monthSessions.filter((s) => s.grade);
-  console.log('grades',uniqueGrades)
-    const uniqueTajweed = [
+  // Grades that have a value
+  const uniqueGrades = useMemo(
+    () => monthSessions.filter((s) => Boolean(s.grade)),
+    [monthSessions],
+  );
+
+  console.log("grades", uniqueGrades);
+
+  // Unique Tajweed
+  const uniqueTajweed = useMemo(
+    () => [
       ...new Set(
         monthSessions
-          .map((s) =>
-          lang=='en' ? s.tajweedEn ?? s.tajweed : s.tajweed
-          )
-          .filter(Boolean)
+          .map((s) => (lang === "en" ? (s.tajweedEn ?? s.tajweed) : s.tajweed))
+          .filter(Boolean),
       ),
-    ];
-  
+    ],
+    [monthSessions, lang],
+  );
 
-
-  const getVerseCount = (from: string | number, to: string | number) => {
-    const start = Number(toEnglishDigits(String(from)));
-    const end = Number(toEnglishDigits(String(to)));
-
-    if (Number.isNaN(start) || Number.isNaN(end)) return 0;
-
-    return Math.max(end - start + 1, 0);
-  };
-
-  const versesCount =monthSessions.reduce((sum, s) => {
-    const from = Number(toEnglishDigits(String(s.from)));
-    const to = Number(toEnglishDigits(String(s.to)));
-
-  if (
-    Number.isNaN(from) ||
-    Number.isNaN(to) ||
-    (from === 0 && to === 0)
-  ) {
-    return sum;
-  }
-    if (Number.isNaN(from) || Number.isNaN(to)) {
-      return sum;
+  /**
+   * Calculate number of verses between from and to.
+   *
+   * Example:
+   * from = 1
+   * to = 10
+   * result = 10
+   */
+  const getVerseCount = (
+    from: string | number | undefined,
+    to: string | number | undefined,
+  ) => {
+    if (from === undefined || to === undefined) {
+      return 0;
     }
 
-    return sum + Math.max(to - from + 1, 0);
-  }, 0);
+    const start = Number(toEnglishDigits(String(from)).trim());
+
+    const end = Number(toEnglishDigits(String(to)).trim());
+
+    // Invalid numbers
+    if (Number.isNaN(start) || Number.isNaN(end)) {
+      return 0;
+    }
+
+    // Invalid / empty range
+    if (start <= 0 || end <= 0) {
+      return 0;
+    }
+
+    // "from" should not be greater than "to"
+    if (start > end) {
+      return 0;
+    }
+
+    return end - start + 1;
+  };
+
+  /**
+   * Total verses for all sessions in the month.
+   */
+  const versesCount = useMemo(() => {
+    return monthSessions.reduce((total, session) => {
+      return total + getVerseCount(session.from, session.to);
+    }, 0);
+  }, [monthSessions]);
+
+  console.log("versesCount", versesCount);
 
   const firstSession = monthSessions[0];
 
-  // 3. FIXED: Safe early return can only be declared after all hook definitions
-  if (!report) return null;
+  if (!report) {
+    return null;
+  }
 
   return (
     <ScrollView
       contentContainerStyle={[
         styles.container,
-        { direction: isEn ? "ltr" : "rtl" } as any,
+        {
+          direction: isEn ? "ltr" : "rtl",
+        } as any,
       ]}
     >
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.reportLabel}>{t.reportTitle}</Text>
-        <Title size="xl">{t.subject}</Title>
+
+      <View>
+        <Text style={styles.basmalah}>{t.reportTitle}</Text>
+
+        <Text style={styles.basmalah}>{t.subject}</Text>
 
         <Text style={styles.basmalah}>
           {firstSession?.dateTime
@@ -121,6 +159,7 @@ const uniqueSurahs = useMemo(
       <Hr style={{ width: "90%" }} />
 
       {/* Teacher / Student */}
+
       <View
         style={[
           styles.infoCard,
@@ -131,6 +170,7 @@ const uniqueSurahs = useMemo(
       >
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.teacher}</Text>
+
           <Text style={styles.value}>
             {isEn ? profile?.nameEn : profile?.nameAr}
           </Text>
@@ -138,6 +178,7 @@ const uniqueSurahs = useMemo(
 
         <View style={styles.infoColumn}>
           <Text style={styles.label}>{t.student}</Text>
+
           <Text style={styles.value}>
             {isEn ? student?.nameEn : student?.nameAr}
           </Text>
@@ -145,31 +186,47 @@ const uniqueSurahs = useMemo(
       </View>
 
       {/* Stats Cards */}
+
       <View style={styles.statsGrid}>
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.session}</Text>
+
           <Text style={styles.statValue}>{monthSessions.length}</Text>
         </View>
 
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.grade}</Text>
+
           <Text style={styles.statValue}>{uniqueGrades.length}</Text>
         </View>
 
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.surah}</Text>
+
           <Text style={styles.statValue}>{uniqueSurahs.length}</Text>
         </View>
 
         <View style={styles.statCard}>
           <Text style={styles.statLabel}>{t.cards.verses}</Text>
-          <Text style={styles.statValue}>{versesCount + ' '}</Text>
+
+          <Text
+            style={{
+              ...styles.statValue,
+              fontSize: 20,
+              width: 50,
+              textAlign: "center",
+            }}
+          >
+            {String(versesCount)}
+          </Text>
         </View>
       </View>
 
       {/* Surah */}
+
       <View style={styles.section}>
         <Text style={styles.label}>{t.surah}</Text>
+
         <View style={styles.tagsRow}>
           {uniqueSurahs.map((surah) => (
             <View key={surah} style={styles.tag}>
@@ -182,11 +239,13 @@ const uniqueSurahs = useMemo(
       </View>
 
       {/* Tajweed */}
+
       <View style={styles.section}>
         <Text style={styles.label}>{t.tajweed}</Text>
+
         <View style={styles.tagsRow}>
           {uniqueTajweed.map((tajweed, index) => (
-            <View key={index} style={styles.tag}>
+            <View key={`${tajweed}-${index}`} style={styles.tag}>
               <Text style={styles.tagText}>{tajweed}</Text>
             </View>
           ))}
@@ -194,13 +253,17 @@ const uniqueSurahs = useMemo(
       </View>
 
       {/* Grade */}
+
       <View style={styles.section}>
         <Text style={styles.label}>{t.grade}</Text>
+
         <View style={styles.tagsRow}>
-          {uniqueGrades.map((s) => (
-            <View key={s.grade} style={styles.tag}>
+          {uniqueGrades.map((session) => (
+            <View key={session.id} style={styles.tag}>
               <Text style={styles.tagText}>
-                {isEn ? (gradeMap[s.grade] ?? s.grade) : s.grade}
+                {isEn
+                  ? (gradeMap[session.grade] ?? session.grade)
+                  : session.grade}
               </Text>
             </View>
           ))}
@@ -208,74 +271,89 @@ const uniqueSurahs = useMemo(
       </View>
 
       {/* Table */}
+
       <View style={styles.tableContainer}>
+        {/* Table Header */}
+
         <View style={[styles.tableRow, styles.tableHeader]}>
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.date}</Text>
+
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.surah}</Text>
+
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.ayats}</Text>
+
           <Text style={styles.tableHeaderCell}>{t.sessionsTable.notes}</Text>
         </View>
 
+        {/* Table Rows */}
+
         {monthSessions.map((session) => (
           <View key={session.id} style={styles.tableRow}>
+            {/* Date */}
+
             <Text style={styles.tableCell}>
               {formatDate(session.dateTime, lang)}
             </Text>
 
-     <View style={styles.tableCell}>
-  {uniqueSurahs.length > 0 ? (
-    uniqueSurahs.map((surah) => (
-      <View
-        key={surah}
-        style={{
-          backgroundColor: colors.gray,
-          borderRadius: 10,
-          paddingHorizontal: 8,
-          paddingVertical: 4,
-          display:'flex',
-          justifyContent:'center',
-          alignItems:'center',
-          marginBottom: 4,
-        }}
-      >
-        <Text style={styles.quranText}>
-          {lang === "ar"
-            ? surah
-            : (surahMap[surah] ?? surah)}
-        </Text>
-      </View>
-    ))
-  ) : (
-    <Text style={styles.quranText}>-</Text>
-  )}
-</View>
+            {/* Surah */}
+
+            <View style={styles.tableCell}>
+              {session.surahs?.length > 0 ? (
+                session.surahs.map((surah) => (
+                  <View
+                    key={surah}
+                    style={{
+                      backgroundColor: colors.gray,
+                      borderRadius: 10,
+                      paddingHorizontal: 8,
+                      paddingVertical: 4,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: 4,
+                    }}
+                  >
+                    <Text style={styles.quranText}>
+                      {lang === "ar" ? surah : (surahMap[surah] ?? surah)}
+                    </Text>
+                  </View>
+                ))
+              ) : (
+                <Text style={styles.quranText}>-</Text>
+              )}
+            </View>
+
+            {/* Ayats */}
 
             <Text style={styles.tableCell}>
               {isEn
                 ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
                     String(session.to),
                   )}`
-                : `${session.from} - ${session.to}`}{" "}
+                : `${session.from} - ${session.to}`}
             </Text>
+
+            {/* Notes */}
 
             <Text style={styles.tableCell}>
               {isEn
                 ? (session.notesEn ?? session.notes ?? "-")
-                : (session.notes ?? "-")}{" "}
+                : (session.notes ?? "-")}
             </Text>
           </View>
         ))}
       </View>
 
       {/* Footer */}
+
       <View style={styles.footer}>
         <Hr style={{ width: "90%" }} />
+
         <Text style={styles.footerText}>{t.footer}</Text>
       </View>
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     padding: 14,
@@ -318,7 +396,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 4,
   },
-    quranText: {
+  quranText: {
     fontSize: 12,
     fontWeight: "800",
 
@@ -352,6 +430,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     color: colors.btnPrimary,
+              width: 50,
+              textAlign: "center",
   },
 
   statLabel: {
@@ -396,21 +476,20 @@ const styles = StyleSheet.create({
 
   tableRow: {
     flexDirection: "row",
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderBottomWidth: 1,
-    borderWidth:1,
-    borderColor:colors.gray,
-    fontWeight:800,
+    borderWidth: 1,
+    borderColor: colors.gray,
+    fontWeight: 800,
     borderBottomColor: "#E5E7EB",
   },
-
 
   tableHeaderCell: {
     flex: 1,
     padding: 8,
     fontSize: 11,
-      borderWidth: 1,
+    borderWidth: 1,
     borderColor: colors.gray,
     fontWeight: "700",
     textAlign: "center",
@@ -422,7 +501,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: "center",
     color: "#374151",
-   borderLeftWidth: 1,
+    borderLeftWidth: 1,
     borderLeftColor: colors.gray,
   },
 
