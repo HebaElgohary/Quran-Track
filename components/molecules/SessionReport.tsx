@@ -222,14 +222,16 @@ const styles = StyleSheet.create({
   },
 
   header: {
+    display:'flex',
+    justifyContent:'center',
     alignItems: "center",
     gap: 6,
   },
 
   reportLabel: {
-    fontSize: 14,
-    color: "#6B7280",
-    fontWeight: "500",
+    fontSize: 3,
+    color: "#6B720",
+    fontWeight: 500,
   },
 
   basmalah: {

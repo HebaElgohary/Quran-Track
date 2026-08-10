@@ -1,7 +1,11 @@
 import { colors } from "@/constants/theme";
 import { Student } from "@/types/appTypes";
-import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import React from "react";
+import {
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import Checkbox from "../atoms/Checkbox";
 
 export default function CheckInput({
@@ -10,17 +14,8 @@ export default function CheckInput({
   value = [],
   onChange,
 }: any) {
-  const [items, setItems] = useState(data);
-
-  useEffect(() => {
-    setItems(data ?? []);
-  }, [data]);
-
-
   const toggleItem = (item: any) => {
-    console.log("clicked item", item);
-
-    const student = item.data;
+    const student = item.data ?? item;
 
     const exists = value.some(
       (s: Student) => s.id === student.id
@@ -35,79 +30,58 @@ export default function CheckInput({
     onChange?.(updated);
   };
 
-
   return (
     <View
       style={{
-        gap: 12,
-        marginVertical: 10,
         width: "100%",
-        display:'flex',alignItems:'flex-start'
+        marginVertical: 10,
       }}
     >
-
       {label && (
         <Text
           style={{
             fontSize: 18,
-            marginBottom: 4,
+            marginBottom: 8,
             marginHorizontal: 8,
             color: colors.btnPrimary,
-            alignSelf:'flex-end',
-            fontWeight: 800,
+            alignSelf: "flex-end",
+            fontWeight: "800",
           }}
         >
           {label}
         </Text>
       )}
 
-
+      {/* CHECKBOX CONTAINER */}
       <View
         style={{
           width: "100%",
-          maxHeight: 100,
-          borderRadius: 6,
+          height: 120,
           borderWidth: 1,
           borderColor: colors.gray,
-          // overflow:'scroll',
-          display:'flex',
-          // direction:'rtl',
-          alignItems:'flex-start'
-
+          borderRadius: 8,
         }}
       >
-
-        <FlatList
-  nestedScrollEnabled
-  scrollEnabled
-  keyboardShouldPersistTaps="handled"
-          data={items}
-            style={{ maxHeight: 100 }}
-          keyExtractor={(item) =>
-            String(item.id)
-          }
-
-
-          renderItem={({item}) => (
-            <Checkbox
-              label={item.name}
-              checked={
-                value.some(
-                  (s: Student) =>
-                    s.id === item.id
-                )
-              }
-              onChange={() =>
-                toggleItem(item)
-              }
-            />
-          )}
-
+        <ScrollView
+          nestedScrollEnabled={true}
           showsVerticalScrollIndicator={true}
-        />
-
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            paddingVertical: 5,
+          }}
+        >
+          {data.map((item: any) => (
+            <Checkbox
+              key={String(item.id)}
+              label={item.name}
+              checked={value.some(
+                (s: Student) => s.id === item.id
+              )}
+              onChange={() => toggleItem(item)}
+            />
+          ))}
+        </ScrollView>
       </View>
-
     </View>
   );
 }
