@@ -180,7 +180,7 @@ export default function GroupCard({
                       marginTop: 4,
                       fontSize: 13,
                       fontStyle: "italic",
-                      alignItems:'flex-start'
+                      alignSelf:'flex-start'
                     }}
                   >
                     {group.nameEn}
