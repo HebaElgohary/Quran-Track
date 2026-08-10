@@ -120,6 +120,7 @@ export default function SessionReport({
           borderRadius: 10,
           paddingHorizontal: 8,
           paddingVertical: 4,
+          
         }}
       >
         <Text style={styles.quranText}>{surah}</Text>
@@ -223,16 +224,19 @@ const styles = StyleSheet.create({
 
   header: {
     display:'flex',
+    flex:1,
     justifyContent:'center',
     alignItems: "center",
     gap: 6,
   },
 
   reportLabel: {
-    fontSize: 3,
     color: "#6B720",
-    fontWeight: 500,
+    fontSize:28,
+  fontWeight:700,
+  margin:8 ,
   },
+  
 
   basmalah: {
     fontSize: 14,

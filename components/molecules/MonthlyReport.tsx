@@ -296,32 +296,42 @@ export default function MonthlyReport({
             </Text>
 
             {/* Surah */}
-
-            <View style={styles.tableCell}>
-              {session.surahs?.length > 0 ? (
-                session.surahs.map((surah) => (
-                  <View
-                    key={surah}
-                    style={{
-                      backgroundColor: colors.gray,
-                      borderRadius: 10,
-                      paddingHorizontal: 8,
-                      paddingVertical: 4,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      marginBottom: 4,
-                    }}
-                  >
-                    <Text style={styles.quranText}>
-                      {lang === "ar" ? surah : (surahMap[surah] ?? surah)}
-                    </Text>
-                  </View>
-                ))
-              ) : (
-                <Text style={styles.quranText}>-</Text>
-              )}
-            </View>
+<View
+  style={[
+    styles.tableCell,
+    {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 4,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  ]}
+>
+  {session.surahs?.length > 0 ? (
+    session.surahs.map((surah) => (
+      <View
+        key={surah}
+        style={{
+          backgroundColor: colors.gray,
+          borderRadius: 10,
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.quranText}>
+          {lang === "ar"
+            ? surah
+            : surahMap[surah] ?? surah}
+        </Text>
+      </View>
+    ))
+  ) : (
+    <Text style={styles.quranText}>-</Text>
+  )}
+</View>
 
             {/* Ayats */}
 
@@ -362,21 +372,24 @@ const styles = StyleSheet.create({
   },
 
   header: {
+    display:'flex',
+    flex:1,
+    justifyContent:'center',
     alignItems: "center",
-    marginBottom: 12,
+    gap: 6,
   },
 
   reportLabel: {
-    fontSize: 14,
-    color: colors.btnPrimary,
-    fontWeight: "700",
+    color: "#6B720",
+    fontSize:28,
+  fontWeight:700,
+  margin:8 ,
   },
+  
 
   basmalah: {
-    fontSize: 13,
-    color: colors.warning,
-    fontWeight: "600",
-    marginTop: 4,
+    fontSize: 14,
+    color: "#4B5563",
   },
 
   infoCard: {
