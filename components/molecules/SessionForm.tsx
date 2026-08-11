@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View,useWindowDimensions } from "react-native";
 import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
 import { useSessionForm } from "@/hooks/useSessionForm";
@@ -18,6 +18,8 @@ export default function SessionForm<T>({
   formData?: T;
 }) {
 const { formData, setFormData, errors, reset, validate } =  useSessionForm(session as Session)
+const {width,height}=useWindowDimensions()
+const formHeight = Math.min(height * 0.85, 700);
 
 const { students } = useStudents();
   //------- source resolver-------//
@@ -43,7 +45,7 @@ const { students } = useStudents();
   
   }
   return (
-      <View style={{backgroundColor:'white',padding:12,borderRadius:10}}>
+      <View style={{backgroundColor:'white',padding:12,borderRadius:10,height:formHeight,width:width-44}}>
 
       {/* form heading */}
       <FormHeading title="تقرير حصة جديدة " name={"x"} setOpen={setOpen} />

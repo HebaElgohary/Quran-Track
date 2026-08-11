@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import FormHeading from "./form/FormHeading";
 import Form from "./form/Form";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
@@ -21,6 +21,8 @@ export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:sc
      })),
    };
 
+   const {width,height}=useWindowDimensions()
+   const formHeight = Math.min(height * 0.85, 700);
     const onSubmit = async () => {
      const isValid = validate();
     if (!isValid) return;
@@ -33,7 +35,7 @@ export default function ScheduleForm<T>({handleSubmit, setOpen, open,formData:sc
   }
  
   return (
-    <View style={{backgroundColor:'white',padding:12,borderRadius:10}}>
+      <View style={{backgroundColor:'white',padding:12,borderRadius:10,height:formHeight,width:width-44}}>
        {/* form heading */} 
   <FormHeading title='موعد حصة جديدة ' name={'x'} setOpen={setOpen} />
        {/* /////////////////// */}

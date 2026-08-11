@@ -2,7 +2,7 @@ import { useGroupForm } from "@/hooks/useGroupForm";
 import { useStudents } from "@/hooks/useStudent";
 import { Group, GroupFormData, SourcesMap } from "@/types/appTypes";
 import React, { useEffect } from "react";
-import { View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import Form from "./form/Form";
 import FormHeading from "./form/FormHeading";
 
@@ -26,7 +26,8 @@ export default function GroupForm<T>({
   const { formData, setFormData, errors, validate } = useGroupForm(
     group as Group
   );
-
+const {width,height}=useWindowDimensions()
+const formHeight = Math.min(height * 0.85, 700);
   const onSubmit = async () => {
     console.log("GROUP FORM ONSUBMIT");
 
@@ -61,14 +62,8 @@ export default function GroupForm<T>({
 
 
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        padding: 16,
-        borderRadius: 10,
-       
-      }}
-    >
+      <View style={{backgroundColor:'white',padding:12,borderRadius:10,height:formHeight,width:width-44}}>
+
 
       <FormHeading
         title="مجموعة جديدة"
