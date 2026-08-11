@@ -144,10 +144,10 @@ export default function MonthlyReport({
     >
       {/* Header */}
 
-      <View>
-        <Text style={styles.basmalah}>{t.reportTitle}</Text>
+      <View style={styles.header}>
+        <Text style={styles.reportLabel}>{t.reportTitle}</Text>
 
-        <Text style={styles.basmalah}>{t.subject}</Text>
+        <Text style={styles.label}>{t.subject}</Text>
 
         <Text style={styles.basmalah}>
           {firstSession?.dateTime
@@ -369,21 +369,25 @@ const styles = StyleSheet.create({
     padding: 14,
     backgroundColor: "#fff",
     paddingBottom: 40,
+    justifyContent:'center'
   },
 
   header: {
     display:'flex',
     flex:1,
+    width:'100%',
     justifyContent:'center',
     alignItems: "center",
     gap: 6,
   },
 
   reportLabel: {
-    color: "#6B720",
-    fontSize:28,
+    color: colors.btnPrimary,
+    fontSize:26,
+  width:'100%',
+  textAlign:'center',
   fontWeight:700,
-  margin:8 ,
+  margin:2 ,
   },
   
 

@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
 
   reportLabel: {
     color: "#6B720",
-    fontSize:28,
+    fontSize:20,
   fontWeight:700,
   margin:8 ,
   },
