@@ -4,7 +4,7 @@ import { surahMap } from "@/translations/surahMap";
 import { FormName, SourcesMap } from "@/types/appTypes";
 import { formSchemas } from "@/utils/formSchemas";
 import React, { useMemo } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, View,useWindowDimensions } from "react-native";
 import FormField from "./FormField";
 
 interface props<T> {
@@ -28,12 +28,15 @@ export default function Form<T>({
   setOpen,
 }: props<T>) {
   const fields = useMemo(() => formSchemas[page], [page]);
+const { height } = useWindowDimensions();
 
+const formHeight = Math.min(height * 0.85, 700);
   return (
     <View
       style={{
         width: "100%",
-        maxHeight: 700,
+        height:formHeight,
+        maxHeight: '85%',
         backgroundColor: "#fff",
         borderRadius: 22,
         alignSelf: "flex-start",
@@ -67,7 +70,8 @@ export default function Form<T>({
             ? "إدارة المجموعة"
             : page === "Students"
               ? "إدارة الطالب"
-              : "Form"}
+              : page=='Schedule'?'إدارة المواعيد':'إدارة تقارير الحصص '}
+
         </Text>
 
         <Text style={{ fontSize: 12, color: "#9CA3AF", marginTop: 4 }}>
