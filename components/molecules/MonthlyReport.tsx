@@ -335,14 +335,20 @@ export default function MonthlyReport({
 
             {/* Ayats */}
 
+              {  session.from===0&&session.to===0?   <Text style={styles.tableCell}>
+            
+      -
+            </Text>
+:
             <Text style={styles.tableCell}>
+            
               {isEn
                 ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
                     String(session.to),
                   )}`
                 : `${session.from} - ${session.to}`}
             </Text>
-
+}
             {/* Notes */}
 
             <Text style={styles.tableCell}>

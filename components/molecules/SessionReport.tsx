@@ -137,13 +137,15 @@ export default function SessionReport({
           style={[styles.row, { flexDirection: isEn ? "row" : "row-reverse" }]}
         >
           <Text style={styles.label}>{t.verses}</Text>
+          {session.from===0&&session.to===0?
+          <Text>_</Text>:
           <Text style={[styles.value, { flex: 1 }]}>
-            {isEn
-              ? `${toEnglishDigits(String(session.from))} -  ${toEnglishDigits(
+            {isEn ? `${toEnglishDigits(String(session.from))} -  ${toEnglishDigits(
                   String(session.to),
                 )}`
               : `${session.from} - ${session.to}`}{" "}
           </Text>
+              }
         </View>
 
         {/* New */}

@@ -104,8 +104,9 @@ body{
 .row{
   display:grid;
   grid-template-columns:140px 1fr;
+
   gap:16px;
-  align-items:start;
+  align-items:center;
 
   padding:14px 16px;
   border-bottom:1px solid #E5E7EB;
@@ -259,17 +260,21 @@ html[dir="ltr"] .surahsContainer{
   </div>
 </div>
 
-    <div class="row">
-      <div class="label">${language === "en" ? "Verses" : " الآيات "}</div>
-      <div class="value">
-  ${
-    language === "en"
-      ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
-          String(session.to),
-        )}`
-      : `${session.from} - ${session.to}`
-  }      </div>
-    </div>
+  <div class="row">
+  <div class="label">${language === "en" ? "Verses" : "الآيات"}</div>
+
+  <div class="value">
+    ${
+      session.from === 0 && session.to === 0
+        ? "_"
+        : language === "en"
+          ? `${toEnglishDigits(String(session.from))} - ${toEnglishDigits(
+              String(session.to)
+            )}`
+          : `${session.from} - ${session.to}`
+    }
+  </div>
+</div>
 
     <div class="row">
       <div class="label"> ${language === "en" ? "New" : " الحفظ الجديد "}</div>
