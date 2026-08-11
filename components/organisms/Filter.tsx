@@ -14,7 +14,7 @@ export default function Filter({
   onChange: (value: number | null) => void;
 }) {
   return (
-    <View style={{ flexDirection: "column", gap: 2, marginVertical: 30 }}>
+    <View style={{ flexDirection: "column", gap: 2, margin: 30 }}>
       <Title size='md' >تصفية حسب الطلاب</Title>
 
      {data && <SelectInput

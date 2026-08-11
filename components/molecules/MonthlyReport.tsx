@@ -337,7 +337,7 @@ export default function MonthlyReport({
 
               {  session.from===0&&session.to===0?   <Text style={styles.tableCell}>
             
-      -
+      _
             </Text>
 :
             <Text style={styles.tableCell}>
